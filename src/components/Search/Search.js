@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, NavLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import html2canvas from "html2canvas";
@@ -45,14 +45,12 @@ const Search = () => {
   }
 
   const search = useLocation().search;
-
   const email = new URLSearchParams(search).get("email");
 
-  const [selectedEmail, setSelectedEmail] = useState(email ? email : "");
+  const [selectedEmail ] = useState(email ? email : "");
   const [workitems, setWorkitems] = useState("");
   const [loadingData, setLoadingData] = useState(false);
   const [openDialogForComments, setOpenDialogForComments] = useState(false);
-  const [closeDialogForComments, setcloseDialogForComments] = useState(false);
   const [taskDone, setTaskDone] = useState(0);
   const [removed, setRemoved] = useState(0);
   const [customdate, setCustomdate] = useState([null, null]);
@@ -73,7 +71,7 @@ const Search = () => {
   );
   const [open, setOpen] = React.useState(false);
   const [openbackdrop, setOpenbackdrop] = React.useState(false);
-  const [closeBackdrop, setCloseBackdrop] = React.useState(false);
+  const [closeBackdrop] = React.useState(false);
   const [timePeriod, setTimePeriod] = React.useState(2);
   const navigate = useNavigate();
 
