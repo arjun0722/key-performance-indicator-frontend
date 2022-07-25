@@ -51,7 +51,6 @@ const Search = () => {
   const [workitems, setWorkitems] = useState("");
   const [loadingData, setLoadingData] = useState(false);
   const [openDialogForComments, setOpenDialogForComments] = useState(false);
-  // const [closeDialogForComments, setcloseDialogForComments] = useState(false);
   const [taskDone, setTaskDone] = useState(0);
   const [removed, setRemoved] = useState(0);
   const [customdate, setCustomdate] = useState([null, null]);
@@ -170,6 +169,7 @@ const Search = () => {
       setlastDate(monthEnd);
     }
     //last Six Month
+
     if (event.target.value == 3) {
       //last Six Month
       let sixMonthStartDate = moment()
