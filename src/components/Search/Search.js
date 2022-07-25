@@ -170,7 +170,6 @@ const Search = () => {
       setlastDate(monthEnd);
     }
     //last Six Month
-
     if (event.target.value == 3) {
       //last Six Month
       let sixMonthStartDate = moment()
