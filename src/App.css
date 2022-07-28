@@ -346,17 +346,6 @@ button:hover {
   background-color: rgba(0, 136, 169, 0.8);
 }
 
-/*to change the looks of the navigation change the following style;
-
-1. header{
-justify-content: flex-end;
-}
-
-.logo{
-margin-right: auto;
-}
-*/
-
 .login-Container {
   min-height: 60vh;
   justify-content: center;
