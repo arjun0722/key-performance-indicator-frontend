@@ -7,12 +7,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TextField,
-  Box,
+  Button,
 } from "@mui/material";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import DateRangePicker from "@mui/lab/DateRangePicker";
 import moment from "moment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import axios from "axios";
@@ -21,7 +17,7 @@ import { API_END_POINTS } from "../../Config/Constant";
 import { show_error } from "../../Config/Helper";
 import { ERROR } from "../../Config/Constant";
 import Loading from "../Loading";
-import { tableData } from "./config";
+import { BACKEND_URL, tableData } from "./config";
 import { ACCESS_TOKEN } from "../../Config/Constant";
 import Tableview from "./Tableview";
 import Tableviewnew from "./Tableviewnew";
@@ -60,7 +56,10 @@ const Mark = () => {
   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
   const [showCustomDate, setshowCustomDate] = useState();
   const [timePeriod, setTimePeriod] = React.useState(2);
-  const [customdate, setCustomdate] = useState([null, null]);
+  const [customdate, setCustomdate] = useState([
+    moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
+    moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
+  ]);
   const [test, setTest] = useState([]);
   const [clientbugMarks, setClientbugMarks] = useState(0);
   const [ExcelFileData, setExcelFileData] = useState(null);
@@ -409,7 +408,7 @@ const Mark = () => {
     let selectedFile = e.target.value;
     let data = await axios({
       method: "post",
-      url: "http://localhost:7000/dummy/path",
+      url: `${BACKEND_URL}/dummy/path`,
       data: {
         selectedFile: selectedFile,
       },
@@ -530,32 +529,43 @@ const Mark = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item sm={4}>
+            <Grid item sm={5}>
               {showCustomDate && (
                 <>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DateRangePicker
-                      startText="Starting Date"
-                      endText="Ending Date"
-                      value={customdate}
-                      onChange={(newValue) => {
-                        setCustomdate(newValue);
-                        if (newValue[0] && newValue[1]) {
-                          setstartDate(
-                            moment(newValue[0]).format("YYYY-MM-DD")
-                          );
-                          setlastDate(moment(newValue[1]).format("YYYY-MM-DD"));
-                        }
-                      }}
-                      renderInput={(startProps, endProps) => (
-                        <React.Fragment>
-                          <TextField {...startProps} />
-                          <Box sx={{ mx: 2 }}> to </Box>
-                          <TextField {...endProps} />
-                        </React.Fragment>
-                      )}
-                    />
-                  </LocalizationProvider>
+                  <input
+                    type="date"
+                    id="dob"
+                    onChange={(newValue) => {
+                      setCustomdate([
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                      ]);
+                    }}
+                    value={customdate[0]}
+                  />
+                  <span> to </span>
+                  <input
+                    type="date"
+                    onChange={(newValue) => {
+                      setCustomdate([
+                        customdate[0],
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                      ]);
+                    }}
+                    min={customdate[0]}
+                    id="dob"
+                    value={customdate[1]}
+                  />
+                  &nbsp;&nbsp;
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setstartDate(customdate[0]);
+                      setlastDate(customdate[1]);
+                    }}
+                  >
+                    Apply
+                  </Button>
                 </>
               )}
             </Grid>

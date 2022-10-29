@@ -19,11 +19,11 @@ const Login = () => {
 
   const AskFromUserForConfirmation = () => {
     var url = `https://app.vssps.visualstudio.com/oauth2/authorize
-?client_id=${LOGIN_KEYS.APP_ID}
-&response_type=${LOGIN_KEYS.RESPONSE_TYPE}
-&state=${LOGIN_KEYS.STATE}
-&scope=${LOGIN_KEYS.SCOPE}
-&redirect_uri=${LOGIN_KEYS.REDIRECT_URI}`;
+    ?client_id=${LOGIN_KEYS.APP_ID}
+    &response_type=${LOGIN_KEYS.RESPONSE_TYPE}
+    &state=${LOGIN_KEYS.STATE}
+    &scope=${LOGIN_KEYS.SCOPE}
+    &redirect_uri=${LOGIN_KEYS.REDIRECT_URI}`;
 
     window.location = url;
   };
