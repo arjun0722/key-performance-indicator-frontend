@@ -56,3 +56,5 @@ export const tableData = [
     marks: [0],
   },
 ];
+
+export const BACKEND_URL = "https://api-qservices-tasks.azurewebsites.net";
