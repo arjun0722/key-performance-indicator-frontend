@@ -99,9 +99,8 @@ const Mark = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -145,9 +144,8 @@ const Mark = () => {
       for (let index = 0; index < Math.ceil(ids.length / 300); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-          }`,
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+            }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -260,7 +258,7 @@ const Mark = () => {
                         let taskEnddate =
                           taskdetails.fields["Custom.ActualEndDate"] ||
                           taskdetails.fields[
-                            "Microsoft.VSTS.Common.StateChangeDate"
+                          "Microsoft.VSTS.Common.StateChangeDate"
                           ] ||
                           "Not Given";
                         sprintFinishdate =
@@ -365,7 +363,7 @@ const Mark = () => {
                 ((100 +
                   ((2 - numberofbugsreportedbyClient) /
                     numberofbugsreportedbyClient) *
-                    100) *
+                  100) *
                   10) /
                 100;
               reportedbyclientmark = reportedbyclientmark.toFixed(2);

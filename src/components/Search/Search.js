@@ -47,7 +47,7 @@ const Search = () => {
   const search = useLocation().search;
   const email = new URLSearchParams(search).get("email");
 
-  const [selectedEmail ] = useState(email ? email : "");
+  const [selectedEmail] = useState(email ? email : "");
   const [workitems, setWorkitems] = useState("");
   const [loadingData, setLoadingData] = useState(false);
   const [openDialogForComments, setOpenDialogForComments] = useState(false);
@@ -80,9 +80,8 @@ const Search = () => {
     setOpenbackdrop(true);
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -248,6 +247,7 @@ const Search = () => {
     setRemoved(0);
     setReady(0);
     setToDo(0);
+    let taskandbugsArr = []
     setTaskDone(0);
     setInProgress(0);
     setOthers(0);
@@ -257,22 +257,35 @@ const Search = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
       url: `${API_END_POINTS.BASE_URL}/_apis/wit/wiql?api-version=6.0`,
       method: "POST",
       headers: headersList,
-      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Task' AND  [System.CreatedDate] >= '${startDate}' AND [System.CreatedDate] <= '${lastDate}' AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
+      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Task' AND ([Custom.ExpectedStartDate] >= '${startDate}' AND [Custom.ExpectedStartDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >= '${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
     };
 
-    axios.request(reqOptions).then((response) => {
+    let reqOptionsforBugs = {
+      url: `${API_END_POINTS.BASE_URL}/_apis/wit/wiql?api-version=6.0`,
+      method: "POST",
+      headers: headersList,
+      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Bug' AND ( [Custom.ExpectedStartDate] >= '${startDate}' AND [Custom.ExpectedStartDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >='${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
+    };
+
+    taskandbugsArr.push(axios.request(reqOptions));
+    taskandbugsArr.push(axios.request(reqOptionsforBugs));
+
+    let taskandbugsResponse = Promise.all(taskandbugsArr);
+
+    taskandbugsResponse.then((response) => {
       var ids = [];
-      (response?.data?.workItems || []).map((workitem) => {
-        ids.push(workitem.id);
+      (response || []).map((res) => {
+        res?.data?.workItems?.map((workitem) => {
+          ids.push(workitem.id);
+        });
       });
 
       if (!ids.length) {
@@ -284,9 +297,8 @@ const Search = () => {
       for (let index = 0; index < Math.ceil(ids.length / 200); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-          }`,
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+            }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -702,9 +714,9 @@ const Search = () => {
                                     ready +
                                     inProgress -
                                     removed) *
-                                    10
+                                  10
                                 )) *
-                                100
+                              100
                             )
                           ),
                         }}
@@ -713,9 +725,9 @@ const Search = () => {
                           (parseInt(points) /
                             parseInt(
                               (taskDone + toDo + ready + inProgress - removed) *
-                                10
+                              10
                             )) *
-                            100
+                          100
                         )}
                         %
                       </div>
@@ -778,7 +790,7 @@ const Search = () => {
                           <td>
                             {new Date(
                               workitem.fields[
-                                "Microsoft.VSTS.Scheduling.DueDate"
+                              "Microsoft.VSTS.Scheduling.DueDate"
                               ]
                             ).toLocaleString()}
                           </td>
