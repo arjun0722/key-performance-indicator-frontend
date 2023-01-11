@@ -258,7 +258,9 @@ const Mark = () => {
                         taskdetails.fields["System.State"] === "Passed QA" ||
                         taskdetails.fields["System.State"] === "Ready for QA" ||
                         taskdetails.fields["System.State"] === "To Do" ||
-                        taskdetails.fields["System.State"] === "Blocked"
+                        taskdetails.fields["System.State"] === "Blocked" ||
+                        taskdetails.fields["System.State"] === "In Progress" ||
+                        taskdetails.fields["System.State"] === "Removed"
                       ) {
                         let dueDate = moment(taskdetails.fields["Microsoft.VSTS.Scheduling.DueDate"]).format("YYYY-MM-DD")
                         let actualEndDate = moment(taskdetails.fields["Custom.ActualEndDate"]).format("YYYY-MM-DD")
