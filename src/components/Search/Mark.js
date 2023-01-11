@@ -114,7 +114,7 @@ const Mark = () => {
       url: `${API_END_POINTS.BASE_URL}/_apis/wit/wiql?api-version=6.0`,
       method: "POST",
       headers: headersList,
-      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Bug' AND ( [System.CreatedDate] >= '${startDate}' AND [System.CreatedDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >='${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
+      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Bug' AND ( [Custom.ExpectedStartDate] >= '${startDate}' AND [Custom.ExpectedStartDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >='${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
     };
     taskandbugsArr.push(axios.request(reqOptions));
     taskandbugsArr.push(axios.request(reqOptionsforBugs));
@@ -160,8 +160,8 @@ const Mark = () => {
         result.then((resp) => {
           resp.map((resp) => {
             let task = resp?.data?.value.filter((val) => {
-              let value = val.fields["System.State"] !== "Removed";
-              return value;
+              // let value = val.fields["System.State"] !== "Removed";
+              return val
             });
             let assignedTask = task.length;
             // ----------------------------------------------------------------------------------------
@@ -173,15 +173,20 @@ const Mark = () => {
                 res.fields["System.State"] === "Done" ||
                 res.fields["System.State"] === "Ready" ||
                 res.fields["System.State"] === "Passed QA" ||
-                res.fields["System.State"] === "Ready for QA"
+                res.fields["System.State"] === "Ready for QA" ||
+                res.fields["System.State"] === "To Do" ||
+                res.fields["System.State"] === "Blocked" ||
+                res.fields["System.State"] === "In Progress" ||
+                res.fields["System.State"] === "Removed"
               ) {
                 let effort =
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
                 effortArr.push(effort);
                 let actualHours = 0;
-                if (res.fields["System.WorkItemType"] === "Task") {
-                  actualHours = res.fields["Custom.HoursTaken"] || 2 * effort;
+                if (res.fields["System.WorkItemType"] === "Task" || res.fields["System.WorkItemType"] === "Bug") {
+                  actualHours = res.fields["Custom.HoursTaken"] || 0
                 }
+
                 let redoHours;
                 redoHours = res.fields["Custom.RedoHours"] || 0;
                 if (res.fields["System.WorkItemType"] === "Bug") {
@@ -206,7 +211,7 @@ const Mark = () => {
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
             redoHoursArr = parseFloat(redoHoursArr);
-            actualHoursArr = actualHoursArr + redoHoursArr;
+            // actualHoursArr = actualHoursArr + redoHoursArr;
             setTotalEffort(effortArr);
             setTotalactualhour(actualHoursArr);
             if (effortArr && actualHoursArr) {
@@ -251,33 +256,37 @@ const Mark = () => {
                         taskdetails.fields["System.State"] === "Done" ||
                         taskdetails.fields["System.State"] === "Ready" ||
                         taskdetails.fields["System.State"] === "Passed QA" ||
-                        taskdetails.fields["System.State"] === "Ready for QA"
+                        taskdetails.fields["System.State"] === "Ready for QA" ||
+                        taskdetails.fields["System.State"] === "To Do" ||
+                        taskdetails.fields["System.State"] === "Blocked"
                       ) {
-                        let sprintFinishdate =
-                          innersprint?.attributes?.finishDate || "Not Given";
-                        let taskEnddate =
-                          taskdetails.fields["Custom.ActualEndDate"] ||
-                          taskdetails.fields[
-                          "Microsoft.VSTS.Common.StateChangeDate"
-                          ] ||
-                          "Not Given";
-                        sprintFinishdate =
-                          moment(sprintFinishdate).format("MM DD YYYY");
-                        taskEnddate = moment(taskEnddate).format("MM DD YYYY");
+                        let dueDate = moment(taskdetails.fields["Microsoft.VSTS.Scheduling.DueDate"]).format("YYYY-MM-DD")
+                        let actualEndDate = moment(taskdetails.fields["Custom.ActualEndDate"]).format("YYYY-MM-DD")
+                        // let sprintFinishdate =
+                        //   innersprint?.attributes?.finishDate || "Not Given";
+                        // let taskEnddate =
+                        //   taskdetails.fields["Custom.ActualEndDate"] ||
+                        //   taskdetails.fields[
+                        //   "Microsoft.VSTS.Common.StateChangeDate"
+                        //   ] ||
+                        //   "Not Given";
+                        // sprintFinishdate = 
+                        //   moment(sprintFinishdate).format("MM DD YYYY");
+                        // taskEnddate = moment(taskEnddate).format("MM DD YYYY");
 
-                        sprintFinishdate = new Date(sprintFinishdate);
-                        taskEnddate = new Date(taskEnddate);
+                        // sprintFinishdate = new Date(sprintFinishdate);
+                        // taskEnddate = new Date(taskEnddate);
 
-                        if (sprintFinishdate && taskEnddate) {
-                          if (
-                            sprintFinishdate !== "Invalid date" &&
-                            taskEnddate !== "Invalid date"
-                          ) {
-                            if (sprintFinishdate >= taskEnddate) {
-                              ontimesprint++;
-                            }
-                          }
+                        // if (sprintFinishdate && taskEnddate) { 
+                        //   if (
+                        //     sprintFinishdate !== "Invalid date" &&
+                        //     taskEnddate !== "Invalid date"
+                        //   ) {
+                        if (actualEndDate <= dueDate && taskdetails.fields["Custom.HoursTaken"] <= taskdetails.fields["Microsoft.VSTS.Scheduling.Effort"]) {
+                          ontimesprint++;
                         }
+                        //   }
+                        // }
                       }
                     }
                   });
@@ -318,7 +327,6 @@ const Mark = () => {
             } else {
               setRedoMarks(0);
             }
-
             // ---------------------------------------------------------------------------------------------------
             // Marks calculation according to critical issue resolved
 
