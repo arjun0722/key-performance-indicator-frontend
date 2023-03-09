@@ -745,6 +745,7 @@ const Search = () => {
                       <th>S.No</th>
                       <th>Project Name</th>
                       <th>Sprint</th>
+                      <th>Work Item Type</th>
                       <th>Created By</th>
                       <th>Task Name</th>
                       <th>Created Date</th>
@@ -775,6 +776,7 @@ const Search = () => {
                           <td>{index + 1}</td>
                           <td>{workitem.fields["System.TeamProject"]}</td>
                           <td>{workitem.fields["System.IterationPath"]}</td>
+                          <td>{workitem.fields["System.WorkItemType"]}</td>
                           <td>
                             {workitem.fields["System.CreatedBy"]
                               ? workitem.fields["System.CreatedBy"].displayName
