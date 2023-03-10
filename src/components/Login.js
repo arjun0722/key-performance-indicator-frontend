@@ -16,6 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loadingData, setLoadingData] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   const AskFromUserForConfirmation = () => {
     var url = `https://app.vssps.visualstudio.com/oauth2/authorize
@@ -52,6 +53,17 @@ const Login = () => {
         },
       });
       sessionStorage.setItem(ACCESS_TOKEN.TOKEN, JSON.stringify(respose.data));
+      // Get the user's email address
+      const userData = await axios.get(
+        `https://vssps.dev.azure.com/qservicesindia/_apis/profile/profiles/me?api-version=6.0`,
+        {
+          headers: {
+            Authorization: `Bearer ${respose.data.access_token}`,
+          },
+        }
+      );
+      localStorage.setItem(ACCESS_TOKEN.USER_EMAIL, userData.data.emailAddress);
+
       navigate("/");
     } catch (error) {
       show_error(error.message);
