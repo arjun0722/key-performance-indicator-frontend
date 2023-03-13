@@ -15,6 +15,7 @@ const Home = () => {
   }
   const [users, setUsers] = useState([]);
   const [loadingdata, setLoadingdata] = useState(false);
+  const [singleCardCenter, setSingleCardCenter] = useState(false);
 
   const [userEmail, setUserEmail] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -65,9 +66,14 @@ const Home = () => {
     }
   };
 
-  const getLinkClassName = (user) => {
-    return userPath(user) ? "card 1" : "card 1" + " border-red";
-  };
+  useEffect(() => {
+    const hasSingleCardWithLink =
+      users.filter((user) => {
+        return user.metaType === "member" && userPath(user) !== "";
+      }).length === 1;
+
+    setSingleCardCenter(hasSingleCardWithLink);
+  }, [users]);
 
   return (
     <>
@@ -78,18 +84,40 @@ const Home = () => {
           <div className="cards-list">
             {(users || []).map((user) => {
               if (user.metaType == "member") {
-                return (
-                  <Link to={userPath(user)} className="Home_Links">
-                    <div className={getLinkClassName(user)}>
-                      <div className="card_image">
-                        <img src={user._links.avatar.href} />
+                const path = userPath(user);
+                if (path) {
+                  // check if path is not empty
+                  return (
+                    <Link
+                      to={path}
+                      className={`Home_Links ${
+                        singleCardCenter ? "single-card-center" : ""
+                      }`}
+                    >
+                      <div
+                        className={`card 1 ${
+                          singleCardCenter ? "single-card-resize" : ""
+                        }`}
+                      >
+                        <div className={`card_image`}>
+                          <img
+                            className={`image ${
+                              singleCardCenter ? "single-card-image" : ""
+                            }`}
+                            src={user._links.avatar.href}
+                          />
+                        </div>
+                        <div
+                          className={`card_title title-white ${
+                            singleCardCenter ? "single-card-title" : ""
+                          }`}
+                        >
+                          <p>{user.displayName}</p>
+                        </div>
                       </div>
-                      <div className="card_title title-white">
-                        <p>{user.displayName}</p>
-                      </div>
-                    </div>
-                  </Link>
-                );
+                    </Link>
+                  );
+                }
               }
             })}
           </div>

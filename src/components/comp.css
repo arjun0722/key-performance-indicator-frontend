@@ -3,7 +3,23 @@
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
   filter: blur(1.5px);
 } */
-.card.border-red {
-  opacity: 0.5;
+/* .card.border-red {
+  opacity: 0.6;
   background-color: rgb(197, 196, 196);
+} */
+
+.single-card-center {
+  margin: auto;
+  margin-top: 1.5rem;
+}
+.single-card-resize {
+  width: 450px !important;
+  height: 380px !important;
+}
+.single-card-image {
+  width: 120px;
+  height: 100px;
+}
+.single-card-title {
+  font-size: 25px !important;
 }
