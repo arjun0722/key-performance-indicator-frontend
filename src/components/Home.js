@@ -21,8 +21,6 @@ const Home = () => {
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
 
-  const [path, setPath] = useState("");
-
   useEffect(() => {
     getTypes();
   }, []);

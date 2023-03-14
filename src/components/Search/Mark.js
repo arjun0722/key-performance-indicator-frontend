@@ -177,7 +177,10 @@ const Mark = () => {
                 res.fields["System.State"] === "To Do" ||
                 res.fields["System.State"] === "Blocked" ||
                 res.fields["System.State"] === "In Progress" ||
-                res.fields["System.State"] === "Removed"
+                res.fields["System.State"] === "Removed" ||
+                res.fields["System.State"] === "New" ||
+                res.fields["System.State"] === "Rework" ||
+                res.fields["System.State"] === "Merged"
               ) {
                 let effort =
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
@@ -251,6 +254,7 @@ const Mark = () => {
                       innersprint.path ===
                       taskdetails.fields["System.IterationPath"]
                     ) {
+
                       if (
                         taskdetails.fields["System.State"] === "Closed" ||
                         taskdetails.fields["System.State"] === "Done" ||
@@ -260,7 +264,10 @@ const Mark = () => {
                         taskdetails.fields["System.State"] === "To Do" ||
                         taskdetails.fields["System.State"] === "Blocked" ||
                         taskdetails.fields["System.State"] === "In Progress" ||
-                        taskdetails.fields["System.State"] === "Removed"
+                        taskdetails.fields["System.State"] === "Removed" ||
+                        taskdetails.fields["System.State"] === "New" ||
+                        taskdetails.fields["System.State"] === "Rework" ||
+                        taskdetails.fields["System.State"] === "Merged"
                       ) {
                         let dueDate = moment(taskdetails.fields["Microsoft.VSTS.Scheduling.DueDate"]).format("YYYY-MM-DD")
                         let actualEndDate = moment(taskdetails.fields["Custom.ActualEndDate"]).format("YYYY-MM-DD")
@@ -420,6 +427,7 @@ const Mark = () => {
       data: {
         selectedFile: selectedFile,
       },
+      // headers: { Accept: "application/json" }
     });
     let finalData = [];
     finalData = data.data.Updated;
