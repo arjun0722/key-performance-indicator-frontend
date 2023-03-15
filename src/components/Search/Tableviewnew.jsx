@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import axios from "axios";
+import moment from "moment/moment";
 
 const Renderfirsttable = ({ val }) => {
           console.log();
@@ -133,6 +135,7 @@ const Renderthirdtable = ({ val, thirdTable, ind }) => {
                               setCustomUpskillingMarksAr(e.target.value);
                     }
           }
+
           console.log(customActualdeliveryMarks, "testtttttttttttttttts");
           return (
                     <>
@@ -310,7 +313,55 @@ const Renderfifthtable = ({ val }) => {
 };
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
-          console.log(fileData, "LLLLLLLLLLLLLLLLLLLL");
+          async function KpiMarks() {
+                    let allFinalData = [];
+                    let currentDate = new Date();
+                    let dateTime1 = moment(currentDate).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                    );
+                    thirdTable.map((val, ind) => {
+                              let allData = {
+                                        KpiTitle: "",
+                                        KpiDescription: "",
+                                        KPI: "",
+                                        Category: "",
+                                        Type: "",
+                                        ToUserId: "",
+                                        FromUserId: "",
+                                        Weightage: 0,
+                                        AppraiseeSelfRating: 0,
+                                        AppraiserRating: 0,
+                                        UpdatedDate: "",
+                                        IsEditable: 1,
+                                        ToDate: "",
+                                        FromDate: "",
+                              };
+                              allData.KpiTitle = val.C || "";
+                              allData.KpiDescription = val.D || "";
+                              allData.KPI = "";
+                              allData.Category = val.B || "";
+                              allData.Type = val.F || "";
+                              allData.ToUserId = email || "";
+                              allData.FromUserId = email || "";
+                              allData.Weightage = val.H || 0;
+                              allData.AppraiseeSelfRating = val.J || 0;
+                              allData.AppraiserRating = val.L || 0;
+                              allData.UpdatedDate = dateTime1 || "";
+                              allData.IsEditable = 1;
+                              allData.ToDate = fileData[0].E || "";
+                              allData.FromDate = fileData[1].E || "";
+                              return allFinalData.push(allData);
+                    });
+                    console.log(allFinalData, "LLLLLLLLLLLLLLLLLLLL");
+                    let fileDataModi = fileData.slice(6, 14);
+                    let data = await axios({
+                              method: "post",
+                              url: `http://localhost:8080/kpi/marks`,
+                              data: allFinalData,
+                              headers: { Accept: "application/json" },
+                    });
+          }
+
           let firstTable = fileData.slice(0, 4);
           let secondTable = fileData.slice(4, 5);
           let thirdTable = fileData.slice(6, 14);
@@ -608,15 +659,9 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       width: "100%",
                                                                       minWidth: "120px",
                                                             }}
-
-                                                            //   onClick={() => {
-                                                            //             setstartDate(
-                                                            //                       customdate[0]
-                                                            //             );
-                                                            //             setlastDate(
-                                                            //                       customdate[1]
-                                                            //             );
-                                                            //   }}
+                                                            onClick={() =>
+                                                                      KpiMarks()
+                                                            }
                                                   >
                                                             Submit KPI
                                                   </Button>
