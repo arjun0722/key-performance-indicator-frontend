@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import axios from "axios";
 import moment from "moment/moment";
@@ -38,7 +38,23 @@ const Renderfirsttable = ({ val }) => {
           );
 };
 
-const Renderthirdtable = ({ val, thirdTable, ind }) => {
+const Renderthirdtable = ({
+          val,
+          thirdTable,
+          ind,
+          setParentAppraise,
+          parentAppraise,
+          setParentSelfAppraise,
+          parentSelfAppraise,
+          parentTarget,
+          setParentTarget,
+}) => {
+          //state to maintain target values
+
+          const [actualDelivery, setActualDelivery] = useState(0);
+          const [onTime, setOnTime] = useState(0);
+          const [critical, setCritical] = useState(0);
+
           //  this state use for Appraisee Self Rating
           const [customActualdeliveryMarks, setCustomActualdelivery] =
                     useState("");
@@ -72,71 +88,170 @@ const Renderthirdtable = ({ val, thirdTable, ind }) => {
           ] = useState("");
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
                     useState("");
-
           function handleOnChange(e) {
-                    // console.log(
-                    //           e.target.parentNode.parentNode.id,
-                    //           ">>>>>>>>>>>>"
-                    // );
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdelivery(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customActualdeliveryMarks:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 1) {
                               setCustomOnTimeMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customOnTimeMarks: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 2) {
                               setCustomAvgCodeMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customAvgCodeMarks: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 3) {
                               setCustomCustomReDoMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customReDoMarks: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 4) {
                               setCustomBugsReportedMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customBugsReportedMarks: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 5) {
                               setCustomCriticalIssuesMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customCriticalIssuesMarks:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 6) {
                               setCustomCustomerSatisfactionMarks(
                                         e.target.value
                               );
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customCustomerSatisfactionMarks:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 7) {
                               setCustomUpskillingMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customUpskillingMarks: e.target.value,
+                              });
                     }
           }
 
           function handleOnChange1(e) {
-                    console.log(e.target.value, ">>>>>>>>>>>>");
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdeliveryAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customActualdeliveryMarksAr:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 1) {
                               setCustomOnTimeMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customOnTimeMarksAr: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 2) {
                               setCustomAvgCodeMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customAvgCodeMarksAr: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 3) {
                               setCustomCustomReDoMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customReDoMarksAr: e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 4) {
                               setCustomBugsReportedMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customBugsReportedMarksAr:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 5) {
                               setCustomCriticalIssuesMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customCriticalIssuesMarksAr:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 6) {
                               setCustomCustomerSatisfactionMarksAr(
                                         e.target.value
                               );
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customCustomerSatisfactionMarksAr:
+                                                  e.target.value,
+                              });
                     }
                     if (e.target.parentNode.parentNode.id == 7) {
                               setCustomUpskillingMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customUpskillingMarksAr: e.target.value,
+                              });
                     }
           }
 
-          console.log(customActualdeliveryMarks, "testtttttttttttttttts");
+          function handleTarget(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setActualDelivery(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        actualDelivery: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setOnTime(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        onTime: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCritical(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        critical: e.target.value,
+                              });
+                    }
+          }
+          const valueMap = [
+                    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
+                    val.I === 0 || val.I === undefined ? onTime : val.I,
+                    val.I,
+                    val.I,
+                    val.I,
+                    val.I === 0 || val.I === undefined ? critical : val.I,
+                    val.I,
+                    val.I,
+          ];
+          const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+
           return (
                     <>
                               <tr id={ind}>
@@ -147,7 +262,31 @@ const Renderthirdtable = ({ val, thirdTable, ind }) => {
                                         <td>{val.F}</td>
                                         <td>{val.G}</td>
                                         <td>{val.H}</td>
-                                        <td>{val.I}</td>
+                                        <td style={{ position: "relative" }}>
+                                                  {/* {val.I} */}
+                                                  <input
+                                                            type="number"
+                                                            min="0"
+                                                            value={value}
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+                                                                      border: "none",
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            onChange={(e) =>
+                                                                      handleTarget(
+                                                                                e
+                                                                      )
+                                                            }
+                                                  />
+                                        </td>
                                         <td style={{ position: "relative" }}>
                                                   <input
                                                             type="number"
@@ -313,6 +452,59 @@ const Renderfifthtable = ({ val }) => {
 };
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
+          console.log(email, "llllllllllllllllll");
+          const [first, setfirst] = useState([]);
+          async function getAllData() {
+                    let reqOptions = {
+                              method: "post",
+                              url: `http://localhost:8080/kpi/marks/data`,
+                              data: [
+                                        {
+                                                  email: email,
+                                                  ToDate: fileData[0].E,
+                                                  FromDate: fileData[1].E,
+                                        },
+                              ],
+                              headers: { Accept: "application/json" },
+                    };
+                    let data = await axios.request(reqOptions);
+                    setfirst(data);
+          }
+          useEffect(() => {
+                    getAllData();
+          }, []);
+          console.log(first, "///////////////////");
+          const intialparentAppraise = {
+                    customActualdeliveryMarksAr: 0,
+                    customOnTimeMarksAr: 0,
+                    customAvgCodeMarksAr: 0,
+                    customReDoMarksAr: 0,
+                    customBugsReportedMarksAr: 0,
+                    customCriticalIssuesMarksAr: 0,
+                    customCustomerSatisfactionMarksAr: 0,
+                    customUpskillingMarksAr: 0,
+          };
+          const intialparentSelfAppraise = {
+                    customActualdeliveryMarks: 0,
+                    customOnTimeMarks: 0,
+                    customAvgCodeMarks: 0,
+                    customReDoMarks: 0,
+                    customBugsReportedMarks: 0,
+                    customCriticalIssuesMarks: 0,
+                    customCustomerSatisfactionMarks: 0,
+                    customUpskillingMarks: 0,
+          };
+          const intialTarget = {
+                    actualDelivery: 0,
+                    onTime: 0,
+                    critical: 0,
+          };
+          const [parentAppraise, setParentAppraise] =
+                    useState(intialparentAppraise);
+          const [parentSelfAppraise, setParentSelfAppraise] = useState(
+                    intialparentSelfAppraise
+          );
+          const [parentTarget, setParentTarget] = useState(intialTarget);
           async function KpiMarks() {
                     let allFinalData = [];
                     let currentDate = new Date();
@@ -323,12 +515,12 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               let allData = {
                                         KpiTitle: "",
                                         KpiDescription: "",
-                                        KPI: "",
                                         Category: "",
                                         Type: "",
                                         ToUserId: "",
                                         FromUserId: "",
                                         Weightage: 0,
+                                        Target: 0,
                                         AppraiseeSelfRating: 0,
                                         AppraiserRating: 0,
                                         UpdatedDate: "",
@@ -336,24 +528,260 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                         ToDate: "",
                                         FromDate: "",
                               };
-                              allData.KpiTitle = val.C || "";
-                              allData.KpiDescription = val.D || "";
-                              allData.KPI = "";
-                              allData.Category = val.B || "";
-                              allData.Type = val.F || "";
-                              allData.ToUserId = email || "";
-                              allData.FromUserId = email || "";
-                              allData.Weightage = val.H || 0;
-                              allData.AppraiseeSelfRating = val.J || 0;
-                              allData.AppraiserRating = val.L || 0;
-                              allData.UpdatedDate = dateTime1 || "";
-                              allData.IsEditable = 1;
-                              allData.ToDate = fileData[0].E || "";
-                              allData.FromDate = fileData[1].E || "";
-                              return allFinalData.push(allData);
+                              switch (ind) {
+                                        case (ind = 0):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.actualDelivery ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customActualdeliveryMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customActualdeliveryMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 1):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.onTime ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customOnTimeMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customOnTimeMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 2):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customAvgCodeMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customAvgCodeMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 3):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customReDoMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customReDoMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 4):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customBugsReportedMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customBugsReportedMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 5):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.critical ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customCriticalIssuesMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customCriticalIssuesMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 6):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customCustomerSatisfactionMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customCustomerSatisfactionMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 7):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customUpskillingMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customUpskillingMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        default:
+                                                  return allFinalData;
+                              }
                     });
-                    console.log(allFinalData, "LLLLLLLLLLLLLLLLLLLL");
-                    let fileDataModi = fileData.slice(6, 14);
                     let data = await axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/marks`,
@@ -540,6 +968,24 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                 }
                                                                                 thirdTable={
                                                                                           thirdTable
+                                                                                }
+                                                                                setParentAppraise={
+                                                                                          setParentAppraise
+                                                                                }
+                                                                                parentAppraise={
+                                                                                          parentAppraise
+                                                                                }
+                                                                                setParentSelfAppraise={
+                                                                                          setParentSelfAppraise
+                                                                                }
+                                                                                parentSelfAppraise={
+                                                                                          parentSelfAppraise
+                                                                                }
+                                                                                setParentTarget={
+                                                                                          setParentTarget
+                                                                                }
+                                                                                parentTarget={
+                                                                                          parentTarget
                                                                                 }
                                                                       />
                                                             </>
