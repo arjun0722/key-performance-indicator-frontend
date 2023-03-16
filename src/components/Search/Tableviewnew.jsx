@@ -5,6 +5,7 @@ import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { ACCESS_TOKEN } from "../../Config/Constant";
 import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
 import { useLocation } from "react-router-dom";
+
 const Renderfirsttable = ({ val }) => {
   return (
     <>
@@ -34,7 +35,17 @@ const Renderfirsttable = ({ val }) => {
   );
 };
 
-const Renderthirdtable = ({ val, thirdTable, ind }) => {
+const Renderthirdtable = ({
+  val,
+  thirdTable,
+  ind,
+  setParentAppraise,
+  parentAppraise,
+  setParentSelfAppraise,
+  parentSelfAppraise,
+  parentTarget,
+  setParentTarget,
+}) => {
   // all user and login user
 
   const [users, setusers] = useState("");
@@ -89,75 +100,151 @@ const Renderthirdtable = ({ val, thirdTable, ind }) => {
   function handleOnChange(e) {
     if (e.target.parentNode.parentNode.id == 0) {
       setCustomActualdelivery(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customActualdeliveryMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 1) {
       setCustomOnTimeMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customOnTimeMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 2) {
       setCustomAvgCodeMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customAvgCodeMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 3) {
       setCustomCustomReDoMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customReDoMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 4) {
       setCustomBugsReportedMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customBugsReportedMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 5) {
       setCustomCriticalIssuesMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customCriticalIssuesMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 6) {
       setCustomCustomerSatisfactionMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customCustomerSatisfactionMarks: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 7) {
       setCustomUpskillingMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customUpskillingMarks: e.target.value,
+      });
     }
   }
 
   function handleOnChange1(e) {
     if (e.target.parentNode.parentNode.id == 0) {
       setCustomActualdeliveryAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customActualdeliveryMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 1) {
       setCustomOnTimeMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customOnTimeMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 2) {
       setCustomAvgCodeMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customAvgCodeMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 3) {
       setCustomCustomReDoMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customReDoMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 4) {
       setCustomBugsReportedMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customBugsReportedMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 5) {
       setCustomCriticalIssuesMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customCriticalIssuesMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 6) {
       setCustomCustomerSatisfactionMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customCustomerSatisfactionMarksAr: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 7) {
       setCustomUpskillingMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customUpskillingMarksAr: e.target.value,
+      });
     }
   }
 
   function handleTarget(e) {
     if (e.target.parentNode.parentNode.id == 0) {
       setActualDelivery(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        actualDelivery: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 1) {
       setOnTime(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        onTime: e.target.value,
+      });
     }
     if (e.target.parentNode.parentNode.id == 5) {
       setCritical(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        critical: e.target.value,
+      });
     }
   }
   const valueMap = [
-    val.I === 0 ? actualDelivery : val.I,
-    val.I === 0 ? onTime : val.I,
+    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
+    val.I === 0 || val.I === undefined ? onTime : val.I,
     val.I,
     val.I,
     val.I,
-    val.I === 0 ? critical : val.I,
+    val.I === 0 || val.I === undefined ? critical : val.I,
     val.I,
     val.I,
   ];
@@ -178,15 +265,18 @@ const Renderthirdtable = ({ val, thirdTable, ind }) => {
     AppraiserRating[ind] !== undefined ? AppraiserRating[ind] : "";
 
   const appraiseSelfRating = [
-    customActualdeliveryMarks,
-    customOnTimeMarks,
-    customAvgCodeMarks,
-    customReDoMarks,
-    customBugsReportedMarks,
-    customCriticalIssuesMarks,
-    customCustomerSatisfactionMarks,
-    customUpskillingMarks,
+    val.J === 0 || val.J === undefined ? customActualdeliveryMarks : val.J,
+    val.J === 0 || val.J === undefined ? customOnTimeMarks : val.J,
+    val.J === 0 || val.J === undefined ? customAvgCodeMarks : val.J,
+    val.J === 0 || val.J === undefined ? customReDoMarks : val.J,
+    val.J === 0 || val.J === undefined ? customBugsReportedMarks : val.J,
+    val.J === 0 || val.J === undefined ? customCriticalIssuesMarks : val.J,
+    val.J === 0 || val.J === undefined
+      ? customCustomerSatisfactionMarks
+      : val.J,
+    val.J === 0 || val.J === undefined ? customUpskillingMarks : val.J,
   ];
+
   const appraiseSelfRatingValue =
     appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : "";
 
@@ -323,13 +413,49 @@ const Renderfifthtable = ({ val }) => {
 };
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
+  const intialparentAppraise = {
+    customActualdeliveryMarksAr: 0,
+    customOnTimeMarksAr: 0,
+    customAvgCodeMarksAr: 0,
+    customReDoMarksAr: 0,
+    customBugsReportedMarksAr: 0,
+    customCriticalIssuesMarksAr: 0,
+    customCustomerSatisfactionMarksAr: 0,
+    customUpskillingMarksAr: 0,
+  };
+
+  const intialparentSelfAppraise = {
+    customActualdeliveryMarks: 0,
+    customOnTimeMarks: 0,
+    customAvgCodeMarks: 0,
+    customReDoMarks: 0,
+    customBugsReportedMarks: 0,
+    customCriticalIssuesMarks: 0,
+    customCustomerSatisfactionMarks: 0,
+    customUpskillingMarks: 0,
+  };
+
+  const intialTarget = {
+    actualDelivery: 0,
+    onTime: 0,
+    critical: 0,
+  };
+
+  const [parentTarget, setParentTarget] = useState(intialTarget);
+
+  const [parentAppraise, setParentAppraise] = useState(intialparentAppraise);
+  const [parentSelfAppraise, setParentSelfAppraise] = useState(
+    intialparentSelfAppraise
+  );
+  console.log("YYYYYYYYYYYYYYY", parentTarget);
+
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
   let thirdTable = fileData.slice(6, 14);
   let forthTable = fileData.slice(17, 31);
   let fifthTable = fileData.slice(32, 37);
   return (
-    <div>
+    <div style={{ border: "none" }}>
       <ReactHTMLTableToExcel
         id="test-table-xls-button"
         className="download-table-xls-button"
@@ -338,6 +464,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
         sheet="kpisheet"
         buttonText="Export to Excel"
       />
+
       <br />
       <br />
       <table
@@ -470,7 +597,17 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
         {thirdTable.map((val, ind) => {
           return (
             <>
-              <Renderthirdtable ind={ind} val={val} thirdTable={thirdTable} />
+              <Renderthirdtable
+                ind={ind}
+                val={val}
+                thirdTable={thirdTable}
+                setParentAppraise={setParentAppraise}
+                parentAppraise={parentAppraise}
+                setParentSelfAppraise={setParentSelfAppraise}
+                parentSelfAppraise={parentSelfAppraise}
+                setParentTarget={setParentTarget}
+                parentTarget={parentTarget}
+              />
             </>
           );
         })}
@@ -556,8 +693,110 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
             </>
           );
         })}
-        <td style={{ border: "none" }}></td>
-        <td style={{ border: "none" }}></td>
+        <tr style={{ height: "100px" }}></tr>
+        <tr style={{ height: "40px" }}>
+          <td
+            style={{
+              backgroundColor: "#f4b084",
+              textAlign: "center",
+            }}
+            colSpan="5"
+          >
+            Feedback
+          </td>
+        </tr>
+        <tr style={{ height: "40px" }}>
+          <td
+            style={{
+              backgroundColor: "#92d050",
+            }}
+            colSpan="5"
+          >
+            <span style={{ margin: " 0px 25px" }}>Positive point</span>
+          </td>
+        </tr>
+        <td
+          style={{
+            background: "lightgrey",
+            height: "9rem",
+            display: "flex",
+            border: "none",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="positive point"
+            style={{ outline: "none", background: "#e3e2e2", border: "none" }}
+          />
+        </td>
+        <tr style={{ height: "50px" }}></tr>
+
+        <tr style={{ height: "40px" }}>
+          <td
+            style={{
+              backgroundColor: "#92d050",
+            }}
+            colSpan="5"
+          >
+            <span style={{ margin: " 0px 25px" }}>Score of improvement</span>
+          </td>
+        </tr>
+        <td
+          style={{
+            height: "9rem",
+            // width: "29rem",
+            display: "flex",
+            border: "none",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="score of improvement"
+            style={{ outline: "none", background: "#e3e2e2", border: "none" }}
+          />
+        </td>
+        <tr style={{ height: "30px" }}></tr>
+        <td style={{ border: "none" }}>Do you agree with this feedback ? </td>
+        <tr style={{ height: "15px" }}></tr>
+        <td style={{ display: "flex", border: "none" }}>
+          <div>
+            <button
+              style={{
+                borderRadius: "0px",
+                height: "30px",
+                width: "60px",
+                fontSize: "13px",
+
+                background: "#b0afaf",
+                color: "black",
+                fontWeight: "600",
+                display: "flex",
+                justifyContent: "center",
+                margin: "0px 10px",
+              }}
+            >
+              <span>Yes</span>
+            </button>
+          </div>
+          <div>
+            <button
+              style={{
+                borderRadius: "0px",
+                height: "30px",
+                width: "60px",
+                fontSize: "13px",
+                display: "flex",
+                justifyContent: "center",
+                background: "#b0afaf",
+                color: "black",
+                fontWeight: "600",
+                margin: "0px 15px",
+              }}
+            >
+              No
+            </button>
+          </div>
+        </td>
         <td style={{ border: "none" }}></td>
         <td style={{ border: "none" }}></td>
         <td style={{ border: "none" }}></td>
