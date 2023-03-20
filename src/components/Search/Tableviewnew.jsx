@@ -88,6 +88,7 @@ const Renderthirdtable = ({
           ] = useState("");
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
                     useState("");
+
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdelivery(e.target.value);
@@ -251,7 +252,6 @@ const Renderthirdtable = ({
                     val.I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
-
           return (
                     <>
                               <tr id={ind}>
@@ -263,11 +263,12 @@ const Renderthirdtable = ({
                                         <td>{val.G}</td>
                                         <td>{val.H}</td>
                                         <td style={{ position: "relative" }}>
-                                                  {/* {val.I} */}
-                                                  <input
+                                                  {val.I}
+                                                  {/* <input
                                                             type="number"
                                                             min="0"
-                                                            value={value}
+                                                            // value={value}
+                                                            value={val.I}
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
@@ -285,10 +286,11 @@ const Renderthirdtable = ({
                                                                                 e
                                                                       )
                                                             }
-                                                  />
+                                                  /> */}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  {val.J}
+                                                  {/* <input
                                                             type="number"
                                                             min="1"
                                                             value={
@@ -324,7 +326,7 @@ const Renderthirdtable = ({
                                                                                 ? customUpskillingMarks
                                                                                 : 0
                                                             }
-                                                            // value={val.J}
+                                                            
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
@@ -342,7 +344,7 @@ const Renderthirdtable = ({
                                                                                 e
                                                                       );
                                                             }}
-                                                  />
+                                                  /> */}
                                         </td>
                                         <td
                                                   style={{
@@ -354,7 +356,8 @@ const Renderthirdtable = ({
                                                   {val.K}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  {val.L}
+                                                  {/* <input
                                                             type="number"
                                                             min="1"
                                                             value={
@@ -408,8 +411,7 @@ const Renderthirdtable = ({
                                                                                 e
                                                                       );
                                                             }}
-                                                  />
-                                                  {/* {val.L} */}
+                                                  /> */}
                                         </td>
                                         <td
                                                   style={{
@@ -421,6 +423,399 @@ const Renderthirdtable = ({
                                         </td>
                                         <td>{val.N}</td>
                                         <td>{val.O}</td>
+                              </tr>
+                    </>
+          );
+};
+
+const RenderTestTable = ({
+          val,
+          thirdTable,
+          ind,
+          com,
+          setParentAppraise,
+          parentAppraise,
+          setParentSelfAppraise,
+          parentSelfAppraise,
+          parentTarget,
+          setParentTarget,
+}) => {
+          //state to maintain target values
+
+          const [actualDelivery, setActualDelivery] = useState(0);
+          const [onTime, setOnTime] = useState(0);
+          const [critical, setCritical] = useState(0);
+
+          //  this state use for Appraisee Self Rating
+          const [customActualdeliveryMarks, setCustomActualdelivery] =
+                    useState("");
+          const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
+          const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
+          const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
+          const [customBugsReportedMarks, setCustomBugsReportedMarks] =
+                    useState("");
+          const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
+                    useState("");
+          const [
+                    customCustomerSatisfactionMarks,
+                    setCustomCustomerSatisfactionMarks,
+          ] = useState("");
+          const [customUpskillingMarks, setCustomUpskillingMarks] =
+                    useState("");
+
+          // this states use for Appraiser Rating
+          const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] =
+                    useState("");
+          const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
+          const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
+          const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
+          const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
+                    useState("");
+          const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
+                    useState("");
+          const [
+                    customCustomerSatisfactionMarksAr,
+                    setCustomCustomerSatisfactionMarksAr,
+          ] = useState("");
+          const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
+                    useState("");
+          console.log(val, "''''''''''''''''''''");
+          console.log(val.Category, "}}}}}}}}}}}}}}}}}}");
+          console.log(com[ind], "COM");
+          function handleOnChange(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setCustomActualdelivery(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customActualdeliveryMarks:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setCustomOnTimeMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customOnTimeMarks: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 2) {
+                              setCustomAvgCodeMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customAvgCodeMarks: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 3) {
+                              setCustomCustomReDoMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customReDoMarks: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 4) {
+                              setCustomBugsReportedMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customBugsReportedMarks: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCustomCriticalIssuesMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customCriticalIssuesMarks:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 6) {
+                              setCustomCustomerSatisfactionMarks(
+                                        e.target.value
+                              );
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customCustomerSatisfactionMarks:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 7) {
+                              setCustomUpskillingMarks(e.target.value);
+                              setParentSelfAppraise({
+                                        ...parentSelfAppraise,
+                                        customUpskillingMarks: e.target.value,
+                              });
+                    }
+          }
+
+          function handleOnChange1(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setCustomActualdeliveryAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customActualdeliveryMarksAr:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setCustomOnTimeMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customOnTimeMarksAr: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 2) {
+                              setCustomAvgCodeMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customAvgCodeMarksAr: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 3) {
+                              setCustomCustomReDoMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customReDoMarksAr: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 4) {
+                              setCustomBugsReportedMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customBugsReportedMarksAr:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCustomCriticalIssuesMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customCriticalIssuesMarksAr:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 6) {
+                              setCustomCustomerSatisfactionMarksAr(
+                                        e.target.value
+                              );
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customCustomerSatisfactionMarksAr:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 7) {
+                              setCustomUpskillingMarksAr(e.target.value);
+                              setParentAppraise({
+                                        ...parentAppraise,
+                                        customUpskillingMarksAr: e.target.value,
+                              });
+                    }
+          }
+
+          function handleTarget(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setActualDelivery(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        actualDelivery: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setOnTime(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        onTime: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCritical(e.target.value);
+                              setParentTarget({
+                                        ...parentTarget,
+                                        critical: e.target.value,
+                              });
+                    }
+          }
+          const valueMap = [
+                    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
+                    val.I === 0 || val.I === undefined ? onTime : val.I,
+                    val.I,
+                    val.I,
+                    val.I,
+                    val.I === 0 || val.I === undefined ? critical : val.I,
+                    val.I,
+                    val.I,
+          ];
+          const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+          return (
+                    <>
+                              <tr id={ind}>
+                                        <th>{val.Category}</th>
+                                        <td>{val.KpiTitle}</td>
+                                        <td>{val.KpiDescription}</td>
+                                        <td>{com[ind].E}</td>
+                                        <td>{val.Type}</td>
+                                        <td>{com[ind].G}</td>
+                                        <td>{val.Weightage}</td>
+                                        <td style={{ position: "relative" }}>
+                                                  {/* {val.I} */}
+                                                  <input
+                                                            type="number"
+                                                            min="0"
+                                                            value={com[ind].I}
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+                                                                      border: "none",
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            onChange={(e) =>
+                                                                      handleTarget(
+                                                                                e
+                                                                      )
+                                                            }
+                                                  />
+                                        </td>
+                                        <td style={{ position: "relative" }}>
+                                                  {/* {val.J} */}
+                                                  <input
+                                                            type="number"
+                                                            min="1"
+                                                            value={
+                                                                      com[ind].J
+                                                                      // ind === 0
+                                                                      //           ? customActualdeliveryMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       1
+                                                                      //           ? customOnTimeMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       2
+                                                                      //           ? customAvgCodeMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       3
+                                                                      //           ? customReDoMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       4
+                                                                      //           ? customBugsReportedMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       5
+                                                                      //           ? customCriticalIssuesMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       6
+                                                                      //           ? customCustomerSatisfactionMarks
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       7
+                                                                      //           ? customUpskillingMarks
+                                                                      //           : 0
+                                                            }
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+                                                                      border: "none",
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            onChange={(e) => {
+                                                                      handleOnChange(
+                                                                                e
+                                                                      );
+                                                            }}
+                                                  />
+                                        </td>
+                                        <td
+                                                  style={{
+                                                            backgroundColor:
+                                                                      "#bf8f00",
+                                                            position: "relative",
+                                                  }}
+                                        >
+                                                  {com[ind].K}
+                                        </td>
+                                        <td style={{ position: "relative" }}>
+                                                  {/* {val.L} */}
+                                                  <input
+                                                            type="number"
+                                                            min="1"
+                                                            value={
+                                                                      com[ind].L
+                                                                      // ind === 0
+                                                                      //           ? customActualdeliveryMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       1
+                                                                      //           ? customOnTimeMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       2
+                                                                      //           ? customAvgCodeMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       3
+                                                                      //           ? customReDoMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       4
+                                                                      //           ? customBugsReportedMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       5
+                                                                      //           ? customCriticalIssuesMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       6
+                                                                      //           ? customCustomerSatisfactionMarksAr
+                                                                      //           : 0 ||
+                                                                      //             ind ===
+                                                                      //                       7
+                                                                      //           ? customUpskillingMarksAr
+                                                                      //           : 0
+                                                            }
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+                                                                      border: "none",
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            // value={val.L}
+                                                            onChange={(e) => {
+                                                                      handleOnChange1(
+                                                                                e
+                                                                      );
+                                                            }}
+                                                  />
+                                        </td>
+                                        <td
+                                                  style={{
+                                                            backgroundColor:
+                                                                      "#70ad47",
+                                                  }}
+                                        >
+                                                  {com[ind].M}
+                                        </td>
+                                        <td>{com[ind].N}</td>
+                                        <td>{com[ind].O}</td>
                               </tr>
                     </>
           );
@@ -439,7 +834,7 @@ const Renderforthtable = ({ val }) => {
                     </>
           );
 };
-
+let combineData = [];
 const Renderfifthtable = ({ val }) => {
           return (
                     <>
@@ -452,8 +847,8 @@ const Renderfifthtable = ({ val }) => {
 };
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
-          console.log(email, "llllllllllllllllll");
-          const [first, setfirst] = useState([]);
+          const [updatedData, setUpdatedData] = useState({});
+
           async function getAllData() {
                     let reqOptions = {
                               method: "post",
@@ -468,12 +863,14 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               headers: { Accept: "application/json" },
                     };
                     let data = await axios.request(reqOptions);
-                    setfirst(data);
+                    console.log(data, ">>>>>>>>>>>>>>>");
+                    setUpdatedData(data);
           }
           useEffect(() => {
                     getAllData();
           }, []);
-          console.log(first, "///////////////////");
+          console.log(fileData.slice(6, 14), "::::::::::::::::::");
+          console.log(updatedData?.data?.data, "///////////////////");
           const intialparentAppraise = {
                     customActualdeliveryMarksAr: 0,
                     customOnTimeMarksAr: 0,
@@ -956,7 +1353,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                             {fileData[5].O}
                                                   </th>
                                         </tr>
-                                        {thirdTable.map((val, ind) => {
+                                        {/* {thirdTable?.map((val, ind) => {
                                                   return (
                                                             <>
                                                                       <Renderthirdtable
@@ -990,7 +1387,47 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       />
                                                             </>
                                                   );
-                                        })}
+                                        })} */}
+                                        {updatedData?.data?.data?.map(
+                                                  (val, ind) => {
+                                                            return (
+                                                                      <>
+                                                                                <RenderTestTable
+                                                                                          ind={
+                                                                                                    ind
+                                                                                          }
+                                                                                          val={
+                                                                                                    val
+                                                                                          }
+                                                                                          com={
+                                                                                                    thirdTable
+                                                                                          }
+                                                                                          renderTestTable={
+                                                                                                    thirdTable
+                                                                                          }
+                                                                                          setParentAppraise={
+                                                                                                    setParentAppraise
+                                                                                          }
+                                                                                          parentAppraise={
+                                                                                                    parentAppraise
+                                                                                          }
+                                                                                          setParentSelfAppraise={
+                                                                                                    setParentSelfAppraise
+                                                                                          }
+                                                                                          parentSelfAppraise={
+                                                                                                    parentSelfAppraise
+                                                                                          }
+                                                                                          setParentTarget={
+                                                                                                    setParentTarget
+                                                                                          }
+                                                                                          parentTarget={
+                                                                                                    parentTarget
+                                                                                          }
+                                                                                />
+                                                                      </>
+                                                            );
+                                                  }
+                                        )}
                                         <tr style={{ height: "100px" }}></tr>
                                         <tr style={{ height: "40px" }}>
                                                   <td
