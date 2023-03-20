@@ -23,3 +23,9 @@
 .single-card-title {
           font-size: 25px !important;
 }
+.card .card_image img {
+    width: 138px !important;
+    height: 138px !important;
+    border-radius: 70px !important;
+    object-fit: cover !important;
+}

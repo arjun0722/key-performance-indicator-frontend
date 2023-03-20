@@ -51,7 +51,7 @@
           },
           "scripts": {
                     "dev": "set HTTPS=true&npm start",
-                    "start": "cross-env HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
+                    "start": "react-scripts start",
                     "build": "react-scripts build",
                     "test": "react-scripts test",
                     "eject": "react-scripts eject"

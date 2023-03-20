@@ -57,7 +57,6 @@ const Renderthirdtable = ({
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
           );
-
           const useEmailExtractor = () => {
                     const location = useLocation();
                     const searchParams = new URLSearchParams(location.search);
@@ -464,6 +463,10 @@ const RenderTestTable = ({
           const [onTime, setOnTime] = useState(0);
           const [critical, setCritical] = useState(0);
 
+          const [loginUser, setLoginUser] = useState(
+                    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+          );
+
           //  this state use for Appraisee Self Rating
           const [customActualdeliveryMarks, setCustomActualdelivery] =
                     useState("");
@@ -653,12 +656,12 @@ const RenderTestTable = ({
                     }
           }
           const valueMap = [
-                    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
-                    val.I === 0 || val.I === undefined ? onTime : val.I,
+                    actualDelivery,
+                    onTime,
                     val.I,
                     val.I,
                     val.I,
-                    val.I === 0 || val.I === undefined ? critical : val.I,
+                    critical,
                     val.I,
                     val.I,
           ];
@@ -678,7 +681,9 @@ const RenderTestTable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
-                                                            value={com[ind].I}
+                                                            value={
+                                                                      val.AppraiseeSelfRating
+                                                            }
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
@@ -704,7 +709,7 @@ const RenderTestTable = ({
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      com[ind].J
+                                                                      val.AppraiserRating
                                                                       // ind === 0
                                                                       //           ? customActualdeliveryMarks
                                                                       //           : 0 ||
@@ -866,7 +871,9 @@ const Renderfifthtable = ({ val }) => {
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           const [updatedData, setUpdatedData] = useState({});
-
+          const [loginUser, setLoginUser] = useState(
+                    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+          );
           async function getAllData() {
                     let reqOptions = {
                               method: "post",
@@ -922,6 +929,290 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           const [parentSelfAppraise, setParentSelfAppraise] = useState(
                     intialparentSelfAppraise
           );
+          async function KpiMarks() {
+                    let allFinalData = [];
+                    let currentDate = new Date();
+                    let dateTime1 = moment(currentDate).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                    );
+                    thirdTable.map((val, ind) => {
+                              let allData = {
+                                        KpiTitle: "",
+                                        KpiDescription: "",
+                                        Category: "",
+                                        Type: "",
+                                        ToUserId: "",
+                                        FromUserId: "",
+                                        Weightage: 0,
+                                        Target: 0,
+                                        AppraiseeSelfRating: 0,
+                                        AppraiserRating: 0,
+                                        UpdatedDate: "",
+                                        IsEditable: 1,
+                                        ToDate: "",
+                                        FromDate: "",
+                              };
+                              switch (ind) {
+                                        case (ind = 0):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            loginUser || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.actualDelivery ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customActualdeliveryMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customActualdeliveryMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 1):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.onTime ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customOnTimeMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customOnTimeMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 2):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customAvgCodeMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customAvgCodeMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 3):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customReDoMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customReDoMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 4):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customBugsReportedMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customBugsReportedMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 5):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.Target =
+                                                            parentTarget.critical ||
+                                                            0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customCriticalIssuesMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customCriticalIssuesMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 6):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customCustomerSatisfactionMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customCustomerSatisfactionMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        case (ind = 7):
+                                                  allData.KpiTitle =
+                                                            val.C || "";
+                                                  allData.KpiDescription =
+                                                            val.D || "";
+                                                  allData.Category =
+                                                            val.B || "";
+                                                  allData.Type = val.F || "";
+                                                  allData.ToUserId =
+                                                            email || "";
+                                                  allData.FromUserId =
+                                                            email || "";
+                                                  allData.Weightage =
+                                                            val.H || 0;
+                                                  allData.AppraiseeSelfRating =
+                                                            parentSelfAppraise.customUpskillingMarks ||
+                                                            0;
+                                                  allData.AppraiserRating =
+                                                            parentAppraise.customUpskillingMarksAr ||
+                                                            0;
+                                                  allData.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  allData.IsEditable = 1;
+                                                  allData.ToDate =
+                                                            fileData[0].E || "";
+                                                  allData.FromDate =
+                                                            fileData[1].E || "";
+                                                  return allFinalData.push(
+                                                            allData
+                                                  );
+                                        default:
+                                                  return allFinalData;
+                              }
+                    });
+                    let data = await axios({
+                              method: "post",
+                              url: `http://localhost:8080/kpi/marks`,
+                              data: allFinalData,
+                              headers: { Accept: "application/json" },
+                    });
+          }
 
           let firstTable = fileData.slice(0, 4);
           let secondTable = fileData.slice(4, 5);
@@ -1090,7 +1381,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                             {fileData[5].O}
                                                   </th>
                                         </tr>
-                                        {thirdTable.map((val, ind) => {
+                                        {/* {thirdTable.map((val, ind) => {
                                                   return (
                                                             <>
                                                                       <Renderthirdtable
@@ -1124,7 +1415,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       />
                                                             </>
                                                   );
-                                        })}
+                                        })} */}
                                         {updatedData?.data?.data?.map(
                                                   (val, ind) => {
                                                             return (
@@ -1418,15 +1709,9 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       width: "100%",
                                                                       minWidth: "120px",
                                                             }}
-
-                                                            //   onClick={() => {
-                                                            //             setstartDate(
-                                                            //                       customdate[0]
-                                                            //             );
-                                                            //             setlastDate(
-                                                            //                       customdate[1]
-                                                            //             );
-                                                            //   }}
+                                                            onClick={() =>
+                                                                      KpiMarks()
+                                                            }
                                                   >
                                                             Submit KPI
                                                   </Button>

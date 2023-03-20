@@ -65,7 +65,7 @@ const Home = () => {
 
   useEffect(() => {
     const hasSingleCardWithLink =
-      users.filter((user) => {
+      users?.filter((user) => {
         return user.metaType === "member" && userPath(user) !== "";
       }).length === 1;
 
