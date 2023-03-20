@@ -447,7 +447,6 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
   const [parentSelfAppraise, setParentSelfAppraise] = useState(
     intialparentSelfAppraise
   );
-  console.log("YYYYYYYYYYYYYYY", parentTarget);
 
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);

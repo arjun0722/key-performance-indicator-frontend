@@ -99,8 +99,9 @@ const Mark = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-        }`,
+      Authorization: `Bearer ${
+        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+      }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -144,8 +145,9 @@ const Mark = () => {
       for (let index = 0; index < Math.ceil(ids.length / 300); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-            }`,
+          Authorization: `Bearer ${
+            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+          }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -161,7 +163,7 @@ const Mark = () => {
           resp.map((resp) => {
             let task = resp?.data?.value.filter((val) => {
               // let value = val.fields["System.State"] !== "Removed";
-              return val
+              return val;
             });
             let assignedTask = task.length;
             // ----------------------------------------------------------------------------------------
@@ -186,8 +188,11 @@ const Mark = () => {
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
                 effortArr.push(effort);
                 let actualHours = 0;
-                if (res.fields["System.WorkItemType"] === "Task" || res.fields["System.WorkItemType"] === "Bug") {
-                  actualHours = res.fields["Custom.HoursTaken"] || 0
+                if (
+                  res.fields["System.WorkItemType"] === "Task" ||
+                  res.fields["System.WorkItemType"] === "Bug"
+                ) {
+                  actualHours = res.fields["Custom.HoursTaken"] || 0;
                 }
 
                 let redoHours;
@@ -254,7 +259,6 @@ const Mark = () => {
                       innersprint.path ===
                       taskdetails.fields["System.IterationPath"]
                     ) {
-
                       if (
                         taskdetails.fields["System.State"] === "Closed" ||
                         taskdetails.fields["System.State"] === "Done" ||
@@ -269,8 +273,14 @@ const Mark = () => {
                         taskdetails.fields["System.State"] === "Rework" ||
                         taskdetails.fields["System.State"] === "Merged"
                       ) {
-                        let dueDate = moment(taskdetails.fields["Microsoft.VSTS.Scheduling.DueDate"]).format("YYYY-MM-DD")
-                        let actualEndDate = moment(taskdetails.fields["Custom.ActualEndDate"]).format("YYYY-MM-DD")
+                        let dueDate = moment(
+                          taskdetails.fields[
+                            "Microsoft.VSTS.Scheduling.DueDate"
+                          ]
+                        ).format("YYYY-MM-DD");
+                        let actualEndDate = moment(
+                          taskdetails.fields["Custom.ActualEndDate"]
+                        ).format("YYYY-MM-DD");
                         // let sprintFinishdate =
                         //   innersprint?.attributes?.finishDate || "Not Given";
                         // let taskEnddate =
@@ -279,19 +289,25 @@ const Mark = () => {
                         //   "Microsoft.VSTS.Common.StateChangeDate"
                         //   ] ||
                         //   "Not Given";
-                        // sprintFinishdate = 
+                        // sprintFinishdate =
                         //   moment(sprintFinishdate).format("MM DD YYYY");
                         // taskEnddate = moment(taskEnddate).format("MM DD YYYY");
 
                         // sprintFinishdate = new Date(sprintFinishdate);
                         // taskEnddate = new Date(taskEnddate);
 
-                        // if (sprintFinishdate && taskEnddate) { 
+                        // if (sprintFinishdate && taskEnddate) {
                         //   if (
                         //     sprintFinishdate !== "Invalid date" &&
                         //     taskEnddate !== "Invalid date"
                         //   ) {
-                        if (actualEndDate <= dueDate && taskdetails.fields["Custom.HoursTaken"] <= taskdetails.fields["Microsoft.VSTS.Scheduling.Effort"]) {
+                        if (
+                          actualEndDate <= dueDate &&
+                          taskdetails.fields["Custom.HoursTaken"] <=
+                            taskdetails.fields[
+                              "Microsoft.VSTS.Scheduling.Effort"
+                            ]
+                        ) {
                           ontimesprint++;
                         }
                         //   }
@@ -380,7 +396,7 @@ const Mark = () => {
                 ((100 +
                   ((2 - numberofbugsreportedbyClient) /
                     numberofbugsreportedbyClient) *
-                  100) *
+                    100) *
                   10) /
                 100;
               reportedbyclientmark = reportedbyclientmark.toFixed(2);
