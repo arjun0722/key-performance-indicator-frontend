@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ACCESS_TOKEN } from "../Config/Constant";
 
 const ITEM_HEIGHT = 48;
 
@@ -28,6 +29,7 @@ export default function PrimarySearchAppBar({ props }) {
   function logout(e) {
     e.preventDefault();
     sessionStorage.removeItem("token-data");
+    localStorage.removeItem(ACCESS_TOKEN.USER_EMAIL);
     navigate("/login");
   }
 
@@ -37,7 +39,12 @@ export default function PrimarySearchAppBar({ props }) {
         Performance Report
       </h1>
       <nav>
-        <img class="cta" alt="navicon" style={{ width: "200px" }} src="./qservices.png" />
+        <img
+          class="cta"
+          alt="navicon"
+          style={{ width: "200px" }}
+          src="./qservices.png"
+        />
 
         {JSON.parse(sessionStorage.getItem("token-data")) && (
           <>

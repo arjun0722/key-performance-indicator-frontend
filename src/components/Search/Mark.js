@@ -161,7 +161,7 @@ const Mark = () => {
           resp.map((resp) => {
             let task = resp?.data?.value.filter((val) => {
               // let value = val.fields["System.State"] !== "Removed";
-              return val
+              return val;
             });
             let assignedTask = task.length;
             // ----------------------------------------------------------------------------------------
@@ -254,6 +254,7 @@ const Mark = () => {
                       innersprint.path ===
                       taskdetails.fields["System.IterationPath"]
                     ) {
+
 
                       if (
                         taskdetails.fields["System.State"] === "Closed" ||

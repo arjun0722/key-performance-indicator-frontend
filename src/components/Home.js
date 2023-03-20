@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { ACCESS_TOKEN } from "../Config/Constant";
+import { MANAGEMENt_ID } from "../Config/ManagementEmail";
 import Loading from "./Loading";
 import { show_error } from "../Config/Helper";
+
+import "./comp.css";
 
 const Home = () => {
   if (!JSON.parse(sessionStorage.getItem("token-data"))) {
@@ -12,6 +15,12 @@ const Home = () => {
   }
   const [users, setUsers] = useState([]);
   const [loadingdata, setLoadingdata] = useState(false);
+  const [singleCardCenter, setSingleCardCenter] = useState(false);
+
+  const [userEmail, setUserEmail] = useState(
+    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+  );
+
   useEffect(() => {
     getTypes();
   }, []);
@@ -21,7 +30,8 @@ const Home = () => {
 
     let headersList = {
       Accept: "*/*",
-      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token}`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
     };
 
     let reqOptions = {
@@ -41,31 +51,66 @@ const Home = () => {
       });
   };
 
+  const userPath = (user) => {
+    if (MANAGEMENt_ID.includes(userEmail)) {
+      return `/mark?email=${user.mailAddress}`;
+    } else {
+      if (userEmail === user.mailAddress) {
+        return `/mark?email=${user.mailAddress}`;
+      } else {
+        return "";
+      }
+    }
+  };
+
+  useEffect(() => {
+    const hasSingleCardWithLink =
+      users.filter((user) => {
+        return user.metaType === "member" && userPath(user) !== "";
+      }).length === 1;
+
+    setSingleCardCenter(hasSingleCardWithLink);
+  }, [users]);
+
   return (
     <>
       {loadingdata ? (
         <Loading />
       ) : (
         <>
-          <div class="cards-list">
+          <div className="cards-list">
             {(users || []).map((user) => {
               if (user.metaType == "member") {
-                return (
-                  <Link
-                    to={`/mark?email=${user.mailAddress}`}
-                    className="Home_Links"
-                  >
-                    <div class="card 1">
-                      <div class="card_image">
-                        {" "}
-                        <img src={user._links.avatar.href} />{" "}
+                const path = userPath(user);
+                if (path) {
+                  // check if path is not empty
+                  return (
+                    <Link
+                      to={path}
+                      className={`Home_Links ${singleCardCenter ? "single-card-center" : ""
+                        }`}
+                    >
+                      <div
+                        className={`card 1 ${singleCardCenter ? "single-card-resize" : ""
+                          }`}
+                      >
+                        <div className={`card_image`}>
+                          <img
+                            className={`image ${singleCardCenter ? "single-card-image" : ""
+                              }`}
+                            src={user._links.avatar.href}
+                          />
+                        </div>
+                        <div
+                          className={`card_title title-white ${singleCardCenter ? "single-card-title" : ""
+                            }`}
+                        >
+                          <p>{user.displayName}</p>
+                        </div>
                       </div>
-                      <div class="card_title title-white">
-                        <p>{user.displayName}</p>
-                      </div>
-                    </div>
-                  </Link>
-                );
+                    </Link>
+                  );
+                }
               }
             })}
           </div>

@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { ACCESS_TOKEN } from "../../Config/Constant";
+import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
+import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
 
 const Renderfirsttable = ({ val }) => {
-          console.log();
           return (
                     <>
                               <tr>
@@ -49,11 +51,29 @@ const Renderthirdtable = ({
           parentTarget,
           setParentTarget,
 }) => {
+          // all user and login user
+
+          const [users, setusers] = useState("");
+          const [loginUser, setLoginUser] = useState(
+                    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+          );
+
+          const useEmailExtractor = () => {
+                    const location = useLocation();
+                    const searchParams = new URLSearchParams(location.search);
+                    return searchParams.get("email");
+          };
+          const email = useEmailExtractor();
+
+          useEffect(() => {
+                    setusers(email);
+          }, [email]);
+
           //state to maintain target values
 
-          const [actualDelivery, setActualDelivery] = useState(0);
-          const [onTime, setOnTime] = useState(0);
-          const [critical, setCritical] = useState(0);
+          const [actualDelivery, setActualDelivery] = useState("0");
+          const [onTime, setOnTime] = useState("0");
+          const [critical, setCritical] = useState("0");
 
           //  this state use for Appraisee Self Rating
           const [customActualdeliveryMarks, setCustomActualdelivery] =
@@ -252,6 +272,55 @@ const Renderthirdtable = ({
                     val.I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+
+          const AppraiserRating = [
+                    customActualdeliveryMarksAr,
+                    customOnTimeMarksAr,
+                    customAvgCodeMarksAr,
+                    customReDoMarksAr,
+                    customBugsReportedMarksAr,
+                    customCriticalIssuesMarksAr,
+                    customCustomerSatisfactionMarksAr,
+                    customUpskillingMarksAr,
+          ];
+
+          const AppraiseValue =
+                    AppraiserRating[ind] !== undefined
+                              ? AppraiserRating[ind]
+                              : "";
+
+          const appraiseSelfRating = [
+                    val.J === 0 || val.J === undefined
+                              ? customActualdeliveryMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customOnTimeMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customAvgCodeMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customReDoMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customBugsReportedMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customCriticalIssuesMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customCustomerSatisfactionMarks
+                              : val.J,
+                    val.J === 0 || val.J === undefined
+                              ? customUpskillingMarks
+                              : val.J,
+          ];
+
+          const appraiseSelfRatingValue =
+                    appraiseSelfRating[ind] !== undefined
+                              ? appraiseSelfRating[ind]
+                              : "";
+
           return (
                     <>
                               <tr id={ind}>
@@ -262,71 +331,43 @@ const Renderthirdtable = ({
                                         <td>{val.F}</td>
                                         <td>{val.G}</td>
                                         <td>{val.H}</td>
-                                        <td style={{ position: "relative" }}>
-                                                  {val.I}
-                                                  {/* <input
+                                        <td>
+                                                  <input
                                                             type="number"
                                                             min="0"
-                                                            // value={value}
-                                                            value={val.I}
+                                                            value={value}
                                                             style={{
-                                                                      height: "100%",
-                                                                      position: "absolute",
-                                                                      top: "0",
-                                                                      bottom: "0",
+                                                                      height: "4.4rem",
+
+                                                                      fontSize: "17px",
+                                                                      width: "100%",
 
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
                                                                       border: "none",
                                                                       width: "100%",
-                                                                      fontSize: "17px",
                                                             }}
                                                             onChange={(e) =>
                                                                       handleTarget(
                                                                                 e
                                                                       )
                                                             }
-                                                  /> */}
+                                                  />
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  {val.J}
-                                                  {/* <input
+                                                  <input
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      ind === 0
-                                                                                ? customActualdeliveryMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? customOnTimeMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            2
-                                                                                ? customAvgCodeMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            3
-                                                                                ? customReDoMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            4
-                                                                                ? customBugsReportedMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            5
-                                                                                ? customCriticalIssuesMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            6
-                                                                                ? customCustomerSatisfactionMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            7
-                                                                                ? customUpskillingMarks
+                                                                      loginUser ===
+                                                                      users
+                                                                                ? appraiseSelfRatingValue
+                                                                                : val.J !==
+                                                                                  undefined
+                                                                                ? val.J
                                                                                 : 0
                                                             }
-                                                            
+                                                            // value={val.J}
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
@@ -344,7 +385,7 @@ const Renderthirdtable = ({
                                                                                 e
                                                                       );
                                                             }}
-                                                  /> */}
+                                                  />
                                         </td>
                                         <td
                                                   style={{
@@ -356,41 +397,17 @@ const Renderthirdtable = ({
                                                   {val.K}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  {val.L}
-                                                  {/* <input
+                                                  <input
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      ind === 0
-                                                                                ? customActualdeliveryMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? customOnTimeMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            2
-                                                                                ? customAvgCodeMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            3
-                                                                                ? customReDoMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            4
-                                                                                ? customBugsReportedMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            5
-                                                                                ? customCriticalIssuesMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            6
-                                                                                ? customCustomerSatisfactionMarksAr
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            7
-                                                                                ? customUpskillingMarksAr
+                                                                      MANAGEMENt_ID.includes(
+                                                                                loginUser
+                                                                      )
+                                                                                ? AppraiseValue
+                                                                                : val.L !==
+                                                                                  undefined
+                                                                                ? val.L
                                                                                 : 0
                                                             }
                                                             style={{
@@ -411,7 +428,8 @@ const Renderthirdtable = ({
                                                                                 e
                                                                       );
                                                             }}
-                                                  /> */}
+                                                  />
+                                                  {/* {val.L} */}
                                         </td>
                                         <td
                                                   style={{
@@ -869,8 +887,6 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           useEffect(() => {
                     getAllData();
           }, []);
-          console.log(fileData.slice(6, 14), "::::::::::::::::::");
-          console.log(updatedData?.data?.data, "///////////////////");
           const intialparentAppraise = {
                     customActualdeliveryMarksAr: 0,
                     customOnTimeMarksAr: 0,
@@ -881,6 +897,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     customCustomerSatisfactionMarksAr: 0,
                     customUpskillingMarksAr: 0,
           };
+
           const intialparentSelfAppraise = {
                     customActualdeliveryMarks: 0,
                     customOnTimeMarks: 0,
@@ -891,301 +908,20 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     customCustomerSatisfactionMarks: 0,
                     customUpskillingMarks: 0,
           };
+
           const intialTarget = {
                     actualDelivery: 0,
                     onTime: 0,
                     critical: 0,
           };
+
+          const [parentTarget, setParentTarget] = useState(intialTarget);
+
           const [parentAppraise, setParentAppraise] =
                     useState(intialparentAppraise);
           const [parentSelfAppraise, setParentSelfAppraise] = useState(
                     intialparentSelfAppraise
           );
-          const [parentTarget, setParentTarget] = useState(intialTarget);
-          async function KpiMarks() {
-                    let allFinalData = [];
-                    let currentDate = new Date();
-                    let dateTime1 = moment(currentDate).format(
-                              "YYYY-MM-DD HH:mm:ss"
-                    );
-                    thirdTable.map((val, ind) => {
-                              let allData = {
-                                        KpiTitle: "",
-                                        KpiDescription: "",
-                                        Category: "",
-                                        Type: "",
-                                        ToUserId: "",
-                                        FromUserId: "",
-                                        Weightage: 0,
-                                        Target: 0,
-                                        AppraiseeSelfRating: 0,
-                                        AppraiserRating: 0,
-                                        UpdatedDate: "",
-                                        IsEditable: 1,
-                                        ToDate: "",
-                                        FromDate: "",
-                              };
-                              switch (ind) {
-                                        case (ind = 0):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.Target =
-                                                            parentTarget.actualDelivery ||
-                                                            0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customActualdeliveryMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customActualdeliveryMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 1):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.Target =
-                                                            parentTarget.onTime ||
-                                                            0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customOnTimeMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customOnTimeMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 2):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customAvgCodeMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customAvgCodeMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 3):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customReDoMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customReDoMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 4):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customBugsReportedMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customBugsReportedMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 5):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.Target =
-                                                            parentTarget.critical ||
-                                                            0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customCriticalIssuesMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customCriticalIssuesMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 6):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customCustomerSatisfactionMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customCustomerSatisfactionMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        case (ind = 7):
-                                                  allData.KpiTitle =
-                                                            val.C || "";
-                                                  allData.KpiDescription =
-                                                            val.D || "";
-                                                  allData.Category =
-                                                            val.B || "";
-                                                  allData.Type = val.F || "";
-                                                  allData.ToUserId =
-                                                            email || "";
-                                                  allData.FromUserId =
-                                                            email || "";
-                                                  allData.Weightage =
-                                                            val.H || 0;
-                                                  allData.AppraiseeSelfRating =
-                                                            parentSelfAppraise.customUpskillingMarks ||
-                                                            0;
-                                                  allData.AppraiserRating =
-                                                            parentAppraise.customUpskillingMarksAr ||
-                                                            0;
-                                                  allData.UpdatedDate =
-                                                            dateTime1 || "";
-                                                  allData.IsEditable = 1;
-                                                  allData.ToDate =
-                                                            fileData[0].E || "";
-                                                  allData.FromDate =
-                                                            fileData[1].E || "";
-                                                  return allFinalData.push(
-                                                            allData
-                                                  );
-                                        default:
-                                                  return allFinalData;
-                              }
-                    });
-                    let data = await axios({
-                              method: "post",
-                              url: `http://localhost:8080/kpi/marks`,
-                              data: allFinalData,
-                              headers: { Accept: "application/json" },
-                    });
-          }
 
           let firstTable = fileData.slice(0, 4);
           let secondTable = fileData.slice(4, 5);
@@ -1193,7 +929,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           let forthTable = fileData.slice(17, 31);
           let fifthTable = fileData.slice(32, 37);
           return (
-                    <div>
+                    <div style={{ border: "none" }}>
                               <ReactHTMLTableToExcel
                                         id="test-table-xls-button"
                                         className="download-table-xls-button"
@@ -1202,6 +938,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                         sheet="kpisheet"
                                         buttonText="Export to Excel"
                               />
+
                               <br />
                               <br />
                               <table
@@ -1353,7 +1090,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                             {fileData[5].O}
                                                   </th>
                                         </tr>
-                                        {/* {thirdTable?.map((val, ind) => {
+                                        {thirdTable.map((val, ind) => {
                                                   return (
                                                             <>
                                                                       <Renderthirdtable
@@ -1387,7 +1124,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       />
                                                             </>
                                                   );
-                                        })} */}
+                                        })}
                                         {updatedData?.data?.data?.map(
                                                   (val, ind) => {
                                                             return (
@@ -1526,8 +1263,147 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                             </>
                                                   );
                                         })}
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
+                                        <tr style={{ height: "100px" }}></tr>
+                                        <tr style={{ height: "40px" }}>
+                                                  <td
+                                                            style={{
+                                                                      backgroundColor:
+                                                                                "#f4b084",
+                                                                      textAlign: "center",
+                                                            }}
+                                                            colSpan="5"
+                                                  >
+                                                            Feedback
+                                                  </td>
+                                        </tr>
+                                        <tr style={{ height: "40px" }}>
+                                                  <td
+                                                            style={{
+                                                                      backgroundColor:
+                                                                                "#92d050",
+                                                            }}
+                                                            colSpan="5"
+                                                  >
+                                                            <span
+                                                                      style={{
+                                                                                margin: " 0px 25px",
+                                                                      }}
+                                                            >
+                                                                      Positive
+                                                                      point
+                                                            </span>
+                                                  </td>
+                                        </tr>
+                                        <td
+                                                  style={{
+                                                            background: "lightgrey",
+                                                            height: "9rem",
+                                                            display: "flex",
+                                                            border: "none",
+                                                  }}
+                                        >
+                                                  <input
+                                                            type="text"
+                                                            placeholder="positive point"
+                                                            style={{
+                                                                      outline: "none",
+                                                                      background: "#e3e2e2",
+                                                                      border: "none",
+                                                            }}
+                                                  />
+                                        </td>
+                                        <tr style={{ height: "50px" }}></tr>
+
+                                        <tr style={{ height: "40px" }}>
+                                                  <td
+                                                            style={{
+                                                                      backgroundColor:
+                                                                                "#92d050",
+                                                            }}
+                                                            colSpan="5"
+                                                  >
+                                                            <span
+                                                                      style={{
+                                                                                margin: " 0px 25px",
+                                                                      }}
+                                                            >
+                                                                      Score of
+                                                                      improvement
+                                                            </span>
+                                                  </td>
+                                        </tr>
+                                        <td
+                                                  style={{
+                                                            height: "9rem",
+                                                            // width: "29rem",
+                                                            display: "flex",
+                                                            border: "none",
+                                                  }}
+                                        >
+                                                  <input
+                                                            type="text"
+                                                            placeholder="score of improvement"
+                                                            style={{
+                                                                      outline: "none",
+                                                                      background: "#e3e2e2",
+                                                                      border: "none",
+                                                            }}
+                                                  />
+                                        </td>
+                                        <tr style={{ height: "30px" }}></tr>
+                                        <td style={{ border: "none" }}>
+                                                  Do you agree with this
+                                                  feedback ?{" "}
+                                        </td>
+                                        <tr style={{ height: "15px" }}></tr>
+                                        <td
+                                                  style={{
+                                                            display: "flex",
+                                                            border: "none",
+                                                  }}
+                                        >
+                                                  <div>
+                                                            <button
+                                                                      style={{
+                                                                                borderRadius: "0px",
+                                                                                height: "30px",
+                                                                                width: "60px",
+                                                                                fontSize: "13px",
+
+                                                                                background: "#b0afaf",
+                                                                                color: "black",
+                                                                                fontWeight: "600",
+                                                                                display: "flex",
+                                                                                justifyContent:
+                                                                                          "center",
+                                                                                margin: "0px 10px",
+                                                                      }}
+                                                            >
+                                                                      <span>
+                                                                                Yes
+                                                                      </span>
+                                                            </button>
+                                                  </div>
+                                                  <div>
+                                                            <button
+                                                                      style={{
+                                                                                borderRadius: "0px",
+                                                                                height: "30px",
+                                                                                width: "60px",
+                                                                                fontSize: "13px",
+                                                                                display: "flex",
+                                                                                justifyContent:
+                                                                                          "center",
+                                                                                background: "#b0afaf",
+                                                                                color: "black",
+                                                                                fontWeight: "600",
+                                                                                margin: "0px 15px",
+                                                                      }}
+                                                            >
+                                                                      No
+                                                            </button>
+                                                  </div>
+                                        </td>
                                         <td style={{ border: "none" }}></td>
                                         <td style={{ border: "none" }}></td>
                                         <td style={{ border: "none" }}></td>
@@ -1542,9 +1418,15 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                       width: "100%",
                                                                       minWidth: "120px",
                                                             }}
-                                                            onClick={() =>
-                                                                      KpiMarks()
-                                                            }
+
+                                                            //   onClick={() => {
+                                                            //             setstartDate(
+                                                            //                       customdate[0]
+                                                            //             );
+                                                            //             setlastDate(
+                                                            //                       customdate[1]
+                                                            //             );
+                                                            //   }}
                                                   >
                                                             Submit KPI
                                                   </Button>
