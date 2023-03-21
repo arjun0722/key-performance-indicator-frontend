@@ -52,6 +52,7 @@ const Renderthirdtable = ({
           setParentTarget,
 }) => {
           // all user and login user
+          console.log("********************1111111111111111", val);
 
           const [users, setusers] = useState("");
           const [loginUser, setLoginUser] = useState(
@@ -286,7 +287,7 @@ const Renderthirdtable = ({
                     val.I,
                     val.I,
           ];
-          const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+          const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
 
           const AppraiserRating = [
                     customActualdeliveryMarksAr,
@@ -522,6 +523,7 @@ const RenderTestTable = ({
           setParentTarget,
 }) => {
           //state to maintain target values
+          console.log("********************22222222222222222");
 
           const [actualDelivery, setActualDelivery] = useState(
                     ind === 0 ? val.Target : 0
@@ -580,9 +582,7 @@ const RenderTestTable = ({
           ] = useState(ind === 6 ? val.AppraiserRating : 0);
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
                     useState(ind === 7 ? val.AppraiserRating : 0);
-          console.log(val, "''''''''''''''''''''");
-          console.log(val.Category, "}}}}}}}}}}}}}}}}}}");
-          console.log(com[ind], "COM");
+
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdelivery(e.target.value);
@@ -966,47 +966,95 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               headers: { Accept: "application/json" },
                     };
                     let data = await axios.request(reqOptions);
-                    console.log(data, ">>>>>>>>>>>>>>>");
+
                     setUpdatedData(data);
           }
           useEffect(() => {
                     getAllData();
           }, []);
-          const intialparentAppraise = {
-                    customActualdeliveryMarksAr: 0,
-                    customOnTimeMarksAr: 0,
-                    customAvgCodeMarksAr: 0,
-                    customReDoMarksAr: 0,
-                    customBugsReportedMarksAr: 0,
-                    customCriticalIssuesMarksAr: 0,
-                    customCustomerSatisfactionMarksAr: 0,
-                    customUpskillingMarksAr: 0,
-          };
 
-          const intialparentSelfAppraise = {
-                    customActualdeliveryMarks: 0,
-                    customOnTimeMarks: 0,
-                    customAvgCodeMarks: 0,
-                    customReDoMarks: 0,
-                    customBugsReportedMarks: 0,
-                    customCriticalIssuesMarks: 0,
-                    customCustomerSatisfactionMarks: 0,
-                    customUpskillingMarks: 0,
-          };
+          useEffect(() => {
+                    if (updatedData && updatedData.data) {
+                              setParentSelfAppraise({
+                                        customActualdeliveryMarks:
+                                                  updatedData?.data?.data[0]
+                                                            ?.AppraiseeSelfRating,
+                                        customOnTimeMarks:
+                                                  updatedData?.data?.data[1]
+                                                            ?.AppraiseeSelfRating,
+                                        customAvgCodeMarks:
+                                                  updatedData?.data?.data[2]
+                                                            ?.AppraiseeSelfRating,
 
-          const intialTarget = {
-                    actualDelivery: 0,
-                    onTime: 0,
-                    critical: 0,
-          };
+                                        customReDoMarks:
+                                                  updatedData?.data?.data[3]
+                                                            ?.AppraiseeSelfRating,
 
-          const [parentTarget, setParentTarget] = useState(intialTarget);
+                                        customBugsReportedMarks:
+                                                  updatedData?.data?.data[4]
+                                                            ?.AppraiseeSelfRating,
 
-          const [parentAppraise, setParentAppraise] =
-                    useState(intialparentAppraise);
-          const [parentSelfAppraise, setParentSelfAppraise] = useState(
-                    intialparentSelfAppraise
-          );
+                                        customCriticalIssuesMarks:
+                                                  updatedData?.data?.data[5]
+                                                            ?.AppraiseeSelfRating,
+
+                                        customCustomerSatisfactionMarks:
+                                                  updatedData?.data?.data[6]
+                                                            ?.AppraiseeSelfRating,
+
+                                        customUpskillingMarks:
+                                                  updatedData?.data?.data[7]
+                                                            ?.AppraiseeSelfRating,
+                              });
+                    }
+                    if (updatedData && updatedData.data) {
+                              setParentAppraise({
+                                        customActualdeliveryMarksAr:
+                                                  updatedData?.data?.data[0]
+                                                            ?.AppraiserRating,
+                                        customOnTimeMarksAr:
+                                                  updatedData?.data?.data[1]
+                                                            ?.AppraiserRating,
+                                        customAvgCodeMarksAr:
+                                                  updatedData?.data?.data[2]
+                                                            ?.AppraiserRating,
+                                        customReDoMarksAr:
+                                                  updatedData?.data?.data[3]
+                                                            ?.AppraiserRating,
+                                        customBugsReportedMarksAr:
+                                                  updatedData?.data?.data[4]
+                                                            ?.AppraiserRating,
+                                        customCriticalIssuesMarksAr:
+                                                  updatedData?.data?.data[5]
+                                                            ?.AppraiserRating,
+                                        customCustomerSatisfactionMarksAr:
+                                                  updatedData?.data?.data[6]
+                                                            ?.AppraiserRating,
+                                        customUpskillingMarksAr:
+                                                  updatedData?.data?.data[7]
+                                                            ?.AppraiserRating,
+                              });
+                    }
+
+                    if (updatedData && updatedData.data) {
+                              setParentTarget({
+                                        actualDelivery:
+                                                  updatedData?.data?.data[0]
+                                                            ?.Target,
+                                        onTime: updatedData?.data?.data[1]
+                                                  ?.Target,
+
+                                        critical: updatedData?.data?.data[5]
+                                                  ?.Target,
+                              });
+                    }
+          }, [updatedData]);
+
+          const [parentTarget, setParentTarget] = useState();
+
+          const [parentAppraise, setParentAppraise] = useState();
+          const [parentSelfAppraise, setParentSelfAppraise] = useState();
+
           async function KpiMarks() {
                     let allFinalData = [];
                     let currentDate = new Date();
