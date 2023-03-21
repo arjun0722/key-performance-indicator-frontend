@@ -70,43 +70,59 @@ const Renderthirdtable = ({
 
           //state to maintain target values
 
-          const [actualDelivery, setActualDelivery] = useState("0");
-          const [onTime, setOnTime] = useState("0");
-          const [critical, setCritical] = useState("0");
+          const [actualDelivery, setActualDelivery] = useState(
+                    ind === 0 ? val.I : 0
+          );
+          const [onTime, setOnTime] = useState(ind === 1 ? val.I : 0);
+          const [critical, setCritical] = useState(ind === 5 ? val.I : 0);
 
           //  this state use for Appraisee Self Rating
-          const [customActualdeliveryMarks, setCustomActualdelivery] =
-                    useState("");
-          const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
-          const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
-          const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
+          const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
+                    ind === 0 ? val.J : 0
+          );
+          const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
+                    ind === 1 ? val.J : 0
+          );
+          const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
+                    ind === 2 ? val.J : 0
+          );
+          const [customReDoMarks, setCustomCustomReDoMarks] = useState(
+                    ind === 3 ? val.J : 0
+          );
           const [customBugsReportedMarks, setCustomBugsReportedMarks] =
-                    useState("");
+                    useState(ind === 4 ? val.J : 0);
           const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
-                    useState("");
+                    useState(ind === 5 ? val.J : 0);
           const [
                     customCustomerSatisfactionMarks,
                     setCustomCustomerSatisfactionMarks,
-          ] = useState("");
-          const [customUpskillingMarks, setCustomUpskillingMarks] =
-                    useState("");
+          ] = useState(ind === 6 ? val.J : 0);
+          const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
+                    ind === 7 ? val.J : 0
+          );
 
           // this states use for Appraiser Rating
           const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] =
-                    useState("");
-          const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
-          const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
-          const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
+                    useState(ind === 0 ? val.L : 0);
+          const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
+                    ind === 1 ? val.L : 0
+          );
+          const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
+                    ind === 2 ? val.L : 0
+          );
+          const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
+                    ind === 3 ? val.L : 0
+          );
           const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
-                    useState("");
+                    useState(ind === 4 ? val.L : 0);
           const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-                    useState("");
+                    useState(ind === 5 ? val.L : 0);
           const [
                     customCustomerSatisfactionMarksAr,
                     setCustomCustomerSatisfactionMarksAr,
-          ] = useState("");
+          ] = useState(ind === 6 ? val.L : 0);
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
-                    useState("");
+                    useState(ind === 7 ? val.L : 0);
 
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
@@ -261,12 +277,12 @@ const Renderthirdtable = ({
                     }
           }
           const valueMap = [
-                    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
-                    val.I === 0 || val.I === undefined ? onTime : val.I,
+                    actualDelivery,
+                    onTime,
                     val.I,
                     val.I,
                     val.I,
-                    val.I === 0 || val.I === undefined ? critical : val.I,
+                    critical,
                     val.I,
                     val.I,
           ];
@@ -330,21 +346,22 @@ const Renderthirdtable = ({
                                         <td>{val.F}</td>
                                         <td>{val.G}</td>
                                         <td>{val.H}</td>
-                                        <td>
+                                        <td style={{ position: "relative" }}>
                                                   <input
                                                             type="number"
                                                             min="0"
                                                             value={value}
                                                             style={{
-                                                                      height: "4.4rem",
-
-                                                                      fontSize: "17px",
-                                                                      width: "100%",
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
 
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
                                                                       border: "none",
                                                                       width: "100%",
+                                                                      fontSize: "17px",
                                                             }}
                                                             onChange={(e) =>
                                                                       handleTarget(
@@ -358,12 +375,36 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      loginUser ===
-                                                                      users
-                                                                                ? appraiseSelfRatingValue
-                                                                                : val.J !==
-                                                                                  undefined
-                                                                                ? val.J
+                                                                      ind === 0
+                                                                                ? customActualdeliveryMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? customOnTimeMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            2
+                                                                                ? customAvgCodeMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            3
+                                                                                ? customReDoMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            4
+                                                                                ? customBugsReportedMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            5
+                                                                                ? customCriticalIssuesMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            6
+                                                                                ? customCustomerSatisfactionMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            7
+                                                                                ? customUpskillingMarks
                                                                                 : 0
                                                             }
                                                             // value={val.J}
@@ -400,13 +441,36 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
-                                                                                ? AppraiseValue
-                                                                                : val.L !==
-                                                                                  undefined
-                                                                                ? val.L
+                                                                      ind === 0
+                                                                                ? customActualdeliveryMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? customOnTimeMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            2
+                                                                                ? customAvgCodeMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            3
+                                                                                ? customReDoMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            4
+                                                                                ? customBugsReportedMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            5
+                                                                                ? customCriticalIssuesMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            6
+                                                                                ? customCustomerSatisfactionMarksAr
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            7
+                                                                                ? customUpskillingMarksAr
                                                                                 : 0
                                                             }
                                                             style={{
@@ -697,7 +761,7 @@ const RenderTestTable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
-                                                            value={val.Target}
+                                                            value={value}
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
