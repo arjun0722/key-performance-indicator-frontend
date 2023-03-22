@@ -735,17 +735,26 @@ const RenderTestTable = ({
                               });
                     }
           }
+          console.log(com[ind].I, "lllllllllllllllllllllllll");
           const valueMap = [
                     actualDelivery,
                     onTime,
-                    val.I,
-                    val.I,
-                    val.I,
+                    com[ind].I,
+                    com[ind].I,
+                    com[ind].I,
                     critical,
-                    val.I,
-                    val.I,
+                    com[ind].I,
+                    com[ind].I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+          // console.log(
+          //           ((100 +
+          //                     ((value - val[ind].Target) / val[ind].Target) *
+          //                               100) *
+          //                     val.Weightage) /
+          //                     100,
+          //           "KKKKKKKKKKKKKKKKKKKKKK"
+          // );
           return (
                     <>
                               <tr id={ind}>
@@ -1077,6 +1086,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                         IsEditable: 1,
                                         ToDate: "",
                                         FromDate: "",
+                                        ShowDevOpsData: 0,
                               };
                               switch (ind) {
                                         case (ind = 0):
@@ -1345,6 +1355,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           let thirdTable = fileData.slice(6, 14);
           let forthTable = fileData.slice(17, 31);
           let fifthTable = fileData.slice(32, 37);
+
           return (
                     <div style={{ border: "none" }}>
                               <ReactHTMLTableToExcel
@@ -1507,81 +1518,89 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                             {fileData[5].O}
                                                   </th>
                                         </tr>
-                                        {/* {thirdTable.map((val, ind) => {
-                                                  return (
-                                                            <>
-                                                                      <Renderthirdtable
-                                                                                ind={
-                                                                                          ind
-                                                                                }
-                                                                                val={
-                                                                                          val
-                                                                                }
-                                                                                thirdTable={
-                                                                                          thirdTable
-                                                                                }
-                                                                                setParentAppraise={
-                                                                                          setParentAppraise
-                                                                                }
-                                                                                parentAppraise={
-                                                                                          parentAppraise
-                                                                                }
-                                                                                setParentSelfAppraise={
-                                                                                          setParentSelfAppraise
-                                                                                }
-                                                                                parentSelfAppraise={
-                                                                                          parentSelfAppraise
-                                                                                }
-                                                                                setParentTarget={
-                                                                                          setParentTarget
-                                                                                }
-                                                                                parentTarget={
-                                                                                          parentTarget
-                                                                                }
-                                                                      />
-                                                            </>
-                                                  );
-                                        })} */}
-                                        {updatedData?.data?.data?.map(
-                                                  (val, ind) => {
-                                                            return (
-                                                                      <>
-                                                                                <RenderTestTable
-                                                                                          ind={
-                                                                                                    ind
-                                                                                          }
-                                                                                          val={
-                                                                                                    val
-                                                                                          }
-                                                                                          com={
-                                                                                                    thirdTable
-                                                                                          }
-                                                                                          renderTestTable={
-                                                                                                    thirdTable
-                                                                                          }
-                                                                                          setParentAppraise={
-                                                                                                    setParentAppraise
-                                                                                          }
-                                                                                          parentAppraise={
-                                                                                                    parentAppraise
-                                                                                          }
-                                                                                          setParentSelfAppraise={
-                                                                                                    setParentSelfAppraise
-                                                                                          }
-                                                                                          parentSelfAppraise={
-                                                                                                    parentSelfAppraise
-                                                                                          }
-                                                                                          setParentTarget={
-                                                                                                    setParentTarget
-                                                                                          }
-                                                                                          parentTarget={
-                                                                                                    parentTarget
-                                                                                          }
-                                                                                />
-                                                                      </>
-                                                            );
-                                                  }
-                                        )}
+
+                                        {updatedData?.data?.data[0]
+                                                  ?.ShowDevOpsData === 1 ||
+                                        updatedData?.data?.data[0]
+                                                  ?.ShowDevOpsData === undefined
+                                                  ? thirdTable?.map(
+                                                              (val, ind) => {
+                                                                        return (
+                                                                                  <>
+                                                                                            <Renderthirdtable
+                                                                                                      ind={
+                                                                                                                ind
+                                                                                                      }
+                                                                                                      val={
+                                                                                                                val
+                                                                                                      }
+                                                                                                      thirdTable={
+                                                                                                                thirdTable
+                                                                                                      }
+                                                                                                      setParentAppraise={
+                                                                                                                setParentAppraise
+                                                                                                      }
+                                                                                                      parentAppraise={
+                                                                                                                parentAppraise
+                                                                                                      }
+                                                                                                      setParentSelfAppraise={
+                                                                                                                setParentSelfAppraise
+                                                                                                      }
+                                                                                                      parentSelfAppraise={
+                                                                                                                parentSelfAppraise
+                                                                                                      }
+                                                                                                      setParentTarget={
+                                                                                                                setParentTarget
+                                                                                                      }
+                                                                                                      parentTarget={
+                                                                                                                parentTarget
+                                                                                                      }
+                                                                                            />
+                                                                                  </>
+                                                                        );
+                                                              }
+                                                    )
+                                                  : updatedData?.data?.data?.map(
+                                                              (val, ind) => {
+                                                                        return (
+                                                                                  <>
+                                                                                            <RenderTestTable
+                                                                                                      ind={
+                                                                                                                ind
+                                                                                                      }
+                                                                                                      val={
+                                                                                                                val
+                                                                                                      }
+                                                                                                      com={
+                                                                                                                thirdTable
+                                                                                                      }
+                                                                                                      renderTestTable={
+                                                                                                                thirdTable
+                                                                                                      }
+                                                                                                      setParentAppraise={
+                                                                                                                setParentAppraise
+                                                                                                      }
+                                                                                                      parentAppraise={
+                                                                                                                parentAppraise
+                                                                                                      }
+                                                                                                      setParentSelfAppraise={
+                                                                                                                setParentSelfAppraise
+                                                                                                      }
+                                                                                                      parentSelfAppraise={
+                                                                                                                parentSelfAppraise
+                                                                                                      }
+                                                                                                      setParentTarget={
+                                                                                                                setParentTarget
+                                                                                                      }
+                                                                                                      parentTarget={
+                                                                                                                parentTarget
+                                                                                                      }
+                                                                                            />
+                                                                                  </>
+                                                                        );
+                                                              }
+                                                    )}
+
                                         <tr style={{ height: "100px" }}></tr>
                                         <tr style={{ height: "40px" }}>
                                                   <td
