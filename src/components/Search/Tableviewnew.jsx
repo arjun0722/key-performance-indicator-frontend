@@ -66,60 +66,36 @@ const Renderthirdtable = ({
 
   //state to maintain target values
 
-  const [actualDelivery, setActualDelivery] = useState(ind === 0 ? val.I : 0);
-  const [onTime, setOnTime] = useState(ind === 1 ? val.I : 0);
-  const [critical, setCritical] = useState(ind === 5 ? val.I : 0);
+  const [actualDelivery, setActualDelivery] = useState("0");
+  const [onTime, setOnTime] = useState("0");
+  const [critical, setCritical] = useState("0");
 
   //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    ind === 0 ? val.J : 0
-  );
-  const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    ind === 1 ? val.J : 0
-  );
-  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    ind === 2 ? val.J : 0
-  );
-  const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    ind === 3 ? val.J : 0
-  );
-  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    ind === 4 ? val.J : 0
-  );
-  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    ind === 5 ? val.J : 0
-  );
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState("");
+  const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
+  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
+  const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
+  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState("");
+  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
+    useState("");
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState(ind === 6 ? val.J : 0);
-  const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    ind === 7 ? val.J : 0
-  );
+    useState("");
+  const [customUpskillingMarks, setCustomUpskillingMarks] = useState("");
 
   // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    ind === 0 ? val.L : 0
-  );
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    ind === 1 ? val.L : 0
-  );
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    ind === 2 ? val.L : 0
-  );
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    ind === 3 ? val.L : 0
-  );
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    ind === 4 ? val.L : 0
-  );
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState("");
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
+    useState("");
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState(ind === 5 ? val.L : 0);
+    useState("");
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState(ind === 6 ? val.L : 0);
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    ind === 7 ? val.L : 0
-  );
+  ] = useState("");
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState("");
 
   function handleOnChange(e) {
     if (e.target.parentNode.parentNode.id == 0) {
@@ -263,12 +239,12 @@ const Renderthirdtable = ({
     }
   }
   const valueMap = [
-    actualDelivery,
-    onTime,
+    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
+    val.I === 0 || val.I === undefined ? onTime : val.I,
     val.I,
     val.I,
     val.I,
-    critical,
+    val.I === 0 || val.I === undefined ? critical : val.I,
     val.I,
     val.I,
   ];
@@ -314,21 +290,20 @@ const Renderthirdtable = ({
         <td>{val.F}</td>
         <td>{val.G}</td>
         <td>{val.H}</td>
-        <td style={{ position: "relative" }}>
+        <td>
           <input
             type="number"
             min="0"
             value={value}
             style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
+              height: "4.4rem",
+
+              fontSize: "17px",
+              width: "100%",
 
               backgroundColor: "#ecf0f1",
               border: "none",
               width: "100%",
-              fontSize: "17px",
             }}
             onChange={(e) => handleTarget(e)}
           />
@@ -338,22 +313,10 @@ const Renderthirdtable = ({
             type="number"
             min="1"
             value={
-              ind === 0
-                ? customActualdeliveryMarks
-                : 0 || ind === 1
-                ? customOnTimeMarks
-                : 0 || ind === 2
-                ? customAvgCodeMarks
-                : 0 || ind === 3
-                ? customReDoMarks
-                : 0 || ind === 4
-                ? customBugsReportedMarks
-                : 0 || ind === 5
-                ? customCriticalIssuesMarks
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarks
-                : 0 || ind === 7
-                ? customUpskillingMarks
+              loginUser === users
+                ? appraiseSelfRatingValue
+                : val.J !== undefined
+                ? val.J
                 : 0
             }
             // value={val.J}
@@ -386,22 +349,10 @@ const Renderthirdtable = ({
             type="number"
             min="1"
             value={
-              ind === 0
-                ? customActualdeliveryMarksAr
-                : 0 || ind === 1
-                ? customOnTimeMarksAr
-                : 0 || ind === 2
-                ? customAvgCodeMarksAr
-                : 0 || ind === 3
-                ? customReDoMarksAr
-                : 0 || ind === 4
-                ? customBugsReportedMarksAr
-                : 0 || ind === 5
-                ? customCriticalIssuesMarksAr
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarksAr
-                : 0 || ind === 7
-                ? customUpskillingMarksAr
+              MANAGEMENt_ID.includes(loginUser)
+                ? AppraiseValue
+                : val.L !== undefined
+                ? val.L
                 : 0
             }
             style={{
@@ -450,66 +401,40 @@ const RenderTestTable = ({
 }) => {
   //state to maintain target values
 
-  const [actualDelivery, setActualDelivery] = useState(
-    ind === 0 ? val.Target : 0
-  );
-  const [onTime, setOnTime] = useState(ind === 1 ? val.Target : 0);
-  const [critical, setCritical] = useState(ind === 5 ? val.Target : 0);
+  const [actualDelivery, setActualDelivery] = useState(0);
+  const [onTime, setOnTime] = useState(0);
+  const [critical, setCritical] = useState(0);
 
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
 
   //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    ind === 0 ? val.AppraiseeSelfRating : 0
-  );
-  const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    ind === 1 ? val.AppraiseeSelfRating : 0
-  );
-  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    ind === 2 ? val.AppraiseeSelfRating : 0
-  );
-  const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    ind === 3 ? val.AppraiseeSelfRating : 0
-  );
-  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    ind === 4 ? val.AppraiseeSelfRating : 0
-  );
-  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    ind === 5 ? val.AppraiseeSelfRating : 0
-  );
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState("");
+  const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
+  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
+  const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
+  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState("");
+  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
+    useState("");
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState(ind === 6 ? val.AppraiseeSelfRating : 0);
-  const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    ind === 7 ? val.AppraiseeSelfRating : 0
-  );
+    useState("");
+  const [customUpskillingMarks, setCustomUpskillingMarks] = useState("");
 
   // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    ind === 0 ? val.AppraiserRating : 0
-  );
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    ind === 1 ? val.AppraiserRating : 0
-  );
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    ind === 2 ? val.AppraiserRating : 0
-  );
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    ind === 3 ? val.AppraiserRating : 0
-  );
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    ind === 4 ? val.AppraiserRating : 0
-  );
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState("");
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
+    useState("");
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState(ind === 5 ? val.AppraiserRating : 0);
+    useState("");
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState(ind === 6 ? val.AppraiserRating : 0);
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    ind === 7 ? val.AppraiserRating : 0
-  );
+  ] = useState("");
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState("");
   console.log(val, "''''''''''''''''''''");
   console.log(val.Category, "}}}}}}}}}}}}}}}}}}");
   console.log(com[ind], "COM");
@@ -680,7 +605,7 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
-            value={value}
+            value={val.AppraiseeSelfRating}
             style={{
               height: "100%",
               position: "absolute",
@@ -701,23 +626,38 @@ const RenderTestTable = ({
             type="number"
             min="1"
             value={
-              ind === 0
-                ? customActualdeliveryMarks
-                : 0 || ind === 1
-                ? customOnTimeMarks
-                : 0 || ind === 2
-                ? customAvgCodeMarks
-                : 0 || ind === 3
-                ? customReDoMarks
-                : 0 || ind === 4
-                ? customBugsReportedMarks
-                : 0 || ind === 5
-                ? customCriticalIssuesMarks
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarks
-                : 0 || ind === 7
-                ? customUpskillingMarks
-                : 0
+              val.AppraiserRating
+              // ind === 0
+              //           ? customActualdeliveryMarks
+              //           : 0 ||
+              //             ind ===
+              //                       1
+              //           ? customOnTimeMarks
+              //           : 0 ||
+              //             ind ===
+              //                       2
+              //           ? customAvgCodeMarks
+              //           : 0 ||
+              //             ind ===
+              //                       3
+              //           ? customReDoMarks
+              //           : 0 ||
+              //             ind ===
+              //                       4
+              //           ? customBugsReportedMarks
+              //           : 0 ||
+              //             ind ===
+              //                       5
+              //           ? customCriticalIssuesMarks
+              //           : 0 ||
+              //             ind ===
+              //                       6
+              //           ? customCustomerSatisfactionMarks
+              //           : 0 ||
+              //             ind ===
+              //                       7
+              //           ? customUpskillingMarks
+              //           : 0
             }
             style={{
               height: "100%",
@@ -749,25 +689,38 @@ const RenderTestTable = ({
             type="number"
             min="1"
             value={
-              // val.AppraiserRating
-              // com[ind].L
-              ind === 0
-                ? customActualdeliveryMarksAr
-                : 0 || ind === 1
-                ? customOnTimeMarksAr
-                : 0 || ind === 2
-                ? customAvgCodeMarksAr
-                : 0 || ind === 3
-                ? customReDoMarksAr
-                : 0 || ind === 4
-                ? customBugsReportedMarksAr
-                : 0 || ind === 5
-                ? customCriticalIssuesMarksAr
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarksAr
-                : 0 || ind === 7
-                ? customUpskillingMarksAr
-                : 0
+              com[ind].L
+              // ind === 0
+              //           ? customActualdeliveryMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       1
+              //           ? customOnTimeMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       2
+              //           ? customAvgCodeMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       3
+              //           ? customReDoMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       4
+              //           ? customBugsReportedMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       5
+              //           ? customCriticalIssuesMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       6
+              //           ? customCustomerSatisfactionMarksAr
+              //           : 0 ||
+              //             ind ===
+              //                       7
+              //           ? customUpskillingMarksAr
+              //           : 0
             }
             style={{
               height: "100%",
@@ -830,6 +783,12 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
+
+  console.log("iiiiiiiiiiiiyyyyyyyyyy", {
+    email: email,
+    ToDate: fileData[0].E,
+    FromDate: fileData[1].E,
+  });
   async function getAllData() {
     let reqOptions = {
       method: "post",
@@ -844,7 +803,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
-    console.log(data, ">>>>>>>>>>>>>>>");
+    console.log("iiiiiiiiiiiiiiiii", data);
     setUpdatedData(data);
   }
   useEffect(() => {
@@ -1198,6 +1157,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           </th>
         </tr>
         {thirdTable.map((val, ind) => {
+          console.log("aaaaaaaaaaaaa111111111111");
           return (
             <>
               <Renderthirdtable
@@ -1215,6 +1175,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           );
         })}
         {updatedData?.data?.data?.map((val, ind) => {
+          console.log("aaaaaaaaaaaaaa2222222222222");
           return (
             <>
               <RenderTestTable
