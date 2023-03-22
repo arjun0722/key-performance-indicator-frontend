@@ -48,6 +48,7 @@ const Renderthirdtable = ({
   setParentTarget,
 }) => {
   // all user and login user
+  console.log("********************1111111111111111", val);
 
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
@@ -66,378 +67,61 @@ const Renderthirdtable = ({
 
   //state to maintain target values
 
-  const [actualDelivery, setActualDelivery] = useState("0");
-  const [onTime, setOnTime] = useState("0");
-  const [critical, setCritical] = useState("0");
+  const [actualDelivery, setActualDelivery] = useState(ind === 0 ? val.I : 0);
+  const [onTime, setOnTime] = useState(ind === 1 ? val.I : 0);
+  const [critical, setCritical] = useState(ind === 5 ? val.I : 0);
 
   //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState("");
-  const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
-  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
-  const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
-  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState("");
-  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
-    useState("");
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
+    ind === 0 ? val.J : 0
+  );
+  const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
+    ind === 1 ? val.J : 0
+  );
+  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
+    ind === 2 ? val.J : 0
+  );
+  const [customReDoMarks, setCustomCustomReDoMarks] = useState(
+    ind === 3 ? val.J : 0
+  );
+  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
+    ind === 4 ? val.J : 0
+  );
+  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
+    ind === 5 ? val.J : 0
+  );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState("");
-  const [customUpskillingMarks, setCustomUpskillingMarks] = useState("");
+    useState(ind === 6 ? val.J : 0);
+  const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
+    ind === 7 ? val.J : 0
+  );
 
   // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState("");
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
-    useState("");
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
+    ind === 0 ? val.L : 0
+  );
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
+    ind === 1 ? val.L : 0
+  );
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
+    ind === 2 ? val.L : 0
+  );
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
+    ind === 3 ? val.L : 0
+  );
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
+    ind === 4 ? val.L : 0
+  );
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState("");
+    useState(ind === 5 ? val.L : 0);
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState("");
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState("");
-
-  function handleOnChange(e) {
-    if (e.target.parentNode.parentNode.id == 0) {
-      setCustomActualdelivery(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customActualdeliveryMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 1) {
-      setCustomOnTimeMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customOnTimeMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 2) {
-      setCustomAvgCodeMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customAvgCodeMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 3) {
-      setCustomCustomReDoMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customReDoMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 4) {
-      setCustomBugsReportedMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customBugsReportedMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 5) {
-      setCustomCriticalIssuesMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customCriticalIssuesMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 6) {
-      setCustomCustomerSatisfactionMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customCustomerSatisfactionMarks: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 7) {
-      setCustomUpskillingMarks(e.target.value);
-      setParentSelfAppraise({
-        ...parentSelfAppraise,
-        customUpskillingMarks: e.target.value,
-      });
-    }
-  }
-
-  function handleOnChange1(e) {
-    if (e.target.parentNode.parentNode.id == 0) {
-      setCustomActualdeliveryAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customActualdeliveryMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 1) {
-      setCustomOnTimeMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customOnTimeMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 2) {
-      setCustomAvgCodeMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customAvgCodeMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 3) {
-      setCustomCustomReDoMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customReDoMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 4) {
-      setCustomBugsReportedMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customBugsReportedMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 5) {
-      setCustomCriticalIssuesMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customCriticalIssuesMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 6) {
-      setCustomCustomerSatisfactionMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customCustomerSatisfactionMarksAr: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 7) {
-      setCustomUpskillingMarksAr(e.target.value);
-      setParentAppraise({
-        ...parentAppraise,
-        customUpskillingMarksAr: e.target.value,
-      });
-    }
-  }
-
-  function handleTarget(e) {
-    if (e.target.parentNode.parentNode.id == 0) {
-      setActualDelivery(e.target.value);
-      setParentTarget({
-        ...parentTarget,
-        actualDelivery: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 1) {
-      setOnTime(e.target.value);
-      setParentTarget({
-        ...parentTarget,
-        onTime: e.target.value,
-      });
-    }
-    if (e.target.parentNode.parentNode.id == 5) {
-      setCritical(e.target.value);
-      setParentTarget({
-        ...parentTarget,
-        critical: e.target.value,
-      });
-    }
-  }
-  const valueMap = [
-    val.I === 0 || val.I === undefined ? actualDelivery : val.I,
-    val.I === 0 || val.I === undefined ? onTime : val.I,
-    val.I,
-    val.I,
-    val.I,
-    val.I === 0 || val.I === undefined ? critical : val.I,
-    val.I,
-    val.I,
-  ];
-  const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
-
-  const AppraiserRating = [
-    customActualdeliveryMarksAr,
-    customOnTimeMarksAr,
-    customAvgCodeMarksAr,
-    customReDoMarksAr,
-    customBugsReportedMarksAr,
-    customCriticalIssuesMarksAr,
-    customCustomerSatisfactionMarksAr,
-    customUpskillingMarksAr,
-  ];
-
-  const AppraiseValue =
-    AppraiserRating[ind] !== undefined ? AppraiserRating[ind] : "";
-
-  const appraiseSelfRating = [
-    val.J === 0 || val.J === undefined ? customActualdeliveryMarks : val.J,
-    val.J === 0 || val.J === undefined ? customOnTimeMarks : val.J,
-    val.J === 0 || val.J === undefined ? customAvgCodeMarks : val.J,
-    val.J === 0 || val.J === undefined ? customReDoMarks : val.J,
-    val.J === 0 || val.J === undefined ? customBugsReportedMarks : val.J,
-    val.J === 0 || val.J === undefined ? customCriticalIssuesMarks : val.J,
-    val.J === 0 || val.J === undefined
-      ? customCustomerSatisfactionMarks
-      : val.J,
-    val.J === 0 || val.J === undefined ? customUpskillingMarks : val.J,
-  ];
-
-  const appraiseSelfRatingValue =
-    appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : "";
-
-  return (
-    <>
-      <tr id={ind}>
-        <th>{val.B}</th>
-        <td>{val.C}</td>
-        <td>{val.D}</td>
-        <td>{val.E}</td>
-        <td>{val.F}</td>
-        <td>{val.G}</td>
-        <td>{val.H}</td>
-        <td>
-          <input
-            type="number"
-            min="0"
-            value={value}
-            style={{
-              height: "4.4rem",
-
-              fontSize: "17px",
-              width: "100%",
-
-              backgroundColor: "#ecf0f1",
-              border: "none",
-              width: "100%",
-            }}
-            onChange={(e) => handleTarget(e)}
-          />
-        </td>
-        <td style={{ position: "relative" }}>
-          <input
-            type="number"
-            min="1"
-            value={
-              loginUser === users
-                ? appraiseSelfRatingValue
-                : val.J !== undefined
-                ? val.J
-                : 0
-            }
-            // value={val.J}
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-
-              backgroundColor: "#ecf0f1",
-              border: "none",
-              width: "100%",
-              fontSize: "17px",
-            }}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-        </td>
-        <td
-          style={{
-            backgroundColor: "#bf8f00",
-            position: "relative",
-          }}
-        >
-          {val.K}
-        </td>
-        <td style={{ position: "relative" }}>
-          <input
-            type="number"
-            min="1"
-            value={
-              MANAGEMENt_ID.includes(loginUser)
-                ? AppraiseValue
-                : val.L !== undefined
-                ? val.L
-                : 0
-            }
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-
-              backgroundColor: "#ecf0f1",
-              border: "none",
-              width: "100%",
-              fontSize: "17px",
-            }}
-            // value={val.L}
-            onChange={(e) => {
-              handleOnChange1(e);
-            }}
-          />
-          {/* {val.L} */}
-        </td>
-        <td
-          style={{
-            backgroundColor: "#70ad47",
-          }}
-        >
-          {val.M}
-        </td>
-        <td>{val.N}</td>
-        <td>{val.O}</td>
-      </tr>
-    </>
-  );
-};
-
-const RenderTestTable = ({
-  val,
-  thirdTable,
-  ind,
-  com,
-  setParentAppraise,
-  parentAppraise,
-  setParentSelfAppraise,
-  parentSelfAppraise,
-  parentTarget,
-  setParentTarget,
-}) => {
-  //state to maintain target values
-
-  const [actualDelivery, setActualDelivery] = useState(0);
-  const [onTime, setOnTime] = useState(0);
-  const [critical, setCritical] = useState(0);
-
-  const [loginUser, setLoginUser] = useState(
-    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+  ] = useState(ind === 6 ? val.L : 0);
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
+    ind === 7 ? val.L : 0
   );
 
-  //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState("");
-  const [customOnTimeMarks, setCustomOnTimeMarks] = useState("");
-  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState("");
-  const [customReDoMarks, setCustomCustomReDoMarks] = useState("");
-  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState("");
-  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
-    useState("");
-  const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState("");
-  const [customUpskillingMarks, setCustomUpskillingMarks] = useState("");
-
-  // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState("");
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState("");
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState("");
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState("");
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
-    useState("");
-  const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState("");
-  const [
-    customCustomerSatisfactionMarksAr,
-    setCustomCustomerSatisfactionMarksAr,
-  ] = useState("");
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState("");
-  console.log(val, "''''''''''''''''''''");
-  console.log(val.Category, "}}}}}}}}}}}}}}}}}}");
-  console.log(com[ind], "COM");
   function handleOnChange(e) {
     if (e.target.parentNode.parentNode.id == 0) {
       setCustomActualdelivery(e.target.value);
@@ -589,7 +273,407 @@ const RenderTestTable = ({
     val.I,
     val.I,
   ];
+  const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
+
+  const AppraiserRating = [
+    customActualdeliveryMarksAr,
+    customOnTimeMarksAr,
+    customAvgCodeMarksAr,
+    customReDoMarksAr,
+    customBugsReportedMarksAr,
+    customCriticalIssuesMarksAr,
+    customCustomerSatisfactionMarksAr,
+    customUpskillingMarksAr,
+  ];
+
+  const AppraiseValue =
+    AppraiserRating[ind] !== undefined ? AppraiserRating[ind] : "";
+
+  const appraiseSelfRating = [
+    val.J === 0 || val.J === undefined ? customActualdeliveryMarks : val.J,
+    val.J === 0 || val.J === undefined ? customOnTimeMarks : val.J,
+    val.J === 0 || val.J === undefined ? customAvgCodeMarks : val.J,
+    val.J === 0 || val.J === undefined ? customReDoMarks : val.J,
+    val.J === 0 || val.J === undefined ? customBugsReportedMarks : val.J,
+    val.J === 0 || val.J === undefined ? customCriticalIssuesMarks : val.J,
+    val.J === 0 || val.J === undefined
+      ? customCustomerSatisfactionMarks
+      : val.J,
+    val.J === 0 || val.J === undefined ? customUpskillingMarks : val.J,
+  ];
+
+  const appraiseSelfRatingValue =
+    appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : "";
+
+  return (
+    <>
+      <tr id={ind}>
+        <th>{val.B}</th>
+        <td>{val.C}</td>
+        <td>{val.D}</td>
+        <td>{val.E}</td>
+        <td>{val.F}</td>
+        <td>{val.G}</td>
+        <td>{val.H}</td>
+        <td style={{ position: "relative" }}>
+          <input
+            type="number"
+            min="0"
+            value={value}
+            style={{
+              height: "100%",
+              position: "absolute",
+              top: "0",
+              bottom: "0",
+
+              backgroundColor: "#ecf0f1",
+              border: "none",
+              width: "100%",
+              fontSize: "17px",
+            }}
+            onChange={(e) => handleTarget(e)}
+          />
+        </td>
+        <td style={{ position: "relative" }}>
+          <input
+            type="number"
+            min="1"
+            value={
+              ind === 0
+                ? customActualdeliveryMarks
+                : 0 || ind === 1
+                ? customOnTimeMarks
+                : 0 || ind === 2
+                ? customAvgCodeMarks
+                : 0 || ind === 3
+                ? customReDoMarks
+                : 0 || ind === 4
+                ? customBugsReportedMarks
+                : 0 || ind === 5
+                ? customCriticalIssuesMarks
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarks
+                : 0 || ind === 7
+                ? customUpskillingMarks
+                : 0
+            }
+            // value={val.J}
+            style={{
+              height: "100%",
+              position: "absolute",
+              top: "0",
+              bottom: "0",
+
+              backgroundColor: "#ecf0f1",
+              border: "none",
+              width: "100%",
+              fontSize: "17px",
+            }}
+            onChange={(e) => {
+              handleOnChange(e);
+            }}
+          />
+        </td>
+        <td
+          style={{
+            backgroundColor: "#bf8f00",
+            position: "relative",
+          }}
+        >
+          {val.K}
+        </td>
+        <td style={{ position: "relative" }}>
+          <input
+            type="number"
+            min="1"
+            value={
+              ind === 0
+                ? customActualdeliveryMarksAr
+                : 0 || ind === 1
+                ? customOnTimeMarksAr
+                : 0 || ind === 2
+                ? customAvgCodeMarksAr
+                : 0 || ind === 3
+                ? customReDoMarksAr
+                : 0 || ind === 4
+                ? customBugsReportedMarksAr
+                : 0 || ind === 5
+                ? customCriticalIssuesMarksAr
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarksAr
+                : 0 || ind === 7
+                ? customUpskillingMarksAr
+                : 0
+            }
+            style={{
+              height: "100%",
+              position: "absolute",
+              top: "0",
+              bottom: "0",
+
+              backgroundColor: "#ecf0f1",
+              border: "none",
+              width: "100%",
+              fontSize: "17px",
+            }}
+            // value={val.L}
+            onChange={(e) => {
+              handleOnChange1(e);
+            }}
+          />
+          {/* {val.L} */}
+        </td>
+        <td
+          style={{
+            backgroundColor: "#70ad47",
+          }}
+        >
+          {val.M}
+        </td>
+        <td>{val.N}</td>
+        <td>{val.O}</td>
+      </tr>
+    </>
+  );
+};
+
+const RenderTestTable = ({
+  val,
+  thirdTable,
+  ind,
+  com,
+  setParentAppraise,
+  parentAppraise,
+  setParentSelfAppraise,
+  parentSelfAppraise,
+  parentTarget,
+  setParentTarget,
+}) => {
+  //state to maintain target values
+  console.log("********************22222222222222222");
+
+  const [actualDelivery, setActualDelivery] = useState(
+    ind === 0 ? val.Target : 0
+  );
+  const [onTime, setOnTime] = useState(ind === 1 ? val.Target : 0);
+  const [critical, setCritical] = useState(ind === 5 ? val.Target : 0);
+
+  const [loginUser, setLoginUser] = useState(
+    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+  );
+
+  //  this state use for Appraisee Self Rating
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
+    ind === 0 ? val.AppraiseeSelfRating : 0
+  );
+  const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
+    ind === 1 ? val.AppraiseeSelfRating : 0
+  );
+  const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
+    ind === 2 ? val.AppraiseeSelfRating : 0
+  );
+  const [customReDoMarks, setCustomCustomReDoMarks] = useState(
+    ind === 3 ? val.AppraiseeSelfRating : 0
+  );
+  const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
+    ind === 4 ? val.AppraiseeSelfRating : 0
+  );
+  const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
+    ind === 5 ? val.AppraiseeSelfRating : 0
+  );
+  const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
+    useState(ind === 6 ? val.AppraiseeSelfRating : 0);
+  const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
+    ind === 7 ? val.AppraiseeSelfRating : 0
+  );
+
+  // this states use for Appraiser Rating
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
+    ind === 0 ? val.AppraiserRating : 0
+  );
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
+    ind === 1 ? val.AppraiserRating : 0
+  );
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
+    ind === 2 ? val.AppraiserRating : 0
+  );
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
+    ind === 3 ? val.AppraiserRating : 0
+  );
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
+    ind === 4 ? val.AppraiserRating : 0
+  );
+  const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
+    useState(ind === 5 ? val.AppraiserRating : 0);
+  const [
+    customCustomerSatisfactionMarksAr,
+    setCustomCustomerSatisfactionMarksAr,
+  ] = useState(ind === 6 ? val.AppraiserRating : 0);
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
+    ind === 7 ? val.AppraiserRating : 0
+  );
+
+  function handleOnChange(e) {
+    if (e.target.parentNode.parentNode.id == 0) {
+      setCustomActualdelivery(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customActualdeliveryMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 1) {
+      setCustomOnTimeMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customOnTimeMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 2) {
+      setCustomAvgCodeMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customAvgCodeMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 3) {
+      setCustomCustomReDoMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customReDoMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 4) {
+      setCustomBugsReportedMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customBugsReportedMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 5) {
+      setCustomCriticalIssuesMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customCriticalIssuesMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 6) {
+      setCustomCustomerSatisfactionMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customCustomerSatisfactionMarks: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 7) {
+      setCustomUpskillingMarks(e.target.value);
+      setParentSelfAppraise({
+        ...parentSelfAppraise,
+        customUpskillingMarks: e.target.value,
+      });
+    }
+  }
+
+  function handleOnChange1(e) {
+    if (e.target.parentNode.parentNode.id == 0) {
+      setCustomActualdeliveryAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customActualdeliveryMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 1) {
+      setCustomOnTimeMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customOnTimeMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 2) {
+      setCustomAvgCodeMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customAvgCodeMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 3) {
+      setCustomCustomReDoMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customReDoMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 4) {
+      setCustomBugsReportedMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customBugsReportedMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 5) {
+      setCustomCriticalIssuesMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customCriticalIssuesMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 6) {
+      setCustomCustomerSatisfactionMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customCustomerSatisfactionMarksAr: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 7) {
+      setCustomUpskillingMarksAr(e.target.value);
+      setParentAppraise({
+        ...parentAppraise,
+        customUpskillingMarksAr: e.target.value,
+      });
+    }
+  }
+
+  function handleTarget(e) {
+    if (e.target.parentNode.parentNode.id == 0) {
+      setActualDelivery(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        actualDelivery: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 1) {
+      setOnTime(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        onTime: e.target.value,
+      });
+    }
+    if (e.target.parentNode.parentNode.id == 5) {
+      setCritical(e.target.value);
+      setParentTarget({
+        ...parentTarget,
+        critical: e.target.value,
+      });
+    }
+  }
+  console.log(com[ind].I, "lllllllllllllllllllllllll");
+  const valueMap = [
+    actualDelivery,
+    onTime,
+    com[ind].I,
+    com[ind].I,
+    com[ind].I,
+    critical,
+    com[ind].I,
+    com[ind].I,
+  ];
   const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
+  // console.log(
+  //           ((100 +
+  //                     ((value - val[ind].Target) / val[ind].Target) *
+  //                               100) *
+  //                     val.Weightage) /
+  //                     100,
+  //           "KKKKKKKKKKKKKKKKKKKKKK"
+  // );
   return (
     <>
       <tr id={ind}>
@@ -605,7 +689,7 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
-            value={val.AppraiseeSelfRating}
+            value={value}
             style={{
               height: "100%",
               position: "absolute",
@@ -626,38 +710,23 @@ const RenderTestTable = ({
             type="number"
             min="1"
             value={
-              val.AppraiserRating
-              // ind === 0
-              //           ? customActualdeliveryMarks
-              //           : 0 ||
-              //             ind ===
-              //                       1
-              //           ? customOnTimeMarks
-              //           : 0 ||
-              //             ind ===
-              //                       2
-              //           ? customAvgCodeMarks
-              //           : 0 ||
-              //             ind ===
-              //                       3
-              //           ? customReDoMarks
-              //           : 0 ||
-              //             ind ===
-              //                       4
-              //           ? customBugsReportedMarks
-              //           : 0 ||
-              //             ind ===
-              //                       5
-              //           ? customCriticalIssuesMarks
-              //           : 0 ||
-              //             ind ===
-              //                       6
-              //           ? customCustomerSatisfactionMarks
-              //           : 0 ||
-              //             ind ===
-              //                       7
-              //           ? customUpskillingMarks
-              //           : 0
+              ind === 0
+                ? customActualdeliveryMarks
+                : 0 || ind === 1
+                ? customOnTimeMarks
+                : 0 || ind === 2
+                ? customAvgCodeMarks
+                : 0 || ind === 3
+                ? customReDoMarks
+                : 0 || ind === 4
+                ? customBugsReportedMarks
+                : 0 || ind === 5
+                ? customCriticalIssuesMarks
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarks
+                : 0 || ind === 7
+                ? customUpskillingMarks
+                : 0
             }
             style={{
               height: "100%",
@@ -689,38 +758,25 @@ const RenderTestTable = ({
             type="number"
             min="1"
             value={
-              com[ind].L
-              // ind === 0
-              //           ? customActualdeliveryMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       1
-              //           ? customOnTimeMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       2
-              //           ? customAvgCodeMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       3
-              //           ? customReDoMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       4
-              //           ? customBugsReportedMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       5
-              //           ? customCriticalIssuesMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       6
-              //           ? customCustomerSatisfactionMarksAr
-              //           : 0 ||
-              //             ind ===
-              //                       7
-              //           ? customUpskillingMarksAr
-              //           : 0
+              // val.AppraiserRating
+              // com[ind].L
+              ind === 0
+                ? customActualdeliveryMarksAr
+                : 0 || ind === 1
+                ? customOnTimeMarksAr
+                : 0 || ind === 2
+                ? customAvgCodeMarksAr
+                : 0 || ind === 3
+                ? customReDoMarksAr
+                : 0 || ind === 4
+                ? customBugsReportedMarksAr
+                : 0 || ind === 5
+                ? customCriticalIssuesMarksAr
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarksAr
+                : 0 || ind === 7
+                ? customUpskillingMarksAr
+                : 0
             }
             style={{
               height: "100%",
@@ -783,12 +839,6 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
-
-  console.log("iiiiiiiiiiiiyyyyyyyyyy", {
-    email: email,
-    ToDate: fileData[0].E,
-    FromDate: fileData[1].E,
-  });
   async function getAllData() {
     let reqOptions = {
       method: "post",
@@ -803,46 +853,66 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
-    console.log("iiiiiiiiiiiiiiiii", data);
+
     setUpdatedData(data);
   }
   useEffect(() => {
     getAllData();
   }, []);
-  const intialparentAppraise = {
-    customActualdeliveryMarksAr: 0,
-    customOnTimeMarksAr: 0,
-    customAvgCodeMarksAr: 0,
-    customReDoMarksAr: 0,
-    customBugsReportedMarksAr: 0,
-    customCriticalIssuesMarksAr: 0,
-    customCustomerSatisfactionMarksAr: 0,
-    customUpskillingMarksAr: 0,
-  };
 
-  const intialparentSelfAppraise = {
-    customActualdeliveryMarks: 0,
-    customOnTimeMarks: 0,
-    customAvgCodeMarks: 0,
-    customReDoMarks: 0,
-    customBugsReportedMarks: 0,
-    customCriticalIssuesMarks: 0,
-    customCustomerSatisfactionMarks: 0,
-    customUpskillingMarks: 0,
-  };
+  useEffect(() => {
+    if (updatedData && updatedData.data) {
+      setParentSelfAppraise({
+        customActualdeliveryMarks:
+          updatedData?.data?.data[0]?.AppraiseeSelfRating,
+        customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
+        customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
 
-  const intialTarget = {
-    actualDelivery: 0,
-    onTime: 0,
-    critical: 0,
-  };
+        customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
 
-  const [parentTarget, setParentTarget] = useState(intialTarget);
+        customBugsReportedMarks:
+          updatedData?.data?.data[4]?.AppraiseeSelfRating,
 
-  const [parentAppraise, setParentAppraise] = useState(intialparentAppraise);
-  const [parentSelfAppraise, setParentSelfAppraise] = useState(
-    intialparentSelfAppraise
-  );
+        customCriticalIssuesMarks:
+          updatedData?.data?.data[5]?.AppraiseeSelfRating,
+
+        customCustomerSatisfactionMarks:
+          updatedData?.data?.data[6]?.AppraiseeSelfRating,
+
+        customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
+      });
+    }
+    if (updatedData && updatedData.data) {
+      setParentAppraise({
+        customActualdeliveryMarksAr:
+          updatedData?.data?.data[0]?.AppraiserRating,
+        customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
+        customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
+        customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
+        customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
+        customCriticalIssuesMarksAr:
+          updatedData?.data?.data[5]?.AppraiserRating,
+        customCustomerSatisfactionMarksAr:
+          updatedData?.data?.data[6]?.AppraiserRating,
+        customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
+      });
+    }
+
+    if (updatedData && updatedData.data) {
+      setParentTarget({
+        actualDelivery: updatedData?.data?.data[0]?.Target,
+        onTime: updatedData?.data?.data[1]?.Target,
+
+        critical: updatedData?.data?.data[5]?.Target,
+      });
+    }
+  }, [updatedData]);
+
+  const [parentTarget, setParentTarget] = useState();
+
+  const [parentAppraise, setParentAppraise] = useState();
+  const [parentSelfAppraise, setParentSelfAppraise] = useState();
+
   async function KpiMarks() {
     let allFinalData = [];
     let currentDate = new Date();
@@ -863,6 +933,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
         IsEditable: 1,
         ToDate: "",
         FromDate: "",
+        ShowDevOpsData: 0,
       };
       switch (ind) {
         case (ind = 0):
@@ -1016,6 +1087,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
   let thirdTable = fileData.slice(6, 14);
   let forthTable = fileData.slice(17, 31);
   let fifthTable = fileData.slice(32, 37);
+
   return (
     <div style={{ border: "none" }}>
       <ReactHTMLTableToExcel
@@ -1156,43 +1228,45 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
             {fileData[5].O}
           </th>
         </tr>
-        {thirdTable.map((val, ind) => {
-          console.log("aaaaaaaaaaaaa111111111111");
-          return (
-            <>
-              <Renderthirdtable
-                ind={ind}
-                val={val}
-                thirdTable={thirdTable}
-                setParentAppraise={setParentAppraise}
-                parentAppraise={parentAppraise}
-                setParentSelfAppraise={setParentSelfAppraise}
-                parentSelfAppraise={parentSelfAppraise}
-                setParentTarget={setParentTarget}
-                parentTarget={parentTarget}
-              />
-            </>
-          );
-        })}
-        {updatedData?.data?.data?.map((val, ind) => {
-          console.log("aaaaaaaaaaaaaa2222222222222");
-          return (
-            <>
-              <RenderTestTable
-                ind={ind}
-                val={val}
-                com={thirdTable}
-                renderTestTable={thirdTable}
-                setParentAppraise={setParentAppraise}
-                parentAppraise={parentAppraise}
-                setParentSelfAppraise={setParentSelfAppraise}
-                parentSelfAppraise={parentSelfAppraise}
-                setParentTarget={setParentTarget}
-                parentTarget={parentTarget}
-              />
-            </>
-          );
-        })}
+
+        {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
+        updatedData?.data?.data[0]?.ShowDevOpsData === undefined
+          ? thirdTable?.map((val, ind) => {
+              return (
+                <>
+                  <Renderthirdtable
+                    ind={ind}
+                    val={val}
+                    thirdTable={thirdTable}
+                    setParentAppraise={setParentAppraise}
+                    parentAppraise={parentAppraise}
+                    setParentSelfAppraise={setParentSelfAppraise}
+                    parentSelfAppraise={parentSelfAppraise}
+                    setParentTarget={setParentTarget}
+                    parentTarget={parentTarget}
+                  />
+                </>
+              );
+            })
+          : updatedData?.data?.data?.map((val, ind) => {
+              return (
+                <>
+                  <RenderTestTable
+                    ind={ind}
+                    val={val}
+                    com={thirdTable}
+                    renderTestTable={thirdTable}
+                    setParentAppraise={setParentAppraise}
+                    parentAppraise={parentAppraise}
+                    setParentSelfAppraise={setParentSelfAppraise}
+                    parentSelfAppraise={parentSelfAppraise}
+                    setParentTarget={setParentTarget}
+                    parentTarget={parentTarget}
+                  />
+                </>
+              );
+            })}
+
         <tr style={{ height: "100px" }}></tr>
         <tr style={{ height: "40px" }}>
           <td
