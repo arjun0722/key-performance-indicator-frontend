@@ -69,6 +69,48 @@ const Renderthirdtable = ({
                     setusers(email);
           }, [email]);
 
+          //UseEffect for the Appraisee Self Rating , Appraiser Rating and target
+          console.log(thirdTable, "??????????????????");
+          useEffect(() => {
+                    setTimeout(() => {
+                              setParentSelfAppraise({
+                                        customActualdeliveryMarks:
+                                                  thirdTable[0]?.J,
+                                        customOnTimeMarks: thirdTable[1]?.J,
+                                        customAvgCodeMarks: thirdTable[2]?.J,
+                                        customReDoMarks: thirdTable[3]?.J,
+                                        customBugsReportedMarks:
+                                                  thirdTable[4]?.J,
+                                        customCriticalIssuesMarks:
+                                                  thirdTable[5]?.J,
+                                        customCustomerSatisfactionMarks:
+                                                  thirdTable[6]?.J,
+                                        customUpskillingMarks: thirdTable[7]?.J,
+                              });
+
+                              setParentAppraise({
+                                        customActualdeliveryMarksAr:
+                                                  thirdTable[0]?.L,
+                                        customOnTimeMarksAr: thirdTable[1]?.L,
+                                        customAvgCodeMarksAr: thirdTable[2]?.L,
+                                        customReDoMarksAr: thirdTable[3]?.L,
+                                        customBugsReportedMarksAr:
+                                                  thirdTable[4]?.L,
+                                        customCriticalIssuesMarksAr:
+                                                  thirdTable[5]?.L,
+                                        customCustomerSatisfactionMarksAr:
+                                                  thirdTable[6]?.L,
+                                        customUpskillingMarksAr:
+                                                  thirdTable[7]?.L,
+                              });
+                              setParentTarget({
+                                        actualDelivery: thirdTable[0]?.I,
+                                        onTime: thirdTable[1]?.I,
+                                        critical: thirdTable[5]?.I,
+                              });
+                    }, 500);
+          }, []);
+
           //state to maintain target values
 
           const [actualDelivery, setActualDelivery] = useState(
@@ -376,37 +418,41 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="1"
                                                             value={
-                                                                      ind === 0
-                                                                                ? customActualdeliveryMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? customOnTimeMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            2
-                                                                                ? customAvgCodeMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            3
-                                                                                ? customReDoMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            4
-                                                                                ? customBugsReportedMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            5
-                                                                                ? customCriticalIssuesMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            6
-                                                                                ? customCustomerSatisfactionMarks
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            7
-                                                                                ? customUpskillingMarks
-                                                                                : 0
+                                                                      loginUser ===
+                                                                      users
+                                                                                ? ind ===
+                                                                                  0
+                                                                                          ? customActualdeliveryMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      1
+                                                                                          ? customOnTimeMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      2
+                                                                                          ? customAvgCodeMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      3
+                                                                                          ? customReDoMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      4
+                                                                                          ? customBugsReportedMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      5
+                                                                                          ? customCriticalIssuesMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      6
+                                                                                          ? customCustomerSatisfactionMarks
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      7
+                                                                                          ? customUpskillingMarks
+                                                                                          : 0
+                                                                                : val.J
                                                             }
                                                             // value={val.J}
                                                             style={{
@@ -435,7 +481,88 @@ const Renderthirdtable = ({
                                                             position: "relative",
                                                   }}
                                         >
-                                                  {val.K}
+                                                  {/* {val.K} */}
+                                                  {ind === 0
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((actualDelivery -
+                                                                                            customActualdeliveryMarks) /
+                                                                                            customActualdeliveryMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 1
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((onTime -
+                                                                                            customOnTimeMarks) /
+                                                                                            customOnTimeMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 2
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customAvgCodeMarks) /
+                                                                                            customAvgCodeMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 3
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customReDoMarks) /
+                                                                                            customReDoMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 4
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customBugsReportedMarks) /
+                                                                                            customBugsReportedMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 5
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((critical -
+                                                                                            customCriticalIssuesMarks) /
+                                                                                            customCriticalIssuesMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 6
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customCustomerSatisfactionMarks) /
+                                                                                            customCustomerSatisfactionMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 7
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customUpskillingMarks) /
+                                                                                            customUpskillingMarks) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0}
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <input
@@ -501,7 +628,88 @@ const Renderthirdtable = ({
                                                                       "#70ad47",
                                                   }}
                                         >
-                                                  {val.M}
+                                                  {/* {val.M} */}
+                                                  {ind === 0
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((actualDelivery -
+                                                                                            customActualdeliveryMarksAr) /
+                                                                                            customActualdeliveryMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 1
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((onTime -
+                                                                                            customOnTimeMarksAr) /
+                                                                                            customOnTimeMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 2
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customAvgCodeMarksAr) /
+                                                                                            customAvgCodeMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 3
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customReDoMarksAr) /
+                                                                                            customReDoMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 4
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customBugsReportedMarksAr) /
+                                                                                            customBugsReportedMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 5
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((critical -
+                                                                                            customCriticalIssuesMarksAr) /
+                                                                                            customCriticalIssuesMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 6
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customCustomerSatisfactionMarksAr) /
+                                                                                            customCustomerSatisfactionMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 7
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((val.I -
+                                                                                            customUpskillingMarksAr) /
+                                                                                            customUpskillingMarksAr) *
+                                                                                            100) *
+                                                                                  val.H) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0}
                                         </td>
                                         <td>{val.N}</td>
                                         <td>{val.O}</td>
@@ -523,7 +731,6 @@ const RenderTestTable = ({
           setParentTarget,
 }) => {
           //state to maintain target values
-          console.log("********************22222222222222222");
 
           const [actualDelivery, setActualDelivery] = useState(
                     ind === 0 ? val.Target : 0
@@ -582,6 +789,22 @@ const RenderTestTable = ({
           ] = useState(ind === 6 ? val.AppraiserRating : 0);
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
                     useState(ind === 7 ? val.AppraiserRating : 0);
+
+          // this states use for Final Appraisee Marks
+          // const [finalActualdeliveryMarks, setFinalActualdelivery] =
+          //           useState(0);
+          // const [finalOnTimeMarks, setFinalOnTimeMarks] = useState(0);
+          // const [finalAvgCodeMarks, setFinalAvgCodeMarks] = useState(0);
+          // const [finalReDoMarks, setCustomFinalReDoMarks] = useState(0);
+          // const [finalBugsReportedMarks, setFinalBugsReportedMarks] =
+          //           useState(0);
+          // const [finalCriticalIssuesMarks, setFinalCriticalIssuesMarks] =
+          //           useState(0);
+          // const [
+          //           finalCustomerSatisfactionMarks,
+          //           setFinalCustomerSatisfactionMarks,
+          // ] = useState(0);
+          // const [finalUpskillingMarks, setFinalUpskillingMarks] = useState(0);
 
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
@@ -735,7 +958,7 @@ const RenderTestTable = ({
                               });
                     }
           }
-          console.log(com[ind].I, "lllllllllllllllllllllllll");
+          // console.log(val.Target, "lllllllllllllllllllllllll");
           const valueMap = [
                     actualDelivery,
                     onTime,
@@ -747,14 +970,100 @@ const RenderTestTable = ({
                     com[ind].I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
-          // console.log(
-          //           ((100 +
-          //                     ((value - val[ind].Target) / val[ind].Target) *
-          //                               100) *
-          //                     val.Weightage) /
-          //                     100,
-          //           "KKKKKKKKKKKKKKKKKKKKKK"
-          // );
+
+          // if (ind == 0) {
+          //           let fMark =
+          //                     ((100 +
+          //                               ((actualDelivery -
+          //                                         customActualdeliveryMarks) /
+          //                                         customActualdeliveryMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (fMark && !isNaN(fMark)) {
+          //                     setFinalActualdelivery(fMark);
+          //           }
+          // } else if (ind == 1) {
+          //           let sMark =
+          //                     ((100 +
+          //                               ((onTime - customOnTimeMarks) /
+          //                                         customOnTimeMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (sMark && !isNaN(sMark)) {
+          //                     setFinalOnTimeMarks(sMark);
+          //           }
+          // } else if (ind == 2) {
+          //           let tMark =
+          //                     ((100 +
+          //                               ((com[ind].I - customAvgCodeMarks) /
+          //                                         customAvgCodeMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (tMark && !isNaN(tMark)) {
+          //                     setFinalAvgCodeMarks(tMark);
+          //           }
+          // } else if (ind == 3) {
+          //           let foMark =
+          //                     ((100 +
+          //                               ((com[ind].I - customReDoMarks) /
+          //                                         customReDoMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (foMark && !isNaN(foMark)) {
+          //                     setCustomFinalReDoMarks(foMark);
+          //           }
+          // } else if (ind == 4) {
+          //           let fiMark =
+          //                     ((100 +
+          //                               ((com[ind].I -
+          //                                         customBugsReportedMarks) /
+          //                                         customBugsReportedMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (fiMark && !isNaN(fiMark)) {
+          //                     setFinalBugsReportedMarks(fiMark);
+          //           }
+          // } else if (ind == 5) {
+          //           let siMark =
+          //                     ((100 +
+          //                               ((critical -
+          //                                         customCriticalIssuesMarks) /
+          //                                         customCriticalIssuesMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (siMark && !isNaN(siMark)) {
+          //                     setFinalCriticalIssuesMarks(siMark);
+          //           }
+          // } else if (ind == 6) {
+          //           let seMark =
+          //                     ((100 +
+          //                               ((com[ind].I -
+          //                                         customCustomerSatisfactionMarks) /
+          //                                         customCustomerSatisfactionMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (seMark && !isNaN(seMark)) {
+          //                     setFinalCustomerSatisfactionMarks(seMark);
+          //           }
+          // } else if (ind == 7) {
+          //           let eMark =
+          //                     ((100 +
+          //                               ((com[ind].I - customUpskillingMarks) /
+          //                                         customUpskillingMarks) *
+          //                                         100) *
+          //                               val.Weightage) /
+          //                     100;
+          //           if (eMark && !isNaN(eMark)) {
+          //                     setFinalUpskillingMarks(eMark);
+          //           }
+          // }
           return (
                     <>
                               <tr id={ind}>
@@ -854,7 +1163,103 @@ const RenderTestTable = ({
                                                             position: "relative",
                                                   }}
                                         >
-                                                  {com[ind].K}
+                                                  {/* {com[ind].K} */}
+                                                  {ind === 0
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((actualDelivery -
+                                                                                            customActualdeliveryMarks) /
+                                                                                            customActualdeliveryMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 1
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((onTime -
+                                                                                            customOnTimeMarks) /
+                                                                                            customOnTimeMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 2
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customAvgCodeMarks) /
+                                                                                            customAvgCodeMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 3
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customReDoMarks) /
+                                                                                            customReDoMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 4
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customBugsReportedMarks) /
+                                                                                            customBugsReportedMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 5
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((critical -
+                                                                                            customCriticalIssuesMarks) /
+                                                                                            customCriticalIssuesMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 6
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customCustomerSatisfactionMarks) /
+                                                                                            customCustomerSatisfactionMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 7
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customUpskillingMarks) /
+                                                                                            customUpskillingMarks) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0}
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.L} */}
@@ -922,7 +1327,103 @@ const RenderTestTable = ({
                                                                       "#70ad47",
                                                   }}
                                         >
-                                                  {com[ind].M}
+                                                  {/* {com[ind].M} */}
+                                                  {ind === 0
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((actualDelivery -
+                                                                                            customActualdeliveryMarksAr) /
+                                                                                            customActualdeliveryMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 1
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((onTime -
+                                                                                            customOnTimeMarksAr) /
+                                                                                            customOnTimeMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 2
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customAvgCodeMarksAr) /
+                                                                                            customAvgCodeMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 3
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customReDoMarksAr) /
+                                                                                            customReDoMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 4
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customBugsReportedMarksAr) /
+                                                                                            customBugsReportedMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 5
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((critical -
+                                                                                            customCriticalIssuesMarksAr) /
+                                                                                            customCriticalIssuesMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 6
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customCustomerSatisfactionMarksAr) /
+                                                                                            customCustomerSatisfactionMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0 || ind === 7
+                                                            ? Number(
+                                                                        ((100 +
+                                                                                  ((com[
+                                                                                            ind
+                                                                                  ]
+                                                                                            .I -
+                                                                                            customUpskillingMarksAr) /
+                                                                                            customUpskillingMarksAr) *
+                                                                                            100) *
+                                                                                  val.Weightage) /
+                                                                                  100
+                                                              ).toFixed(2)
+                                                            : 0}
                                         </td>
                                         <td>{com[ind].N}</td>
                                         <td>{com[ind].O}</td>
@@ -1059,10 +1560,11 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     }
           }, [updatedData]);
 
-          const [parentTarget, setParentTarget] = useState();
+          const [parentTarget, setParentTarget] = useState({});
 
-          const [parentAppraise, setParentAppraise] = useState();
-          const [parentSelfAppraise, setParentSelfAppraise] = useState();
+          const [parentAppraise, setParentAppraise] = useState({});
+          const [parentSelfAppraise, setParentSelfAppraise] = useState({});
+          console.log("EEEEEEEEEEEE", parentSelfAppraise);
 
           async function KpiMarks() {
                     let allFinalData = [];
@@ -1528,14 +2030,14 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                         return (
                                                                                   <>
                                                                                             <Renderthirdtable
+                                                                                                      thirdTable={
+                                                                                                                thirdTable
+                                                                                                      }
                                                                                                       ind={
                                                                                                                 ind
                                                                                                       }
                                                                                                       val={
                                                                                                                 val
-                                                                                                      }
-                                                                                                      thirdTable={
-                                                                                                                thirdTable
                                                                                                       }
                                                                                                       setParentAppraise={
                                                                                                                 setParentAppraise
@@ -1733,18 +2235,24 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                         <td
                                                   style={{
                                                             background: "lightgrey",
+                                                            position: "relative",
                                                             height: "9rem",
                                                             display: "flex",
                                                             border: "none",
                                                   }}
                                         >
-                                                  <input
+                                                  <textarea
                                                             type="text"
-                                                            placeholder="positive point"
+                                                            // placeholder="positive point"
                                                             style={{
                                                                       outline: "none",
-                                                                      background: "#e3e2e2",
+                                                                      position: "absolute",
+                                                                      background: "rgb(227, 226, 226)",
                                                                       border: "none",
+                                                                      width: " 590px",
+                                                                      padding: "10px 29px",
+                                                                      height: "145px",
+                                                                      resize: "none",
                                                             }}
                                                   />
                                         </td>
@@ -1763,33 +2271,51 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                 margin: " 0px 25px",
                                                                       }}
                                                             >
-                                                                      Score of
+                                                                      Scope of
                                                                       improvement
                                                             </span>
                                                   </td>
                                         </tr>
                                         <td
                                                   style={{
+                                                            background: "lightgrey",
+                                                            position: "relative",
                                                             height: "9rem",
-                                                            // width: "29rem",
                                                             display: "flex",
                                                             border: "none",
                                                   }}
                                         >
-                                                  <input
+                                                  <textarea
                                                             type="text"
-                                                            placeholder="score of improvement"
+                                                            // placeholder="positive point"
                                                             style={{
                                                                       outline: "none",
-                                                                      background: "#e3e2e2",
+                                                                      position: "absolute",
+                                                                      background: "rgb(227, 226, 226)",
                                                                       border: "none",
+                                                                      width: " 590px",
+                                                                      padding: "10px 29px",
+                                                                      height: "145px",
+                                                                      resize: "none",
                                                             }}
                                                   />
                                         </td>
                                         <tr style={{ height: "30px" }}></tr>
-                                        <td style={{ border: "none" }}>
-                                                  Do you agree with this
-                                                  feedback ?{" "}
+                                        <td
+                                                  style={{
+                                                            backgroundColor:
+                                                                      "#92d050",
+                                                  }}
+                                                  colSpan="5"
+                                        >
+                                                  <span
+                                                            style={{
+                                                                      margin: " 0px 25px",
+                                                            }}
+                                                  >
+                                                            Do you agree with
+                                                            this feedback ?{" "}
+                                                  </span>
                                         </td>
                                         <tr style={{ height: "15px" }}></tr>
                                         <td
