@@ -6,6 +6,8 @@ import { ACCESS_TOKEN } from "../../Config/Constant";
 import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
 import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
+import Loading from "../Loading";
+import { show_error } from "../../Config/Helper";
 
 const Renderfirsttable = ({ val }) => {
           return (
@@ -379,6 +381,18 @@ const Renderthirdtable = ({
                               ? appraiseSelfRating[ind]
                               : "";
 
+          const formula = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+
           return (
                     <>
                               <tr id={ind}>
@@ -416,43 +430,39 @@ const Renderthirdtable = ({
                                         <td style={{ position: "relative" }}>
                                                   <input
                                                             type="number"
-                                                            min="1"
+                                                            min="0"
                                                             value={
-                                                                      loginUser ===
-                                                                      users
-                                                                                ? ind ===
-                                                                                  0
-                                                                                          ? customActualdeliveryMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      1
-                                                                                          ? customOnTimeMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      2
-                                                                                          ? customAvgCodeMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      3
-                                                                                          ? customReDoMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      4
-                                                                                          ? customBugsReportedMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      5
-                                                                                          ? customCriticalIssuesMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      6
-                                                                                          ? customCustomerSatisfactionMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      7
-                                                                                          ? customUpskillingMarks
-                                                                                          : 0
-                                                                                : val.J
+                                                                      ind === 0
+                                                                                ? customActualdeliveryMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? customOnTimeMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            2
+                                                                                ? customAvgCodeMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            3
+                                                                                ? customReDoMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            4
+                                                                                ? customBugsReportedMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            5
+                                                                                ? customCriticalIssuesMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            6
+                                                                                ? customCustomerSatisfactionMarks
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            7
+                                                                                ? customUpskillingMarks
+                                                                                : 0
                                                             }
                                                             // value={val.J}
                                                             style={{
@@ -483,91 +493,59 @@ const Renderthirdtable = ({
                                         >
                                                   {/* {val.K} */}
                                                   {ind === 0
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((actualDelivery -
-                                                                                            customActualdeliveryMarks) /
-                                                                                            customActualdeliveryMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        actualDelivery,
+                                                                        customActualdeliveryMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 1
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((onTime -
-                                                                                            customOnTimeMarks) /
-                                                                                            customOnTimeMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        onTime,
+                                                                        customOnTimeMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 2
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customAvgCodeMarks) /
-                                                                                            customAvgCodeMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customAvgCodeMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 3
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customReDoMarks) /
-                                                                                            customReDoMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customReDoMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 4
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customBugsReportedMarks) /
-                                                                                            customBugsReportedMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customBugsReportedMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 5
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((critical -
-                                                                                            customCriticalIssuesMarks) /
-                                                                                            customCriticalIssuesMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        critical,
+                                                                        customCriticalIssuesMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 6
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customCustomerSatisfactionMarks) /
-                                                                                            customCustomerSatisfactionMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customCustomerSatisfactionMarks,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 7
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customUpskillingMarks) /
-                                                                                            customUpskillingMarks) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customUpskillingMarks,
+                                                                        val.H
+                                                              )
                                                             : 0}
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <input
                                                             type="number"
-                                                            min="1"
+                                                            min="0"
                                                             value={
                                                                       ind === 0
                                                                                 ? customActualdeliveryMarksAr
@@ -630,85 +608,53 @@ const Renderthirdtable = ({
                                         >
                                                   {/* {val.M} */}
                                                   {ind === 0
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((actualDelivery -
-                                                                                            customActualdeliveryMarksAr) /
-                                                                                            customActualdeliveryMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        actualDelivery,
+                                                                        customActualdeliveryMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 1
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((onTime -
-                                                                                            customOnTimeMarksAr) /
-                                                                                            customOnTimeMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        onTime,
+                                                                        customOnTimeMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 2
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customAvgCodeMarksAr) /
-                                                                                            customAvgCodeMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customAvgCodeMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 3
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customReDoMarksAr) /
-                                                                                            customReDoMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customReDoMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 4
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customBugsReportedMarksAr) /
-                                                                                            customBugsReportedMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customBugsReportedMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 5
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((critical -
-                                                                                            customCriticalIssuesMarksAr) /
-                                                                                            customCriticalIssuesMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        critical,
+                                                                        customCriticalIssuesMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 6
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customCustomerSatisfactionMarksAr) /
-                                                                                            customCustomerSatisfactionMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customCustomerSatisfactionMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0 || ind === 7
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((val.I -
-                                                                                            customUpskillingMarksAr) /
-                                                                                            customUpskillingMarksAr) *
-                                                                                            100) *
-                                                                                  val.H) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        val.I,
+                                                                        customUpskillingMarksAr,
+                                                                        val.H
+                                                              )
                                                             : 0}
                                         </td>
                                         <td>{val.N}</td>
@@ -1064,6 +1010,18 @@ const RenderTestTable = ({
           //                     setFinalUpskillingMarks(eMark);
           //           }
           // }
+
+          const formula = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
           return (
                     <>
                               <tr id={ind}>
@@ -1103,7 +1061,7 @@ const RenderTestTable = ({
                                                   {/* {val.J} */}
                                                   <input
                                                             type="number"
-                                                            min="1"
+                                                            min="0"
                                                             value={
                                                                       ind === 0
                                                                                 ? customActualdeliveryMarks
@@ -1165,107 +1123,65 @@ const RenderTestTable = ({
                                         >
                                                   {/* {com[ind].K} */}
                                                   {ind === 0
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((actualDelivery -
-                                                                                            customActualdeliveryMarks) /
-                                                                                            customActualdeliveryMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        actualDelivery,
+                                                                        customActualdeliveryMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 1
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((onTime -
-                                                                                            customOnTimeMarks) /
-                                                                                            customOnTimeMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        onTime,
+                                                                        customOnTimeMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 2
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customAvgCodeMarks) /
-                                                                                            customAvgCodeMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customAvgCodeMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 3
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customReDoMarks) /
-                                                                                            customReDoMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customReDoMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 4
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customBugsReportedMarks) /
-                                                                                            customBugsReportedMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customBugsReportedMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 5
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((critical -
-                                                                                            customCriticalIssuesMarks) /
-                                                                                            customCriticalIssuesMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        critical,
+                                                                        customCriticalIssuesMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 6
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customCustomerSatisfactionMarks) /
-                                                                                            customCustomerSatisfactionMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customCustomerSatisfactionMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 7
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customUpskillingMarks) /
-                                                                                            customUpskillingMarks) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customUpskillingMarks,
+                                                                        val.Weightage
+                                                              )
                                                             : 0}
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.L} */}
                                                   <input
                                                             type="number"
-                                                            min="1"
+                                                            min="0"
                                                             value={
                                                                       // val.AppraiserRating
                                                                       // com[ind].L
@@ -1329,100 +1245,58 @@ const RenderTestTable = ({
                                         >
                                                   {/* {com[ind].M} */}
                                                   {ind === 0
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((actualDelivery -
-                                                                                            customActualdeliveryMarksAr) /
-                                                                                            customActualdeliveryMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        actualDelivery,
+                                                                        customActualdeliveryMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 1
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((onTime -
-                                                                                            customOnTimeMarksAr) /
-                                                                                            customOnTimeMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        onTime,
+                                                                        customOnTimeMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 2
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customAvgCodeMarksAr) /
-                                                                                            customAvgCodeMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customAvgCodeMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 3
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customReDoMarksAr) /
-                                                                                            customReDoMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customReDoMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 4
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customBugsReportedMarksAr) /
-                                                                                            customBugsReportedMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customBugsReportedMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 5
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((critical -
-                                                                                            customCriticalIssuesMarksAr) /
-                                                                                            customCriticalIssuesMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        critical,
+                                                                        customCriticalIssuesMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 6
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customCustomerSatisfactionMarksAr) /
-                                                                                            customCustomerSatisfactionMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customCustomerSatisfactionMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0 || ind === 7
-                                                            ? Number(
-                                                                        ((100 +
-                                                                                  ((com[
-                                                                                            ind
-                                                                                  ]
-                                                                                            .I -
-                                                                                            customUpskillingMarksAr) /
-                                                                                            customUpskillingMarksAr) *
-                                                                                            100) *
-                                                                                  val.Weightage) /
-                                                                                  100
-                                                              ).toFixed(2)
+                                                            ? formula(
+                                                                        com[ind]
+                                                                                  .I,
+                                                                        customUpskillingMarksAr,
+                                                                        val.Weightage
+                                                              )
                                                             : 0}
                                         </td>
                                         <td>{com[ind].N}</td>
@@ -1458,6 +1332,7 @@ const Renderfifthtable = ({ val }) => {
 };
 
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
+          const [loader, setLoader] = useState(false);
           const [updatedData, setUpdatedData] = useState({});
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -1567,6 +1442,9 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           console.log("EEEEEEEEEEEE", parentSelfAppraise);
 
           async function KpiMarks() {
+                    // show_error("are you agree this points");
+                    alert("okkkkkkkkkkkk");
+                    setLoader(true);
                     let allFinalData = [];
                     let currentDate = new Date();
                     let dateTime1 = moment(currentDate).format(
@@ -1844,12 +1722,15 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                   return allFinalData;
                               }
                     });
-                    let data = await axios({
+                    let data = axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/marks`,
                               data: allFinalData,
                               headers: { Accept: "application/json" },
                     });
+                    setTimeout(() => {
+                              setLoader(false);
+                    }, 2000);
           }
 
           let firstTable = fileData.slice(0, 4);
@@ -1859,552 +1740,730 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           let fifthTable = fileData.slice(32, 37);
 
           return (
-                    <div style={{ border: "none" }}>
-                              <ReactHTMLTableToExcel
-                                        id="test-table-xls-button"
-                                        className="download-table-xls-button"
-                                        table="table-to-xls"
-                                        filename={email}
-                                        sheet="kpisheet"
-                                        buttonText="Export to Excel"
-                              />
+                    <>
+                              {loader ? (
+                                        <Loading />
+                              ) : (
+                                        <div style={{ border: "none" }}>
+                                                  <ReactHTMLTableToExcel
+                                                            id="test-table-xls-button"
+                                                            className="download-table-xls-button"
+                                                            table="table-to-xls"
+                                                            filename={email}
+                                                            sheet="kpisheet"
+                                                            buttonText="Export to Excel"
+                                                  />
 
-                              <br />
-                              <br />
-                              <table
-                                        id="table-to-xls"
-                                        className="waffle"
-                                        cellSpacing="0"
-                                        cellPadding="0"
-                                        border="true"
-                              >
-                                        {firstTable.map((val, index) => {
-                                                  return (
-                                                            <>
-                                                                      <Renderfirsttable
-                                                                                key={
-                                                                                          index
-                                                                                }
-                                                                                val={
-                                                                                          val
-                                                                                }
-                                                                      />
-                                                            </>
-                                                  );
-                                        })}
-                                        <tr style={{ height: "100px" }}></tr>
-                                        <tr>
-                                                  {" "}
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#f4b084",
-                                                                      height: "40px",
-                                                            }}
-                                                            colSpan="14"
+                                                  <br />
+                                                  <br />
+                                                  <table
+                                                            id="table-to-xls"
+                                                            className="waffle"
+                                                            cellSpacing="0"
+                                                            cellPadding="0"
+                                                            border="true"
                                                   >
-                                                            {secondTable[0].B}
-                                                  </td>
-                                        </tr>
-                                        <tr>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].B}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].C}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].D}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].E}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].F}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].G}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].H}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].I}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].J}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].K}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].L}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].M}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].N}
-                                                  </th>
-                                                  <th
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#00b0f0",
-                                                            }}
-                                                  >
-                                                            {fileData[5].O}
-                                                  </th>
-                                        </tr>
-
-                                        {updatedData?.data?.data[0]
-                                                  ?.ShowDevOpsData === 1 ||
-                                        updatedData?.data?.data[0]
-                                                  ?.ShowDevOpsData === undefined
-                                                  ? thirdTable?.map(
-                                                              (val, ind) => {
-                                                                        return (
-                                                                                  <>
-                                                                                            <Renderthirdtable
-                                                                                                      thirdTable={
-                                                                                                                thirdTable
-                                                                                                      }
-                                                                                                      ind={
-                                                                                                                ind
-                                                                                                      }
-                                                                                                      val={
-                                                                                                                val
-                                                                                                      }
-                                                                                                      setParentAppraise={
-                                                                                                                setParentAppraise
-                                                                                                      }
-                                                                                                      parentAppraise={
-                                                                                                                parentAppraise
-                                                                                                      }
-                                                                                                      setParentSelfAppraise={
-                                                                                                                setParentSelfAppraise
-                                                                                                      }
-                                                                                                      parentSelfAppraise={
-                                                                                                                parentSelfAppraise
-                                                                                                      }
-                                                                                                      setParentTarget={
-                                                                                                                setParentTarget
-                                                                                                      }
-                                                                                                      parentTarget={
-                                                                                                                parentTarget
-                                                                                                      }
-                                                                                            />
-                                                                                  </>
-                                                                        );
-                                                              }
-                                                    )
-                                                  : updatedData?.data?.data?.map(
-                                                              (val, ind) => {
-                                                                        return (
-                                                                                  <>
-                                                                                            <RenderTestTable
-                                                                                                      ind={
-                                                                                                                ind
-                                                                                                      }
-                                                                                                      val={
-                                                                                                                val
-                                                                                                      }
-                                                                                                      com={
-                                                                                                                thirdTable
-                                                                                                      }
-                                                                                                      renderTestTable={
-                                                                                                                thirdTable
-                                                                                                      }
-                                                                                                      setParentAppraise={
-                                                                                                                setParentAppraise
-                                                                                                      }
-                                                                                                      parentAppraise={
-                                                                                                                parentAppraise
-                                                                                                      }
-                                                                                                      setParentSelfAppraise={
-                                                                                                                setParentSelfAppraise
-                                                                                                      }
-                                                                                                      parentSelfAppraise={
-                                                                                                                parentSelfAppraise
-                                                                                                      }
-                                                                                                      setParentTarget={
-                                                                                                                setParentTarget
-                                                                                                      }
-                                                                                                      parentTarget={
-                                                                                                                parentTarget
-                                                                                                      }
-                                                                                            />
-                                                                                  </>
-                                                                        );
-                                                              }
-                                                    )}
-
-                                        <tr style={{ height: "100px" }}></tr>
-                                        <tr style={{ height: "40px" }}>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#f4b084",
-                                                                      textAlign: "center",
-                                                            }}
-                                                            colSpan="5"
-                                                  >
-                                                            {fileData[14].B}
-                                                  </td>
-                                        </tr>
-                                        <tr>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                                      textAlign: "center",
-                                                            }}
-                                                            rowSpan="2"
-                                                  >
-                                                            {fileData[15].B}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[15].C}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[15].D}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[15].E}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                            rowSpan="2"
-                                                  >
-                                                            {fileData[15].F}
-                                                  </td>
-                                        </tr>
-                                        <tr>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[16].C}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[16].D}
-                                                  </td>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                  >
-                                                            {fileData[16].E}
-                                                  </td>
-                                        </tr>
-                                        {forthTable.map((val, index) => {
-                                                  return (
-                                                            <>
-                                                                      <Renderforthtable
-                                                                                key={
-                                                                                          index
-                                                                                }
-                                                                                val={
-                                                                                          val
-                                                                                }
-                                                                      />
-                                                            </>
-                                                  );
-                                        })}
-                                        <tr style={{ height: "100px" }}></tr>
-                                        <tr style={{ height: "40px" }}>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#f4b084",
-                                                                      textAlign: "center",
-                                                            }}
-                                                            colSpan="5"
-                                                  >
-                                                            Feedback
-                                                  </td>
-                                        </tr>
-                                        <tr style={{ height: "40px" }}>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                            colSpan="5"
-                                                  >
-                                                            <span
+                                                            {firstTable.map(
+                                                                      (
+                                                                                val,
+                                                                                index
+                                                                      ) => {
+                                                                                return (
+                                                                                          <>
+                                                                                                    <Renderfirsttable
+                                                                                                              key={
+                                                                                                                        index
+                                                                                                              }
+                                                                                                              val={
+                                                                                                                        val
+                                                                                                              }
+                                                                                                    />
+                                                                                          </>
+                                                                                );
+                                                                      }
+                                                            )}
+                                                            <tr
                                                                       style={{
-                                                                                margin: " 0px 25px",
+                                                                                height: "100px",
+                                                                      }}
+                                                            ></tr>
+                                                            <tr>
+                                                                      {" "}
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#f4b084",
+                                                                                          height: "40px",
+                                                                                }}
+                                                                                colSpan="14"
+                                                                      >
+                                                                                {
+                                                                                          secondTable[0]
+                                                                                                    .B
+                                                                                }
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .B
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .C
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .D
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .E
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .F
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .G
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .H
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .I
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .J
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .K
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .L
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .M
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .N
+                                                                                }
+                                                                      </th>
+                                                                      <th
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#00b0f0",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[5]
+                                                                                                    .O
+                                                                                }
+                                                                      </th>
+                                                            </tr>
+
+                                                            {updatedData?.data
+                                                                      ?.data[0]
+                                                                      ?.ShowDevOpsData ===
+                                                                      1 ||
+                                                            updatedData?.data
+                                                                      ?.data[0]
+                                                                      ?.ShowDevOpsData ===
+                                                                      undefined
+                                                                      ? thirdTable?.map(
+                                                                                  (
+                                                                                            val,
+                                                                                            ind
+                                                                                  ) => {
+                                                                                            return (
+                                                                                                      <>
+                                                                                                                <Renderthirdtable
+                                                                                                                          thirdTable={
+                                                                                                                                    thirdTable
+                                                                                                                          }
+                                                                                                                          ind={
+                                                                                                                                    ind
+                                                                                                                          }
+                                                                                                                          val={
+                                                                                                                                    val
+                                                                                                                          }
+                                                                                                                          setParentAppraise={
+                                                                                                                                    setParentAppraise
+                                                                                                                          }
+                                                                                                                          parentAppraise={
+                                                                                                                                    parentAppraise
+                                                                                                                          }
+                                                                                                                          setParentSelfAppraise={
+                                                                                                                                    setParentSelfAppraise
+                                                                                                                          }
+                                                                                                                          parentSelfAppraise={
+                                                                                                                                    parentSelfAppraise
+                                                                                                                          }
+                                                                                                                          setParentTarget={
+                                                                                                                                    setParentTarget
+                                                                                                                          }
+                                                                                                                          parentTarget={
+                                                                                                                                    parentTarget
+                                                                                                                          }
+                                                                                                                />
+                                                                                                      </>
+                                                                                            );
+                                                                                  }
+                                                                        )
+                                                                      : updatedData?.data?.data?.map(
+                                                                                  (
+                                                                                            val,
+                                                                                            ind
+                                                                                  ) => {
+                                                                                            return (
+                                                                                                      <>
+                                                                                                                <RenderTestTable
+                                                                                                                          ind={
+                                                                                                                                    ind
+                                                                                                                          }
+                                                                                                                          val={
+                                                                                                                                    val
+                                                                                                                          }
+                                                                                                                          com={
+                                                                                                                                    thirdTable
+                                                                                                                          }
+                                                                                                                          renderTestTable={
+                                                                                                                                    thirdTable
+                                                                                                                          }
+                                                                                                                          setParentAppraise={
+                                                                                                                                    setParentAppraise
+                                                                                                                          }
+                                                                                                                          parentAppraise={
+                                                                                                                                    parentAppraise
+                                                                                                                          }
+                                                                                                                          setParentSelfAppraise={
+                                                                                                                                    setParentSelfAppraise
+                                                                                                                          }
+                                                                                                                          parentSelfAppraise={
+                                                                                                                                    parentSelfAppraise
+                                                                                                                          }
+                                                                                                                          setParentTarget={
+                                                                                                                                    setParentTarget
+                                                                                                                          }
+                                                                                                                          parentTarget={
+                                                                                                                                    parentTarget
+                                                                                                                          }
+                                                                                                                />
+                                                                                                      </>
+                                                                                            );
+                                                                                  }
+                                                                        )}
+
+                                                            <tr
+                                                                      style={{
+                                                                                height: "100px",
+                                                                      }}
+                                                            ></tr>
+                                                            <tr
+                                                                      style={{
+                                                                                height: "40px",
                                                                       }}
                                                             >
-                                                                      Positive
-                                                                      point
-                                                            </span>
-                                                  </td>
-                                        </tr>
-                                        <td
-                                                  style={{
-                                                            background: "lightgrey",
-                                                            position: "relative",
-                                                            height: "9rem",
-                                                            display: "flex",
-                                                            border: "none",
-                                                  }}
-                                        >
-                                                  <textarea
-                                                            type="text"
-                                                            // placeholder="positive point"
-                                                            style={{
-                                                                      outline: "none",
-                                                                      position: "absolute",
-                                                                      background: "rgb(227, 226, 226)",
-                                                                      border: "none",
-                                                                      width: " 590px",
-                                                                      padding: "10px 29px",
-                                                                      height: "145px",
-                                                                      resize: "none",
-                                                            }}
-                                                  />
-                                        </td>
-                                        <tr style={{ height: "50px" }}></tr>
-
-                                        <tr style={{ height: "40px" }}>
-                                                  <td
-                                                            style={{
-                                                                      backgroundColor:
-                                                                                "#92d050",
-                                                            }}
-                                                            colSpan="5"
-                                                  >
-                                                            <span
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#f4b084",
+                                                                                          textAlign: "center",
+                                                                                }}
+                                                                                colSpan="5"
+                                                                      >
+                                                                                {
+                                                                                          fileData[14]
+                                                                                                    .B
+                                                                                }
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                          textAlign: "center",
+                                                                                }}
+                                                                                rowSpan="2"
+                                                                      >
+                                                                                {
+                                                                                          fileData[15]
+                                                                                                    .B
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[15]
+                                                                                                    .C
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[15]
+                                                                                                    .D
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[15]
+                                                                                                    .E
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                                rowSpan="2"
+                                                                      >
+                                                                                {
+                                                                                          fileData[15]
+                                                                                                    .F
+                                                                                }
+                                                                      </td>
+                                                            </tr>
+                                                            <tr>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[16]
+                                                                                                    .C
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[16]
+                                                                                                    .D
+                                                                                }
+                                                                      </td>
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                      >
+                                                                                {
+                                                                                          fileData[16]
+                                                                                                    .E
+                                                                                }
+                                                                      </td>
+                                                            </tr>
+                                                            {forthTable.map(
+                                                                      (
+                                                                                val,
+                                                                                index
+                                                                      ) => {
+                                                                                return (
+                                                                                          <>
+                                                                                                    <Renderforthtable
+                                                                                                              key={
+                                                                                                                        index
+                                                                                                              }
+                                                                                                              val={
+                                                                                                                        val
+                                                                                                              }
+                                                                                                    />
+                                                                                          </>
+                                                                                );
+                                                                      }
+                                                            )}
+                                                            <tr
                                                                       style={{
-                                                                                margin: " 0px 25px",
+                                                                                height: "100px",
+                                                                      }}
+                                                            ></tr>
+                                                            <tr
+                                                                      style={{
+                                                                                height: "40px",
                                                                       }}
                                                             >
-                                                                      Scope of
-                                                                      improvement
-                                                            </span>
-                                                  </td>
-                                        </tr>
-                                        <td
-                                                  style={{
-                                                            background: "lightgrey",
-                                                            position: "relative",
-                                                            height: "9rem",
-                                                            display: "flex",
-                                                            border: "none",
-                                                  }}
-                                        >
-                                                  <textarea
-                                                            type="text"
-                                                            // placeholder="positive point"
-                                                            style={{
-                                                                      outline: "none",
-                                                                      position: "absolute",
-                                                                      background: "rgb(227, 226, 226)",
-                                                                      border: "none",
-                                                                      width: " 590px",
-                                                                      padding: "10px 29px",
-                                                                      height: "145px",
-                                                                      resize: "none",
-                                                            }}
-                                                  />
-                                        </td>
-                                        <tr style={{ height: "30px" }}></tr>
-                                        <td
-                                                  style={{
-                                                            backgroundColor:
-                                                                      "#92d050",
-                                                  }}
-                                                  colSpan="5"
-                                        >
-                                                  <span
-                                                            style={{
-                                                                      margin: " 0px 25px",
-                                                            }}
-                                                  >
-                                                            Do you agree with
-                                                            this feedback ?{" "}
-                                                  </span>
-                                        </td>
-                                        <tr style={{ height: "15px" }}></tr>
-                                        <td
-                                                  style={{
-                                                            display: "flex",
-                                                            border: "none",
-                                                  }}
-                                        >
-                                                  <div>
-                                                            <button
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#f4b084",
+                                                                                          textAlign: "center",
+                                                                                }}
+                                                                                colSpan="5"
+                                                                      >
+                                                                                Feedback
+                                                                      </td>
+                                                            </tr>
+                                                            <tr
                                                                       style={{
-                                                                                borderRadius: "0px",
-                                                                                height: "30px",
-                                                                                width: "60px",
-                                                                                fontSize: "13px",
-
-                                                                                background: "#b0afaf",
-                                                                                color: "black",
-                                                                                fontWeight: "600",
+                                                                                height: "40px",
+                                                                      }}
+                                                            >
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                                colSpan="5"
+                                                                      >
+                                                                                <span
+                                                                                          style={{
+                                                                                                    margin: " 0px 25px",
+                                                                                          }}
+                                                                                >
+                                                                                          Positive
+                                                                                          point
+                                                                                </span>
+                                                                      </td>
+                                                            </tr>
+                                                            <td
+                                                                      style={{
+                                                                                background: "lightgrey",
+                                                                                position: "relative",
+                                                                                height: "9rem",
                                                                                 display: "flex",
-                                                                                justifyContent:
-                                                                                          "center",
-                                                                                margin: "0px 10px",
+                                                                                border: "none",
                                                                       }}
                                                             >
-                                                                      <span>
-                                                                                Yes
+                                                                      <textarea
+                                                                                type="text"
+                                                                                // placeholder="positive point"
+                                                                                style={{
+                                                                                          outline: "none",
+                                                                                          position: "absolute",
+                                                                                          background: "rgb(227, 226, 226)",
+                                                                                          border: "none",
+                                                                                          width: " 590px",
+                                                                                          padding: "10px 29px",
+                                                                                          height: "145px",
+                                                                                          resize: "none",
+                                                                                }}
+                                                                      />
+                                                            </td>
+                                                            <tr
+                                                                      style={{
+                                                                                height: "50px",
+                                                                      }}
+                                                            ></tr>
+
+                                                            <tr
+                                                                      style={{
+                                                                                height: "40px",
+                                                                      }}
+                                                            >
+                                                                      <td
+                                                                                style={{
+                                                                                          backgroundColor:
+                                                                                                    "#92d050",
+                                                                                }}
+                                                                                colSpan="5"
+                                                                      >
+                                                                                <span
+                                                                                          style={{
+                                                                                                    margin: " 0px 25px",
+                                                                                          }}
+                                                                                >
+                                                                                          Scope
+                                                                                          of
+                                                                                          improvement
+                                                                                </span>
+                                                                      </td>
+                                                            </tr>
+                                                            <td
+                                                                      style={{
+                                                                                background: "lightgrey",
+                                                                                position: "relative",
+                                                                                height: "9rem",
+                                                                                display: "flex",
+                                                                                border: "none",
+                                                                      }}
+                                                            >
+                                                                      <textarea
+                                                                                type="text"
+                                                                                // placeholder="positive point"
+                                                                                style={{
+                                                                                          outline: "none",
+                                                                                          position: "absolute",
+                                                                                          background: "rgb(227, 226, 226)",
+                                                                                          border: "none",
+                                                                                          width: " 590px",
+                                                                                          padding: "10px 29px",
+                                                                                          height: "145px",
+                                                                                          resize: "none",
+                                                                                }}
+                                                                      />
+                                                            </td>
+                                                            <tr
+                                                                      style={{
+                                                                                height: "30px",
+                                                                      }}
+                                                            ></tr>
+                                                            <td
+                                                                      style={{
+                                                                                backgroundColor:
+                                                                                          "#92d050",
+                                                                      }}
+                                                                      colSpan="5"
+                                                            >
+                                                                      <span
+                                                                                style={{
+                                                                                          margin: " 0px 25px",
+                                                                                }}
+                                                                      >
+                                                                                Do
+                                                                                you
+                                                                                agree
+                                                                                with
+                                                                                this
+                                                                                feedback
+                                                                                ?{" "}
                                                                       </span>
-                                                            </button>
-                                                  </div>
-                                                  <div>
-                                                            <button
+                                                            </td>
+                                                            <tr
                                                                       style={{
-                                                                                borderRadius: "0px",
-                                                                                height: "30px",
-                                                                                width: "60px",
-                                                                                fontSize: "13px",
+                                                                                height: "15px",
+                                                                      }}
+                                                            ></tr>
+                                                            <td
+                                                                      style={{
                                                                                 display: "flex",
-                                                                                justifyContent:
-                                                                                          "center",
-                                                                                background: "#b0afaf",
-                                                                                color: "black",
-                                                                                fontWeight: "600",
-                                                                                margin: "0px 15px",
+                                                                                border: "none",
                                                                       }}
                                                             >
-                                                                      No
-                                                            </button>
-                                                  </div>
-                                        </td>
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
-                                        <td style={{ border: "none" }}></td>
+                                                                      <div>
+                                                                                <button
+                                                                                          style={{
+                                                                                                    borderRadius: "0px",
+                                                                                                    height: "30px",
+                                                                                                    width: "60px",
+                                                                                                    fontSize: "13px",
 
-                                        <div>
-                                                  <Button
-                                                            variant="contained"
-                                                            style={{
-                                                                      width: "100%",
-                                                                      minWidth: "120px",
-                                                            }}
-                                                            onClick={() =>
-                                                                      KpiMarks()
-                                                            }
-                                                  >
-                                                            Submit KPI
-                                                  </Button>
+                                                                                                    background: "#b0afaf",
+                                                                                                    color: "black",
+                                                                                                    fontWeight: "600",
+                                                                                                    display: "flex",
+                                                                                                    justifyContent:
+                                                                                                              "center",
+                                                                                                    margin: "0px 10px",
+                                                                                          }}
+                                                                                >
+                                                                                          <span>
+                                                                                                    Yes
+                                                                                          </span>
+                                                                                </button>
+                                                                      </div>
+                                                                      <div>
+                                                                                <button
+                                                                                          style={{
+                                                                                                    borderRadius: "0px",
+                                                                                                    height: "30px",
+                                                                                                    width: "60px",
+                                                                                                    fontSize: "13px",
+                                                                                                    display: "flex",
+                                                                                                    justifyContent:
+                                                                                                              "center",
+                                                                                                    background: "#b0afaf",
+                                                                                                    color: "black",
+                                                                                                    fontWeight: "600",
+                                                                                                    margin: "0px 15px",
+                                                                                          }}
+                                                                                >
+                                                                                          No
+                                                                                </button>
+                                                                      </div>
+                                                            </td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+                                                            <td
+                                                                      style={{
+                                                                                border: "none",
+                                                                      }}
+                                                            ></td>
+
+                                                            <div>
+                                                                      <Button
+                                                                                variant="contained"
+                                                                                style={{
+                                                                                          width: "100%",
+                                                                                          minWidth: "120px",
+                                                                                }}
+                                                                                onClick={() =>
+                                                                                          KpiMarks()
+                                                                                }
+                                                                      >
+                                                                                Submit
+                                                                                KPI
+                                                                      </Button>
+                                                            </div>
+                                                            <tr
+                                                                      style={{
+                                                                                height: "100px",
+                                                                      }}
+                                                            ></tr>
+
+                                                            {fifthTable.map(
+                                                                      (
+                                                                                val,
+                                                                                index
+                                                                      ) => {
+                                                                                return (
+                                                                                          <>
+                                                                                                    <Renderfifthtable
+                                                                                                              key={
+                                                                                                                        index
+                                                                                                              }
+                                                                                                              val={
+                                                                                                                        val
+                                                                                                              }
+                                                                                                    />
+                                                                                          </>
+                                                                                );
+                                                                      }
+                                                            )}
+                                                  </table>
                                         </div>
-                                        <tr style={{ height: "100px" }}></tr>
-
-                                        {fifthTable.map((val, index) => {
-                                                  return (
-                                                            <>
-                                                                      <Renderfifthtable
-                                                                                key={
-                                                                                          index
-                                                                                }
-                                                                                val={
-                                                                                          val
-                                                                                }
-                                                                      />
-                                                            </>
-                                                  );
-                                        })}
-                              </table>
-                    </div>
+                              )}
+                    </>
           );
 };
 
