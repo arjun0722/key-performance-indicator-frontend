@@ -1306,14 +1306,438 @@ const RenderTestTable = ({
           );
 };
 
-const Renderforthtable = ({ val }) => {
+const Renderforthtable = ({
+          val,
+          ind,
+          lowPotential,
+          setLowPotential,
+          goodPotential,
+          setGoodPotential,
+          highPotential,
+          setHighPotential,
+}) => {
+          //------------------------------------------------------------------//
+          //Low potential states//
+          //------------------------------------------------------------------//
+
+          const [attendencelp, setAttendencelp] = useState(0);
+          const [lessDDependabilitylp, setLessDDependabilitylp] = useState(0);
+          const [groupWorkinglp, setGroupWorkinglp] = useState(0);
+          const [positiveAttitudelp, setPositiveAttitudelp] = useState(0);
+          const [intelligencelp, setIntelligencelp] = useState(0);
+          const [imaginationlp, setImaginationlp] = useState(0);
+          const [improvementlp, setImprovementlp] = useState(0);
+          const [disciplinelp, setDisciplinelp] = useState(0);
+          const [qualitylp, setQualitylp] = useState(0);
+          const [responsibilitylp, setResponsibilitylp] = useState(0);
+          const [multiSkillslp, setMultiSkillslp] = useState(0);
+
+          //------------------------------------------------------------------//
+          //Good potential states//
+          //------------------------------------------------------------------//
+
+          const [attendencegp, setAttendencegp] = useState(0);
+          const [lessDDependabilitygp, setLessDDependabilitygp] = useState(0);
+          const [groupWorkinggp, setGroupWorkinggp] = useState(0);
+          const [positiveAttitudegp, setPositiveAttitudegp] = useState(0);
+          const [intelligencegp, setIntelligencegp] = useState(0);
+          const [imaginationgp, setImaginationgp] = useState(0);
+          const [improvementgp, setImprovementgp] = useState(0);
+          const [disciplinegp, setDisciplinegp] = useState(0);
+          const [qualitygp, setQualitygp] = useState(0);
+          const [responsibilitygp, setResponsibilitygp] = useState(0);
+          const [multiSkillsgp, setMultiSkillsgp] = useState(0);
+
+          //------------------------------------------------------------------//
+          //High potential states//
+          //------------------------------------------------------------------//
+
+          const [attendencehp, setAttendencehp] = useState(0);
+          const [lessDDependabilityhp, setLessDDependabilityhp] = useState(0);
+          const [groupWorkinghp, setGroupWorkinghp] = useState(0);
+          const [positiveAttitudehp, setPositiveAttitudehp] = useState(0);
+          const [intelligencehp, setIntelligencehp] = useState(0);
+          const [imaginationhp, setImaginationhp] = useState(0);
+          const [improvementhp, setImprovementhp] = useState(0);
+          const [disciplinehp, setDisciplinehp] = useState(0);
+          const [qualityhp, setQualityhp] = useState(0);
+          const [responsibilityhp, setResponsibilityhp] = useState(0);
+          const [multiSkillshp, setMultiSkillshp] = useState(0);
+
+          //------------------------------------------------------------------//
+          //OnChnage//
+          //------------------------------------------------------------------//
+
+          function handleOnChange1(e) {
+                    if (ind === 0) {
+                              setAttendencelp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        attendencelp: e.target.value,
+                              });
+                    }
+                    if (ind === 1) {
+                              setLessDDependabilitylp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        lessDDependabilitylp: e.target.value,
+                              });
+                    }
+                    if (ind === 2) {
+                              setGroupWorkinglp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        groupWorkinglp: e.target.value,
+                              });
+                    }
+                    if (ind === 3) {
+                              setPositiveAttitudelp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        positiveAttitudelp: e.target.value,
+                              });
+                    }
+                    if (ind === 4) {
+                              setIntelligencelp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        intelligencelp: e.target.value,
+                              });
+                    }
+                    if (ind === 5) {
+                              setImaginationlp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        imaginationlp: e.target.value,
+                              });
+                    }
+                    if (ind === 6) {
+                              setImprovementlp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        improvementgp: e.target.value,
+                              });
+                    }
+                    if (ind === 7) {
+                              setDisciplinelp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        disciplinegp: e.target.value,
+                              });
+                    }
+                    if (ind === 8) {
+                              setQualitylp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        qualitylp: e.target.value,
+                              });
+                    }
+                    if (ind === 9) {
+                              setResponsibilitylp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        responsibilitylp: e.target.value,
+                              });
+                    }
+                    if (ind === 10) {
+                              setMultiSkillslp(e.target.value);
+                              setLowPotential({
+                                        ...lowPotential,
+                                        multiSkillslp: e.target.value,
+                              });
+                    }
+          }
+
+          function handleOnChange2(e) {
+                    if (ind === 0) {
+                              setAttendencegp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        attendencegp: e.target.value,
+                              });
+                    }
+                    if (ind === 1) {
+                              setLessDDependabilitygp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        lessDDependabilitygp: e.target.value,
+                              });
+                    }
+                    if (ind === 2) {
+                              setGroupWorkinggp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        groupWorkinggp: e.target.value,
+                              });
+                    }
+                    if (ind === 3) {
+                              setPositiveAttitudegp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        positiveAttitudegp: e.target.value,
+                              });
+                    }
+                    if (ind === 4) {
+                              setIntelligencegp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        intelligencegp: e.target.value,
+                              });
+                    }
+                    if (ind === 5) {
+                              setImaginationgp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        imaginationgp: e.target.value,
+                              });
+                    }
+                    if (ind === 6) {
+                              setImprovementgp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        improvementgp: e.target.value,
+                              });
+                    }
+                    if (ind === 7) {
+                              setDisciplinegp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        disciplinegp: e.target.value,
+                              });
+                    }
+                    if (ind === 8) {
+                              setQualitygp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        qualitygp: e.target.value,
+                              });
+                    }
+                    if (ind === 9) {
+                              setResponsibilitygp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        responsibilitygp: e.target.value,
+                              });
+                    }
+                    if (ind === 10) {
+                              setMultiSkillsgp(e.target.value);
+                              setGoodPotential({
+                                        ...goodPotential,
+                                        multiSkillsgp: e.target.value,
+                              });
+                    }
+          }
+
+          function handleOnChange3(e) {
+                    if (ind === 0) {
+                              setAttendencehp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        attendencehp: e.target.value,
+                              });
+                    }
+                    if (ind === 1) {
+                              setLessDDependabilityhp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        lessDDependabilityhp: e.target.value,
+                              });
+                    }
+                    if (ind === 2) {
+                              setGroupWorkinghp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        groupWorkinghp: e.target.value,
+                              });
+                    }
+                    if (ind === 3) {
+                              setPositiveAttitudehp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        positiveAttitudehp: e.target.value,
+                              });
+                    }
+                    if (ind === 4) {
+                              setIntelligencehp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        intelligencehp: e.target.value,
+                              });
+                    }
+                    if (ind === 5) {
+                              setImaginationhp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        imaginationhp: e.target.value,
+                              });
+                    }
+                    if (ind === 6) {
+                              setImprovementhp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        improvementhp: e.target.value,
+                              });
+                    }
+                    if (ind === 7) {
+                              setDisciplinehp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        disciplinehp: e.target.value,
+                              });
+                    }
+                    if (ind === 8) {
+                              setQualityhp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        qualityhp: e.target.value,
+                              });
+                    }
+                    if (ind === 9) {
+                              setResponsibilityhp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        responsibilityhp: e.target.value,
+                              });
+                    }
+                    if (ind === 10) {
+                              setMultiSkillshp(e.target.value);
+                              setHighPotential({
+                                        ...highPotential,
+                                        multiSkillshp: e.target.value,
+                              });
+                    }
+          }
+
+          //------------------------------------------------------------------//
+          //values//
+          //------------------------------------------------------------------//
+
+          const lowPotentialValues = [
+                    attendencelp,
+                    lessDDependabilitylp,
+                    groupWorkinglp,
+                    positiveAttitudelp,
+                    intelligencelp,
+                    imaginationlp,
+                    improvementlp,
+                    disciplinelp,
+                    qualitylp,
+                    responsibilitylp,
+                    multiSkillslp,
+          ];
+
+          const lowPotentialInputValues =
+                    lowPotentialValues[ind] !== undefined
+                              ? lowPotentialValues[ind]
+                              : "undefined";
+
+          const goodPotentialValues = [
+                    attendencegp,
+                    lessDDependabilitygp,
+                    groupWorkinggp,
+                    positiveAttitudegp,
+                    intelligencegp,
+                    imaginationgp,
+                    improvementgp,
+                    disciplinegp,
+                    qualitygp,
+                    responsibilitygp,
+                    multiSkillsgp,
+          ];
+
+          const goodPotentialInputValues =
+                    goodPotentialValues[ind] !== undefined
+                              ? goodPotentialValues[ind]
+                              : "undefined";
+
+          const highPotentialValues = [
+                    attendencehp,
+                    lessDDependabilityhp,
+                    groupWorkinghp,
+                    positiveAttitudehp,
+                    intelligencehp,
+                    imaginationhp,
+                    improvementhp,
+                    disciplinehp,
+                    qualityhp,
+                    responsibilityhp,
+                    multiSkillshp,
+          ];
+          const highPotentialInputValues =
+                    highPotentialValues[ind] !== undefined
+                              ? highPotentialValues[ind]
+                              : "undefined";
+
           return (
                     <>
                               <tr style={{ textAlign: "center" }}>
                                         <td>{val.B}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            type="number"
+                                                            value={
+                                                                      lowPotentialInputValues
+                                                            }
+                                                            onChange={(e) =>
+                                                                      handleOnChange1(
+                                                                                e
+                                                                      )
+                                                            }
+                                                            style={{
+                                                                      outline: "0",
+                                                                      height: " 100%",
+                                                                      width: "100%",
+                                                                      position: " absolute",
+                                                                      top: " 0",
+                                                                      left: "0",
+                                                                      border: " none",
+                                                            }}
+                                                  />
+                                        </td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            type="number"
+                                                            value={
+                                                                      goodPotentialInputValues
+                                                            }
+                                                            onChange={(e) =>
+                                                                      handleOnChange2(
+                                                                                e
+                                                                      )
+                                                            }
+                                                            style={{
+                                                                      outline: "0",
+                                                                      height: " 100%",
+                                                                      width: "100%",
+                                                                      position: " absolute",
+                                                                      top: " 0",
+                                                                      left: "0",
+                                                                      border: " none",
+                                                            }}
+                                                  />
+                                        </td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            type="number"
+                                                            value={
+                                                                      highPotentialInputValues
+                                                            }
+                                                            onChange={(e) =>
+                                                                      handleOnChange3(
+                                                                                e
+                                                                      )
+                                                            }
+                                                            style={{
+                                                                      outline: "0",
+                                                                      height: " 100%",
+                                                                      width: "100%",
+                                                                      position: " absolute",
+                                                                      top: " 0",
+                                                                      left: "0",
+                                                                      border: " none",
+                                                            }}
+                                                  />
+                                        </td>
                                         <td>{val.F}</td>
                               </tr>
                     </>
@@ -1440,6 +1864,56 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
           console.log("EEEEEEEEEEEE", parentSelfAppraise);
+
+          //------------------------------------------------------------------//
+          //Behavioural KPI Table//
+          //------------------------------------------------------------------//
+
+          const initialLowPotential = {
+                    attendencelp: 0,
+                    lessDDependabilitylp: 0,
+                    groupWorkinglp: 0,
+                    positiveAttitudelp: 0,
+                    intelligencelp: 0,
+                    imaginationlp: 0,
+                    improvementlp: 0,
+                    disciplinelp: 0,
+                    qualitylp: 0,
+                    responsibilitylp: 0,
+                    multiSkillslp: 0,
+          };
+          const initialGoodPotential = {
+                    attendencegp: 0,
+                    lessDDependabilitygp: 0,
+                    groupWorkinggp: 0,
+                    positiveAttitudegp: 0,
+                    intelligencegp: 0,
+                    imaginationgp: 0,
+                    improvementgp: 0,
+                    disciplinegp: 0,
+                    qualitygp: 0,
+                    responsibilitygp: 0,
+                    multiSkillsgp: 0,
+          };
+          const initialHighPotential = {
+                    attendencehp: 0,
+                    lessDDependabilityhp: 0,
+                    groupWorkinghp: 0,
+                    positiveAttitudehp: 0,
+                    intelligencehp: 0,
+                    imaginationhp: 0,
+                    improvementhp: 0,
+                    disciplinehp: 0,
+                    qualityhp: 0,
+                    responsibilityhp: 0,
+                    multiSkillshp: 0,
+          };
+
+          const [lowPotential, setLowPotential] = useState(initialLowPotential);
+          const [goodPotential, setGoodPotential] =
+                    useState(initialGoodPotential);
+          const [highPotential, setHighPotential] =
+                    useState(initialHighPotential);
 
           async function KpiMarks() {
                     // show_error("are you agree this points");
@@ -2184,6 +2658,27 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                                               }
                                                                                                               val={
                                                                                                                         val
+                                                                                                              }
+                                                                                                              ind={
+                                                                                                                        index
+                                                                                                              }
+                                                                                                              lowPotential={
+                                                                                                                        lowPotential
+                                                                                                              }
+                                                                                                              setLowPotential={
+                                                                                                                        setLowPotential
+                                                                                                              }
+                                                                                                              goodPotential={
+                                                                                                                        goodPotential
+                                                                                                              }
+                                                                                                              setGoodPotential={
+                                                                                                                        setGoodPotential
+                                                                                                              }
+                                                                                                              highPotential={
+                                                                                                                        highPotential
+                                                                                                              }
+                                                                                                              setHighPotential={
+                                                                                                                        setHighPotential
                                                                                                               }
                                                                                                     />
                                                                                           </>

@@ -9,6 +9,8 @@ export const ACCESS_TOKEN = {
   USER_EMAIL: "user_email",
 };
 
+export const API_HIT = "Data save successfully";
+
 export const ERROR = {
   COMMENT_ERROR: "Opps.. There are no comments for this task",
   PERMISSION_ERROR:
