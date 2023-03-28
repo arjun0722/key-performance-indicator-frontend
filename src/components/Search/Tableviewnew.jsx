@@ -1305,7 +1305,6 @@ const RenderTestTable = ({
                     </>
           );
 };
-
 const Renderforthtable = ({
           val,
           ind,
@@ -1316,6 +1315,13 @@ const Renderforthtable = ({
           highPotential,
           setHighPotential,
 }) => {
+          //------------------------------------------------------------------//
+          //selected input and other will disabled//
+          //------------------------------------------------------------------//
+
+          const [selectedInput, setSelectedInput] = useState();
+          const [events, setEvents] = useState(0);
+
           //------------------------------------------------------------------//
           //Low potential states//
           //------------------------------------------------------------------//
@@ -1369,6 +1375,8 @@ const Renderforthtable = ({
           //------------------------------------------------------------------//
 
           function handleOnChange1(e) {
+                    setSelectedInput("lowpotential");
+                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencelp(e.target.value);
                               setLowPotential({
@@ -1415,14 +1423,14 @@ const Renderforthtable = ({
                               setImprovementlp(e.target.value);
                               setLowPotential({
                                         ...lowPotential,
-                                        improvementgp: e.target.value,
+                                        improvementlp: e.target.value,
                               });
                     }
                     if (ind === 7) {
                               setDisciplinelp(e.target.value);
                               setLowPotential({
                                         ...lowPotential,
-                                        disciplinegp: e.target.value,
+                                        disciplinelp: e.target.value,
                               });
                     }
                     if (ind === 8) {
@@ -1449,6 +1457,8 @@ const Renderforthtable = ({
           }
 
           function handleOnChange2(e) {
+                    setSelectedInput("goodpotential");
+                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencegp(e.target.value);
                               setGoodPotential({
@@ -1529,6 +1539,8 @@ const Renderforthtable = ({
           }
 
           function handleOnChange3(e) {
+                    setSelectedInput("highpotential");
+                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencehp(e.target.value);
                               setHighPotential({
@@ -1668,12 +1680,89 @@ const Renderforthtable = ({
                               ? highPotentialValues[ind]
                               : "undefined";
 
+          const calculatedValues = {
+                    totalAttendence:
+                              Number(attendencelp) +
+                              Number(attendencegp) +
+                              Number(attendencehp),
+
+                    totalDependablity:
+                              Number(lessDDependabilitylp) +
+                              Number(lessDDependabilitygp) +
+                              Number(lessDDependabilityhp),
+
+                    tatalGroupWorking:
+                              Number(groupWorkinglp) +
+                              Number(groupWorkinggp) +
+                              Number(groupWorkinghp),
+
+                    totalPositiveAttitude:
+                              Number(positiveAttitudelp) +
+                              Number(positiveAttitudegp) +
+                              Number(positiveAttitudehp),
+
+                    totalInteligence:
+                              Number(intelligencelp) +
+                              Number(intelligencegp) +
+                              Number(intelligencehp),
+
+                    totalImagination:
+                              Number(imaginationlp) +
+                              Number(imaginationgp) +
+                              Number(imaginationhp),
+
+                    totalImprovement:
+                              Number(improvementlp) +
+                              Number(improvementgp) +
+                              Number(improvementhp),
+
+                    totalDiscipline:
+                              Number(disciplinelp) +
+                              Number(disciplinegp) +
+                              Number(disciplinehp),
+
+                    totalQuality:
+                              Number(qualitylp) +
+                              Number(qualitygp) +
+                              Number(qualityhp),
+
+                    totalRespnsibility:
+                              Number(responsibilitylp) +
+                              Number(responsibilitygp) +
+                              Number(responsibilitygp),
+
+                    totalMultiSkill:
+                              Number(multiSkillslp) +
+                              Number(multiSkillsgp) +
+                              Number(multiSkillshp),
+          };
+
+          const totalMarks = [
+                    calculatedValues.totalAttendence,
+                    calculatedValues.totalDependablity,
+                    calculatedValues.tatalGroupWorking,
+                    calculatedValues.totalPositiveAttitude,
+                    calculatedValues.totalInteligence,
+                    calculatedValues.totalImagination,
+                    calculatedValues.totalImprovement,
+                    calculatedValues.totalDiscipline,
+                    calculatedValues.totalQuality,
+                    calculatedValues.totalRespnsibility,
+                    calculatedValues.totalMultiSkill,
+          ];
+
+          const calculatedMarks =
+                    totalMarks[ind] !== undefined
+                              ? totalMarks[ind]
+                              : "undefined";
+
           return (
                     <>
                               <tr style={{ textAlign: "center" }}>
                                         <td>{val.B}</td>
                                         <td style={{ position: "relative" }}>
                                                   <input
+                                                            min="0"
                                                             type="number"
                                                             value={
                                                                       lowPotentialInputValues
@@ -1697,6 +1786,7 @@ const Renderforthtable = ({
                                         <td style={{ position: "relative" }}>
                                                   <input
                                                             type="number"
+                                                            min="0"
                                                             value={
                                                                       goodPotentialInputValues
                                                             }
@@ -1718,6 +1808,7 @@ const Renderforthtable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <input
+                                                            min="0"
                                                             type="number"
                                                             value={
                                                                       highPotentialInputValues
@@ -1738,12 +1829,28 @@ const Renderforthtable = ({
                                                             }}
                                                   />
                                         </td>
-                                        <td>{val.F}</td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            disabled={true}
+                                                            type="number"
+                                                            value={
+                                                                      calculatedMarks
+                                                            }
+                                                            style={{
+                                                                      outline: "0",
+                                                                      height: " 100%",
+                                                                      width: "100%",
+                                                                      position: " absolute",
+                                                                      top: " 0",
+                                                                      left: "0",
+                                                                      border: " none",
+                                                            }}
+                                                  />
+                                        </td>
                               </tr>
                     </>
           );
 };
-let combineData = [];
 const Renderfifthtable = ({ val }) => {
           return (
                     <>
@@ -1778,8 +1885,30 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
 
                     setUpdatedData(data);
           }
+          async function getBehaviouralData() {
+                    let data = [
+                              {
+                                        email: email,
+                                        ToDate: fileData[0].E,
+                                        FromDate: fileData[1].E,
+                              },
+                    ];
+                    let headersList = {
+                              Accept: "application/json",
+                              "Content-Type": "application/json",
+                    };
+                    let reqOptions = {
+                              url: `http://localhost:8080/kpi/behavioural/data`,
+                              method: "POST",
+                              headers: headersList,
+                              data: data,
+                    };
+                    let resData = await axios.request(reqOptions);
+                    return console.log(resData, ";;;;;;;;;;;");
+          }
           useEffect(() => {
                     getAllData();
+                    getBehaviouralData();
           }, []);
 
           useEffect(() => {
@@ -1863,7 +1992,6 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
 
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
-          console.log("EEEEEEEEEEEE", parentSelfAppraise);
 
           //------------------------------------------------------------------//
           //Behavioural KPI Table//
@@ -1916,10 +2044,9 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     useState(initialHighPotential);
 
           async function KpiMarks() {
-                    // show_error("are you agree this points");
-                    alert("okkkkkkkkkkkk");
                     setLoader(true);
                     let allFinalData = [];
+                    let allBehaviourKpiData = [];
                     let currentDate = new Date();
                     let dateTime1 = moment(currentDate).format(
                               "YYYY-MM-DD HH:mm:ss"
@@ -2196,15 +2323,326 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                   return allFinalData;
                               }
                     });
-                    let data = axios({
+                    forthTable.map((val, ind) => {
+                              let allBehaviourKpiDatamap = {
+                                        BehaviouralKPIs: "",
+                                        LowPotential: "",
+                                        GoodPotential: "",
+                                        HighPotential: "",
+                                        ToUserId: "",
+                                        FromUserId: "",
+                                        ToDate: "",
+                                        FromDate: "",
+                                        UpdatedDate: "",
+                              };
+
+                              switch (ind) {
+                                        case (ind = 0):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.attendencelp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.attendencegp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.attendencehp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 1):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.lessDDependabilitylp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.lessDDependabilitygp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.lessDDependabilityhp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 2):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.groupWorkinglp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.groupWorkinggp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.groupWorkinghp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 3):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.positiveAttitudelp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.positiveAttitudegp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.positiveAttitudehp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 4):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.intelligencelp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.intelligencegp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.intelligencehp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 5):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.imaginationlp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.imaginationgp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.imaginationhp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 6):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.improvementlp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.improvementgp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.improvementhp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 7):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.disciplinelp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.disciplinegp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.attendencehp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 8):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.qualitylp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.qualitygp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.qualityhp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 9):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.responsibilitylp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.responsibilitygp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.responsibilityhp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+
+                                        case (ind = 10):
+                                                  allBehaviourKpiDatamap.BehaviouralKPIs =
+                                                            val.B || "";
+                                                  allBehaviourKpiDatamap.LowPotential =
+                                                            lowPotential?.multiSkillslp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.GoodPotential =
+                                                            goodPotential?.multiSkillsgp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.HighPotential =
+                                                            highPotential?.multiSkillshp ||
+                                                            0;
+                                                  allBehaviourKpiDatamap.ToUserId =
+                                                            email || "";
+                                                  allBehaviourKpiDatamap.FromUserId =
+                                                            loginUser || "";
+                                                  allBehaviourKpiDatamap.ToDate =
+                                                            fileData[0].E || "";
+                                                  allBehaviourKpiDatamap.FromDate =
+                                                            fileData[1].E || "";
+                                                  allBehaviourKpiDatamap.UpdatedDate =
+                                                            dateTime1 || "";
+                                                  return allBehaviourKpiData.push(
+                                                            allBehaviourKpiDatamap
+                                                  );
+                                        default:
+                                                  return allBehaviourKpiData;
+                              }
+                    });
+
+                    // let data = axios({
+                    //           method: "post",
+                    //           url: `http://localhost:8080/kpi/marks`,
+                    //           data: allFinalData,
+                    //           headers: { Accept: "application/json" },
+                    // });
+                    let bData = axios({
                               method: "post",
-                              url: `http://localhost:8080/kpi/marks`,
-                              data: allFinalData,
+                              url: `http://localhost:8080/kpi/behavioural`,
+                              data: allBehaviourKpiData,
                               headers: { Accept: "application/json" },
                     });
                     setTimeout(() => {
                               setLoader(false);
                     }, 2000);
+                    console.log(allBehaviourKpiData, ">>>>>>>>>>>>>>>>>");
           }
 
           let firstTable = fileData.slice(0, 4);
