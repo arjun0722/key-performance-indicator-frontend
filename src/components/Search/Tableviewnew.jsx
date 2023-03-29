@@ -54,7 +54,6 @@ const Renderthirdtable = ({
           setParentTarget,
 }) => {
           // all user and login user
-          console.log("********************1111111111111111", val);
 
           const [users, setusers] = useState("");
           const [loginUser, setLoginUser] = useState(
@@ -72,7 +71,7 @@ const Renderthirdtable = ({
           }, [email]);
 
           //UseEffect for the Appraisee Self Rating , Appraiser Rating and target
-          console.log(thirdTable, "??????????????????");
+
           useEffect(() => {
                     setTimeout(() => {
                               setParentSelfAppraise({
@@ -381,7 +380,39 @@ const Renderthirdtable = ({
                               ? appraiseSelfRating[ind]
                               : "";
 
+          // ....................formula for first input.....................//
           const formula = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula1 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((b - a) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula2 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula3 = (a, b, c) => {
                     const value = Number(
                               ((100 + ((a - b) / b) * 100) * c) / 100
                     ).toFixed(2);
@@ -392,7 +423,133 @@ const Renderthirdtable = ({
                               return 0;
                     }
           };
+          const formula4 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
 
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula5 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula6 = (a, b, c) => {
+                    const value = Number(
+                              ((100 - ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula7 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          // ....................formula for second input.....................//
+          const formulaA = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA1 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((b - a) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA2 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA3 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA4 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA5 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA6 = (a, b, c) => {
+                    const value = Number(
+                              ((100 - ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA7 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
           return (
                     <>
                               <tr id={ind}>
@@ -499,43 +656,43 @@ const Renderthirdtable = ({
                                                                         val.H
                                                               )
                                                             : 0 || ind === 1
-                                                            ? formula(
+                                                            ? formula1(
                                                                         onTime,
                                                                         customOnTimeMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 2
-                                                            ? formula(
+                                                            ? formula2(
                                                                         val.I,
                                                                         customAvgCodeMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 3
-                                                            ? formula(
+                                                            ? formula3(
                                                                         val.I,
                                                                         customReDoMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 4
-                                                            ? formula(
+                                                            ? formula4(
                                                                         val.I,
                                                                         customBugsReportedMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 5
-                                                            ? formula(
+                                                            ? formula5(
                                                                         critical,
                                                                         customCriticalIssuesMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 6
-                                                            ? formula(
+                                                            ? formula6(
                                                                         val.I,
                                                                         customCustomerSatisfactionMarks,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 7
-                                                            ? formula(
+                                                            ? formula7(
                                                                         val.I,
                                                                         customUpskillingMarks,
                                                                         val.H
@@ -608,49 +765,49 @@ const Renderthirdtable = ({
                                         >
                                                   {/* {val.M} */}
                                                   {ind === 0
-                                                            ? formula(
+                                                            ? formulaA(
                                                                         actualDelivery,
                                                                         customActualdeliveryMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 1
-                                                            ? formula(
+                                                            ? formulaA1(
                                                                         onTime,
                                                                         customOnTimeMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 2
-                                                            ? formula(
+                                                            ? formulaA2(
                                                                         val.I,
                                                                         customAvgCodeMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 3
-                                                            ? formula(
+                                                            ? formulaA3(
                                                                         val.I,
                                                                         customReDoMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 4
-                                                            ? formula(
+                                                            ? formulaA4(
                                                                         val.I,
                                                                         customBugsReportedMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 5
-                                                            ? formula(
+                                                            ? formulaA5(
                                                                         critical,
                                                                         customCriticalIssuesMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 6
-                                                            ? formula(
+                                                            ? formulaA6(
                                                                         val.I,
                                                                         customCustomerSatisfactionMarksAr,
                                                                         val.H
                                                               )
                                                             : 0 || ind === 7
-                                                            ? formula(
+                                                            ? formulaA7(
                                                                         val.I,
                                                                         customUpskillingMarksAr,
                                                                         val.H
@@ -904,7 +1061,7 @@ const RenderTestTable = ({
                               });
                     }
           }
-          // console.log(val.Target, "lllllllllllllllllllllllll");
+
           const valueMap = [
                     actualDelivery,
                     onTime,
@@ -1010,8 +1167,39 @@ const RenderTestTable = ({
           //                     setFinalUpskillingMarks(eMark);
           //           }
           // }
-
+          // .................formulas for first input..........//
           const formula = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula1 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((b - a) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula2 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula3 = (a, b, c) => {
                     const value = Number(
                               ((100 + ((a - b) / b) * 100) * c) / 100
                     ).toFixed(2);
@@ -1022,6 +1210,135 @@ const RenderTestTable = ({
                               return 0;
                     }
           };
+          const formula4 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula5 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula6 = (a, b, c) => {
+                    const value = Number(
+                              ((100 - ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formula7 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+
+          //.............formulas for second table...........//
+          const formulaA = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA1 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((b - a) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA2 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA3 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA4 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / b) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA5 = (a, b, c) => {
+                    const value = Number((b / a) * c).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA6 = (a, b, c) => {
+                    const value = Number(
+                              ((100 - ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+          const formulaA7 = (a, b, c) => {
+                    const value = Number(
+                              ((100 + ((a - b) / a) * 100) * c) / 100
+                    ).toFixed(2);
+
+                    if (value !== "Infinity" && value !== "NaN") {
+                              return value;
+                    } else {
+                              return 0;
+                    }
+          };
+
           return (
                     <>
                               <tr id={ind}>
@@ -1129,47 +1446,47 @@ const RenderTestTable = ({
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 1
-                                                            ? formula(
+                                                            ? formula1(
                                                                         onTime,
                                                                         customOnTimeMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 2
-                                                            ? formula(
+                                                            ? formula2(
                                                                         com[ind]
                                                                                   .I,
                                                                         customAvgCodeMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 3
-                                                            ? formula(
+                                                            ? formula3(
                                                                         com[ind]
                                                                                   .I,
                                                                         customReDoMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 4
-                                                            ? formula(
+                                                            ? formula4(
                                                                         com[ind]
                                                                                   .I,
                                                                         customBugsReportedMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 5
-                                                            ? formula(
+                                                            ? formula5(
                                                                         critical,
                                                                         customCriticalIssuesMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 6
-                                                            ? formula(
+                                                            ? formula6(
                                                                         com[ind]
                                                                                   .I,
                                                                         customCustomerSatisfactionMarks,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 7
-                                                            ? formula(
+                                                            ? formula7(
                                                                         com[ind]
                                                                                   .I,
                                                                         customUpskillingMarks,
@@ -1245,53 +1562,53 @@ const RenderTestTable = ({
                                         >
                                                   {/* {com[ind].M} */}
                                                   {ind === 0
-                                                            ? formula(
+                                                            ? formulaA(
                                                                         actualDelivery,
                                                                         customActualdeliveryMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 1
-                                                            ? formula(
+                                                            ? formulaA1(
                                                                         onTime,
                                                                         customOnTimeMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 2
-                                                            ? formula(
+                                                            ? formulaA2(
                                                                         com[ind]
                                                                                   .I,
                                                                         customAvgCodeMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 3
-                                                            ? formula(
+                                                            ? formulaA3(
                                                                         com[ind]
                                                                                   .I,
                                                                         customReDoMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 4
-                                                            ? formula(
+                                                            ? formulaA4(
                                                                         com[ind]
                                                                                   .I,
                                                                         customBugsReportedMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 5
-                                                            ? formula(
+                                                            ? formulaA5(
                                                                         critical,
                                                                         customCriticalIssuesMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 6
-                                                            ? formula(
+                                                            ? formulaA6(
                                                                         com[ind]
                                                                                   .I,
                                                                         customCustomerSatisfactionMarksAr,
                                                                         val.Weightage
                                                               )
                                                             : 0 || ind === 7
-                                                            ? formula(
+                                                            ? formulaA7(
                                                                         com[ind]
                                                                                   .I,
                                                                         customUpskillingMarksAr,
@@ -1314,69 +1631,118 @@ const Renderforthtable = ({
           setGoodPotential,
           highPotential,
           setHighPotential,
+          updatedBehaviourData,
 }) => {
-          //------------------------------------------------------------------//
-          //selected input and other will disabled//
-          //------------------------------------------------------------------//
-
-          const [selectedInput, setSelectedInput] = useState();
-          const [events, setEvents] = useState(0);
-
           //------------------------------------------------------------------//
           //Low potential states//
           //------------------------------------------------------------------//
 
-          const [attendencelp, setAttendencelp] = useState(0);
-          const [lessDDependabilitylp, setLessDDependabilitylp] = useState(0);
-          const [groupWorkinglp, setGroupWorkinglp] = useState(0);
-          const [positiveAttitudelp, setPositiveAttitudelp] = useState(0);
-          const [intelligencelp, setIntelligencelp] = useState(0);
-          const [imaginationlp, setImaginationlp] = useState(0);
-          const [improvementlp, setImprovementlp] = useState(0);
-          const [disciplinelp, setDisciplinelp] = useState(0);
-          const [qualitylp, setQualitylp] = useState(0);
-          const [responsibilitylp, setResponsibilitylp] = useState(0);
-          const [multiSkillslp, setMultiSkillslp] = useState(0);
+          const [attendencelp, setAttendencelp] = useState();
+          const [lessDDependabilitylp, setLessDDependabilitylp] = useState();
+          const [groupWorkinglp, setGroupWorkinglp] = useState();
+          const [positiveAttitudelp, setPositiveAttitudelp] = useState();
+          const [intelligencelp, setIntelligencelp] = useState();
+          const [imaginationlp, setImaginationlp] = useState();
+          const [improvementlp, setImprovementlp] = useState();
+          const [disciplinelp, setDisciplinelp] = useState();
+          const [qualitylp, setQualitylp] = useState();
+          const [responsibilitylp, setResponsibilitylp] = useState();
+          const [multiSkillslp, setMultiSkillslp] = useState();
 
           //------------------------------------------------------------------//
           //Good potential states//
           //------------------------------------------------------------------//
 
-          const [attendencegp, setAttendencegp] = useState(0);
-          const [lessDDependabilitygp, setLessDDependabilitygp] = useState(0);
-          const [groupWorkinggp, setGroupWorkinggp] = useState(0);
-          const [positiveAttitudegp, setPositiveAttitudegp] = useState(0);
-          const [intelligencegp, setIntelligencegp] = useState(0);
-          const [imaginationgp, setImaginationgp] = useState(0);
-          const [improvementgp, setImprovementgp] = useState(0);
-          const [disciplinegp, setDisciplinegp] = useState(0);
-          const [qualitygp, setQualitygp] = useState(0);
-          const [responsibilitygp, setResponsibilitygp] = useState(0);
-          const [multiSkillsgp, setMultiSkillsgp] = useState(0);
+          const [attendencegp, setAttendencegp] = useState();
+          const [lessDDependabilitygp, setLessDDependabilitygp] = useState();
+          const [groupWorkinggp, setGroupWorkinggp] = useState();
+          const [positiveAttitudegp, setPositiveAttitudegp] = useState();
+          const [intelligencegp, setIntelligencegp] = useState();
+          const [imaginationgp, setImaginationgp] = useState();
+          const [improvementgp, setImprovementgp] = useState();
+          const [disciplinegp, setDisciplinegp] = useState();
+          const [qualitygp, setQualitygp] = useState();
+          const [responsibilitygp, setResponsibilitygp] = useState();
+          const [multiSkillsgp, setMultiSkillsgp] = useState();
 
           //------------------------------------------------------------------//
           //High potential states//
           //------------------------------------------------------------------//
 
-          const [attendencehp, setAttendencehp] = useState(0);
-          const [lessDDependabilityhp, setLessDDependabilityhp] = useState(0);
-          const [groupWorkinghp, setGroupWorkinghp] = useState(0);
-          const [positiveAttitudehp, setPositiveAttitudehp] = useState(0);
-          const [intelligencehp, setIntelligencehp] = useState(0);
-          const [imaginationhp, setImaginationhp] = useState(0);
-          const [improvementhp, setImprovementhp] = useState(0);
-          const [disciplinehp, setDisciplinehp] = useState(0);
-          const [qualityhp, setQualityhp] = useState(0);
-          const [responsibilityhp, setResponsibilityhp] = useState(0);
-          const [multiSkillshp, setMultiSkillshp] = useState(0);
+          const [attendencehp, setAttendencehp] = useState();
+          const [lessDDependabilityhp, setLessDDependabilityhp] = useState();
+          const [groupWorkinghp, setGroupWorkinghp] = useState();
+          const [positiveAttitudehp, setPositiveAttitudehp] = useState();
+          const [intelligencehp, setIntelligencehp] = useState();
+          const [imaginationhp, setImaginationhp] = useState();
+          const [improvementhp, setImprovementhp] = useState();
+          const [disciplinehp, setDisciplinehp] = useState();
+          const [qualityhp, setQualityhp] = useState();
+          const [responsibilityhp, setResponsibilityhp] = useState();
+          const [multiSkillshp, setMultiSkillshp] = useState();
+
+          //------------------------------------------------------------------//
+          //useEffect for the intital value which will set in table//
+          //------------------------------------------------------------------//
+
+          useEffect(() => {
+                    //=============lowpotential states================//
+                    setAttendencelp(updatedBehaviourData[0]?.LowPotential);
+                    setLessDDependabilitylp(
+                              updatedBehaviourData[1]?.LowPotential
+                    );
+                    setGroupWorkinglp(updatedBehaviourData[2]?.LowPotential);
+                    setPositiveAttitudelp(
+                              updatedBehaviourData[3]?.LowPotential
+                    );
+                    setIntelligencelp(updatedBehaviourData[4]?.LowPotential);
+                    setImaginationlp(updatedBehaviourData[5]?.LowPotential);
+                    setImprovementlp(updatedBehaviourData[6]?.LowPotential);
+                    setDisciplinelp(updatedBehaviourData[7]?.LowPotential);
+                    setQualitylp(updatedBehaviourData[8]?.LowPotential);
+                    setResponsibilitylp(updatedBehaviourData[9]?.LowPotential);
+                    setMultiSkillslp(updatedBehaviourData[10]?.LowPotential);
+
+                    //=============goodpotential states================//
+                    setAttendencegp(updatedBehaviourData[0]?.GoodPotential);
+                    setLessDDependabilitygp(
+                              updatedBehaviourData[1]?.GoodPotential
+                    );
+                    setGroupWorkinggp(updatedBehaviourData[2]?.GoodPotential);
+                    setPositiveAttitudegp(
+                              updatedBehaviourData[3]?.GoodPotential
+                    );
+                    setIntelligencegp(updatedBehaviourData[4]?.GoodPotential);
+                    setImaginationgp(updatedBehaviourData[5]?.GoodPotential);
+                    setImprovementgp(updatedBehaviourData[6]?.GoodPotential);
+                    setDisciplinegp(updatedBehaviourData[7]?.GoodPotential);
+                    setQualitygp(updatedBehaviourData[8]?.GoodPotential);
+                    setResponsibilitygp(updatedBehaviourData[9]?.GoodPotential);
+                    setMultiSkillsgp(updatedBehaviourData[10]?.GoodPotential);
+
+                    //=============highpotential states================//
+                    setAttendencehp(updatedBehaviourData[0]?.HighPotential);
+                    setLessDDependabilityhp(
+                              updatedBehaviourData[1]?.HighPotential
+                    );
+                    setGroupWorkinghp(updatedBehaviourData[2]?.HighPotential);
+                    setPositiveAttitudehp(
+                              updatedBehaviourData[3]?.HighPotential
+                    );
+                    setIntelligencehp(updatedBehaviourData[4]?.HighPotential);
+                    setImaginationhp(updatedBehaviourData[5]?.HighPotential);
+                    setImprovementhp(updatedBehaviourData[6]?.HighPotential);
+                    setDisciplinehp(updatedBehaviourData[7]?.HighPotential);
+                    setQualityhp(updatedBehaviourData[8]?.HighPotential);
+                    setResponsibilityhp(updatedBehaviourData[9]?.HighPotential);
+                    setMultiSkillshp(updatedBehaviourData[10]?.HighPotential);
+          }, [updatedBehaviourData]);
 
           //------------------------------------------------------------------//
           //OnChnage//
           //------------------------------------------------------------------//
 
           function handleOnChange1(e) {
-                    setSelectedInput("lowpotential");
-                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencelp(e.target.value);
                               setLowPotential({
@@ -1457,8 +1823,6 @@ const Renderforthtable = ({
           }
 
           function handleOnChange2(e) {
-                    setSelectedInput("goodpotential");
-                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencegp(e.target.value);
                               setGoodPotential({
@@ -1539,8 +1903,6 @@ const Renderforthtable = ({
           }
 
           function handleOnChange3(e) {
-                    setSelectedInput("highpotential");
-                    setEvents(e.target.value);
                     if (ind === 0) {
                               setAttendencehp(e.target.value);
                               setHighPotential({
@@ -1865,6 +2227,7 @@ const Renderfifthtable = ({ val }) => {
 const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           const [loader, setLoader] = useState(false);
           const [updatedData, setUpdatedData] = useState({});
+          const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
           );
@@ -1904,11 +2267,54 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               data: data,
                     };
                     let resData = await axios.request(reqOptions);
-                    return console.log(resData, ";;;;;;;;;;;");
+                    return setUpdatedBehaviourData(resData.data.data);
+          }
+          async function getPositivePoint() {
+                    let data = [
+                              {
+                                        email: email,
+                                        ToDate: fileData[0].E,
+                                        FromDate: fileData[1].E,
+                              },
+                    ];
+                    let headersList = {
+                              Accept: "application/json",
+                              "Content-Type": "application/json",
+                    };
+                    let reqOptions = {
+                              url: `http://localhost:8080/kpi/positivepoint/data`,
+                              method: "POST",
+                              headers: headersList,
+                              data: data,
+                    };
+                    let resData = await axios.request(reqOptions);
+          }
+          async function getScopeOfImprovement() {
+                    let data = [
+                              {
+                                        email: email,
+                                        ToDate: fileData[0].E,
+                                        FromDate: fileData[1].E,
+                              },
+                    ];
+                    let headersList = {
+                              Accept: "application/json",
+                              "Content-Type": "application/json",
+                    };
+                    let reqOptions = {
+                              url: `http://localhost:8080/kpi/scopeofimprovement/data`,
+                              method: "POST",
+                              headers: headersList,
+                              data: data,
+                    };
+                    let resData = await axios.request(reqOptions);
+                    console.log(resData, "nnnnnnnnnnnnnnnnn");
           }
           useEffect(() => {
                     getAllData();
                     getBehaviouralData();
+                    getPositivePoint();
+                    getScopeOfImprovement();
           }, []);
 
           useEffect(() => {
@@ -1997,51 +2403,113 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           //Behavioural KPI Table//
           //------------------------------------------------------------------//
 
-          const initialLowPotential = {
-                    attendencelp: 0,
-                    lessDDependabilitylp: 0,
-                    groupWorkinglp: 0,
-                    positiveAttitudelp: 0,
-                    intelligencelp: 0,
-                    imaginationlp: 0,
-                    improvementlp: 0,
-                    disciplinelp: 0,
-                    qualitylp: 0,
-                    responsibilitylp: 0,
-                    multiSkillslp: 0,
-          };
-          const initialGoodPotential = {
-                    attendencegp: 0,
-                    lessDDependabilitygp: 0,
-                    groupWorkinggp: 0,
-                    positiveAttitudegp: 0,
-                    intelligencegp: 0,
-                    imaginationgp: 0,
-                    improvementgp: 0,
-                    disciplinegp: 0,
-                    qualitygp: 0,
-                    responsibilitygp: 0,
-                    multiSkillsgp: 0,
-          };
-          const initialHighPotential = {
-                    attendencehp: 0,
-                    lessDDependabilityhp: 0,
-                    groupWorkinghp: 0,
-                    positiveAttitudehp: 0,
-                    intelligencehp: 0,
-                    imaginationhp: 0,
-                    improvementhp: 0,
-                    disciplinehp: 0,
-                    qualityhp: 0,
-                    responsibilityhp: 0,
-                    multiSkillshp: 0,
-          };
+          useEffect(() => {
+                    if (
+                              updatedBehaviourData &&
+                              updatedBehaviourData.length > 0
+                    ) {
+                              setLowPotential({
+                                        attendencelp: updatedBehaviourData[0]
+                                                  ?.LowPotential,
+                                        lessDDependabilitylp:
+                                                  updatedBehaviourData[1]
+                                                            ?.LowPotential,
+                                        groupWorkinglp:
+                                                  updatedBehaviourData[2]
+                                                            ?.LowPotential,
+                                        positiveAttitudelp:
+                                                  updatedBehaviourData[3]
+                                                            ?.LowPotential,
+                                        intelligencelp:
+                                                  updatedBehaviourData[4]
+                                                            ?.LowPotential,
+                                        imaginationlp:
+                                                  updatedBehaviourData[5]
+                                                            ?.LowPotential,
+                                        improvementlp:
+                                                  updatedBehaviourData[6]
+                                                            ?.LowPotential,
+                                        disciplinelp: updatedBehaviourData[7]
+                                                  ?.LowPotential,
+                                        qualitylp: updatedBehaviourData[8]
+                                                  ?.LowPotential,
+                                        responsibilitylp:
+                                                  updatedBehaviourData[9]
+                                                            ?.LowPotential,
+                                        multiSkillslp:
+                                                  updatedBehaviourData[10]
+                                                            ?.LowPotential,
+                              });
+                              setGoodPotential({
+                                        attendencegp: updatedBehaviourData[0]
+                                                  ?.GoodPotential,
+                                        lessDDependabilitygp:
+                                                  updatedBehaviourData[1]
+                                                            ?.GoodPotential,
+                                        groupWorkinggp:
+                                                  updatedBehaviourData[2]
+                                                            ?.GoodPotential,
+                                        positiveAttitudegp:
+                                                  updatedBehaviourData[3]
+                                                            ?.GoodPotential,
+                                        intelligencegp:
+                                                  updatedBehaviourData[4]
+                                                            ?.GoodPotential,
+                                        imaginationgp:
+                                                  updatedBehaviourData[5]
+                                                            ?.GoodPotential,
+                                        improvementgp:
+                                                  updatedBehaviourData[6]
+                                                            ?.GoodPotential,
+                                        disciplinegp: updatedBehaviourData[7]
+                                                  ?.GoodPotential,
+                                        qualitygp: updatedBehaviourData[8]
+                                                  ?.GoodPotential,
+                                        responsibilitygp:
+                                                  updatedBehaviourData[9]
+                                                            ?.GoodPotential,
+                                        multiSkillsgp:
+                                                  updatedBehaviourData[10]
+                                                            ?.GoodPotential,
+                              });
+                              setHighPotential({
+                                        attendencehp: updatedBehaviourData[0]
+                                                  ?.HighPotential,
+                                        lessDDependabilityhp:
+                                                  updatedBehaviourData[1]
+                                                            ?.HighPotential,
+                                        groupWorkinghp:
+                                                  updatedBehaviourData[2]
+                                                            ?.HighPotential,
+                                        positiveAttitudehp:
+                                                  updatedBehaviourData[3]
+                                                            ?.HighPotential,
+                                        intelligencehp:
+                                                  updatedBehaviourData[4]
+                                                            ?.HighPotential,
+                                        imaginationhp:
+                                                  updatedBehaviourData[5]
+                                                            ?.HighPotential,
+                                        improvementhp:
+                                                  updatedBehaviourData[6]
+                                                            ?.HighPotential,
+                                        disciplinehp: updatedBehaviourData[7]
+                                                  ?.HighPotential,
+                                        qualityhp: updatedBehaviourData[8]
+                                                  ?.HighPotential,
+                                        responsibilityhp:
+                                                  updatedBehaviourData[9]
+                                                            ?.HighPotential,
+                                        multiSkillshp:
+                                                  updatedBehaviourData[10]
+                                                            ?.HighPotential,
+                              });
+                    }
+          }, [updatedBehaviourData]);
 
-          const [lowPotential, setLowPotential] = useState(initialLowPotential);
-          const [goodPotential, setGoodPotential] =
-                    useState(initialGoodPotential);
-          const [highPotential, setHighPotential] =
-                    useState(initialHighPotential);
+          const [lowPotential, setLowPotential] = useState({});
+          const [goodPotential, setGoodPotential] = useState({});
+          const [highPotential, setHighPotential] = useState({});
 
           async function KpiMarks() {
                     setLoader(true);
@@ -2627,22 +3095,34 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               }
                     });
 
-                    // let data = axios({
-                    //           method: "post",
-                    //           url: `http://localhost:8080/kpi/marks`,
-                    //           data: allFinalData,
-                    //           headers: { Accept: "application/json" },
-                    // });
-                    let bData = axios({
+                    let data = axios({
                               method: "post",
-                              url: `http://localhost:8080/kpi/behavioural`,
-                              data: allBehaviourKpiData,
+                              url: `http://localhost:8080/kpi/marks`,
+                              data: allFinalData,
                               headers: { Accept: "application/json" },
                     });
+                    // let bData = axios({
+                    //           method: "post",
+                    //           url: `http://localhost:8080/kpi/behavioural`,
+                    //           data: allBehaviourKpiData,
+                    //           headers: { Accept: "application/json" },
+                    // });
+                    // let pData = axios({
+                    //           method: "post",
+                    //           url: `http://localhost:8080/kpi/positivepoint`,
+                    //           data: allBehaviourKpiData,
+                    //           headers: { Accept: "application/json" },
+                    // });
+                    // let sData = axios({
+                    //           method: "post",
+                    //           url: `http://localhost:8080/kpi/scopeofimprovement`,
+                    //           data: allBehaviourKpiData,
+                    //           headers: { Accept: "application/json" },
+                    // });
+
                     setTimeout(() => {
                               setLoader(false);
                     }, 2000);
-                    console.log(allBehaviourKpiData, ">>>>>>>>>>>>>>>>>");
           }
 
           let firstTable = fileData.slice(0, 4);
@@ -3117,6 +3597,9 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                                               }
                                                                                                               setHighPotential={
                                                                                                                         setHighPotential
+                                                                                                              }
+                                                                                                              updatedBehaviourData={
+                                                                                                                        updatedBehaviourData
                                                                                                               }
                                                                                                     />
                                                                                           </>
