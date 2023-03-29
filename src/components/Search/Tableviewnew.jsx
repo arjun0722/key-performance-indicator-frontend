@@ -588,6 +588,15 @@ const Renderthirdtable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
                                                             value={
                                                                       ind === 0
                                                                                 ? customActualdeliveryMarks
@@ -703,6 +712,15 @@ const Renderthirdtable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
                                                             value={
                                                                       ind === 0
                                                                                 ? customActualdeliveryMarksAr
@@ -1354,6 +1372,11 @@ const RenderTestTable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? "5"
+                                                                                : ""
+                                                            }
                                                             value={value}
                                                             style={{
                                                                       height: "100%",
@@ -1379,6 +1402,15 @@ const RenderTestTable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
                                                             value={
                                                                       ind === 0
                                                                                 ? customActualdeliveryMarks
@@ -1499,6 +1531,15 @@ const RenderTestTable = ({
                                                   <input
                                                             type="number"
                                                             min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
                                                             value={
                                                                       // val.AppraiserRating
                                                                       // com[ind].L
@@ -1633,6 +1674,12 @@ const Renderforthtable = ({
           setHighPotential,
           updatedBehaviourData,
 }) => {
+          const [isDisable, setIsDisable] = useState({
+                    LowPotential: false,
+                    GoodPotential: false,
+                    HighPotential: false,
+          });
+
           //------------------------------------------------------------------//
           //Low potential states//
           //------------------------------------------------------------------//
@@ -1687,55 +1734,177 @@ const Renderforthtable = ({
 
           useEffect(() => {
                     //=============lowpotential states================//
-                    setAttendencelp(updatedBehaviourData[0]?.LowPotential);
+                    setAttendencelp(
+                              updatedBehaviourData[0]?.LowPotential
+                                        ? updatedBehaviourData[0]?.LowPotential
+                                        : 0
+                    );
                     setLessDDependabilitylp(
                               updatedBehaviourData[1]?.LowPotential
+                                        ? updatedBehaviourData[1]?.LowPotential
+                                        : 0
                     );
-                    setGroupWorkinglp(updatedBehaviourData[2]?.LowPotential);
+                    setGroupWorkinglp(
+                              updatedBehaviourData[2]?.LowPotential
+                                        ? updatedBehaviourData[2]?.LowPotential
+                                        : 0
+                    );
                     setPositiveAttitudelp(
                               updatedBehaviourData[3]?.LowPotential
+                                        ? updatedBehaviourData[3]?.LowPotential
+                                        : 0
                     );
-                    setIntelligencelp(updatedBehaviourData[4]?.LowPotential);
-                    setImaginationlp(updatedBehaviourData[5]?.LowPotential);
-                    setImprovementlp(updatedBehaviourData[6]?.LowPotential);
-                    setDisciplinelp(updatedBehaviourData[7]?.LowPotential);
-                    setQualitylp(updatedBehaviourData[8]?.LowPotential);
-                    setResponsibilitylp(updatedBehaviourData[9]?.LowPotential);
-                    setMultiSkillslp(updatedBehaviourData[10]?.LowPotential);
+                    setIntelligencelp(
+                              updatedBehaviourData[4]?.LowPotential
+                                        ? updatedBehaviourData[4]?.LowPotential
+                                        : 0
+                    );
+                    setImaginationlp(
+                              updatedBehaviourData[5]?.LowPotential
+                                        ? updatedBehaviourData[5]?.LowPotential
+                                        : 0
+                    );
+                    setImprovementlp(
+                              updatedBehaviourData[6]?.LowPotential
+                                        ? updatedBehaviourData[6]?.LowPotential
+                                        : 0
+                    );
+                    setDisciplinelp(
+                              updatedBehaviourData[7]?.LowPotential
+                                        ? updatedBehaviourData[7]?.LowPotential
+                                        : 0
+                    );
+                    setQualitylp(
+                              updatedBehaviourData[8]?.LowPotential
+                                        ? updatedBehaviourData[8]?.LowPotential
+                                        : 0
+                    );
+                    setResponsibilitylp(
+                              updatedBehaviourData[9]?.LowPotential
+                                        ? updatedBehaviourData[9]?.LowPotential
+                                        : 0
+                    );
+                    setMultiSkillslp(
+                              updatedBehaviourData[10]?.LowPotential
+                                        ? updatedBehaviourData[10]?.LowPotential
+                                        : 0
+                    );
 
                     //=============goodpotential states================//
-                    setAttendencegp(updatedBehaviourData[0]?.GoodPotential);
+                    setAttendencegp(
+                              updatedBehaviourData[0]?.GoodPotential
+                                        ? updatedBehaviourData[0]?.GoodPotential
+                                        : 0
+                    );
                     setLessDDependabilitygp(
                               updatedBehaviourData[1]?.GoodPotential
+                                        ? updatedBehaviourData[1]?.GoodPotential
+                                        : 0
                     );
-                    setGroupWorkinggp(updatedBehaviourData[2]?.GoodPotential);
+                    setGroupWorkinggp(
+                              updatedBehaviourData[2]?.GoodPotential
+                                        ? updatedBehaviourData[2]?.GoodPotential
+                                        : 0
+                    );
                     setPositiveAttitudegp(
                               updatedBehaviourData[3]?.GoodPotential
+                                        ? updatedBehaviourData[3]?.GoodPotential
+                                        : 0
                     );
-                    setIntelligencegp(updatedBehaviourData[4]?.GoodPotential);
-                    setImaginationgp(updatedBehaviourData[5]?.GoodPotential);
-                    setImprovementgp(updatedBehaviourData[6]?.GoodPotential);
-                    setDisciplinegp(updatedBehaviourData[7]?.GoodPotential);
-                    setQualitygp(updatedBehaviourData[8]?.GoodPotential);
-                    setResponsibilitygp(updatedBehaviourData[9]?.GoodPotential);
-                    setMultiSkillsgp(updatedBehaviourData[10]?.GoodPotential);
+                    setIntelligencegp(
+                              updatedBehaviourData[4]?.GoodPotential
+                                        ? updatedBehaviourData[4]?.GoodPotential
+                                        : 0
+                    );
+                    setImaginationgp(
+                              updatedBehaviourData[5]?.GoodPotential
+                                        ? updatedBehaviourData[5]?.GoodPotential
+                                        : 0
+                    );
+                    setImprovementgp(
+                              updatedBehaviourData[6]?.GoodPotential
+                                        ? updatedBehaviourData[6]?.GoodPotential
+                                        : 0
+                    );
+                    setDisciplinegp(
+                              updatedBehaviourData[7]?.GoodPotential
+                                        ? updatedBehaviourData[7]?.GoodPotential
+                                        : 0
+                    );
+                    setQualitygp(
+                              updatedBehaviourData[8]?.GoodPotential
+                                        ? updatedBehaviourData[8]?.GoodPotential
+                                        : 0
+                    );
+                    setResponsibilitygp(
+                              updatedBehaviourData[9]?.GoodPotential
+                                        ? updatedBehaviourData[9]?.GoodPotential
+                                        : 0
+                    );
+                    setMultiSkillsgp(
+                              updatedBehaviourData[10]?.GoodPotential
+                                        ? updatedBehaviourData[10]
+                                                    ?.GoodPotential
+                                        : 0
+                    );
 
                     //=============highpotential states================//
-                    setAttendencehp(updatedBehaviourData[0]?.HighPotential);
+                    setAttendencehp(
+                              updatedBehaviourData[0]?.HighPotential
+                                        ? updatedBehaviourData[0]?.HighPotential
+                                        : 0
+                    );
                     setLessDDependabilityhp(
                               updatedBehaviourData[1]?.HighPotential
+                                        ? updatedBehaviourData[1]?.HighPotential
+                                        : 0
                     );
-                    setGroupWorkinghp(updatedBehaviourData[2]?.HighPotential);
+                    setGroupWorkinghp(
+                              updatedBehaviourData[2]?.HighPotential
+                                        ? updatedBehaviourData[2]?.HighPotential
+                                        : 0
+                    );
                     setPositiveAttitudehp(
                               updatedBehaviourData[3]?.HighPotential
+                                        ? updatedBehaviourData[3]?.HighPotential
+                                        : 0
                     );
-                    setIntelligencehp(updatedBehaviourData[4]?.HighPotential);
-                    setImaginationhp(updatedBehaviourData[5]?.HighPotential);
-                    setImprovementhp(updatedBehaviourData[6]?.HighPotential);
-                    setDisciplinehp(updatedBehaviourData[7]?.HighPotential);
-                    setQualityhp(updatedBehaviourData[8]?.HighPotential);
-                    setResponsibilityhp(updatedBehaviourData[9]?.HighPotential);
-                    setMultiSkillshp(updatedBehaviourData[10]?.HighPotential);
+                    setIntelligencehp(
+                              updatedBehaviourData[4]?.HighPotential
+                                        ? updatedBehaviourData[4]?.HighPotential
+                                        : 0
+                    );
+                    setImaginationhp(
+                              updatedBehaviourData[5]?.HighPotential
+                                        ? updatedBehaviourData[5]?.HighPotential
+                                        : 0
+                    );
+                    setImprovementhp(
+                              updatedBehaviourData[6]?.HighPotential
+                                        ? updatedBehaviourData[6]?.HighPotential
+                                        : 0
+                    );
+                    setDisciplinehp(
+                              updatedBehaviourData[7]?.HighPotential
+                                        ? updatedBehaviourData[7]?.HighPotential
+                                        : 0
+                    );
+                    setQualityhp(
+                              updatedBehaviourData[8]?.HighPotential
+                                        ? updatedBehaviourData[8]?.HighPotential
+                                        : 0
+                    );
+                    setResponsibilityhp(
+                              updatedBehaviourData[9]?.HighPotential
+                                        ? updatedBehaviourData[9]?.HighPotential
+                                        : 0
+                    );
+                    setMultiSkillshp(
+                              updatedBehaviourData[10]?.HighPotential
+                                        ? updatedBehaviourData[10]
+                                                    ?.HighPotential
+                                        : 0
+                    );
           }, [updatedBehaviourData]);
 
           //------------------------------------------------------------------//
@@ -1743,6 +1912,20 @@ const Renderforthtable = ({
           //------------------------------------------------------------------//
 
           function handleOnChange1(e) {
+                    if (e.target.value && e.target.value > 0) {
+                              setIsDisable({
+                                        LowPotential: false,
+                                        GoodPotential: true,
+                                        HighPotential: true,
+                              });
+                    } else {
+                              setIsDisable({
+                                        LowPotential: false,
+                                        GoodPotential: false,
+                                        HighPotential: false,
+                              });
+                    }
+
                     if (ind === 0) {
                               setAttendencelp(e.target.value);
                               setLowPotential({
@@ -1823,6 +2006,19 @@ const Renderforthtable = ({
           }
 
           function handleOnChange2(e) {
+                    if (e.target.value && e.target.value > 0) {
+                              setIsDisable({
+                                        LowPotential: true,
+                                        GoodPotential: false,
+                                        HighPotential: true,
+                              });
+                    } else {
+                              setIsDisable({
+                                        LowPotential: false,
+                                        GoodPotential: false,
+                                        HighPotential: false,
+                              });
+                    }
                     if (ind === 0) {
                               setAttendencegp(e.target.value);
                               setGoodPotential({
@@ -1903,6 +2099,19 @@ const Renderforthtable = ({
           }
 
           function handleOnChange3(e) {
+                    if (e.target.value && e.target.value > 0) {
+                              setIsDisable({
+                                        LowPotential: true,
+                                        GoodPotential: true,
+                                        HighPotential: false,
+                              });
+                    } else {
+                              setIsDisable({
+                                        LowPotential: false,
+                                        GoodPotential: false,
+                                        HighPotential: false,
+                              });
+                    }
                     if (ind === 0) {
                               setAttendencehp(e.target.value);
                               setHighPotential({
@@ -2129,6 +2338,9 @@ const Renderforthtable = ({
                                                             value={
                                                                       lowPotentialInputValues
                                                             }
+                                                            disabled={
+                                                                      isDisable.LowPotential
+                                                            }
                                                             onChange={(e) =>
                                                                       handleOnChange1(
                                                                                 e
@@ -2151,6 +2363,9 @@ const Renderforthtable = ({
                                                             min="0"
                                                             value={
                                                                       goodPotentialInputValues
+                                                            }
+                                                            disabled={
+                                                                      isDisable.GoodPotential
                                                             }
                                                             onChange={(e) =>
                                                                       handleOnChange2(
@@ -2179,6 +2394,9 @@ const Renderforthtable = ({
                                                                       handleOnChange3(
                                                                                 e
                                                                       )
+                                                            }
+                                                            disabled={
+                                                                      isDisable.HighPotential
                                                             }
                                                             style={{
                                                                       outline: "0",
@@ -2231,6 +2449,32 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
           );
+          const [scope, setScope] = useState();
+          const [feedback, setFeedback] = useState();
+
+          const [dataFeedback, setdataFeedback] = useState({});
+          const [dataScope, setDataScope] = useState({});
+
+          useEffect(() => {
+                    setFeedback({
+                              PositivePoint: dataFeedback[0]?.PositivePoint,
+                              ToUserId: dataFeedback[0]?.ToUserId,
+                              FromUserId: dataFeedback[0]?.FromUserId,
+                              ToDate: dataFeedback[0]?.ToDate,
+                              FromDate: dataFeedback[0]?.FromDate,
+                              UpdatedDate: dataFeedback[0]?.UpdatedDate,
+                    });
+                    setScope({
+                              ScopeOfImprovement:
+                                        dataScope[0]?.ScopeOfImprovement,
+                              ToUserId: dataScope[0]?.ToUserId,
+                              FromUserId: dataScope[0]?.FromUserId,
+                              UpdatedDate: dataScope[0]?.UpdatedDate,
+                              ToDate: dataScope[0]?.ToDate,
+                              FromDate: dataScope[0]?.FromDate,
+                    });
+          }, [dataFeedback, dataScope]);
+
           async function getAllData() {
                     let reqOptions = {
                               method: "post",
@@ -2288,6 +2532,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               data: data,
                     };
                     let resData = await axios.request(reqOptions);
+                    return setdataFeedback(resData.data.data);
           }
           async function getScopeOfImprovement() {
                     let data = [
@@ -2308,7 +2553,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                               data: data,
                     };
                     let resData = await axios.request(reqOptions);
-                    console.log(resData, "nnnnnnnnnnnnnnnnn");
+                    return setDataScope(resData.data.data);
           }
           useEffect(() => {
                     getAllData();
@@ -2515,6 +2760,8 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     setLoader(true);
                     let allFinalData = [];
                     let allBehaviourKpiData = [];
+                    let allFeedbackData = [feedback];
+                    let allScopeData = [scope];
                     let currentDate = new Date();
                     let dateTime1 = moment(currentDate).format(
                               "YYYY-MM-DD HH:mm:ss"
@@ -3107,18 +3354,18 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     //           data: allBehaviourKpiData,
                     //           headers: { Accept: "application/json" },
                     // });
-                    // let pData = axios({
-                    //           method: "post",
-                    //           url: `http://localhost:8080/kpi/positivepoint`,
-                    //           data: allBehaviourKpiData,
-                    //           headers: { Accept: "application/json" },
-                    // });
-                    // let sData = axios({
-                    //           method: "post",
-                    //           url: `http://localhost:8080/kpi/scopeofimprovement`,
-                    //           data: allBehaviourKpiData,
-                    //           headers: { Accept: "application/json" },
-                    // });
+                    let pData = axios({
+                              method: "post",
+                              url: `http://localhost:8080/kpi/positivepoint`,
+                              data: allFeedbackData,
+                              headers: { Accept: "application/json" },
+                    });
+                    let sData = axios({
+                              method: "post",
+                              url: `http://localhost:8080/kpi/scopeofimprovement`,
+                              data: allScopeData,
+                              headers: { Accept: "application/json" },
+                    });
 
                     setTimeout(() => {
                               setLoader(false);
@@ -3130,6 +3377,44 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
           let thirdTable = fileData.slice(6, 14);
           let forthTable = fileData.slice(17, 31);
           let fifthTable = fileData.slice(32, 37);
+
+          //------------------------------------------------------------------//
+          //feedback//
+          //------------------------------------------------------------------//
+
+          const handleFeedback = (e) => {
+                    let currentDate = new Date();
+                    let dateTime1 = moment(currentDate).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                    );
+                    setFeedback({
+                              PositivePoint: e.target.value || "",
+                              ToUserId: email || "",
+                              FromUserId: loginUser || "",
+                              ToDate: fileData[0].E || "",
+                              FromDate: fileData[1].E || "",
+                              UpdatedDate: dateTime1 || "",
+                    });
+          };
+
+          //------------------------------------------------------------------//
+          //scope of improvement//
+          //------------------------------------------------------------------//
+
+          const handleScope = (e) => {
+                    let currentDate = new Date();
+                    let dateTime1 = moment(currentDate).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                    );
+                    setScope({
+                              ScopeOfImprovement: e.target.value || "",
+                              ToUserId: email || "",
+                              FromUserId: loginUser || "",
+                              UpdatedDate: dateTime1 || "",
+                              ToDate: fileData[0].E || "",
+                              FromDate: fileData[1].E || "",
+                    });
+          };
 
           return (
                     <>
@@ -3671,6 +3956,16 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                           height: "145px",
                                                                                           resize: "none",
                                                                                 }}
+                                                                                value={
+                                                                                          feedback?.PositivePoint
+                                                                                }
+                                                                                onChange={(
+                                                                                          e
+                                                                                ) =>
+                                                                                          handleFeedback(
+                                                                                                    e
+                                                                                          )
+                                                                                }
                                                                       />
                                                             </td>
                                                             <tr
@@ -3724,6 +4019,16 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                                                                                           height: "145px",
                                                                                           resize: "none",
                                                                                 }}
+                                                                                value={
+                                                                                          scope?.ScopeOfImprovement
+                                                                                }
+                                                                                onChange={(
+                                                                                          e
+                                                                                ) =>
+                                                                                          handleScope(
+                                                                                                    e
+                                                                                          )
+                                                                                }
                                                                       />
                                                             </td>
                                                             <tr
