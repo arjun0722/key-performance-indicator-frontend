@@ -1053,6 +1053,7 @@ const Renderforthtable = ({
   highPotential,
   setHighPotential,
   updatedBehaviourData,
+  designation,
 }) => {
   const [isDisable, setIsDisable] = useState({
     LowPotential: false,
@@ -1075,6 +1076,9 @@ const Renderforthtable = ({
   const [qualitylp, setQualitylp] = useState();
   const [responsibilitylp, setResponsibilitylp] = useState();
   const [multiSkillslp, setMultiSkillslp] = useState();
+  const [maturitylp, setMaturitylp] = useState();
+  const [approachlp, setApproachlp] = useState();
+  const [teamworklp, setTeamworklp] = useState();
 
   //------------------------------------------------------------------//
   //Good potential states//
@@ -1091,6 +1095,9 @@ const Renderforthtable = ({
   const [qualitygp, setQualitygp] = useState();
   const [responsibilitygp, setResponsibilitygp] = useState();
   const [multiSkillsgp, setMultiSkillsgp] = useState();
+  const [maturitygp, setMaturitygp] = useState();
+  const [approachgp, setApproachgp] = useState();
+  const [teamworkgp, setTeamworkgp] = useState();
 
   //------------------------------------------------------------------//
   //High potential states//
@@ -1107,6 +1114,9 @@ const Renderforthtable = ({
   const [qualityhp, setQualityhp] = useState();
   const [responsibilityhp, setResponsibilityhp] = useState();
   const [multiSkillshp, setMultiSkillshp] = useState();
+  const [maturityhp, setMaturityhp] = useState();
+  const [approachhp, setApproachhp] = useState();
+  const [teamworkhp, setTeamworkhp] = useState();
 
   //------------------------------------------------------------------//
   //useEffect for the intital value which will set in table//
@@ -1169,6 +1179,21 @@ const Renderforthtable = ({
         ? updatedBehaviourData[10]?.LowPotential
         : 0
     );
+    setMaturitylp(
+      updatedBehaviourData[11]?.LowPotential
+        ? updatedBehaviourData[11]?.LowPotential
+        : 0
+    );
+    setApproachlp(
+      updatedBehaviourData[12]?.LowPotential
+        ? updatedBehaviourData[12]?.LowPotential
+        : 0
+    );
+    setTeamworklp(
+      updatedBehaviourData[13]?.LowPotential
+        ? updatedBehaviourData[13]?.LowPotential
+        : 0
+    );
 
     //=============goodpotential states================//
     setAttendencegp(
@@ -1226,6 +1251,21 @@ const Renderforthtable = ({
         ? updatedBehaviourData[10]?.GoodPotential
         : 0
     );
+    setMaturitygp(
+      updatedBehaviourData[11]?.GoodPotential
+        ? updatedBehaviourData[11]?.GoodPotential
+        : 0
+    );
+    setApproachgp(
+      updatedBehaviourData[12]?.GoodPotential
+        ? updatedBehaviourData[12]?.GoodPotential
+        : 0
+    );
+    setTeamworkgp(
+      updatedBehaviourData[13]?.GoodPotential
+        ? updatedBehaviourData[13]?.GoodPotential
+        : 0
+    );
 
     //=============highpotential states================//
     setAttendencehp(
@@ -1281,6 +1321,21 @@ const Renderforthtable = ({
     setMultiSkillshp(
       updatedBehaviourData[10]?.HighPotential
         ? updatedBehaviourData[10]?.HighPotential
+        : 0
+    );
+    setMaturityhp(
+      updatedBehaviourData[11]?.HighPotential
+        ? updatedBehaviourData[11]?.HighPotential
+        : 0
+    );
+    setApproachhp(
+      updatedBehaviourData[12]?.HighPotential
+        ? updatedBehaviourData[12]?.HighPotential
+        : 0
+    );
+    setTeamworkhp(
+      updatedBehaviourData[13]?.HighPotential
+        ? updatedBehaviourData[13]?.HighPotential
         : 0
     );
   }, [updatedBehaviourData]);
@@ -1381,6 +1436,27 @@ const Renderforthtable = ({
         multiSkillslp: e.target.value,
       });
     }
+    if (ind === 11) {
+      setMaturitylp(e.target.value);
+      setLowPotential({
+        ...lowPotential,
+        maturitylp: e.target.value,
+      });
+    }
+    if (ind === 12) {
+      setApproachlp(e.target.value);
+      setLowPotential({
+        ...lowPotential,
+        approachlp: e.target.value,
+      });
+    }
+    if (ind === 13) {
+      setTeamworklp(e.target.value);
+      setLowPotential({
+        ...lowPotential,
+        teamworklp: e.target.value,
+      });
+    }
   }
 
   function handleOnChange2(e) {
@@ -1472,6 +1548,27 @@ const Renderforthtable = ({
       setGoodPotential({
         ...goodPotential,
         multiSkillsgp: e.target.value,
+      });
+    }
+    if (ind === 11) {
+      setMaturitygp(e.target.value);
+      setGoodPotential({
+        ...goodPotential,
+        maturitygp: e.target.value,
+      });
+    }
+    if (ind === 12) {
+      setApproachgp(e.target.value);
+      setGoodPotential({
+        ...goodPotential,
+        approachgp: e.target.value,
+      });
+    }
+    if (ind === 13) {
+      setTeamworkgp(e.target.value);
+      setGoodPotential({
+        ...goodPotential,
+        teamworkgp: e.target.value,
       });
     }
   }
@@ -1567,67 +1664,175 @@ const Renderforthtable = ({
         multiSkillshp: e.target.value,
       });
     }
+    if (ind === 11) {
+      setMaturityhp(e.target.value);
+      setHighPotential({
+        ...highPotential,
+        maturityhp: e.target.value,
+      });
+    }
+    if (ind === 12) {
+      setApproachhp(e.target.value);
+      setHighPotential({
+        ...highPotential,
+        approachhp: e.target.value,
+      });
+    }
+    if (ind === 13) {
+      setTeamworkhp(e.target.value);
+      setHighPotential({
+        ...highPotential,
+        teamworkhp: e.target.value,
+      });
+    }
   }
 
   //------------------------------------------------------------------//
   //values//
   //------------------------------------------------------------------//
 
-  const lowPotentialValues = [
-    attendencelp,
-    lessDDependabilitylp,
-    groupWorkinglp,
-    positiveAttitudelp,
-    intelligencelp,
-    imaginationlp,
-    improvementlp,
-    disciplinelp,
-    qualitylp,
-    responsibilitylp,
-    multiSkillslp,
-  ];
+  const lowPotentialValues = designation?.includes("Senior")
+    ? [
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+        maturitylp,
+        approachlp,
+        teamworklp,
+      ]
+    : [
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+      ];
 
   const lowPotentialInputValues =
     lowPotentialValues[ind] !== undefined
       ? lowPotentialValues[ind]
       : "undefined";
 
-  const goodPotentialValues = [
-    attendencegp,
-    lessDDependabilitygp,
-    groupWorkinggp,
-    positiveAttitudegp,
-    intelligencegp,
-    imaginationgp,
-    improvementgp,
-    disciplinegp,
-    qualitygp,
-    responsibilitygp,
-    multiSkillsgp,
-  ];
+  const goodPotentialValues = designation.includes("Senior")
+    ? [
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+        maturitygp,
+        approachgp,
+        teamworkgp,
+      ]
+    : [
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+      ];
 
   const goodPotentialInputValues =
     goodPotentialValues[ind] !== undefined
       ? goodPotentialValues[ind]
       : "undefined";
 
-  const highPotentialValues = [
-    attendencehp,
-    lessDDependabilityhp,
-    groupWorkinghp,
-    positiveAttitudehp,
-    intelligencehp,
-    imaginationhp,
-    improvementhp,
-    disciplinehp,
-    qualityhp,
-    responsibilityhp,
-    multiSkillshp,
-  ];
+  const highPotentialValues = designation.includes("Senior")
+    ? [
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+        maturityhp,
+        approachhp,
+        teamworkhp,
+      ]
+    : [
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+      ];
   const highPotentialInputValues =
     highPotentialValues[ind] !== undefined
       ? highPotentialValues[ind]
       : "undefined";
+
+  // const avagerage = [
+  //   Number(attendencelp) +
+  //     Number(attendencegp) +
+  //     Number(attendencehp) +
+  //     Number(lessDDependabilitylp) +
+  //     Number(lessDDependabilitygp) +
+  //     Number(lessDDependabilityhp) +
+  //     Number(groupWorkinglp) +
+  //     Number(groupWorkinggp) +
+  //     Number(groupWorkinghp) +
+  //     Number(positiveAttitudelp) +
+  //     Number(positiveAttitudegp) +
+  //     Number(positiveAttitudehp) +
+  //     Number(intelligencelp) +
+  //     Number(intelligencegp) +
+  //     Number(intelligencehp) +
+  //     Number(imaginationlp) +
+  //     Number(imaginationgp) +
+  //     Number(imaginationhp) +
+  //     Number(improvementlp) +
+  //     Number(improvementgp) +
+  //     Number(improvementhp) +
+  //     Number(disciplinelp) +
+  //     Number(disciplinegp) +
+  //     Number(disciplinehp) +
+  //     Number(qualitylp) +
+  //     Number(qualitygp) +
+  //     Number(qualityhp) +
+  //     Number(responsibilitylp) +
+  //     Number(responsibilitygp) +
+  //     Number(responsibilitygp) +
+  //     Number(multiSkillslp) +
+  //     Number(multiSkillsgp) +
+  //     Number(multiSkillshp),
+  // ];
 
   const calculatedValues = {
     totalAttendence:
@@ -1663,25 +1868,46 @@ const Renderforthtable = ({
     totalRespnsibility:
       Number(responsibilitylp) +
       Number(responsibilitygp) +
-      Number(responsibilitygp),
+      Number(responsibilityhp),
 
     totalMultiSkill:
       Number(multiSkillslp) + Number(multiSkillsgp) + Number(multiSkillshp),
+
+    totalMaturity: Number(maturitylp) + Number(maturitygp) + Number(maturityhp),
+    totalApproach: Number(approachlp) + Number(approachgp) + Number(approachhp),
+    totalTeamwork: Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
   };
 
-  const totalMarks = [
-    calculatedValues.totalAttendence,
-    calculatedValues.totalDependablity,
-    calculatedValues.tatalGroupWorking,
-    calculatedValues.totalPositiveAttitude,
-    calculatedValues.totalInteligence,
-    calculatedValues.totalImagination,
-    calculatedValues.totalImprovement,
-    calculatedValues.totalDiscipline,
-    calculatedValues.totalQuality,
-    calculatedValues.totalRespnsibility,
-    calculatedValues.totalMultiSkill,
-  ];
+  const totalMarks = designation.includes("Senior")
+    ? [
+        calculatedValues.totalAttendence,
+        calculatedValues.totalDependablity,
+        calculatedValues.tatalGroupWorking,
+        calculatedValues.totalPositiveAttitude,
+        calculatedValues.totalInteligence,
+        calculatedValues.totalImagination,
+        calculatedValues.totalImprovement,
+        calculatedValues.totalDiscipline,
+        calculatedValues.totalQuality,
+        calculatedValues.totalRespnsibility,
+        calculatedValues.totalMultiSkill,
+        calculatedValues.totalMaturity,
+        calculatedValues.totalApproach,
+        calculatedValues.totalTeamwork,
+      ]
+    : [
+        calculatedValues.totalAttendence,
+        calculatedValues.totalDependablity,
+        calculatedValues.tatalGroupWorking,
+        calculatedValues.totalPositiveAttitude,
+        calculatedValues.totalInteligence,
+        calculatedValues.totalImagination,
+        calculatedValues.totalImprovement,
+        calculatedValues.totalDiscipline,
+        calculatedValues.totalQuality,
+        calculatedValues.totalRespnsibility,
+        calculatedValues.totalMultiSkill,
+      ];
 
   const calculatedMarks =
     totalMarks[ind] !== undefined ? totalMarks[ind] : "undefined";
@@ -1775,13 +2001,31 @@ const Renderfifthtable = ({ val }) => {
   );
 };
 
-const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
+const Tableviewnew = ({
+  fileData,
+  TaskwiseMarks,
+  email,
+  handleexceldropdown,
+}) => {
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
+
+  let firstTable = fileData.slice(0, 4);
+  let secondTable = fileData.slice(4, 5);
+  let thirdTable = fileData.slice(6, 14);
+  let forthTable = fileData.slice(17, 31);
+  let fifthTable = fileData.slice(32, 37);
+  let avgTotalFourthTable = {
+    B: "Average",
+    F: 0,
+  };
+  forthTable.push(avgTotalFourthTable);
+
+  let designation = fileData[3].C;
   async function getAllData() {
     let reqOptions = {
       method: "post",
@@ -1883,52 +2127,107 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
   //------------------------------------------------------------------//
 
   useEffect(() => {
-    if (updatedBehaviourData && updatedBehaviourData.length > 0) {
-      setLowPotential({
-        attendencelp: updatedBehaviourData[0]?.LowPotential,
-        lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
-        groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
-        positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
-        intelligencelp: updatedBehaviourData[4]?.LowPotential,
-        imaginationlp: updatedBehaviourData[5]?.LowPotential,
-        improvementlp: updatedBehaviourData[6]?.LowPotential,
-        disciplinelp: updatedBehaviourData[7]?.LowPotential,
-        qualitylp: updatedBehaviourData[8]?.LowPotential,
-        responsibilitylp: updatedBehaviourData[9]?.LowPotential,
-        multiSkillslp: updatedBehaviourData[10]?.LowPotential,
-      });
-      setGoodPotential({
-        attendencegp: updatedBehaviourData[0]?.GoodPotential,
-        lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
-        groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
-        positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
-        intelligencegp: updatedBehaviourData[4]?.GoodPotential,
-        imaginationgp: updatedBehaviourData[5]?.GoodPotential,
-        improvementgp: updatedBehaviourData[6]?.GoodPotential,
-        disciplinegp: updatedBehaviourData[7]?.GoodPotential,
-        qualitygp: updatedBehaviourData[8]?.GoodPotential,
-        responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
-        multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
-      });
-      setHighPotential({
-        attendencehp: updatedBehaviourData[0]?.HighPotential,
-        lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
-        groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
-        positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
-        intelligencehp: updatedBehaviourData[4]?.HighPotential,
-        imaginationhp: updatedBehaviourData[5]?.HighPotential,
-        improvementhp: updatedBehaviourData[6]?.HighPotential,
-        disciplinehp: updatedBehaviourData[7]?.HighPotential,
-        qualityhp: updatedBehaviourData[8]?.HighPotential,
-        responsibilityhp: updatedBehaviourData[9]?.HighPotential,
-        multiSkillshp: updatedBehaviourData[10]?.HighPotential,
-      });
+    if (designation.includes("Senior")) {
+      if (updatedBehaviourData && updatedBehaviourData.length > 0) {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+          maturitylp: updatedBehaviourData[11]?.LowPotential,
+          approachlp: updatedBehaviourData[12]?.LowPotential,
+          teamworklp: updatedBehaviourData[13]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+          maturitygp: updatedBehaviourData[11]?.GoodPotential,
+          approachgp: updatedBehaviourData[12]?.GoodPotential,
+          teamworkgp: updatedBehaviourData[13]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+          maturityhp: updatedBehaviourData[11]?.HighPotential,
+          approachhp: updatedBehaviourData[12]?.HighPotential,
+          teamworkhp: updatedBehaviourData[13]?.HighPotential,
+        });
+      }
+    } else {
+      if (updatedBehaviourData && updatedBehaviourData.length > 0) {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+        });
+      }
     }
   }, [updatedBehaviourData]);
 
   const [lowPotential, setLowPotential] = useState({});
   const [goodPotential, setGoodPotential] = useState({});
   const [highPotential, setHighPotential] = useState({});
+
+  console.log("EEEEEEEEEEEEEEEEEE".lowPotential);
 
   async function KpiMarks() {
     setLoader(true);
@@ -2283,17 +2582,12 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
       data: allBehaviourKpiData,
       headers: { Accept: "application/json" },
     });
+    handleexceldropdown("juniorDeveloper");
 
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   }
-
-  let firstTable = fileData.slice(0, 4);
-  let secondTable = fileData.slice(4, 5);
-  let thirdTable = fileData.slice(6, 14);
-  let forthTable = fileData.slice(17, 31);
-  let fifthTable = fileData.slice(32, 37);
 
   //------------------------------------------------------------------//
   //feedback//
@@ -2318,6 +2612,33 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
       ToDate: fileData[0].E || "",
       FromDate: fileData[1].E || "",
       UpdatedDate: dateTime1 || "",
+    });
+  };
+
+  //------------------------------------------------------------------//
+  //scope of improvement//
+  //------------------------------------------------------------------//
+
+  const inttialScope = {
+    ScopeOfImprovement: "",
+    ToUserId: "",
+    FromUserId: "",
+    UpdatedDate: "",
+    ToDate: "",
+    FromDate: "",
+  };
+  const [scope, setScope] = useState(inttialScope);
+
+  const handleScope = (e) => {
+    let currentDate = new Date();
+    let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+    setScope({
+      ScopeOfImprovement: e.target.value || "",
+      ToUserId: email || "",
+      FromUserId: loginUser || "",
+      UpdatedDate: dateTime1 || "",
+      ToDate: fileData[0].E || "",
+      FromDate: fileData[1].E || "",
     });
   };
 
@@ -2605,6 +2926,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                     highPotential={highPotential}
                     setHighPotential={setHighPotential}
                     updatedBehaviourData={updatedBehaviourData}
+                    designation={designation}
                   />
                 </>
               );
@@ -2722,6 +3044,7 @@ const Tableviewnew = ({ fileData, TaskwiseMarks, email }) => {
                   height: "145px",
                   resize: "none",
                 }}
+                onChange={(e) => handleScope(e)}
               />
             </td>
             <tr
