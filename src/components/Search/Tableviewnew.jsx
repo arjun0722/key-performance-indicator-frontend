@@ -1798,42 +1798,6 @@ const Renderforthtable = ({
       ? highPotentialValues[ind]
       : "undefined";
 
-  // const avagerage = [
-  //   Number(attendencelp) +
-  //     Number(attendencegp) +
-  //     Number(attendencehp) +
-  //     Number(lessDDependabilitylp) +
-  //     Number(lessDDependabilitygp) +
-  //     Number(lessDDependabilityhp) +
-  //     Number(groupWorkinglp) +
-  //     Number(groupWorkinggp) +
-  //     Number(groupWorkinghp) +
-  //     Number(positiveAttitudelp) +
-  //     Number(positiveAttitudegp) +
-  //     Number(positiveAttitudehp) +
-  //     Number(intelligencelp) +
-  //     Number(intelligencegp) +
-  //     Number(intelligencehp) +
-  //     Number(imaginationlp) +
-  //     Number(imaginationgp) +
-  //     Number(imaginationhp) +
-  //     Number(improvementlp) +
-  //     Number(improvementgp) +
-  //     Number(improvementhp) +
-  //     Number(disciplinelp) +
-  //     Number(disciplinegp) +
-  //     Number(disciplinehp) +
-  //     Number(qualitylp) +
-  //     Number(qualitygp) +
-  //     Number(qualityhp) +
-  //     Number(responsibilitylp) +
-  //     Number(responsibilitygp) +
-  //     Number(responsibilitygp) +
-  //     Number(multiSkillslp) +
-  //     Number(multiSkillsgp) +
-  //     Number(multiSkillshp),
-  // ];
-
   const calculatedValues = {
     totalAttendence:
       Number(attendencelp) + Number(attendencegp) + Number(attendencehp),
@@ -2226,8 +2190,6 @@ const Tableviewnew = ({
   const [lowPotential, setLowPotential] = useState({});
   const [goodPotential, setGoodPotential] = useState({});
   const [highPotential, setHighPotential] = useState({});
-
-  console.log("EEEEEEEEEEEEEEEEEE".lowPotential);
 
   async function KpiMarks() {
     setLoader(true);
