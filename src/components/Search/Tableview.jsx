@@ -58,7 +58,7 @@ const Tableview = ({ test }) => {
                 >
                   {row.title}
                 </TableCell>
-
+ 
                 {row.kpi.map((innerdata, innerindex) => (
                   <TableRow key={row.innerindex}>
                     {" "}

@@ -7,7 +7,7 @@ import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
 import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
 import Loading from "../Loading";
-import { show_error } from "../../Config/Helper";
+import ModalFeedback from "./ModalFeedback";
 
 const Renderfirsttable = ({ val }) => {
   return (
@@ -1054,12 +1054,30 @@ const Renderforthtable = ({
   setHighPotential,
   updatedBehaviourData,
   designation,
+  rowTotal,
+  setRowTotal,
 }) => {
+  // const [avg,setAvg] = useState(0)
+
   const [isDisable, setIsDisable] = useState({
     LowPotential: false,
     GoodPotential: false,
     HighPotential: false,
   });
+
+  // function totalAvg(){
+  //   const arr = Object.values(rowTotal)
+  //   console.log("55555555555555",arr)
+  //   if(arr[0] !== NaN && arr.length !== 0){
+
+  //     const total = arr?.reduce((accumulator, currentValue) => accumulator + currentValue);
+  //     console.log("5555555555555577777777777777",total)
+  //     setAvg(total)
+  //   }
+  // }
+  // useEffect(()=>{
+  //   totalAvg()
+  // },[])
 
   //------------------------------------------------------------------//
   //Low potential states//
@@ -1117,6 +1135,8 @@ const Renderforthtable = ({
   const [maturityhp, setMaturityhp] = useState();
   const [approachhp, setApproachhp] = useState();
   const [teamworkhp, setTeamworkhp] = useState();
+
+  const [overallTotal, setOverallTotal] = useState(0);
 
   //------------------------------------------------------------------//
   //useEffect for the intital value which will set in table//
@@ -1798,83 +1818,95 @@ const Renderforthtable = ({
       ? highPotentialValues[ind]
       : "undefined";
 
-  const calculatedValues = {
-    totalAttendence:
-      Number(attendencelp) + Number(attendencegp) + Number(attendencehp),
+  useEffect(() => {
+    const calculatedValues = {
+      totalAttendence:
+        Number(attendencelp) + Number(attendencegp) + Number(attendencehp),
 
-    totalDependablity:
-      Number(lessDDependabilitylp) +
-      Number(lessDDependabilitygp) +
-      Number(lessDDependabilityhp),
+      totalDependablity:
+        Number(lessDDependabilitylp) +
+        Number(lessDDependabilitygp) +
+        Number(lessDDependabilityhp),
 
-    tatalGroupWorking:
-      Number(groupWorkinglp) + Number(groupWorkinggp) + Number(groupWorkinghp),
+      tatalGroupWorking:
+        Number(groupWorkinglp) +
+        Number(groupWorkinggp) +
+        Number(groupWorkinghp),
 
-    totalPositiveAttitude:
-      Number(positiveAttitudelp) +
-      Number(positiveAttitudegp) +
-      Number(positiveAttitudehp),
+      totalPositiveAttitude:
+        Number(positiveAttitudelp) +
+        Number(positiveAttitudegp) +
+        Number(positiveAttitudehp),
 
-    totalInteligence:
-      Number(intelligencelp) + Number(intelligencegp) + Number(intelligencehp),
+      totalInteligence:
+        Number(intelligencelp) +
+        Number(intelligencegp) +
+        Number(intelligencehp),
 
-    totalImagination:
-      Number(imaginationlp) + Number(imaginationgp) + Number(imaginationhp),
+      totalImagination:
+        Number(imaginationlp) + Number(imaginationgp) + Number(imaginationhp),
 
-    totalImprovement:
-      Number(improvementlp) + Number(improvementgp) + Number(improvementhp),
+      totalImprovement:
+        Number(improvementlp) + Number(improvementgp) + Number(improvementhp),
 
-    totalDiscipline:
-      Number(disciplinelp) + Number(disciplinegp) + Number(disciplinehp),
+      totalDiscipline:
+        Number(disciplinelp) + Number(disciplinegp) + Number(disciplinehp),
 
-    totalQuality: Number(qualitylp) + Number(qualitygp) + Number(qualityhp),
+      totalQuality: Number(qualitylp) + Number(qualitygp) + Number(qualityhp),
 
-    totalRespnsibility:
-      Number(responsibilitylp) +
-      Number(responsibilitygp) +
-      Number(responsibilityhp),
+      totalRespnsibility:
+        Number(responsibilitylp) +
+        Number(responsibilitygp) +
+        Number(responsibilityhp),
 
-    totalMultiSkill:
-      Number(multiSkillslp) + Number(multiSkillsgp) + Number(multiSkillshp),
+      totalMultiSkill:
+        Number(multiSkillslp) + Number(multiSkillsgp) + Number(multiSkillshp),
 
-    totalMaturity: Number(maturitylp) + Number(maturitygp) + Number(maturityhp),
-    totalApproach: Number(approachlp) + Number(approachgp) + Number(approachhp),
-    totalTeamwork: Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
-  };
+      totalMaturity:
+        Number(maturitylp) + Number(maturitygp) + Number(maturityhp),
+      totalApproach:
+        Number(approachlp) + Number(approachgp) + Number(approachhp),
+      totalTeamwork:
+        Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
+    };
+    const totalMarks = designation.includes("Senior")
+      ? [
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          calculatedValues.totalMaturity,
+          calculatedValues.totalApproach,
+          calculatedValues.totalTeamwork,
+        ]
+      : [
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          0,
+          0,
+          0,
+        ];
 
-  const totalMarks = designation.includes("Senior")
-    ? [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-        calculatedValues.totalMaturity,
-        calculatedValues.totalApproach,
-        calculatedValues.totalTeamwork,
-      ]
-    : [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-      ];
+    const calculatedMarks = totalMarks[ind] !== undefined ? totalMarks[ind] : 0;
 
-  const calculatedMarks =
-    totalMarks[ind] !== undefined ? totalMarks[ind] : "undefined";
+    setRowTotal((marks) => ({ ...marks, [ind]: calculatedMarks }));
+  }, [lowPotential, highPotential, goodPotential]);
 
   return (
     <>
@@ -1938,7 +1970,7 @@ const Renderforthtable = ({
           <input
             disabled={true}
             type="number"
-            value={calculatedMarks}
+            value={rowTotal[ind]}
             style={{
               outline: "0",
               height: " 100%",
@@ -1977,17 +2009,20 @@ const Tableviewnew = ({
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
+  const [totalMarksInputs, setTotalMarksInputs] = useState(0);
+
+  console.log("7777777777777777", totalMarksInputs);
 
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
   let thirdTable = fileData.slice(6, 14);
   let forthTable = fileData.slice(17, 31);
   let fifthTable = fileData.slice(32, 37);
-  let avgTotalFourthTable = {
-    B: "Average",
-    F: 0,
-  };
-  forthTable.push(avgTotalFourthTable);
+  // let avgTotalFourthTable = {
+  //   B: "Average",
+  //   F: 0,
+  // };
+  // forthTable.push(avgTotalFourthTable);
 
   let designation = fileData[3].C;
   async function getAllData() {
@@ -2190,6 +2225,25 @@ const Tableviewnew = ({
   const [lowPotential, setLowPotential] = useState({});
   const [goodPotential, setGoodPotential] = useState({});
   const [highPotential, setHighPotential] = useState({});
+  const [rowTotal, setRowTotal] = useState({});
+  const [finalTotal, setFinalTotal] = useState();
+
+  function checkArr() {
+    const rawTotalArr = Object.values(rowTotal);
+    if (rawTotalArr !== null && rawTotalArr.length !== 0) {
+      const total = rawTotalArr?.reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+      );
+      if (designation.includes("Senior")) {
+        setFinalTotal(total / 14);
+      } else {
+        setFinalTotal(total / 11);
+      }
+    }
+  }
+  useEffect(() => {
+    checkArr();
+  }, [rowTotal]);
 
   async function KpiMarks() {
     setLoader(true);
@@ -2590,6 +2644,7 @@ const Tableviewnew = ({
     FromDate: "",
   };
   const [scope, setScope] = useState(inttialScope);
+  const [state, setState] = useState("");
 
   const handleScope = (e) => {
     let currentDate = new Date();
@@ -2889,10 +2944,41 @@ const Tableviewnew = ({
                     setHighPotential={setHighPotential}
                     updatedBehaviourData={updatedBehaviourData}
                     designation={designation}
+                    totalMarksInputs={totalMarksInputs}
+                    setTotalMarksInputs={setTotalMarksInputs}
+                    setRowTotal={setRowTotal}
+                    rowTotal={rowTotal}
                   />
                 </>
               );
             })}
+            <td
+              style={{
+                backgroundColor: "#f4b084",
+                textAlign: "left",
+              }}
+              colSpan="5"
+            >
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ marginLeft: "53px" }}>Average</div>
+                <div>
+                  <input
+                    disabled={true}
+                    value={
+                      finalTotal === NaN || finalTotal === null ? 0 : finalTotal
+                    }
+                    style={{
+                      outline: "none",
+                      border: "0px",
+                      backgroundColor: "#f4b084",
+                      textAlign: "center",
+                    }}
+                    type="number"
+                  />
+                </div>
+              </div>
+            </td>
+
             <tr
               style={{
                 height: "100px",
@@ -3059,22 +3145,7 @@ const Tableviewnew = ({
                 </button>
               </div>
               <div>
-                <button
-                  style={{
-                    borderRadius: "0px",
-                    height: "30px",
-                    width: "60px",
-                    fontSize: "13px",
-                    display: "flex",
-                    justifyContent: "center",
-                    background: "#b0afaf",
-                    color: "black",
-                    fontWeight: "600",
-                    margin: "0px 15px",
-                  }}
-                >
-                  No
-                </button>
+                <ModalFeedback setState={setState} />
               </div>
             </td>
             <td

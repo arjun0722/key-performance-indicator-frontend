@@ -436,7 +436,6 @@ const Mark = () => {
   ]);
 
   const handleexceldropdown = async (e) => {
-    console.log("ttttttttttttt", e.target.value);
     let selectedFile = e.target.value;
     let data = await axios({
       method: "post",
