@@ -339,8 +339,145 @@ const Renderthirdtable = ({
   const appraiseSelfRatingValue =
     appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : "";
 
+  // ....................formula for first input.....................//
   const formula = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula1 = (a, b, c) => {
+    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula2 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula4 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula5 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula6 = (a, b, c) => {
+    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula7 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  // ....................formula for second input.....................//
+  const formulaA = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA1 = (a, b, c) => {
+    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA2 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA3 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA4 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA5 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA6 = (a, b, c) => {
+    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA7 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
     if (value !== "Infinity" && value !== "NaN") {
       return value;
@@ -382,6 +519,7 @@ const Renderthirdtable = ({
           <input
             type="number"
             min="0"
+            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
               ind === 0
                 ? customActualdeliveryMarks
@@ -428,25 +566,26 @@ const Renderthirdtable = ({
           {ind === 0
             ? formula(actualDelivery, customActualdeliveryMarks, val.H)
             : 0 || ind === 1
-            ? formula(onTime, customOnTimeMarks, val.H)
+            ? formula1(onTime, customOnTimeMarks, val.H)
             : 0 || ind === 2
-            ? formula(val.I, customAvgCodeMarks, val.H)
+            ? formula2(val.I, customAvgCodeMarks, val.H)
             : 0 || ind === 3
-            ? formula(val.I, customReDoMarks, val.H)
+            ? formula3(val.I, customReDoMarks, val.H)
             : 0 || ind === 4
-            ? formula(val.I, customBugsReportedMarks, val.H)
+            ? formula4(val.I, customBugsReportedMarks, val.H)
             : 0 || ind === 5
-            ? formula(critical, customCriticalIssuesMarks, val.H)
+            ? formula5(critical, customCriticalIssuesMarks, val.H)
             : 0 || ind === 6
-            ? formula(val.I, customCustomerSatisfactionMarks, val.H)
+            ? formula6(val.I, customCustomerSatisfactionMarks, val.H)
             : 0 || ind === 7
-            ? formula(val.I, customUpskillingMarks, val.H)
+            ? formula7(val.I, customUpskillingMarks, val.H)
             : 0}
         </td>
         <td style={{ position: "relative" }}>
           <input
             type="number"
             min="0"
+            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
               ind === 0
                 ? customActualdeliveryMarksAr
@@ -491,21 +630,21 @@ const Renderthirdtable = ({
         >
           {/* {val.M} */}
           {ind === 0
-            ? formula(actualDelivery, customActualdeliveryMarksAr, val.H)
+            ? formulaA(actualDelivery, customActualdeliveryMarksAr, val.H)
             : 0 || ind === 1
-            ? formula(onTime, customOnTimeMarksAr, val.H)
+            ? formulaA1(onTime, customOnTimeMarksAr, val.H)
             : 0 || ind === 2
-            ? formula(val.I, customAvgCodeMarksAr, val.H)
+            ? formulaA2(val.I, customAvgCodeMarksAr, val.H)
             : 0 || ind === 3
-            ? formula(val.I, customReDoMarksAr, val.H)
+            ? formulaA3(val.I, customReDoMarksAr, val.H)
             : 0 || ind === 4
-            ? formula(val.I, customBugsReportedMarksAr, val.H)
+            ? formulaA4(val.I, customBugsReportedMarksAr, val.H)
             : 0 || ind === 5
-            ? formula(critical, customCriticalIssuesMarksAr, val.H)
+            ? formulaA5(critical, customCriticalIssuesMarksAr, val.H)
             : 0 || ind === 6
-            ? formula(val.I, customCustomerSatisfactionMarksAr, val.H)
+            ? formulaA6(val.I, customCustomerSatisfactionMarksAr, val.H)
             : 0 || ind === 7
-            ? formula(val.I, customUpskillingMarksAr, val.H)
+            ? formulaA7(val.I, customUpskillingMarksAr, val.H)
             : 0}
         </td>
         <td>{val.N}</td>
@@ -854,7 +993,35 @@ const RenderTestTable = ({
   //           }
   // }
 
+  // .................formulas for first input..........//
   const formula = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula1 = (a, b, c) => {
+    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula2 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
     if (value !== "Infinity" && value !== "NaN") {
@@ -863,6 +1030,117 @@ const RenderTestTable = ({
       return 0;
     }
   };
+  const formula4 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula5 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula6 = (a, b, c) => {
+    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formula7 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+
+  //.............formulas for second table...........//
+  const formulaA = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA1 = (a, b, c) => {
+    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA2 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA3 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA4 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA5 = (a, b, c) => {
+    const value = Number((b / a) * c).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA6 = (a, b, c) => {
+    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+  const formulaA7 = (a, b, c) => {
+    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+    if (value !== "Infinity" && value !== "NaN") {
+      return value;
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <>
       <tr id={ind}>
@@ -878,6 +1156,7 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
+            max={ind === 2 ? "5" : ""}
             value={value}
             style={{
               height: "100%",
@@ -898,6 +1177,7 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
+            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
               ind === 0
                 ? customActualdeliveryMarks
@@ -943,23 +1223,23 @@ const RenderTestTable = ({
           {ind === 0
             ? formula(actualDelivery, customActualdeliveryMarks, val.Weightage)
             : 0 || ind === 1
-            ? formula(onTime, customOnTimeMarks, val.Weightage)
+            ? formula1(onTime, customOnTimeMarks, val.Weightage)
             : 0 || ind === 2
-            ? formula(com[ind].I, customAvgCodeMarks, val.Weightage)
+            ? formula2(com[ind].I, customAvgCodeMarks, val.Weightage)
             : 0 || ind === 3
-            ? formula(com[ind].I, customReDoMarks, val.Weightage)
+            ? formula3(com[ind].I, customReDoMarks, val.Weightage)
             : 0 || ind === 4
-            ? formula(com[ind].I, customBugsReportedMarks, val.Weightage)
+            ? formula4(com[ind].I, customBugsReportedMarks, val.Weightage)
             : 0 || ind === 5
-            ? formula(critical, customCriticalIssuesMarks, val.Weightage)
+            ? formula5(critical, customCriticalIssuesMarks, val.Weightage)
             : 0 || ind === 6
-            ? formula(
+            ? formula6(
                 com[ind].I,
                 customCustomerSatisfactionMarks,
                 val.Weightage
               )
             : 0 || ind === 7
-            ? formula(com[ind].I, customUpskillingMarks, val.Weightage)
+            ? formula7(com[ind].I, customUpskillingMarks, val.Weightage)
             : 0}
         </td>
         <td style={{ position: "relative" }}>
@@ -967,6 +1247,7 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
+            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
               // val.AppraiserRating
               // com[ind].L
@@ -1012,29 +1293,29 @@ const RenderTestTable = ({
         >
           {/* {com[ind].M} */}
           {ind === 0
-            ? formula(
+            ? formulaA(
                 actualDelivery,
                 customActualdeliveryMarksAr,
                 val.Weightage
               )
             : 0 || ind === 1
-            ? formula(onTime, customOnTimeMarksAr, val.Weightage)
+            ? formulaA1(onTime, customOnTimeMarksAr, val.Weightage)
             : 0 || ind === 2
-            ? formula(com[ind].I, customAvgCodeMarksAr, val.Weightage)
+            ? formulaA2(com[ind].I, customAvgCodeMarksAr, val.Weightage)
             : 0 || ind === 3
-            ? formula(com[ind].I, customReDoMarksAr, val.Weightage)
+            ? formulaA3(com[ind].I, customReDoMarksAr, val.Weightage)
             : 0 || ind === 4
-            ? formula(com[ind].I, customBugsReportedMarksAr, val.Weightage)
+            ? formulaA4(com[ind].I, customBugsReportedMarksAr, val.Weightage)
             : 0 || ind === 5
-            ? formula(critical, customCriticalIssuesMarksAr, val.Weightage)
+            ? formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage)
             : 0 || ind === 6
-            ? formula(
+            ? formulaA6(
                 com[ind].I,
                 customCustomerSatisfactionMarksAr,
                 val.Weightage
               )
             : 0 || ind === 7
-            ? formula(com[ind].I, customUpskillingMarksAr, val.Weightage)
+            ? formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage)
             : 0}
         </td>
         <td>{com[ind].N}</td>
@@ -1064,20 +1345,6 @@ const Renderforthtable = ({
     GoodPotential: false,
     HighPotential: false,
   });
-
-  // function totalAvg(){
-  //   const arr = Object.values(rowTotal)
-  //   console.log("55555555555555",arr)
-  //   if(arr[0] !== NaN && arr.length !== 0){
-
-  //     const total = arr?.reduce((accumulator, currentValue) => accumulator + currentValue);
-  //     console.log("5555555555555577777777777777",total)
-  //     setAvg(total)
-  //   }
-  // }
-  // useEffect(()=>{
-  //   totalAvg()
-  // },[])
 
   //------------------------------------------------------------------//
   //Low potential states//
@@ -2011,20 +2278,38 @@ const Tableviewnew = ({
   );
   const [totalMarksInputs, setTotalMarksInputs] = useState(0);
 
-  console.log("7777777777777777", totalMarksInputs);
-
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
   let thirdTable = fileData.slice(6, 14);
   let forthTable = fileData.slice(17, 31);
   let fifthTable = fileData.slice(32, 37);
-  // let avgTotalFourthTable = {
-  //   B: "Average",
-  //   F: 0,
-  // };
-  // forthTable.push(avgTotalFourthTable);
-
   let designation = fileData[3].C;
+
+  const [scope, setScope] = useState();
+  const [feedback, setFeedback] = useState();
+
+  const [dataFeedback, setdataFeedback] = useState({});
+  const [dataScope, setDataScope] = useState({});
+
+  useEffect(() => {
+    setFeedback({
+      PositivePoint: dataFeedback[0]?.PositivePoint,
+      ToUserId: dataFeedback[0]?.ToUserId,
+      FromUserId: dataFeedback[0]?.FromUserId,
+      ToDate: dataFeedback[0]?.ToDate,
+      FromDate: dataFeedback[0]?.FromDate,
+      UpdatedDate: dataFeedback[0]?.UpdatedDate,
+    });
+    setScope({
+      ScopeOfImprovement: dataScope[0]?.ScopeOfImprovement,
+      ToUserId: dataScope[0]?.ToUserId,
+      FromUserId: dataScope[0]?.FromUserId,
+      UpdatedDate: dataScope[0]?.UpdatedDate,
+      ToDate: dataScope[0]?.ToDate,
+      FromDate: dataScope[0]?.FromDate,
+    });
+  }, [dataFeedback, dataScope]);
+
   async function getAllData() {
     let reqOptions = {
       method: "post",
@@ -2042,6 +2327,7 @@ const Tableviewnew = ({
 
     setUpdatedData(data);
   }
+
   async function getBehaviouralData() {
     let data = [
       {
@@ -2063,9 +2349,56 @@ const Tableviewnew = ({
     let resData = await axios.request(reqOptions);
     return setUpdatedBehaviourData(resData.data.data);
   }
+
+  async function getPositivePoint() {
+    let data = [
+      {
+        email: email,
+        ToDate: fileData[0].E,
+        FromDate: fileData[1].E,
+      },
+    ];
+    let headersList = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    let reqOptions = {
+      url: `http://localhost:8080/kpi/positivepoint/data`,
+      method: "POST",
+      headers: headersList,
+      data: data,
+    };
+    let resData = await axios.request(reqOptions);
+    return setdataFeedback(resData.data.data);
+  }
+
+  async function getScopeOfImprovement() {
+    let data = [
+      {
+        email: email,
+        ToDate: fileData[0].E,
+        FromDate: fileData[1].E,
+      },
+    ];
+    let headersList = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    let reqOptions = {
+      url: `http://localhost:8080/kpi/scopeofimprovement/data`,
+      method: "POST",
+      headers: headersList,
+      data: data,
+    };
+    let resData = await axios.request(reqOptions);
+    return setDataScope(resData.data.data);
+  }
+
   useEffect(() => {
     getAllData();
     getBehaviouralData();
+    getPositivePoint();
+    getScopeOfImprovement();
   }, []);
 
   useEffect(() => {
@@ -2249,6 +2582,8 @@ const Tableviewnew = ({
     setLoader(true);
     let allFinalData = [];
     let allBehaviourKpiData = [];
+    let allFeedbackData = [feedback];
+    let allScopeData = [scope];
     let currentDate = new Date();
     let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
     thirdTable.map((val, ind) => {
@@ -2598,7 +2933,18 @@ const Tableviewnew = ({
       data: allBehaviourKpiData,
       headers: { Accept: "application/json" },
     });
-    handleexceldropdown("juniorDeveloper");
+    let pData = axios({
+      method: "post",
+      url: `http://localhost:8080/kpi/positivepoint`,
+      data: allFeedbackData,
+      headers: { Accept: "application/json" },
+    });
+    let sData = axios({
+      method: "post",
+      url: `http://localhost:8080/kpi/scopeofimprovement`,
+      data: allScopeData,
+      headers: { Accept: "application/json" },
+    });
 
     setTimeout(() => {
       setLoader(false);
@@ -2617,7 +2963,7 @@ const Tableviewnew = ({
     UpdatedDate: "",
   };
 
-  const [feedback, setFeedback] = useState(intialfeedback);
+  // const [feedback, setFeedback] = useState(intialfeedback);
   const handleFeedback = (e) => {
     let currentDate = new Date();
     let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
@@ -2643,7 +2989,7 @@ const Tableviewnew = ({
     ToDate: "",
     FromDate: "",
   };
-  const [scope, setScope] = useState(inttialScope);
+  // const [scope, setScope] = useState(inttialScope);
   const [state, setState] = useState("");
 
   const handleScope = (e) => {
@@ -3212,3 +3558,10 @@ const Tableviewnew = ({
 };
 
 export default Tableviewnew;
+
+
+
+
+
+
+
