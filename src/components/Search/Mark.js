@@ -60,6 +60,7 @@ const Mark = () => {
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
   ]);
+  const [dateEvent,setEvent] = useState()
   const [test, setTest] = useState([]);
   const [clientbugMarks, setClientbugMarks] = useState(0);
   const [ExcelFileData, setExcelFileData] = useState(null);
@@ -76,11 +77,15 @@ const Mark = () => {
   const [startDate, setstartDate] = useState(
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD")
   );
+  const [isThreeMonths,setIsThreeMonths] = useState(false)
+ 
   const [lastDate, setlastDate] = useState(
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD")
   );
+  const [selectedThreeMonths,setSelectedThreeMonths] = useState(false)
 
   const classes = useStyles();
+ 
 
   let dataApi = [];
 
@@ -125,6 +130,7 @@ const Mark = () => {
     var ids = [];
 
     taskandbugsResponse.then((response) => {
+      
       (response || []).map((res) => {
         res?.data?.workItems?.map((workitem) => {
           ids.push(workitem.id);
@@ -159,10 +165,12 @@ const Mark = () => {
         };
         responseArr.push(axios.request(reqOptions));
         let result = Promise.all(responseArr);
+      
         result.then((resp) => {
           resp.map((resp) => {
             let task = resp?.data?.value.filter((val) => {
               // let value = val.fields["System.State"] !== "Removed";
+          
               return val;
             });
             let assignedTask = task.length;
@@ -245,7 +253,7 @@ const Mark = () => {
                 method: "GET",
                 headers: headersList,
               };
-              dataApi.push(axios.request(requestOptions));
+              dataApi.push(axios.request(requestOptions)); 
             });
             let sprintDetails = Promise.all(dataApi);
             sprintDetails.then((res) => {
@@ -398,7 +406,7 @@ const Mark = () => {
                     numberofbugsreportedbyClient) *
                     100) *
                   10) /
-                100;
+                100; 
               reportedbyclientmark = reportedbyclientmark.toFixed(2);
               reportedbyclientmark = parseFloat(reportedbyclientmark);
               setClientbugMarks(reportedbyclientmark);
@@ -474,11 +482,14 @@ const Mark = () => {
     //custom
     if (event.target.value == 5) {
       setshowCustomDate(true);
+      setEvent(5)
+      setSelectedThreeMonths(false)
       return;
     }
     setshowCustomDate(false);
     //last Week
-    if (event.target.value == 1) {
+    if (event.target.value == 1) { 
+      setEvent(1)
       let currentDate = moment();
 
       let weekStart = moment()
@@ -492,10 +503,12 @@ const Mark = () => {
 
       setstartDate(weekStart);
       setlastDate(weekEnd);
+      setSelectedThreeMonths(false)
     }
     //last Month
 
     if (event.target.value == 2) {
+      setEvent(2)
       let monthStart = moment()
         .subtract(1, "months")
         .startOf("month")
@@ -507,10 +520,12 @@ const Mark = () => {
         .format("YYYY-MM-DD");
       setstartDate(monthStart);
       setlastDate(monthEnd);
+      setSelectedThreeMonths(false)
     }
     //last Six Month
 
     if (event.target.value == 3) {
+      setEvent(3)
       //last Six Month
       let sixMonthStartDate = moment()
         .subtract(6, "months")
@@ -518,19 +533,55 @@ const Mark = () => {
       let currentDate = moment().format("YYYY-MM-DD");
       setstartDate(sixMonthStartDate);
       setlastDate(currentDate);
+      setSelectedThreeMonths(false)
     }
+
+    if(event.target.value == 6){
+      setEvent(6)
+let threeMonthStartDate = moment().subtract(3,"months").format("YYYY-MM-DD")  
+let currentDate = moment().format("YYYY-MM-DD");
+setstartDate(threeMonthStartDate);
+setlastDate(currentDate)
+setSelectedThreeMonths(true)
+}
+
     //last Year
 
     if (event.target.value == 4) {
-      //last Six Month
+   
       let sixMonthStartDate = moment()
         .subtract(12, "months")
         .format("YYYY-MM-DD");
       let currentDate = moment().format("YYYY-MM-DD");
       setstartDate(sixMonthStartDate);
       setlastDate(currentDate);
+      setSelectedThreeMonths(false)
     }
   };
+
+
+  function checkThreeMonths(){
+    
+   if(dateEvent === 5){
+    const date1 = new Date(customdate[0]);
+    const date2 = new Date(customdate[1]);
+    
+    const diffInMonths = (date2.getFullYear() - date1.getFullYear()) * 12 + (date2.getMonth() - date1.getMonth());
+
+    if(diffInMonths === 3){
+setIsThreeMonths(true)
+    }else{
+setIsThreeMonths(false)
+    }
+   }else{
+    setIsThreeMonths(false)
+   }
+  }
+
+  useEffect(()=>{
+checkThreeMonths()
+  },[customdate,dateEvent])
+
   return (
     <>
       {loadingData ? (
@@ -558,6 +609,7 @@ const Mark = () => {
                   <MenuItem value={3}>Last Six Months</MenuItem>
                   <MenuItem value={4}>Last Year</MenuItem>
                   <MenuItem value={5}>Custom</MenuItem>
+                  <MenuItem value={6}>Last Three Months</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -606,7 +658,7 @@ const Mark = () => {
                 <InputLabel id="demo-simple-select-label">
                   Select Designation
                 </InputLabel>
-                <Select
+                <Select 
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={Designation}
@@ -640,6 +692,8 @@ const Mark = () => {
               fileData={fileData}
               email={email}
               handleexceldropdown={handleexceldropdown}
+              selectedThreeMonths={selectedThreeMonths}
+              isThreeMonths={isThreeMonths}
             />
           )}
         </div>
@@ -649,3 +703,11 @@ const Mark = () => {
 };
 
 export default Mark;
+
+
+
+
+
+
+
+

@@ -48,6 +48,10 @@ const Renderthirdtable = ({
   parentSelfAppraise,
   parentTarget,
   setParentTarget,
+  setAppraiseMarksAvg,
+  finalAppraiseAvg,
+  setAppraiserAvg,
+  finalAppraiserAvg,
 }) => {
   // all user and login user
 
@@ -68,36 +72,36 @@ const Renderthirdtable = ({
 
   //UseEffect for the Appraisee Self Rating , Appraiser Rating and target
 
-  useEffect(() => {
-    setTimeout(() => {
-      setParentSelfAppraise({
-        customActualdeliveryMarks: thirdTable[0]?.J,
-        customOnTimeMarks: thirdTable[1]?.J,
-        customAvgCodeMarks: thirdTable[2]?.J,
-        customReDoMarks: thirdTable[3]?.J,
-        customBugsReportedMarks: thirdTable[4]?.J,
-        customCriticalIssuesMarks: thirdTable[5]?.J,
-        customCustomerSatisfactionMarks: thirdTable[6]?.J,
-        customUpskillingMarks: thirdTable[7]?.J,
-      });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setParentSelfAppraise({
+  //       customActualdeliveryMarks: thirdTable[0]?.J,
+  //       customOnTimeMarks: thirdTable[1]?.J,
+  //       customAvgCodeMarks: thirdTable[2]?.J,
+  //       customReDoMarks: thirdTable[3]?.J,
+  //       customBugsReportedMarks: thirdTable[4]?.J,
+  //       customCriticalIssuesMarks: thirdTable[5]?.J,
+  //       customCustomerSatisfactionMarks: thirdTable[6]?.J,
+  //       customUpskillingMarks: thirdTable[7]?.J,
+  //     });
 
-      setParentAppraise({
-        customActualdeliveryMarksAr: thirdTable[0]?.L,
-        customOnTimeMarksAr: thirdTable[1]?.L,
-        customAvgCodeMarksAr: thirdTable[2]?.L,
-        customReDoMarksAr: thirdTable[3]?.L,
-        customBugsReportedMarksAr: thirdTable[4]?.L,
-        customCriticalIssuesMarksAr: thirdTable[5]?.L,
-        customCustomerSatisfactionMarksAr: thirdTable[6]?.L,
-        customUpskillingMarksAr: thirdTable[7]?.L,
-      });
-      setParentTarget({
-        actualDelivery: thirdTable[0]?.I,
-        onTime: thirdTable[1]?.I,
-        critical: thirdTable[5]?.I,
-      });
-    }, 500);
-  }, []);
+  //     setParentAppraise({
+  //       customActualdeliveryMarksAr: thirdTable[0]?.L,
+  //       customOnTimeMarksAr: thirdTable[1]?.L,
+  //       customAvgCodeMarksAr: thirdTable[2]?.L,
+  //       customReDoMarksAr: thirdTable[3]?.L,
+  //       customBugsReportedMarksAr: thirdTable[4]?.L,
+  //       customCriticalIssuesMarksAr: thirdTable[5]?.L,
+  //       customCustomerSatisfactionMarksAr: thirdTable[6]?.L,
+  //       customUpskillingMarksAr: thirdTable[7]?.L,
+  //     });
+  //     setParentTarget({
+  //       actualDelivery: thirdTable[0]?.I,
+  //       onTime: thirdTable[1]?.I,
+  //       critical: thirdTable[5]?.I,
+  //     });
+  //   }, 500);
+  // }, []);
 
   //state to maintain target values
 
@@ -298,12 +302,12 @@ const Renderthirdtable = ({
     }
   }
   const valueMap = [
-    actualDelivery,
-    onTime,
+    val.I === 0 ? actualDelivery : val.I,
+    val.I === 0 ? onTime : val.I,
     val.I,
     val.I,
     val.I,
-    critical,
+    val.I === 0 ? critical : val.I,
     val.I,
     val.I,
   ];
@@ -337,13 +341,13 @@ const Renderthirdtable = ({
   ];
 
   const appraiseSelfRatingValue =
-    appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : "";
+    appraiseSelfRating[ind] !== undefined ? appraiseSelfRating[ind] : 0;
 
   // ....................formula for first input.....................//
   const formula = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -352,7 +356,7 @@ const Renderthirdtable = ({
   const formula1 = (a, b, c) => {
     const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -361,7 +365,7 @@ const Renderthirdtable = ({
   const formula2 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -370,7 +374,7 @@ const Renderthirdtable = ({
   const formula3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -379,7 +383,7 @@ const Renderthirdtable = ({
   const formula4 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -388,7 +392,7 @@ const Renderthirdtable = ({
   const formula5 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -397,7 +401,7 @@ const Renderthirdtable = ({
   const formula6 = (a, b, c) => {
     const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -406,7 +410,7 @@ const Renderthirdtable = ({
   const formula7 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -416,7 +420,7 @@ const Renderthirdtable = ({
   const formulaA = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -425,7 +429,7 @@ const Renderthirdtable = ({
   const formulaA1 = (a, b, c) => {
     const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -434,7 +438,7 @@ const Renderthirdtable = ({
   const formulaA2 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -443,7 +447,7 @@ const Renderthirdtable = ({
   const formulaA3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -452,7 +456,7 @@ const Renderthirdtable = ({
   const formulaA4 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -461,7 +465,7 @@ const Renderthirdtable = ({
   const formulaA5 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -470,7 +474,7 @@ const Renderthirdtable = ({
   const formulaA6 = (a, b, c) => {
     const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -479,12 +483,83 @@ const Renderthirdtable = ({
   const formulaA7 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
     }
   };
+  const appraiseeMarks = [
+    formula(actualDelivery, customActualdeliveryMarks, val.H) || 0,
+
+    formula1(onTime, customOnTimeMarks, val.H) || 0,
+
+    formula2(val.I, customAvgCodeMarks, val.H) || 0,
+
+    formula3(val.I, customReDoMarks, val.H) || 0,
+
+    formula4(val.I, customBugsReportedMarks, val.H) || 0,
+
+    formula5(critical, customCriticalIssuesMarks, val.H) || 0,
+
+    formula6(val.I, customCustomerSatisfactionMarks, val.H) || 0,
+
+    formula7(val.I, customUpskillingMarks, val.H) || 0,
+  ];
+  const valueAppraiseAMrks =
+    appraiseeMarks[ind] !== undefined ? appraiseeMarks[ind] : 0;
+
+  useEffect(() => {
+    setAppraiseMarksAvg((marks) => ({ ...marks, [ind]: valueAppraiseAMrks }));
+  }, [
+    actualDelivery,
+    customActualdeliveryMarks,
+    customOnTimeMarks,
+    customAvgCodeMarks,
+    customReDoMarks,
+    customBugsReportedMarks,
+    customCriticalIssuesMarks,
+    customCustomerSatisfactionMarks,
+    customUpskillingMarks,
+    critical,
+    onTime,
+  ]);
+
+  const appraiserMarks = [
+    formulaA(actualDelivery, customActualdeliveryMarksAr, val.H) || 0,
+
+    formulaA1(onTime, customOnTimeMarksAr, val.H) || 0,
+
+    formulaA2(val.I, customAvgCodeMarksAr, val.H) || 0,
+
+    formulaA3(val.I, customReDoMarksAr, val.H) || 0,
+
+    formulaA4(val.I, customBugsReportedMarksAr, val.H) || 0,
+
+    formulaA5(critical, customCriticalIssuesMarksAr, val.H) || 0,
+
+    formulaA6(val.I, customCustomerSatisfactionMarksAr, val.H) || 0,
+
+    formulaA7(val.I, customUpskillingMarksAr, val.H) || 0,
+  ];
+  const valueAppraiserMarks =
+    appraiserMarks[ind] !== undefined ? appraiserMarks[ind] : 0;
+
+  useEffect(() => {
+    setAppraiserAvg((marks) => ({ ...marks, [ind]: valueAppraiserMarks }));
+  }, [
+    actualDelivery,
+    customActualdeliveryMarksAr,
+    onTime,
+    customOnTimeMarksAr,
+    customAvgCodeMarksAr,
+    customReDoMarksAr,
+    customBugsReportedMarksAr,
+    customCriticalIssuesMarksAr,
+    critical,
+    customCustomerSatisfactionMarksAr,
+    customUpskillingMarksAr,
+  ]);
 
   return (
     <>
@@ -501,13 +576,14 @@ const Renderthirdtable = ({
             type="number"
             min="0"
             value={value}
+            disabled={val.I > 0 ? true : false}
             style={{
               height: "100%",
               position: "absolute",
               top: "0",
               bottom: "0",
-
               backgroundColor: "#ecf0f1",
+              outline: "none",
               border: "none",
               width: "100%",
               fontSize: "17px",
@@ -519,25 +595,28 @@ const Renderthirdtable = ({
           <input
             type="number"
             min="0"
+            disabled={loginUser === email ? false : true}
             max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
-              ind === 0
-                ? customActualdeliveryMarks
-                : 0 || ind === 1
-                ? customOnTimeMarks
-                : 0 || ind === 2
-                ? customAvgCodeMarks
-                : 0 || ind === 3
-                ? customReDoMarks
-                : 0 || ind === 4
-                ? customBugsReportedMarks
-                : 0 || ind === 5
-                ? customCriticalIssuesMarks
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarks
-                : 0 || ind === 7
-                ? customUpskillingMarks
-                : 0
+              loginUser === email
+                ? ind === 0
+                  ? customActualdeliveryMarks
+                  : 0 || ind === 1
+                  ? customOnTimeMarks
+                  : 0 || ind === 2
+                  ? customAvgCodeMarks
+                  : 0 || ind === 3
+                  ? customReDoMarks
+                  : 0 || ind === 4
+                  ? customBugsReportedMarks
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarks
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : 0 || ind === 7
+                  ? customUpskillingMarks
+                  : 0
+                : val.J
             }
             // value={val.J}
             style={{
@@ -545,9 +624,10 @@ const Renderthirdtable = ({
               position: "absolute",
               top: "0",
               bottom: "0",
-
+              outline: "none",
+              border: " none",
               backgroundColor: "#ecf0f1",
-              border: "none",
+            
               width: "100%",
               fontSize: "17px",
             }}
@@ -563,54 +643,42 @@ const Renderthirdtable = ({
           }}
         >
           {/* {val.K} */}
-          {ind === 0
-            ? formula(actualDelivery, customActualdeliveryMarks, val.H)
-            : 0 || ind === 1
-            ? formula1(onTime, customOnTimeMarks, val.H)
-            : 0 || ind === 2
-            ? formula2(val.I, customAvgCodeMarks, val.H)
-            : 0 || ind === 3
-            ? formula3(val.I, customReDoMarks, val.H)
-            : 0 || ind === 4
-            ? formula4(val.I, customBugsReportedMarks, val.H)
-            : 0 || ind === 5
-            ? formula5(critical, customCriticalIssuesMarks, val.H)
-            : 0 || ind === 6
-            ? formula6(val.I, customCustomerSatisfactionMarks, val.H)
-            : 0 || ind === 7
-            ? formula7(val.I, customUpskillingMarks, val.H)
-            : 0}
+          {valueAppraiseAMrks}
         </td>
         <td style={{ position: "relative" }}>
           <input
             type="number"
             min="0"
+            disabled={MANAGEMENt_ID.includes(loginUser) ? false : true}
             max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
-              ind === 0
-                ? customActualdeliveryMarksAr
-                : 0 || ind === 1
-                ? customOnTimeMarksAr
-                : 0 || ind === 2
-                ? customAvgCodeMarksAr
-                : 0 || ind === 3
-                ? customReDoMarksAr
-                : 0 || ind === 4
-                ? customBugsReportedMarksAr
-                : 0 || ind === 5
-                ? customCriticalIssuesMarksAr
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarksAr
-                : 0 || ind === 7
-                ? customUpskillingMarksAr
-                : 0
+              MANAGEMENt_ID.includes(loginUser)
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
+                  : 0
+                : val.L
             }
             style={{
               height: "100%",
               position: "absolute",
               top: "0",
               bottom: "0",
-
+              outline: "none",
+              border: "none",
               backgroundColor: "#ecf0f1",
               border: "none",
               width: "100%",
@@ -629,23 +697,7 @@ const Renderthirdtable = ({
           }}
         >
           {/* {val.M} */}
-          {ind === 0
-            ? formulaA(actualDelivery, customActualdeliveryMarksAr, val.H)
-            : 0 || ind === 1
-            ? formulaA1(onTime, customOnTimeMarksAr, val.H)
-            : 0 || ind === 2
-            ? formulaA2(val.I, customAvgCodeMarksAr, val.H)
-            : 0 || ind === 3
-            ? formulaA3(val.I, customReDoMarksAr, val.H)
-            : 0 || ind === 4
-            ? formulaA4(val.I, customBugsReportedMarksAr, val.H)
-            : 0 || ind === 5
-            ? formulaA5(critical, customCriticalIssuesMarksAr, val.H)
-            : 0 || ind === 6
-            ? formulaA6(val.I, customCustomerSatisfactionMarksAr, val.H)
-            : 0 || ind === 7
-            ? formulaA7(val.I, customUpskillingMarksAr, val.H)
-            : 0}
+          {valueAppraiserMarks}
         </td>
         <td>{val.N}</td>
         <td>{val.O}</td>
@@ -665,18 +717,32 @@ const RenderTestTable = ({
   parentSelfAppraise,
   parentTarget,
   setParentTarget,
+  updatedData,
+  setAppraiseMarksAvg,
+  finalAppraiseAvg,
+  setAppraiserAvg,
 }) => {
   //state to maintain target values
+  const [users, setusers] = useState("");
+  const [loginUser, setLoginUser] = useState(
+    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+  );
+  const useEmailExtractor = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get("email");
+  };
+  const email = useEmailExtractor();
+
+  useEffect(() => {
+    setusers(email);
+  }, [email]);
 
   const [actualDelivery, setActualDelivery] = useState(
     ind === 0 ? val.Target : 0
   );
   const [onTime, setOnTime] = useState(ind === 1 ? val.Target : 0);
   const [critical, setCritical] = useState(ind === 5 ? val.Target : 0);
-
-  const [loginUser, setLoginUser] = useState(
-    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
-  );
 
   //  this state use for Appraisee Self Rating
   const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
@@ -744,6 +810,54 @@ const RenderTestTable = ({
   //           setFinalCustomerSatisfactionMarks,
   // ] = useState(0);
   // const [finalUpskillingMarks, setFinalUpskillingMarks] = useState(0);
+
+  useEffect(() => {
+    if (updatedData && updatedData.data) {
+      setParentSelfAppraise({
+        customActualdeliveryMarks:
+          updatedData?.data?.data[0]?.AppraiseeSelfRating,
+        customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
+        customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
+
+        customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
+
+        customBugsReportedMarks:
+          updatedData?.data?.data[4]?.AppraiseeSelfRating,
+
+        customCriticalIssuesMarks:
+          updatedData?.data?.data[5]?.AppraiseeSelfRating,
+
+        customCustomerSatisfactionMarks:
+          updatedData?.data?.data[6]?.AppraiseeSelfRating,
+
+        customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
+      });
+    }
+    if (updatedData && updatedData.data) {
+      setParentAppraise({
+        customActualdeliveryMarksAr:
+          updatedData?.data?.data[0]?.AppraiserRating,
+        customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
+        customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
+        customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
+        customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
+        customCriticalIssuesMarksAr:
+          updatedData?.data?.data[5]?.AppraiserRating,
+        customCustomerSatisfactionMarksAr:
+          updatedData?.data?.data[6]?.AppraiserRating,
+        customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
+      });
+    }
+
+    if (updatedData && updatedData.data) {
+      setParentTarget({
+        actualDelivery: updatedData?.data?.data[0]?.Target,
+        onTime: updatedData?.data?.data[1]?.Target,
+
+        critical: updatedData?.data?.data[5]?.Target,
+      });
+    }
+  }, [updatedData]);
 
   function handleOnChange(e) {
     if (e.target.parentNode.parentNode.id == 0) {
@@ -888,12 +1002,12 @@ const RenderTestTable = ({
   }
 
   const valueMap = [
-    actualDelivery,
-    onTime,
+    com[ind].I === 0 ? actualDelivery : com[ind].I,
+    com[ind].I === 0 ? onTime : com[ind].I,
     com[ind].I,
     com[ind].I,
     com[ind].I,
-    critical,
+    com[ind].I === 0 ? critical : com[ind].I,
     com[ind].I,
     com[ind].I,
   ];
@@ -997,7 +1111,7 @@ const RenderTestTable = ({
   const formula = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1006,7 +1120,7 @@ const RenderTestTable = ({
   const formula1 = (a, b, c) => {
     const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1015,7 +1129,7 @@ const RenderTestTable = ({
   const formula2 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1024,7 +1138,7 @@ const RenderTestTable = ({
   const formula3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1033,7 +1147,7 @@ const RenderTestTable = ({
   const formula4 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1042,7 +1156,7 @@ const RenderTestTable = ({
   const formula5 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1051,7 +1165,7 @@ const RenderTestTable = ({
   const formula6 = (a, b, c) => {
     const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1060,7 +1174,7 @@ const RenderTestTable = ({
   const formula7 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1071,7 +1185,7 @@ const RenderTestTable = ({
   const formulaA = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1080,7 +1194,7 @@ const RenderTestTable = ({
   const formulaA1 = (a, b, c) => {
     const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1089,7 +1203,7 @@ const RenderTestTable = ({
   const formulaA2 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1098,7 +1212,7 @@ const RenderTestTable = ({
   const formulaA3 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1107,7 +1221,7 @@ const RenderTestTable = ({
   const formulaA4 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1116,7 +1230,7 @@ const RenderTestTable = ({
   const formulaA5 = (a, b, c) => {
     const value = Number((b / a) * c).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1125,7 +1239,7 @@ const RenderTestTable = ({
   const formulaA6 = (a, b, c) => {
     const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
@@ -1134,12 +1248,84 @@ const RenderTestTable = ({
   const formulaA7 = (a, b, c) => {
     const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
-    if (value !== "Infinity" && value !== "NaN") {
+    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
       return value;
     } else {
       return 0;
     }
   };
+
+  const appraiseeMarks = [
+    formula(actualDelivery, customActualdeliveryMarks, val.Weightage) || 0,
+
+    formula1(onTime, customOnTimeMarks, val.Weightage) || 0,
+
+    formula2(com[ind].I, customAvgCodeMarks, val.Weightage) || 0,
+
+    formula3(com[ind].I, customReDoMarks, val.Weightage) || 0,
+
+    formula4(com[ind].I, customBugsReportedMarks, val.Weightage) || 0,
+
+    formula5(critical, customCriticalIssuesMarks, val.Weightage) || 0,
+
+    formula6(com[ind].I, customCustomerSatisfactionMarks, val.Weightage) || 0,
+    formula7(com[ind].I, customUpskillingMarks, val.Weightage) || 0,
+  ];
+  const valueAppraiseAMrks =
+    appraiseeMarks[ind] !== undefined ? appraiseeMarks[ind] : 0;
+
+  useEffect(() => {
+    setAppraiseMarksAvg((marks) => ({ ...marks, [ind]: valueAppraiseAMrks }));
+  }, [
+    actualDelivery,
+    customActualdeliveryMarks,
+    customOnTimeMarks,
+    customAvgCodeMarks,
+    customReDoMarks,
+    customBugsReportedMarks,
+    customCriticalIssuesMarks,
+    customCustomerSatisfactionMarks,
+    customUpskillingMarks,
+    critical,
+    onTime,
+  ]);
+
+  const appraiserMarks = [
+    formulaA(actualDelivery, customActualdeliveryMarksAr, val.Weightage) || 0,
+
+    formulaA1(onTime, customOnTimeMarksAr, val.Weightage) || 0,
+
+    formulaA2(com[ind].I, customAvgCodeMarksAr, val.Weightage) || 0,
+
+    formulaA3(com[ind].I, customReDoMarksAr, val.Weightage) || 0,
+
+    formulaA4(com[ind].I, customBugsReportedMarksAr, val.Weightage) || 0,
+
+    formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage) || 0,
+
+    formulaA6(com[ind].I, customCustomerSatisfactionMarksAr, val.Weightage) ||
+      0,
+
+    formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage) || 0,
+  ];
+  const valueAppraiserMarks =
+    appraiserMarks[ind] !== undefined ? appraiserMarks[ind] : 0;
+
+  useEffect(() => {
+    setAppraiserAvg((marks) => ({ ...marks, [ind]: valueAppraiserMarks }));
+  }, [
+    actualDelivery,
+    customActualdeliveryMarksAr,
+    onTime,
+    customOnTimeMarksAr,
+    customAvgCodeMarksAr,
+    customReDoMarksAr,
+    customBugsReportedMarksAr,
+    customCriticalIssuesMarksAr,
+    critical,
+    customCustomerSatisfactionMarksAr,
+    customUpskillingMarksAr,
+  ]);
 
   return (
     <>
@@ -1157,15 +1343,17 @@ const RenderTestTable = ({
             type="number"
             min="0"
             max={ind === 2 ? "5" : ""}
+            disabled={value > 0 ? true : false}
             value={value}
             style={{
               height: "100%",
               position: "absolute",
               top: "0",
               bottom: "0",
-
-              backgroundColor: "#ecf0f1",
+              outline: "none",
               border: "none",
+              backgroundColor: "#ecf0f1",
+             
               width: "100%",
               fontSize: "17px",
             }}
@@ -1177,25 +1365,28 @@ const RenderTestTable = ({
           <input
             type="number"
             min="0"
+            disabled={loginUser === email ? false : true}
             max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
             value={
-              ind === 0
-                ? customActualdeliveryMarks
-                : 0 || ind === 1
-                ? customOnTimeMarks
-                : 0 || ind === 2
-                ? customAvgCodeMarks
-                : 0 || ind === 3
-                ? customReDoMarks
-                : 0 || ind === 4
-                ? customBugsReportedMarks
-                : 0 || ind === 5
-                ? customCriticalIssuesMarks
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarks
-                : 0 || ind === 7
-                ? customUpskillingMarks
-                : 0
+              loginUser === users
+                ? ind === 0
+                  ? customActualdeliveryMarks
+                  : 0 || ind === 1
+                  ? customOnTimeMarks
+                  : 0 || ind === 2
+                  ? customAvgCodeMarks
+                  : 0 || ind === 3
+                  ? customReDoMarks
+                  : 0 || ind === 4
+                  ? customBugsReportedMarks
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarks
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : 0 || ind === 7
+                  ? customUpskillingMarks
+                  : 0
+                : val.AppraiseeSelfRating
             }
             style={{
               height: "100%",
@@ -1220,7 +1411,7 @@ const RenderTestTable = ({
           }}
         >
           {/* {com[ind].K} */}
-          {ind === 0
+          {/* {ind === 0
             ? formula(actualDelivery, customActualdeliveryMarks, val.Weightage)
             : 0 || ind === 1
             ? formula1(onTime, customOnTimeMarks, val.Weightage)
@@ -1240,7 +1431,8 @@ const RenderTestTable = ({
               )
             : 0 || ind === 7
             ? formula7(com[ind].I, customUpskillingMarks, val.Weightage)
-            : 0}
+            : 0} */}
+          {valueAppraiseAMrks}
         </td>
         <td style={{ position: "relative" }}>
           {/* {val.L} */}
@@ -1248,9 +1440,11 @@ const RenderTestTable = ({
             type="number"
             min="0"
             max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
+            disabled={MANAGEMENt_ID.includes(loginUser) ? false : true}
             value={
-              // val.AppraiserRating
-              // com[ind].L
+              
+              MANAGEMENt_ID.includes(loginUser) ? 
+
               ind === 0
                 ? customActualdeliveryMarksAr
                 : 0 || ind === 1
@@ -1268,15 +1462,18 @@ const RenderTestTable = ({
                 : 0 || ind === 7
                 ? customUpskillingMarksAr
                 : 0
+                :
+                val.AppraiserRating
             }
             style={{
               height: "100%",
               position: "absolute",
               top: "0",
               bottom: "0",
-
-              backgroundColor: "#ecf0f1",
+              outline: "none",
               border: "none",
+              backgroundColor: "#ecf0f1",
+             
               width: "100%",
               fontSize: "17px",
             }}
@@ -1292,31 +1489,7 @@ const RenderTestTable = ({
           }}
         >
           {/* {com[ind].M} */}
-          {ind === 0
-            ? formulaA(
-                actualDelivery,
-                customActualdeliveryMarksAr,
-                val.Weightage
-              )
-            : 0 || ind === 1
-            ? formulaA1(onTime, customOnTimeMarksAr, val.Weightage)
-            : 0 || ind === 2
-            ? formulaA2(com[ind].I, customAvgCodeMarksAr, val.Weightage)
-            : 0 || ind === 3
-            ? formulaA3(com[ind].I, customReDoMarksAr, val.Weightage)
-            : 0 || ind === 4
-            ? formulaA4(com[ind].I, customBugsReportedMarksAr, val.Weightage)
-            : 0 || ind === 5
-            ? formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage)
-            : 0 || ind === 6
-            ? formulaA6(
-                com[ind].I,
-                customCustomerSatisfactionMarksAr,
-                val.Weightage
-              )
-            : 0 || ind === 7
-            ? formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage)
-            : 0}
+          {valueAppraiserMarks}
         </td>
         <td>{com[ind].N}</td>
         <td>{com[ind].O}</td>
@@ -1346,62 +1519,66 @@ const Renderforthtable = ({
     HighPotential: false,
   });
 
+  const [loginUser, setLoginUser] = useState(
+    localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
+  );
+
   //------------------------------------------------------------------//
   //Low potential states//
   //------------------------------------------------------------------//
 
-  const [attendencelp, setAttendencelp] = useState();
-  const [lessDDependabilitylp, setLessDDependabilitylp] = useState();
-  const [groupWorkinglp, setGroupWorkinglp] = useState();
-  const [positiveAttitudelp, setPositiveAttitudelp] = useState();
-  const [intelligencelp, setIntelligencelp] = useState();
-  const [imaginationlp, setImaginationlp] = useState();
-  const [improvementlp, setImprovementlp] = useState();
-  const [disciplinelp, setDisciplinelp] = useState();
-  const [qualitylp, setQualitylp] = useState();
-  const [responsibilitylp, setResponsibilitylp] = useState();
-  const [multiSkillslp, setMultiSkillslp] = useState();
-  const [maturitylp, setMaturitylp] = useState();
-  const [approachlp, setApproachlp] = useState();
-  const [teamworklp, setTeamworklp] = useState();
+  const [attendencelp, setAttendencelp] = useState(0);
+  const [lessDDependabilitylp, setLessDDependabilitylp] = useState(0);
+  const [groupWorkinglp, setGroupWorkinglp] = useState(0);
+  const [positiveAttitudelp, setPositiveAttitudelp] = useState(0);
+  const [intelligencelp, setIntelligencelp] = useState(0);
+  const [imaginationlp, setImaginationlp] = useState(0);
+  const [improvementlp, setImprovementlp] = useState(0);
+  const [disciplinelp, setDisciplinelp] = useState(0);
+  const [qualitylp, setQualitylp] = useState(0);
+  const [responsibilitylp, setResponsibilitylp] = useState(0);
+  const [multiSkillslp, setMultiSkillslp] = useState(0);
+  const [maturitylp, setMaturitylp] = useState(0);
+  const [approachlp, setApproachlp] = useState(0);
+  const [teamworklp, setTeamworklp] = useState(0);
 
   //------------------------------------------------------------------//
   //Good potential states//
   //------------------------------------------------------------------//
 
-  const [attendencegp, setAttendencegp] = useState();
-  const [lessDDependabilitygp, setLessDDependabilitygp] = useState();
-  const [groupWorkinggp, setGroupWorkinggp] = useState();
-  const [positiveAttitudegp, setPositiveAttitudegp] = useState();
-  const [intelligencegp, setIntelligencegp] = useState();
-  const [imaginationgp, setImaginationgp] = useState();
-  const [improvementgp, setImprovementgp] = useState();
-  const [disciplinegp, setDisciplinegp] = useState();
-  const [qualitygp, setQualitygp] = useState();
-  const [responsibilitygp, setResponsibilitygp] = useState();
-  const [multiSkillsgp, setMultiSkillsgp] = useState();
-  const [maturitygp, setMaturitygp] = useState();
-  const [approachgp, setApproachgp] = useState();
-  const [teamworkgp, setTeamworkgp] = useState();
+  const [attendencegp, setAttendencegp] = useState(0);
+  const [lessDDependabilitygp, setLessDDependabilitygp] = useState(0);
+  const [groupWorkinggp, setGroupWorkinggp] = useState(0);
+  const [positiveAttitudegp, setPositiveAttitudegp] = useState(0);
+  const [intelligencegp, setIntelligencegp] = useState(0);
+  const [imaginationgp, setImaginationgp] = useState(0);
+  const [improvementgp, setImprovementgp] = useState(0);
+  const [disciplinegp, setDisciplinegp] = useState(0);
+  const [qualitygp, setQualitygp] = useState(0);
+  const [responsibilitygp, setResponsibilitygp] = useState(0);
+  const [multiSkillsgp, setMultiSkillsgp] = useState(0);
+  const [maturitygp, setMaturitygp] = useState(0);
+  const [approachgp, setApproachgp] = useState(0);
+  const [teamworkgp, setTeamworkgp] = useState(0);
 
   //------------------------------------------------------------------//
   //High potential states//
   //------------------------------------------------------------------//
 
-  const [attendencehp, setAttendencehp] = useState();
-  const [lessDDependabilityhp, setLessDDependabilityhp] = useState();
-  const [groupWorkinghp, setGroupWorkinghp] = useState();
-  const [positiveAttitudehp, setPositiveAttitudehp] = useState();
-  const [intelligencehp, setIntelligencehp] = useState();
-  const [imaginationhp, setImaginationhp] = useState();
-  const [improvementhp, setImprovementhp] = useState();
-  const [disciplinehp, setDisciplinehp] = useState();
-  const [qualityhp, setQualityhp] = useState();
-  const [responsibilityhp, setResponsibilityhp] = useState();
-  const [multiSkillshp, setMultiSkillshp] = useState();
-  const [maturityhp, setMaturityhp] = useState();
-  const [approachhp, setApproachhp] = useState();
-  const [teamworkhp, setTeamworkhp] = useState();
+  const [attendencehp, setAttendencehp] = useState(0);
+  const [lessDDependabilityhp, setLessDDependabilityhp] = useState(0);
+  const [groupWorkinghp, setGroupWorkinghp] = useState(0);
+  const [positiveAttitudehp, setPositiveAttitudehp] = useState(0);
+  const [intelligencehp, setIntelligencehp] = useState(0);
+  const [imaginationhp, setImaginationhp] = useState(0);
+  const [improvementhp, setImprovementhp] = useState(0);
+  const [disciplinehp, setDisciplinehp] = useState(0);
+  const [qualityhp, setQualityhp] = useState(0);
+  const [responsibilityhp, setResponsibilityhp] = useState(0);
+  const [multiSkillshp, setMultiSkillshp] = useState(0);
+  const [maturityhp, setMaturityhp] = useState(0);
+  const [approachhp, setApproachhp] = useState(0);
+  const [teamworkhp, setTeamworkhp] = useState(0);
 
   const [overallTotal, setOverallTotal] = useState(0);
 
@@ -1632,345 +1809,357 @@ const Renderforthtable = ({
   //------------------------------------------------------------------//
 
   function handleOnChange1(e) {
-    if (e.target.value && e.target.value > 0) {
-      setIsDisable({
-        LowPotential: false,
-        GoodPotential: true,
-        HighPotential: true,
-      });
-    } else {
-      setIsDisable({
-        LowPotential: false,
-        GoodPotential: false,
-        HighPotential: false,
-      });
-    }
+    if (MANAGEMENt_ID.includes(loginUser)) {
+      if (e.target.value && e.target.value > 0) {
+        setIsDisable({
+          LowPotential: false,
+          GoodPotential: true,
+          HighPotential: true,
+        });
+      } else {
+        setIsDisable({
+          LowPotential: false,
+          GoodPotential: false,
+          HighPotential: false,
+        });
+      }
 
-    if (ind === 0) {
-      setAttendencelp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        attendencelp: e.target.value,
-      });
-    }
-    if (ind === 1) {
-      setLessDDependabilitylp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        lessDDependabilitylp: e.target.value,
-      });
-    }
-    if (ind === 2) {
-      setGroupWorkinglp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        groupWorkinglp: e.target.value,
-      });
-    }
-    if (ind === 3) {
-      setPositiveAttitudelp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        positiveAttitudelp: e.target.value,
-      });
-    }
-    if (ind === 4) {
-      setIntelligencelp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        intelligencelp: e.target.value,
-      });
-    }
-    if (ind === 5) {
-      setImaginationlp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        imaginationlp: e.target.value,
-      });
-    }
-    if (ind === 6) {
-      setImprovementlp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        improvementlp: e.target.value,
-      });
-    }
-    if (ind === 7) {
-      setDisciplinelp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        disciplinelp: e.target.value,
-      });
-    }
-    if (ind === 8) {
-      setQualitylp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        qualitylp: e.target.value,
-      });
-    }
-    if (ind === 9) {
-      setResponsibilitylp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        responsibilitylp: e.target.value,
-      });
-    }
-    if (ind === 10) {
-      setMultiSkillslp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        multiSkillslp: e.target.value,
-      });
-    }
-    if (ind === 11) {
-      setMaturitylp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        maturitylp: e.target.value,
-      });
-    }
-    if (ind === 12) {
-      setApproachlp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        approachlp: e.target.value,
-      });
-    }
-    if (ind === 13) {
-      setTeamworklp(e.target.value);
-      setLowPotential({
-        ...lowPotential,
-        teamworklp: e.target.value,
-      });
+      if (ind === 0) {
+        setAttendencelp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          attendencelp: e.target.value,
+        });
+      }
+      if (ind === 1) {
+        setLessDDependabilitylp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          lessDDependabilitylp: e.target.value,
+        });
+      }
+      if (ind === 2) {
+        setGroupWorkinglp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          groupWorkinglp: e.target.value,
+        });
+      }
+      if (ind === 3) {
+        setPositiveAttitudelp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          positiveAttitudelp: e.target.value,
+        });
+      }
+      if (ind === 4) {
+        setIntelligencelp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          intelligencelp: e.target.value,
+        });
+      }
+      if (ind === 5) {
+        setImaginationlp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          imaginationlp: e.target.value,
+        });
+      }
+      if (ind === 6) {
+        setImprovementlp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          improvementlp: e.target.value,
+        });
+      }
+      if (ind === 7) {
+        setDisciplinelp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          disciplinelp: e.target.value,
+        });
+      }
+      if (ind === 8) {
+        setQualitylp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          qualitylp: e.target.value,
+        });
+      }
+      if (ind === 9) {
+        setResponsibilitylp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          responsibilitylp: e.target.value,
+        });
+      }
+      if (ind === 10) {
+        setMultiSkillslp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          multiSkillslp: e.target.value,
+        });
+      }
+      if (ind === 11) {
+        setMaturitylp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          maturitylp: e.target.value,
+        });
+      }
+      if (ind === 12) {
+        setApproachlp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          approachlp: e.target.value,
+        });
+      }
+      if (ind === 13) {
+        setTeamworklp(e.target.value);
+        setLowPotential({
+          ...lowPotential,
+          teamworklp: e.target.value,
+        });
+      }
+    } else {
+      return console.error("error");
     }
   }
 
   function handleOnChange2(e) {
-    if (e.target.value && e.target.value > 0) {
-      setIsDisable({
-        LowPotential: true,
-        GoodPotential: false,
-        HighPotential: true,
-      });
+    if (MANAGEMENt_ID.includes(loginUser)) {
+      if (e.target.value && e.target.value > 0) {
+        setIsDisable({
+          LowPotential: true,
+          GoodPotential: false,
+          HighPotential: true,
+        });
+      } else {
+        setIsDisable({
+          LowPotential: false,
+          GoodPotential: false,
+          HighPotential: false,
+        });
+      }
+      if (ind === 0) {
+        setAttendencegp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          attendencegp: e.target.value,
+        });
+      }
+      if (ind === 1) {
+        setLessDDependabilitygp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          lessDDependabilitygp: e.target.value,
+        });
+      }
+      if (ind === 2) {
+        setGroupWorkinggp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          groupWorkinggp: e.target.value,
+        });
+      }
+      if (ind === 3) {
+        setPositiveAttitudegp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          positiveAttitudegp: e.target.value,
+        });
+      }
+      if (ind === 4) {
+        setIntelligencegp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          intelligencegp: e.target.value,
+        });
+      }
+      if (ind === 5) {
+        setImaginationgp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          imaginationgp: e.target.value,
+        });
+      }
+      if (ind === 6) {
+        setImprovementgp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          improvementgp: e.target.value,
+        });
+      }
+      if (ind === 7) {
+        setDisciplinegp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          disciplinegp: e.target.value,
+        });
+      }
+      if (ind === 8) {
+        setQualitygp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          qualitygp: e.target.value,
+        });
+      }
+      if (ind === 9) {
+        setResponsibilitygp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          responsibilitygp: e.target.value,
+        });
+      }
+      if (ind === 10) {
+        setMultiSkillsgp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          multiSkillsgp: e.target.value,
+        });
+      }
+      if (ind === 11) {
+        setMaturitygp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          maturitygp: e.target.value,
+        });
+      }
+      if (ind === 12) {
+        setApproachgp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          approachgp: e.target.value,
+        });
+      }
+      if (ind === 13) {
+        setTeamworkgp(e.target.value);
+        setGoodPotential({
+          ...goodPotential,
+          teamworkgp: e.target.value,
+        });
+      }
     } else {
-      setIsDisable({
-        LowPotential: false,
-        GoodPotential: false,
-        HighPotential: false,
-      });
-    }
-    if (ind === 0) {
-      setAttendencegp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        attendencegp: e.target.value,
-      });
-    }
-    if (ind === 1) {
-      setLessDDependabilitygp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        lessDDependabilitygp: e.target.value,
-      });
-    }
-    if (ind === 2) {
-      setGroupWorkinggp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        groupWorkinggp: e.target.value,
-      });
-    }
-    if (ind === 3) {
-      setPositiveAttitudegp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        positiveAttitudegp: e.target.value,
-      });
-    }
-    if (ind === 4) {
-      setIntelligencegp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        intelligencegp: e.target.value,
-      });
-    }
-    if (ind === 5) {
-      setImaginationgp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        imaginationgp: e.target.value,
-      });
-    }
-    if (ind === 6) {
-      setImprovementgp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        improvementgp: e.target.value,
-      });
-    }
-    if (ind === 7) {
-      setDisciplinegp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        disciplinegp: e.target.value,
-      });
-    }
-    if (ind === 8) {
-      setQualitygp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        qualitygp: e.target.value,
-      });
-    }
-    if (ind === 9) {
-      setResponsibilitygp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        responsibilitygp: e.target.value,
-      });
-    }
-    if (ind === 10) {
-      setMultiSkillsgp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        multiSkillsgp: e.target.value,
-      });
-    }
-    if (ind === 11) {
-      setMaturitygp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        maturitygp: e.target.value,
-      });
-    }
-    if (ind === 12) {
-      setApproachgp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        approachgp: e.target.value,
-      });
-    }
-    if (ind === 13) {
-      setTeamworkgp(e.target.value);
-      setGoodPotential({
-        ...goodPotential,
-        teamworkgp: e.target.value,
-      });
+      return console.error("error");
     }
   }
 
   function handleOnChange3(e) {
-    if (e.target.value && e.target.value > 0) {
-      setIsDisable({
-        LowPotential: true,
-        GoodPotential: true,
-        HighPotential: false,
-      });
+    if (MANAGEMENt_ID.includes(loginUser)) {
+      if (e.target.value && e.target.value > 0) {
+        setIsDisable({
+          LowPotential: true,
+          GoodPotential: true,
+          HighPotential: false,
+        });
+      } else {
+        setIsDisable({
+          LowPotential: false,
+          GoodPotential: false,
+          HighPotential: false,
+        });
+      }
+      if (ind === 0) {
+        setAttendencehp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          attendencehp: e.target.value,
+        });
+      }
+      if (ind === 1) {
+        setLessDDependabilityhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          lessDDependabilityhp: e.target.value,
+        });
+      }
+      if (ind === 2) {
+        setGroupWorkinghp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          groupWorkinghp: e.target.value,
+        });
+      }
+      if (ind === 3) {
+        setPositiveAttitudehp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          positiveAttitudehp: e.target.value,
+        });
+      }
+      if (ind === 4) {
+        setIntelligencehp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          intelligencehp: e.target.value,
+        });
+      }
+      if (ind === 5) {
+        setImaginationhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          imaginationhp: e.target.value,
+        });
+      }
+      if (ind === 6) {
+        setImprovementhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          improvementhp: e.target.value,
+        });
+      }
+      if (ind === 7) {
+        setDisciplinehp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          disciplinehp: e.target.value,
+        });
+      }
+      if (ind === 8) {
+        setQualityhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          qualityhp: e.target.value,
+        });
+      }
+      if (ind === 9) {
+        setResponsibilityhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          responsibilityhp: e.target.value,
+        });
+      }
+      if (ind === 10) {
+        setMultiSkillshp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          multiSkillshp: e.target.value,
+        });
+      }
+      if (ind === 11) {
+        setMaturityhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          maturityhp: e.target.value,
+        });
+      }
+      if (ind === 12) {
+        setApproachhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          approachhp: e.target.value,
+        });
+      }
+      if (ind === 13) {
+        setTeamworkhp(e.target.value);
+        setHighPotential({
+          ...highPotential,
+          teamworkhp: e.target.value,
+        });
+      }
     } else {
-      setIsDisable({
-        LowPotential: false,
-        GoodPotential: false,
-        HighPotential: false,
-      });
-    }
-    if (ind === 0) {
-      setAttendencehp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        attendencehp: e.target.value,
-      });
-    }
-    if (ind === 1) {
-      setLessDDependabilityhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        lessDDependabilityhp: e.target.value,
-      });
-    }
-    if (ind === 2) {
-      setGroupWorkinghp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        groupWorkinghp: e.target.value,
-      });
-    }
-    if (ind === 3) {
-      setPositiveAttitudehp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        positiveAttitudehp: e.target.value,
-      });
-    }
-    if (ind === 4) {
-      setIntelligencehp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        intelligencehp: e.target.value,
-      });
-    }
-    if (ind === 5) {
-      setImaginationhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        imaginationhp: e.target.value,
-      });
-    }
-    if (ind === 6) {
-      setImprovementhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        improvementhp: e.target.value,
-      });
-    }
-    if (ind === 7) {
-      setDisciplinehp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        disciplinehp: e.target.value,
-      });
-    }
-    if (ind === 8) {
-      setQualityhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        qualityhp: e.target.value,
-      });
-    }
-    if (ind === 9) {
-      setResponsibilityhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        responsibilityhp: e.target.value,
-      });
-    }
-    if (ind === 10) {
-      setMultiSkillshp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        multiSkillshp: e.target.value,
-      });
-    }
-    if (ind === 11) {
-      setMaturityhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        maturityhp: e.target.value,
-      });
-    }
-    if (ind === 12) {
-      setApproachhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        approachhp: e.target.value,
-      });
-    }
-    if (ind === 13) {
-      setTeamworkhp(e.target.value);
-      setHighPotential({
-        ...highPotential,
-        teamworkhp: e.target.value,
-      });
+      return console.error("error");
     }
   }
 
@@ -2182,8 +2371,11 @@ const Renderforthtable = ({
         <td style={{ position: "relative" }}>
           <input
             min="0"
+            max="5"
             type="number"
-            value={lowPotentialInputValues}
+            value={
+              MANAGEMENt_ID.includes(loginUser) ? lowPotentialInputValues : 0
+            }
             disabled={isDisable.LowPotential}
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -2200,8 +2392,11 @@ const Renderforthtable = ({
         <td style={{ position: "relative" }}>
           <input
             type="number"
-            min="0"
-            value={goodPotentialInputValues}
+            min="6"
+            max="8"
+            value={
+              MANAGEMENt_ID.includes(loginUser) ? goodPotentialInputValues : 0
+            }
             disabled={isDisable.GoodPotential}
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -2217,9 +2412,12 @@ const Renderforthtable = ({
         </td>
         <td style={{ position: "relative" }}>
           <input
-            min="0"
+            min="9"
+            max="10"
             type="number"
-            value={highPotentialInputValues}
+            value={
+              MANAGEMENt_ID.includes(loginUser) ? highPotentialInputValues : 0
+            }
             onChange={(e) => handleOnChange3(e)}
             disabled={isDisable.HighPotential}
             style={{
@@ -2269,14 +2467,34 @@ const Tableviewnew = ({
   TaskwiseMarks,
   email,
   handleexceldropdown,
+  selectedThreeMonths,
+  isThreeMonths,
 }) => {
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
+  const [userfeedback, setUserfeedback] = useState({});
+  const [appraiseMarksAvg, setAppraiseMarksAvg] = useState({});
+  const [appraiserAvg, setAppraiserAvg] = useState({});
+
+ 
+
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
+  const [state, setState] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
   );
   const [totalMarksInputs, setTotalMarksInputs] = useState(0);
+  const [users, setusers] = useState("");
+  const useEmailExtractor = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    return searchParams.get("email");
+  };
+  const emails = useEmailExtractor();
+
+  useEffect(() => {
+    setusers(emails);
+  }, [emails]);
 
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
@@ -2291,6 +2509,49 @@ const Tableviewnew = ({
   const [dataFeedback, setdataFeedback] = useState({});
   const [dataScope, setDataScope] = useState({});
 
+  // useEffect(()=>{
+
+  //   if(isThreeMonths !== undefined && selectedThreeMonths !== undefined){
+  //     setFilterDate(isThreeMonths)
+  //     setCustomDate(selectedThreeMonths)
+  //   }
+
+  // },[selectedThreeMonths,isThreeMonths])
+
+  //------------------------------------------------------------------//
+  //feedback//
+  //------------------------------------------------------------------//
+
+  const handleFeedback = (e) => {
+    let currentDate = new Date();
+    let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+    setFeedback({
+      PositivePoint: e.target.value || "",
+      ToUserId: email || "",
+      FromUserId: loginUser || "",
+      ToDate: fileData[0]?.E || "",
+      FromDate: fileData[1]?.E || "",
+      UpdatedDate: dateTime1 || "",
+    });
+  };
+
+  //------------------------------------------------------------------//
+  //scope of improvement//
+  //------------------------------------------------------------------//
+
+  const handleScope = (e) => {
+    let currentDate = new Date();
+    let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+    setScope({
+      ScopeOfImprovement: e.target.value || "",
+      ToUserId: email || "",
+      FromUserId: loginUser || "",
+      UpdatedDate: dateTime1 || "",
+      ToDate: fileData[0]?.E || "",
+      FromDate: fileData[1]?.E || "",
+    });
+  };
+
   useEffect(() => {
     setFeedback({
       PositivePoint: dataFeedback[0]?.PositivePoint,
@@ -2301,12 +2562,12 @@ const Tableviewnew = ({
       UpdatedDate: dataFeedback[0]?.UpdatedDate,
     });
     setScope({
-      ScopeOfImprovement: dataScope[0]?.ScopeOfImprovement,
-      ToUserId: dataScope[0]?.ToUserId,
-      FromUserId: dataScope[0]?.FromUserId,
-      UpdatedDate: dataScope[0]?.UpdatedDate,
-      ToDate: dataScope[0]?.ToDate,
-      FromDate: dataScope[0]?.FromDate,
+      ScopeOfImprovement:dataScope? dataScope[0]?.ScopeOfImprovement : "",
+      ToUserId:dataScope ?  dataScope[0]?.ToUserId : "",
+      FromUserId: dataScope ?  dataScope[0]?.FromUserId : "",
+      UpdatedDate:dataScope ?  dataScope[0]?.UpdatedDate : "",
+      ToDate:dataScope ?  dataScope[0]?.ToDate : "",
+      FromDate: dataScope ?  dataScope[0]?.FromDate : "",
     });
   }, [dataFeedback, dataScope]);
 
@@ -2394,11 +2655,31 @@ const Tableviewnew = ({
     return setDataScope(resData.data.data);
   }
 
+  async function getUserFeedback() {
+    let data = {
+      email: email,
+      ToDate: fileData[0].E,
+      FromDate: fileData[1].E,
+    };
+    let headersList = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    let reqOptions = {
+      url: `http://localhost:8080/kpi/userfeedback/data`,
+      method: "POST",
+      headers: headersList,
+      data: data,
+    };
+    let resData = await axios.request(reqOptions);
+  }
+
   useEffect(() => {
     getAllData();
     getBehaviouralData();
     getPositivePoint();
     getScopeOfImprovement();
+    getUserFeedback();
   }, []);
 
   useEffect(() => {
@@ -2450,7 +2731,6 @@ const Tableviewnew = ({
   }, [updatedData]);
 
   const [parentTarget, setParentTarget] = useState({});
-
   const [parentAppraise, setParentAppraise] = useState({});
   const [parentSelfAppraise, setParentSelfAppraise] = useState({});
 
@@ -2559,7 +2839,9 @@ const Tableviewnew = ({
   const [goodPotential, setGoodPotential] = useState({});
   const [highPotential, setHighPotential] = useState({});
   const [rowTotal, setRowTotal] = useState({});
-  const [finalTotal, setFinalTotal] = useState();
+  const [finalTotal, setFinalTotal] = useState(0);
+  const [finalAppraiseAvg, setFinalAppraiseAvg] = useState(0);
+  const [finalAppraiserAvg, setFinalAppraiserAvg] = useState(0);
 
   function checkArr() {
     const rawTotalArr = Object.values(rowTotal);
@@ -2574,18 +2856,57 @@ const Tableviewnew = ({
       }
     }
   }
+
+  function checkAppraiseArr() {
+    const rawTotalArr = Object.values(appraiseMarksAvg);
+
+    if (rawTotalArr !== null && rawTotalArr.length !== 0) {
+      const total = rawTotalArr?.reduce(
+        (accumulator, currentValue) =>
+          Number(accumulator) + Number(currentValue)
+      );
+      setFinalAppraiseAvg(total);
+    }
+  }
+
+  function checkAppraiserArr() {
+    const rawTotalArr = Object.values(appraiserAvg);
+
+    if (rawTotalArr !== null && rawTotalArr.length !== 0) {
+      const total = rawTotalArr?.reduce(
+        (accumulator, currentValue) =>
+          Number(accumulator) + Number(currentValue)
+      );
+      setFinalAppraiserAvg(total);
+    }
+  }
+
   useEffect(() => {
     checkArr();
-  }, [rowTotal]);
+    checkAppraiseArr();
+    checkAppraiserArr();
+  }, [rowTotal, appraiseMarksAvg, appraiserAvg]);
 
   async function KpiMarks() {
     setLoader(true);
     let allFinalData = [];
     let allBehaviourKpiData = [];
-    let allFeedbackData = [feedback];
-    let allScopeData = [scope];
     let currentDate = new Date();
     let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+    scope.UpdatedDate = dateTime1 || "";
+    scope.ToDate = fileData[0]?.E || "";
+    scope.FromDate = fileData[1]?.E || "";
+    feedback.ToDate = fileData[0]?.E || "";
+    feedback.FromDate = fileData[1]?.E || "";
+    feedback.UpdatedDate = dateTime1 || "";
+    userfeedback.ToDate = fileData[0]?.E || "";
+    userfeedback.FromDate = fileData[1]?.E || "";
+    userfeedback.UpdatedDate = dateTime1 || "";
+
+    let allFeedbackData = [feedback];
+    let allScopeData = [scope];
+    let allUserfeedback = [userfeedback];
+
     thirdTable.map((val, ind) => {
       let allData = {
         KpiTitle: "",
@@ -2613,11 +2934,11 @@ const Tableviewnew = ({
           allData.ToUserId = email || "";
           allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
-          allData.Target = parentTarget.actualDelivery || 0;
+          allData.Target = parentTarget?.actualDelivery || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customActualdeliveryMarks || 0;
+            parentSelfAppraise?.customActualdeliveryMarks || 0;
           allData.AppraiserRating =
-            parentAppraise.customActualdeliveryMarksAr || 0;
+            parentAppraise?.customActualdeliveryMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2629,12 +2950,12 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
-          allData.Target = parentTarget.onTime || 0;
+          allData.Target = parentTarget?.onTime || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customOnTimeMarks || 0;
-          allData.AppraiserRating = parentAppraise.customOnTimeMarksAr || 0;
+            parentSelfAppraise?.customOnTimeMarks || 0;
+          allData.AppraiserRating = parentAppraise?.customOnTimeMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2646,11 +2967,11 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customAvgCodeMarks || 0;
-          allData.AppraiserRating = parentAppraise.customAvgCodeMarksAr || 0;
+            parentSelfAppraise?.customAvgCodeMarks || 0;
+          allData.AppraiserRating = parentAppraise?.customAvgCodeMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2662,10 +2983,11 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating = parentSelfAppraise.customReDoMarks || 0;
-          allData.AppraiserRating = parentAppraise.customReDoMarksAr || 0;
+          allData.AppraiseeSelfRating =
+            parentSelfAppraise?.customReDoMarks || 0;
+          allData.AppraiserRating = parentAppraise?.customReDoMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2677,12 +2999,12 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customBugsReportedMarks || 0;
+            parentSelfAppraise?.customBugsReportedMarks || 0;
           allData.AppraiserRating =
-            parentAppraise.customBugsReportedMarksAr || 0;
+            parentAppraise?.customBugsReportedMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2694,13 +3016,13 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
-          allData.Target = parentTarget.critical || 0;
+          allData.Target = parentTarget?.critical || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customCriticalIssuesMarks || 0;
+            parentSelfAppraise?.customCriticalIssuesMarks || 0;
           allData.AppraiserRating =
-            parentAppraise.customCriticalIssuesMarksAr || 0;
+            parentAppraise?.customCriticalIssuesMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2712,12 +3034,12 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customCustomerSatisfactionMarks || 0;
+            parentSelfAppraise?.customCustomerSatisfactionMarks || 0;
           allData.AppraiserRating =
-            parentAppraise.customCustomerSatisfactionMarksAr || 0;
+            parentAppraise?.customCustomerSatisfactionMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2729,11 +3051,12 @@ const Tableviewnew = ({
           allData.Category = val.B || "";
           allData.Type = val.F || "";
           allData.ToUserId = email || "";
-          allData.FromUserId = email || "";
+          allData.FromUserId = loginUser || "";
           allData.Weightage = val.H || 0;
           allData.AppraiseeSelfRating =
-            parentSelfAppraise.customUpskillingMarks || 0;
-          allData.AppraiserRating = parentAppraise.customUpskillingMarksAr || 0;
+            parentSelfAppraise?.customUpskillingMarks || 0;
+          allData.AppraiserRating =
+            parentAppraise?.customUpskillingMarksAr || 0;
           allData.UpdatedDate = dateTime1 || "";
           allData.IsEditable = 1;
           allData.ToDate = fileData[0].E || "";
@@ -2945,65 +3268,65 @@ const Tableviewnew = ({
       data: allScopeData,
       headers: { Accept: "application/json" },
     });
+    if (state !== undefined && state.length > 0) {
+      let uData = axios({
+        method: "post",
+        url: `http://localhost:8080/kpi/userfeedback`,
+        data: allUserfeedback,
+        headers: { Accept: "application/json" },
+      });
+    }
 
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   }
 
-  //------------------------------------------------------------------//
-  //feedback//
-  //------------------------------------------------------------------//
-  const intialfeedback = {
-    PositivePoint: "",
-    ToUserId: "",
-    FromUserId: "",
-    ToDate: "",
-    FromDate: "",
-    UpdatedDate: "",
-  };
-
-  // const [feedback, setFeedback] = useState(intialfeedback);
-  const handleFeedback = (e) => {
+  useEffect(() => {
     let currentDate = new Date();
     let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
-    setFeedback({
-      PositivePoint: e.target.value || "",
-      ToUserId: email || "",
-      FromUserId: loginUser || "",
-      ToDate: fileData[0].E || "",
-      FromDate: fileData[1].E || "",
-      UpdatedDate: dateTime1 || "",
-    });
-  };
 
-  //------------------------------------------------------------------//
-  //scope of improvement//
-  //------------------------------------------------------------------//
+    if (state !== undefined) {
+      setUserfeedback({
+        Userfeedback: state || "",
+        ToUserId: email || "",
+        FromUserId: loginUser || "",
+        UpdatedDate: dateTime1 || "",
+        ToDate: fileData[0]?.E || "",
+        FromDate: fileData[1]?.E || "",
+      });
+    }
+  }, [state]);
 
-  const inttialScope = {
-    ScopeOfImprovement: "",
-    ToUserId: "",
-    FromUserId: "",
-    UpdatedDate: "",
-    ToDate: "",
-    FromDate: "",
-  };
-  // const [scope, setScope] = useState(inttialScope);
-  const [state, setState] = useState("");
+  //--------------//
+  firstTable.push({
+    B: "category",
+    C: "T1 R1",
+  });
 
-  const handleScope = (e) => {
-    let currentDate = new Date();
-    let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
-    setScope({
-      ScopeOfImprovement: e.target.value || "",
-      ToUserId: email || "",
-      FromUserId: loginUser || "",
-      UpdatedDate: dateTime1 || "",
-      ToDate: fileData[0].E || "",
-      FromDate: fileData[1].E || "",
-    });
-  };
+  function conditionTables() {
+    if (selectedThreeMonths || isThreeMonths) {
+      if (MANAGEMENt_ID.includes(loginUser)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  function conditionUserFeddback() {
+    if (users === loginUser) {
+      if (selectedThreeMonths || isThreeMonths) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  }
 
   return (
     <>
@@ -3169,6 +3492,10 @@ const Tableviewnew = ({
                         parentSelfAppraise={parentSelfAppraise}
                         setParentTarget={setParentTarget}
                         parentTarget={parentTarget}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
                       />
                     </>
                   );
@@ -3187,10 +3514,83 @@ const Tableviewnew = ({
                         parentSelfAppraise={parentSelfAppraise}
                         setParentTarget={setParentTarget}
                         parentTarget={parentTarget}
+                        updatedData={updatedData}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
                       />
                     </>
                   );
                 })}
+            <td
+              style={{
+                backgroundColor: "#f4b084",
+                textAlign: "left",
+              }}
+              colSpan="14"
+            >
+              {/* <div
+                style={{
+                  display: "flex",
+                  lineHeight: "30px",
+                  width: "100%",
+                }}
+              >
+                <div
+                  style={{
+                    paddingLeft: "53px",
+                    fontWeight: "600",
+                    width: "60%",
+                  }}
+                >
+                  {`Average `}
+                </div>
+              
+                  <div className="input1" style={{ width: "40%" }}>
+                    <input
+                      disabled={true}
+                      value={
+                        finalAppraiseAvg === NaN || finalAppraiseAvg === null
+                          ? 0
+                          : finalAppraiseAvg
+                      }
+                      style={{
+                        outline: "none",
+                        border: "0px",
+                        backgroundColor: "#f4b084",
+                        textAlign: "center",
+                        height: "2rem",
+                        width: "5rem",
+                        fontWeight: "600",
+                      }}
+                      type="number"
+                    />
+                  </div>
+                  <div className="input2" style={{ width: "20%" }}>
+                    <input
+                      disabled={true}
+                      value={
+                        finalAppraiseAvg === NaN || finalAppraiseAvg === null
+                          ? 0
+                          : finalAppraiseAvg
+                      }
+                      style={{
+                        outline: "none",
+                        border: "0px",
+                        backgroundColor: "#f4b084",
+                        textAlign: "center",
+                        height: "2rem",
+                        width: "5rem",
+                        fontWeight: "600",
+                        color: "red",
+                      }}
+                      type="number"
+                    />
+                  </div>
+                </div> */}
+           
+            </td>
 
             <tr
               style={{
@@ -3311,7 +3711,9 @@ const Tableviewnew = ({
                   <input
                     disabled={true}
                     value={
-                      finalTotal === NaN || finalTotal === null ? 0 : finalTotal
+                      finalTotal === NaN || finalTotal === null
+                        ? 0
+                        : finalTotal.toFixed(2)
                     }
                     style={{
                       outline: "none",
@@ -3330,6 +3732,7 @@ const Tableviewnew = ({
                 height: "100px",
               }}
             ></tr>
+
             <tr
               style={{
                 height: "40px",
@@ -3375,8 +3778,9 @@ const Tableviewnew = ({
               }}
             >
               <textarea
+                disabled={conditionTables()}
                 type="text"
-                // placeholder="positive point"
+                placeholder="positive point should fill quaterly by manager"
                 style={{
                   outline: "none",
                   position: "absolute",
@@ -3387,6 +3791,7 @@ const Tableviewnew = ({
                   height: "145px",
                   resize: "none",
                 }}
+                value={feedback?.PositivePoint}
                 onChange={(e) => handleFeedback(e)}
               />
             </td>
@@ -3427,7 +3832,8 @@ const Tableviewnew = ({
             >
               <textarea
                 type="text"
-                // placeholder="positive point"
+                disabled={conditionTables()}
+                placeholder="scope of improvement should fill quaterly by manager"
                 style={{
                   outline: "none",
                   position: "absolute",
@@ -3439,6 +3845,7 @@ const Tableviewnew = ({
                   resize: "none",
                 }}
                 onChange={(e) => handleScope(e)}
+                value={scope?.ScopeOfImprovement}
               />
             </td>
             <tr
@@ -3486,14 +3893,19 @@ const Tableviewnew = ({
                     justifyContent: "center",
                     margin: "0px 10px",
                   }}
+                  disabled={conditionUserFeddback()}
                 >
                   <span>Yes</span>
                 </button>
               </div>
               <div>
-                <ModalFeedback setState={setState} />
+                <ModalFeedback
+                  setState={setState}
+                  disabled={conditionUserFeddback()}
+                />
               </div>
             </td>
+
             <td
               style={{
                 border: "none",
@@ -3558,6 +3970,8 @@ const Tableviewnew = ({
 };
 
 export default Tableviewnew;
+
+
 
 
 

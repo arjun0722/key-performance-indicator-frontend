@@ -32,19 +32,26 @@ const buttonStyle = {
   marginTop: "10px",
 };
 
-function ModalFeedback({ setState }) {
+function ModalFeedback({ setState,disabled }) {
+  const [input,setInput] = useState("")
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleInputState = (e) => {
-    setState(e.target.value);
+    setInput(e.target.value);
   };
+
+  const handleSubmit = ()=>{
+    setOpen(false)
+    setState(input);
+  }
 
   return (
     <>
       <button
+      
         style={{
           borderRadius: "0px",
           height: "30px",
@@ -57,6 +64,7 @@ function ModalFeedback({ setState }) {
           fontWeight: "600",
           margin: "0px 15px",
         }}
+        disabled={disabled}
         onClick={handleOpen}
       >
         No
@@ -91,7 +99,7 @@ function ModalFeedback({ setState }) {
             variant="contained"
             href="#contained-buttons"
             onClick={() => {
-              handleClose();
+              handleSubmit();
             }}
           >
             submit
