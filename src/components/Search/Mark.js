@@ -60,13 +60,14 @@ const Mark = () => {
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
   ]);
-  const [dateEvent,setEvent] = useState()
+  const [dateEvent, setEvent] = useState()
   const [test, setTest] = useState([]);
   const [clientbugMarks, setClientbugMarks] = useState(0);
   const [ExcelFileData, setExcelFileData] = useState(null);
   const [Designation, setDesignation] = useState();
   const [fileData, setFileData] = useState();
   const [TotalEffort, setTotalEffort] = useState(0);
+  const [codeReviewRating, setCodeReviewRating] = useState(0)
   const [Totalactualhour, setTotalactualhour] = useState(0);
   const [AssignTask, setAssignTask] = useState(0);
   const [OntimeTask, setOntimeTask] = useState(0);
@@ -77,15 +78,15 @@ const Mark = () => {
   const [startDate, setstartDate] = useState(
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD")
   );
-  const [isThreeMonths,setIsThreeMonths] = useState(false)
- 
+  const [isThreeMonths, setIsThreeMonths] = useState(false)
+
   const [lastDate, setlastDate] = useState(
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD")
   );
-  const [selectedThreeMonths,setSelectedThreeMonths] = useState(false)
+  const [selectedThreeMonths, setSelectedThreeMonths] = useState(false)
 
   const classes = useStyles();
- 
+
 
   let dataApi = [];
 
@@ -96,6 +97,7 @@ const Mark = () => {
     let responseArr = [];
     let ontimesprint = 0;
     let effortArr = [];
+    let codeReviewRatingArr = [];
     let actualHoursArr = [];
     let redoHoursArr = [];
     let uniqueProjectlist = [];
@@ -104,9 +106,8 @@ const Mark = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -130,7 +131,7 @@ const Mark = () => {
     var ids = [];
 
     taskandbugsResponse.then((response) => {
-      
+
       (response || []).map((res) => {
         res?.data?.workItems?.map((workitem) => {
           ids.push(workitem.id);
@@ -151,9 +152,8 @@ const Mark = () => {
       for (let index = 0; index < Math.ceil(ids.length / 300); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-          }`,
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+            }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -165,12 +165,12 @@ const Mark = () => {
         };
         responseArr.push(axios.request(reqOptions));
         let result = Promise.all(responseArr);
-      
+
         result.then((resp) => {
           resp.map((resp) => {
             let task = resp?.data?.value.filter((val) => {
               // let value = val.fields["System.State"] !== "Removed";
-          
+
               return val;
             });
             let assignedTask = task.length;
@@ -192,9 +192,14 @@ const Mark = () => {
                 res.fields["System.State"] === "Rework" ||
                 res.fields["System.State"] === "Merged"
               ) {
+
                 let effort =
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
                 effortArr.push(effort);
+                let CodeReviewRating = res.fields["Custom.CodeReviewRating"] || 0;
+                codeReviewRatingArr.push(CodeReviewRating)
+                let ReviewArr = codeReviewRatingArr.reduce((partialSum, a) => partialSum + a, 0);
+                setCodeReviewRating(ReviewArr)
                 let actualHours = 0;
                 if (
                   res.fields["System.WorkItemType"] === "Task" ||
@@ -253,7 +258,7 @@ const Mark = () => {
                 method: "GET",
                 headers: headersList,
               };
-              dataApi.push(axios.request(requestOptions)); 
+              dataApi.push(axios.request(requestOptions));
             });
             let sprintDetails = Promise.all(dataApi);
             sprintDetails.then((res) => {
@@ -283,7 +288,7 @@ const Mark = () => {
                       ) {
                         let dueDate = moment(
                           taskdetails.fields[
-                            "Microsoft.VSTS.Scheduling.DueDate"
+                          "Microsoft.VSTS.Scheduling.DueDate"
                           ]
                         ).format("YYYY-MM-DD");
                         let actualEndDate = moment(
@@ -312,9 +317,9 @@ const Mark = () => {
                         if (
                           actualEndDate <= dueDate &&
                           taskdetails.fields["Custom.HoursTaken"] <=
-                            taskdetails.fields[
-                              "Microsoft.VSTS.Scheduling.Effort"
-                            ]
+                          taskdetails.fields[
+                          "Microsoft.VSTS.Scheduling.Effort"
+                          ]
                         ) {
                           ontimesprint++;
                         }
@@ -404,9 +409,9 @@ const Mark = () => {
                 ((100 +
                   ((2 - numberofbugsreportedbyClient) /
                     numberofbugsreportedbyClient) *
-                    100) *
+                  100) *
                   10) /
-                100; 
+                100;
               reportedbyclientmark = reportedbyclientmark.toFixed(2);
               reportedbyclientmark = parseFloat(reportedbyclientmark);
               setClientbugMarks(reportedbyclientmark);
@@ -442,7 +447,7 @@ const Mark = () => {
     criticalMarks,
     clientbugMarks,
   ]);
-
+  console.log(codeReviewRating, ".............")
   const handleexceldropdown = async (e) => {
     let selectedFile = e.target.value;
     let data = await axios({
@@ -488,7 +493,7 @@ const Mark = () => {
     }
     setshowCustomDate(false);
     //last Week
-    if (event.target.value == 1) { 
+    if (event.target.value == 1) {
       setEvent(1)
       let currentDate = moment();
 
@@ -536,19 +541,19 @@ const Mark = () => {
       setSelectedThreeMonths(false)
     }
 
-    if(event.target.value == 6){
+    if (event.target.value == 6) {
       setEvent(6)
-let threeMonthStartDate = moment().subtract(3,"months").format("YYYY-MM-DD")  
-let currentDate = moment().format("YYYY-MM-DD");
-setstartDate(threeMonthStartDate);
-setlastDate(currentDate)
-setSelectedThreeMonths(true)
-}
+      let threeMonthStartDate = moment().subtract(3, "months").format("YYYY-MM-DD")
+      let currentDate = moment().format("YYYY-MM-DD");
+      setstartDate(threeMonthStartDate);
+      setlastDate(currentDate)
+      setSelectedThreeMonths(true)
+    }
 
     //last Year
 
     if (event.target.value == 4) {
-   
+
       let sixMonthStartDate = moment()
         .subtract(12, "months")
         .format("YYYY-MM-DD");
@@ -560,27 +565,27 @@ setSelectedThreeMonths(true)
   };
 
 
-  function checkThreeMonths(){
-    
-   if(dateEvent === 5){
-    const date1 = new Date(customdate[0]);
-    const date2 = new Date(customdate[1]);
-    
-    const diffInMonths = (date2.getFullYear() - date1.getFullYear()) * 12 + (date2.getMonth() - date1.getMonth());
+  function checkThreeMonths() {
 
-    if(diffInMonths === 3){
-setIsThreeMonths(true)
-    }else{
-setIsThreeMonths(false)
+    if (dateEvent === 5) {
+      const date1 = new Date(customdate[0]);
+      const date2 = new Date(customdate[1]);
+
+      const diffInMonths = (date2.getFullYear() - date1.getFullYear()) * 12 + (date2.getMonth() - date1.getMonth());
+
+      if (diffInMonths === 3) {
+        setIsThreeMonths(true)
+      } else {
+        setIsThreeMonths(false)
+      }
+    } else {
+      setIsThreeMonths(false)
     }
-   }else{
-    setIsThreeMonths(false)
-   }
   }
 
-  useEffect(()=>{
-checkThreeMonths()
-  },[customdate,dateEvent])
+  useEffect(() => {
+    checkThreeMonths()
+  }, [customdate, dateEvent])
 
   return (
     <>
@@ -658,7 +663,7 @@ checkThreeMonths()
                 <InputLabel id="demo-simple-select-label">
                   Select Designation
                 </InputLabel>
-                <Select 
+                <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={Designation}
