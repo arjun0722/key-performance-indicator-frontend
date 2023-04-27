@@ -3219,11 +3219,13 @@ const Tableviewnew = ({
           }
 
           async function getUserFeedback() {
-                    let data = {
-                              email: email,
-                              ToDate: fileData[0].E,
-                              FromDate: fileData[1].E,
-                    };
+                    let data = [
+                              {
+                                        email: email,
+                                        ToDate: fileData[0].E,
+                                        FromDate: fileData[1].E,
+                              },
+                    ];
                     let headersList = {
                               Accept: "application/json",
                               "Content-Type": "application/json",
