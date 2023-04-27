@@ -198,8 +198,11 @@ const Mark = () => {
                 effortArr.push(effort);
                 let CodeReviewRating = res.fields["Custom.CodeReviewRating"] || 0;
                 codeReviewRatingArr.push(CodeReviewRating)
-                let ReviewArr = codeReviewRatingArr.reduce((partialSum, a) => partialSum + a, 0);
-                setCodeReviewRating(ReviewArr)
+                const filteredArr = codeReviewRatingArr.filter(val => val !== 0);
+                let ReviewArr = filteredArr.reduce((partialSum, a) => partialSum + a, 0);
+                let finalReviewArr = ReviewArr / filteredArr.length
+
+                setCodeReviewRating(finalReviewArr)
                 let actualHours = 0;
                 if (
                   res.fields["System.WorkItemType"] === "Task" ||
@@ -447,7 +450,7 @@ const Mark = () => {
     criticalMarks,
     clientbugMarks,
   ]);
-  console.log(codeReviewRating, ".............")
+
   const handleexceldropdown = async (e) => {
     let selectedFile = e.target.value;
     let data = await axios({
@@ -699,6 +702,7 @@ const Mark = () => {
               handleexceldropdown={handleexceldropdown}
               selectedThreeMonths={selectedThreeMonths}
               isThreeMonths={isThreeMonths}
+              codeReviewRating={codeReviewRating}
             />
           )}
         </div>
