@@ -56,7 +56,6 @@ const Renderthirdtable = ({
           finalAppraiseAvg,
           setAppraiserAvg,
           finalAppraiserAvg,
-          codeReviewRating,
 }) => {
           // all user and login user
 
@@ -124,7 +123,7 @@ const Renderthirdtable = ({
                     ind === 1 ? val.J : 0
           );
           const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-                    ind === 2 ? codeReviewRating : 0
+                    ind === 2 ? val.J : 0
           );
           const [customReDoMarks, setCustomCustomReDoMarks] = useState(
                     ind === 3 ? val.J : 0
@@ -892,7 +891,7 @@ const Renderthirdtable = ({
                                                                       border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-                                                                      // border: "none",
+                                                                      border: "none",
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -1966,7 +1965,6 @@ const RenderTestTable = ({
                     </>
           );
 };
-
 const Renderforthtable = ({
           val,
           ind,
@@ -3003,7 +3001,6 @@ const Renderforthtable = ({
                     </>
           );
 };
-
 const Renderfifthtable = ({ val }) => {
           return (
                     <>
@@ -3022,7 +3019,6 @@ const Tableviewnew = ({
           handleexceldropdown,
           selectedThreeMonths,
           isThreeMonths,
-          codeReviewRating,
 }) => {
           const [loader, setLoader] = useState(false);
           const [updatedData, setUpdatedData] = useState({});
@@ -3061,7 +3057,6 @@ const Tableviewnew = ({
           const [dataFeedback, setdataFeedback] = useState({});
           const [dataScope, setDataScope] = useState({});
 
-          console.log(codeReviewRating, "????????????????");
           // useEffect(()=>{
 
           //   if(isThreeMonths !== undefined && selectedThreeMonths !== undefined){
@@ -3907,7 +3902,6 @@ const Tableviewnew = ({
                                                   return allFinalData;
                               }
                     });
-
                     forthTable.map((val, ind) => {
                               let allBehaviourKpiDatamap = {
                                         BehaviouralKPIs: "",
@@ -4218,14 +4212,12 @@ const Tableviewnew = ({
                               data: allFinalData,
                               headers: { Accept: "application/json" },
                     });
-
                     let bData = axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/behavioural`,
                               data: allBehaviourKpiData,
                               headers: { Accept: "application/json" },
                     });
-
                     let pData = axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/positivepoint`,
@@ -4240,14 +4232,14 @@ const Tableviewnew = ({
                               headers: { Accept: "application/json" },
                     });
 
-                    if (state !== undefined && state.length > 0) {
-                              let uData = axios({
-                                        method: "post",
-                                        url: `http://localhost:8080/kpi/userfeedback`,
-                                        data: allUserfeedback,
-                                        headers: { Accept: "application/json" },
-                              });
-                    }
+                    // if (state !== undefined && state.length > 0) {
+                    let uData = axios({
+                              method: "post",
+                              url: `http://localhost:8080/kpi/userfeedback`,
+                              data: allUserfeedback,
+                              headers: { Accept: "application/json" },
+                    });
+                    // }
 
                     setTimeout(() => {
                               setLoader(false);
@@ -4577,9 +4569,6 @@ const Tableviewnew = ({
                                                                                                                           }
                                                                                                                           finalAppraiserAvg={
                                                                                                                                     finalAppraiserAvg
-                                                                                                                          }
-                                                                                                                          codeReviewRating={
-                                                                                                                                    codeReviewRating
                                                                                                                           }
                                                                                                                 />
                                                                                                       </>
