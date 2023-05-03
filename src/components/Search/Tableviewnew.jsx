@@ -947,64 +947,64 @@ const RenderTestTable = ({
                     return searchParams.get("email");
           };
           const email = useEmailExtractor();
-
+          console.log(com[ind].I, ">>>>>>>>>>>>>>");
           useEffect(() => {
                     setusers(email);
           }, [email]);
 
           const [actualDelivery, setActualDelivery] = useState(
-                    ind === 0 ? val.Target : 0
+                    ind === 0 ? com[ind]?.I : 0
           );
-          const [onTime, setOnTime] = useState(ind === 1 ? val.Target : 0);
-          const [critical, setCritical] = useState(ind === 5 ? val.Target : 0);
+          const [onTime, setOnTime] = useState(ind === 1 ? com[ind]?.I : 0);
+          const [critical, setCritical] = useState(ind === 5 ? com[ind]?.I : 0);
 
           //  this state use for Appraisee Self Rating
           const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-                    ind === 0 ? val.AppraiseeSelfRating : 0
+                    updatedData?.data?.data[0]?.AppraiseeSelfRating
           );
           const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-                    ind === 1 ? val.AppraiseeSelfRating : 0
+                    updatedData?.data?.data[1]?.AppraiseeSelfRating
           );
           const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-                    ind === 2 ? val.AppraiseeSelfRating : 0
+                    updatedData?.data?.data[2]?.AppraiseeSelfRating
           );
           const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-                    ind === 3 ? val.AppraiseeSelfRating : 0
+                    updatedData?.data?.data[3]?.AppraiseeSelfRating
           );
           const [customBugsReportedMarks, setCustomBugsReportedMarks] =
-                    useState(ind === 4 ? val.AppraiseeSelfRating : 0);
+                    useState(updatedData?.data?.data[4]?.AppraiseeSelfRating);
           const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] =
-                    useState(ind === 5 ? val.AppraiseeSelfRating : 0);
+                    useState(updatedData?.data?.data[5]?.AppraiseeSelfRating);
           const [
                     customCustomerSatisfactionMarks,
                     setCustomCustomerSatisfactionMarks,
-          ] = useState(ind === 6 ? val.AppraiseeSelfRating : 0);
+          ] = useState(updatedData?.data?.data[6]?.AppraiseeSelfRating);
           const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-                    ind === 7 ? val.AppraiseeSelfRating : 0
+                    updatedData?.data?.data[7]?.AppraiseeSelfRating
           );
 
           // this states use for Appraiser Rating
           const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] =
-                    useState(ind === 0 ? val.AppraiserRating : 0);
+                    useState(updatedData?.data?.data[0]?.AppraiserRating);
           const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-                    ind === 1 ? val.AppraiserRating : 0
+                    updatedData?.data?.data[1]?.AppraiserRating
           );
           const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-                    ind === 2 ? val.AppraiserRating : 0
+                    updatedData?.data?.data[2]?.AppraiserRating
           );
           const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-                    ind === 3 ? val.AppraiserRating : 0
+                    updatedData?.data?.data[3]?.AppraiserRating
           );
           const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] =
-                    useState(ind === 4 ? val.AppraiserRating : 0);
+                    useState(updatedData?.data?.data[4]?.AppraiserRating);
           const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-                    useState(ind === 5 ? val.AppraiserRating : 0);
+                    useState(updatedData?.data?.data[5]?.AppraiserRating);
           const [
                     customCustomerSatisfactionMarksAr,
                     setCustomCustomerSatisfactionMarksAr,
-          ] = useState(ind === 6 ? val.AppraiserRating : 0);
+          ] = useState(updatedData?.data?.data[6]?.AppraiserRating);
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
-                    useState(ind === 7 ? val.AppraiserRating : 0);
+                    useState(updatedData?.data?.data[7]?.AppraiserRating);
 
           // this states use for Final Appraisee Marks
           // const [finalActualdeliveryMarks, setFinalActualdelivery] =
@@ -1098,6 +1098,19 @@ const RenderTestTable = ({
                               });
                     }
           }, [updatedData]);
+          // console.log(com, "//////////////");
+
+          console.log("JJJJJJJJJJJJJ", {
+                    customActualdeliveryMarksAr,
+                    customOnTimeMarksAr,
+                    customAvgCodeMarksAr,
+                    customReDoMarksAr,
+                    customBugsReportedMarksAr,
+                    customCriticalIssuesMarksAr,
+                    customCustomerSatisfactionMarksAr,
+
+                    customUpskillingMarksAr,
+          });
 
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
@@ -1264,100 +1277,6 @@ const RenderTestTable = ({
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : "";
 
-          // if (ind == 0) {
-          //           let fMark =
-          //                     ((100 +
-          //                               ((actualDelivery -
-          //                                         customActualdeliveryMarks) /
-          //                                         customActualdeliveryMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (fMark && !isNaN(fMark)) {
-          //                     setFinalActualdelivery(fMark);
-          //           }
-          // } else if (ind == 1) {
-          //           let sMark =
-          //                     ((100 +
-          //                               ((onTime - customOnTimeMarks) /
-          //                                         customOnTimeMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (sMark && !isNaN(sMark)) {
-          //                     setFinalOnTimeMarks(sMark);
-          //           }
-          // } else if (ind == 2) {
-          //           let tMark =
-          //                     ((100 +
-          //                               ((com[ind].I - customAvgCodeMarks) /
-          //                                         customAvgCodeMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (tMark && !isNaN(tMark)) {
-          //                     setFinalAvgCodeMarks(tMark);
-          //           }
-          // } else if (ind == 3) {
-          //           let foMark =
-          //                     ((100 +
-          //                               ((com[ind].I - customReDoMarks) /
-          //                                         customReDoMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (foMark && !isNaN(foMark)) {
-          //                     setCustomFinalReDoMarks(foMark);
-          //           }
-          // } else if (ind == 4) {
-          //           let fiMark =
-          //                     ((100 +
-          //                               ((com[ind].I -
-          //                                         customBugsReportedMarks) /
-          //                                         customBugsReportedMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (fiMark && !isNaN(fiMark)) {
-          //                     setFinalBugsReportedMarks(fiMark);
-          //           }
-          // } else if (ind == 5) {
-          //           let siMark =
-          //                     ((100 +
-          //                               ((critical -
-          //                                         customCriticalIssuesMarks) /
-          //                                         customCriticalIssuesMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (siMark && !isNaN(siMark)) {
-          //                     setFinalCriticalIssuesMarks(siMark);
-          //           }
-          // } else if (ind == 6) {
-          //           let seMark =
-          //                     ((100 +
-          //                               ((com[ind].I -
-          //                                         customCustomerSatisfactionMarks) /
-          //                                         customCustomerSatisfactionMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (seMark && !isNaN(seMark)) {
-          //                     setFinalCustomerSatisfactionMarks(seMark);
-          //           }
-          // } else if (ind == 7) {
-          //           let eMark =
-          //                     ((100 +
-          //                               ((com[ind].I - customUpskillingMarks) /
-          //                                         customUpskillingMarks) *
-          //                                         100) *
-          //                               val.Weightage) /
-          //                     100;
-          //           if (eMark && !isNaN(eMark)) {
-          //                     setFinalUpskillingMarks(eMark);
-          //           }
-          // }
-
           // .................formulas for first input..........//
           const formula = (a, b, c) => {
                     const value = Number(
@@ -1478,6 +1397,7 @@ const RenderTestTable = ({
 
           //.............formulas for second table...........//
           const formulaA = (a, b, c) => {
+           
                     const value = Number(
                               ((100 + ((a - b) / a) * 100) * c) / 100
                     ).toFixed(2);
@@ -1965,6 +1885,7 @@ const RenderTestTable = ({
                     </>
           );
 };
+
 const Renderforthtable = ({
           val,
           ind,
@@ -3001,6 +2922,7 @@ const Renderforthtable = ({
                     </>
           );
 };
+
 const Renderfifthtable = ({ val }) => {
           return (
                     <>
@@ -3625,6 +3547,7 @@ const Tableviewnew = ({
                     userfeedback.ToDate = fileData[0]?.E || "";
                     userfeedback.FromDate = fileData[1]?.E || "";
                     userfeedback.UpdatedDate = dateTime1 || "";
+                    userfeedback.IsEditable = 1;
 
                     let allFeedbackData = [feedback];
                     let allScopeData = [scope];
