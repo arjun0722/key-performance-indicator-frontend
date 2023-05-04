@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
@@ -50,6 +50,8 @@ const Renderthirdtable = ({
           parentAppraise,
           setParentSelfAppraise,
           parentSelfAppraise,
+          setParentReviewerMarks,
+          parentReviewerMarks,
           parentTarget,
           setParentTarget,
           setAppraiseMarksAvg,
@@ -162,6 +164,23 @@ const Renderthirdtable = ({
           ] = useState(ind === 6 ? val.L : 0);
           const [customUpskillingMarksAr, setCustomUpskillingMarksAr] =
                     useState(ind === 7 ? val.L : 0);
+
+          // this states use for Reviewer Marks
+          const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] =
+                    useState(0);
+          const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(0);
+          const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(0);
+          const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(0);
+          const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] =
+                    useState(0);
+          const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
+                    useState(0);
+          const [
+                    customCustomerSatisfactionMarksRM,
+                    setCustomCustomerSatisfactionMarksRM,
+          ] = useState(0);
+          const [customUpskillingMarksRM, setCustomUpskillingMarksRM] =
+                    useState(0);
 
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
@@ -288,6 +307,71 @@ const Renderthirdtable = ({
                               setParentAppraise({
                                         ...parentAppraise,
                                         customUpskillingMarksAr: e.target.value,
+                              });
+                    }
+          }
+
+          function handleOnChange2(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setCustomActualdeliveryRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customActualdeliveryMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setCustomOnTimeMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customOnTimeMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 2) {
+                              setCustomAvgCodeMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customAvgCodeMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 3) {
+                              setCustomCustomReDoMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customReDoMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 4) {
+                              setCustomBugsReportedMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customBugsReportedMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCustomCriticalIssuesMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customCriticalIssuesMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 6) {
+                              setCustomCustomerSatisfactionMarksRM(
+                                        e.target.value
+                              );
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customCustomerSatisfactionMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 7) {
+                              setCustomUpskillingMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customUpskillingMarksRM: e.target.value,
                               });
                     }
           }
@@ -913,7 +997,85 @@ const Renderthirdtable = ({
                                                   {/* {val.M} */}
                                                   {valueAppraiserMarks}
                                         </td>
-                                        <td>{val.N}</td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            type="number"
+                                                            min="0"
+                                                            disabled={
+                                                                      false
+                                                                      // MANAGEMENt_ID.includes(
+                                                                      //           loginUser
+                                                                      // )
+                                                                      //           ? false
+                                                                      //           : true
+                                                            }
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
+                                                            value={
+                                                                      //           // MANAGEMENt_ID.includes(
+                                                                      //           //           loginUser
+                                                                      //           // )
+                                                                      //           // ?
+                                                                      ind === 0
+                                                                                ? customActualdeliveryMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? customOnTimeMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            2
+                                                                                ? customAvgCodeMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            3
+                                                                                ? customReDoMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            4
+                                                                                ? customBugsReportedMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            5
+                                                                                ? customCriticalIssuesMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            6
+                                                                                ? customCustomerSatisfactionMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            7
+                                                                                ? customUpskillingMarksRM
+                                                                                : 0
+                                                                      //           // : val.L
+                                                            }
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+                                                                      outline: "none",
+                                                                      border: "none",
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            onChange={(e) => {
+                                                                      handleOnChange2(
+                                                                                e
+                                                                      );
+                                                            }}
+                                                  />
+                                                  {/* {val.N} */}
+                                        </td>
                                         <td>{val.O}</td>
                               </tr>
                     </>
@@ -929,6 +1091,8 @@ const RenderTestTable = ({
           parentAppraise,
           setParentSelfAppraise,
           parentSelfAppraise,
+          setParentReviewerMarks,
+          parentReviewerMarks,
           parentTarget,
           setParentTarget,
           updatedData,
@@ -947,7 +1111,6 @@ const RenderTestTable = ({
                     return searchParams.get("email");
           };
           const email = useEmailExtractor();
-          console.log(com[ind].I, ">>>>>>>>>>>>>>");
           useEffect(() => {
                     setusers(email);
           }, [email]);
@@ -1022,6 +1185,29 @@ const RenderTestTable = ({
           // ] = useState(0);
           // const [finalUpskillingMarks, setFinalUpskillingMarks] = useState(0);
 
+          // this states use for Reviewer Marks
+          const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] =
+                    useState(updatedData?.data?.data[0]?.ReviewerMarks);
+          const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(
+                    updatedData?.data?.data[1]?.ReviewerMarks
+          );
+          const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(
+                    updatedData?.data?.data[2]?.ReviewerMarks
+          );
+          const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(
+                    updatedData?.data?.data[3]?.ReviewerMarks
+          );
+          const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] =
+                    useState(updatedData?.data?.data[4]?.ReviewerMarks);
+          const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
+                    useState(updatedData?.data?.data[5]?.ReviewerMarks);
+          const [
+                    customCustomerSatisfactionMarksRM,
+                    setCustomCustomerSatisfactionMarksRM,
+          ] = useState(updatedData?.data?.data[6]?.ReviewerMarks);
+          const [customUpskillingMarksRM, setCustomUpskillingMarksRM] =
+                    useState(updatedData?.data?.data[7]?.ReviewerMarks);
+
           useEffect(() => {
                     if (updatedData && updatedData.data) {
                               setParentSelfAppraise({
@@ -1084,6 +1270,34 @@ const RenderTestTable = ({
                                                             ?.AppraiserRating,
                               });
                     }
+                    if (updatedData && updatedData.data) {
+                              setParentReviewerMarks({
+                                        customActualdeliveryMarksRM:
+                                                  updatedData?.data?.data[0]
+                                                            ?.ReviewerMarks,
+                                        customOnTimeMarksRM:
+                                                  updatedData?.data?.data[1]
+                                                            ?.ReviewerMarks,
+                                        customAvgCodeMarksRM:
+                                                  updatedData?.data?.data[2]
+                                                            ?.ReviewerMarks,
+                                        customReDoMarksRM:
+                                                  updatedData?.data?.data[3]
+                                                            ?.ReviewerMarks,
+                                        customBugsReportedMarksRM:
+                                                  updatedData?.data?.data[4]
+                                                            ?.ReviewerMarks,
+                                        customCriticalIssuesMarksRM:
+                                                  updatedData?.data?.data[5]
+                                                            ?.ReviewerMarks,
+                                        customCustomerSatisfactionMarksRM:
+                                                  updatedData?.data?.data[6]
+                                                            ?.ReviewerMarks,
+                                        customUpskillingMarksRM:
+                                                  updatedData?.data?.data[7]
+                                                            ?.ReviewerMarks,
+                              });
+                    }
 
                     if (updatedData && updatedData.data) {
                               setParentTarget({
@@ -1098,20 +1312,7 @@ const RenderTestTable = ({
                               });
                     }
           }, [updatedData]);
-          // console.log(com, "//////////////");
-
-          console.log("JJJJJJJJJJJJJ", {
-                    customActualdeliveryMarksAr,
-                    customOnTimeMarksAr,
-                    customAvgCodeMarksAr,
-                    customReDoMarksAr,
-                    customBugsReportedMarksAr,
-                    customCriticalIssuesMarksAr,
-                    customCustomerSatisfactionMarksAr,
-
-                    customUpskillingMarksAr,
-          });
-
+          console.log(com, ">>>>>>>>>>>>>>>>>>>>");
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdelivery(e.target.value);
@@ -1240,7 +1441,70 @@ const RenderTestTable = ({
                               });
                     }
           }
-
+          function handleOnChange2(e) {
+                    if (e.target.parentNode.parentNode.id == 0) {
+                              setCustomActualdeliveryRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customActualdeliveryMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 1) {
+                              setCustomOnTimeMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customOnTimeMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 2) {
+                              setCustomAvgCodeMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customAvgCodeMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 3) {
+                              setCustomCustomReDoMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customReDoMarksRM: e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 4) {
+                              setCustomBugsReportedMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customBugsReportedMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 5) {
+                              setCustomCriticalIssuesMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customCriticalIssuesMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 6) {
+                              setCustomCustomerSatisfactionMarksRM(
+                                        e.target.value
+                              );
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customCustomerSatisfactionMarksRM:
+                                                  e.target.value,
+                              });
+                    }
+                    if (e.target.parentNode.parentNode.id == 7) {
+                              setCustomUpskillingMarksRM(e.target.value);
+                              setParentReviewerMarks({
+                                        ...parentReviewerMarks,
+                                        customUpskillingMarksRM: e.target.value,
+                              });
+                    }
+          }
           function handleTarget(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setActualDelivery(e.target.value);
@@ -1397,7 +1661,6 @@ const RenderTestTable = ({
 
           //.............formulas for second table...........//
           const formulaA = (a, b, c) => {
-           
                     const value = Number(
                               ((100 + ((a - b) / a) * 100) * c) / 100
                     ).toFixed(2);
@@ -1879,7 +2142,87 @@ const RenderTestTable = ({
                                                   {/* {com[ind].M} */}
                                                   {valueAppraiserMarks}
                                         </td>
-                                        <td>{com[ind].N}</td>
+                                        <td style={{ position: "relative" }}>
+                                                  <input
+                                                            type="number"
+                                                            min="0"
+                                                            max={
+                                                                      ind === 2
+                                                                                ? 5
+                                                                                : "" ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? onTime
+                                                                                : ""
+                                                            }
+                                                            disabled={
+                                                                      false
+                                                                      // MANAGEMENt_ID.includes(
+                                                                      //           loginUser
+                                                                      // )
+                                                                      //           ? false
+                                                                      //           : true
+                                                            }
+                                                            value={
+                                                                      // MANAGEMENt_ID.includes(
+                                                                      //           loginUser
+                                                                      // )
+                                                                      // ?
+                                                                      ind === 0
+                                                                                ? customActualdeliveryMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            1
+                                                                                ? customOnTimeMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            2
+                                                                                ? customAvgCodeMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            3
+                                                                                ? customReDoMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            4
+                                                                                ? customBugsReportedMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            5
+                                                                                ? customCriticalIssuesMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            6
+                                                                                ? customCustomerSatisfactionMarksRM
+                                                                                : 0 ||
+                                                                                  ind ===
+                                                                                            7
+                                                                                ? customUpskillingMarksRM
+                                                                                : 0
+                                                                      // : val.AppraiserRating
+                                                            }
+                                                            style={{
+                                                                      height: "100%",
+                                                                      position: "absolute",
+                                                                      top: "0",
+                                                                      bottom: "0",
+                                                                      outline: "none",
+                                                                      border: "none",
+                                                                      backgroundColor:
+                                                                                "#ecf0f1",
+
+                                                                      width: "100%",
+                                                                      fontSize: "17px",
+                                                            }}
+                                                            // value={val.L}
+                                                            onChange={(e) => {
+                                                                      handleOnChange2(
+                                                                                e
+                                                                      );
+                                                            }}
+                                                  />
+                                                  {/* {com[ind].N} */}
+                                        </td>
                                         <td>{com[ind].O}</td>
                               </tr>
                     </>
@@ -1889,6 +2232,8 @@ const RenderTestTable = ({
 const Renderforthtable = ({
           val,
           ind,
+          selectedThreeMonths,
+          isThreeMonths,
           lowPotential,
           setLowPotential,
           goodPotential,
@@ -1970,7 +2315,7 @@ const Renderforthtable = ({
           const [teamworkhp, setTeamworkhp] = useState(0);
 
           const [overallTotal, setOverallTotal] = useState(0);
-
+          const [textError, setTextError] = useState(true);
           //------------------------------------------------------------------//
           //useEffect for the intital value which will set in table//
           //------------------------------------------------------------------//
@@ -2207,122 +2552,170 @@ const Renderforthtable = ({
 
           function handleOnChange1(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value && e.target.value > 0) {
-                                        setIsDisable({
-                                                  LowPotential: false,
-                                                  GoodPotential: true,
-                                                  HighPotential: true,
-                                        });
-                              } else {
-                                        setIsDisable({
-                                                  LowPotential: false,
-                                                  GoodPotential: false,
-                                                  HighPotential: false,
-                                        });
-                              }
+                              if (e.target.value <= 5) {
+                                        if (
+                                                  e.target.value &&
+                                                  e.target.value > 0
+                                        ) {
+                                                  setIsDisable({
+                                                            LowPotential: false,
+                                                            GoodPotential: true,
+                                                            HighPotential: true,
+                                                  });
+                                        } else {
+                                                  setIsDisable({
+                                                            LowPotential: false,
+                                                            GoodPotential: false,
+                                                            HighPotential: false,
+                                                  });
+                                        }
 
-                              if (ind === 0) {
-                                        setAttendencelp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  attendencelp: e.target.value,
-                                        });
-                              }
-                              if (ind === 1) {
-                                        setLessDDependabilitylp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  lessDDependabilitylp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 2) {
-                                        setGroupWorkinglp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  groupWorkinglp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 3) {
-                                        setPositiveAttitudelp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  positiveAttitudelp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 4) {
-                                        setIntelligencelp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  intelligencelp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 5) {
-                                        setImaginationlp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  imaginationlp: e.target.value,
-                                        });
-                              }
-                              if (ind === 6) {
-                                        setImprovementlp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  improvementlp: e.target.value,
-                                        });
-                              }
-                              if (ind === 7) {
-                                        setDisciplinelp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  disciplinelp: e.target.value,
-                                        });
-                              }
-                              if (ind === 8) {
-                                        setQualitylp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  qualitylp: e.target.value,
-                                        });
-                              }
-                              if (ind === 9) {
-                                        setResponsibilitylp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  responsibilitylp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 10) {
-                                        setMultiSkillslp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  multiSkillslp: e.target.value,
-                                        });
-                              }
-                              if (ind === 11) {
-                                        setMaturitylp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  maturitylp: e.target.value,
-                                        });
-                              }
-                              if (ind === 12) {
-                                        setApproachlp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  approachlp: e.target.value,
-                                        });
-                              }
-                              if (ind === 13) {
-                                        setTeamworklp(e.target.value);
-                                        setLowPotential({
-                                                  ...lowPotential,
-                                                  teamworklp: e.target.value,
-                                        });
+                                        if (ind === 0) {
+                                                  setAttendencelp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            attendencelp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 1) {
+                                                  setLessDDependabilitylp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            lessDDependabilitylp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 2) {
+                                                  setGroupWorkinglp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            groupWorkinglp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 3) {
+                                                  setPositiveAttitudelp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            positiveAttitudelp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 4) {
+                                                  setIntelligencelp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            intelligencelp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 5) {
+                                                  setImaginationlp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            imaginationlp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 6) {
+                                                  setImprovementlp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            improvementlp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 7) {
+                                                  setDisciplinelp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            disciplinelp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 8) {
+                                                  setQualitylp(e.target.value);
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            qualitylp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 9) {
+                                                  setResponsibilitylp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            responsibilitylp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 10) {
+                                                  setMultiSkillslp(
+                                                            e.target.value
+                                                  );
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            multiSkillslp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 11) {
+                                                  setMaturitylp(e.target.value);
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            maturitylp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 12) {
+                                                  setApproachlp(e.target.value);
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            approachlp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 13) {
+                                                  setTeamworklp(e.target.value);
+                                                  setLowPotential({
+                                                            ...lowPotential,
+                                                            teamworklp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                              } else {
+                                        prompt(
+                                                  "This field must be required less then or equal to 5"
+                                        );
                               }
                     } else {
                               return console.error("error");
@@ -2803,10 +3196,23 @@ const Renderforthtable = ({
 
           return (
                     <>
+                              {/* The field must be required less than or equal to 5 */}
                               <tr style={{ textAlign: "center" }}>
                                         <td>{val.B}</td>
-                                        <td style={{ position: "relative" }}>
-                                                  <input
+                                        <td
+                                                  style={{
+                                                            position: "relative",
+                                                            height: "60px",
+                                                  }}
+                                        >
+                                                  <TextField
+                                                            error={textError}
+                                                            helperText={
+                                                                      textError
+                                                                                ? "ield must be required less than or equal to 5"
+                                                                                : ""
+                                                            }
+                                                            color="warning"
                                                             min="0"
                                                             max="5"
                                                             type="number"
@@ -2818,7 +3224,10 @@ const Renderforthtable = ({
                                                                                 : 0
                                                             }
                                                             disabled={
-                                                                      isDisable.LowPotential
+                                                                      selectedThreeMonths ||
+                                                                      isThreeMonths
+                                                                                ? isDisable.LowPotential
+                                                                                : true
                                                             }
                                                             onChange={(e) =>
                                                                       handleOnChange1(
@@ -2833,10 +3242,17 @@ const Renderforthtable = ({
                                                                       top: " 0",
                                                                       left: "0",
                                                                       border: " none",
+                                                                      backgroundColor:
+                                                                                "white",
                                                             }}
                                                   />
                                         </td>
-                                        <td style={{ position: "relative" }}>
+                                        <td
+                                                  style={{
+                                                            position: "relative",
+                                                            height: "60px",
+                                                  }}
+                                        >
                                                   <input
                                                             type="number"
                                                             min="6"
@@ -2849,7 +3265,10 @@ const Renderforthtable = ({
                                                                                 : 0
                                                             }
                                                             disabled={
-                                                                      isDisable.GoodPotential
+                                                                      selectedThreeMonths ||
+                                                                      isThreeMonths
+                                                                                ? isDisable.GoodPotential
+                                                                                : true
                                                             }
                                                             onChange={(e) =>
                                                                       handleOnChange2(
@@ -2867,7 +3286,12 @@ const Renderforthtable = ({
                                                             }}
                                                   />
                                         </td>
-                                        <td style={{ position: "relative" }}>
+                                        <td
+                                                  style={{
+                                                            position: "relative",
+                                                            height: "60px",
+                                                  }}
+                                        >
                                                   <input
                                                             min="9"
                                                             max="10"
@@ -2885,7 +3309,10 @@ const Renderforthtable = ({
                                                                       )
                                                             }
                                                             disabled={
-                                                                      isDisable.HighPotential
+                                                                      selectedThreeMonths ||
+                                                                      isThreeMonths
+                                                                                ? isDisable.HighPotential
+                                                                                : true
                                                             }
                                                             style={{
                                                                       outline: "0",
@@ -2898,7 +3325,12 @@ const Renderforthtable = ({
                                                             }}
                                                   />
                                         </td>
-                                        <td style={{ position: "relative" }}>
+                                        <td
+                                                  style={{
+                                                            position: "relative",
+                                                            height: "60px",
+                                                  }}
+                                        >
                                                   <input
                                                             disabled={true}
                                                             type="number"
@@ -3226,6 +3658,34 @@ const Tableviewnew = ({
                                                             ?.AppraiserRating,
                               });
                     }
+                    if (updatedData && updatedData.data) {
+                              setParentReviewerMarks({
+                                        customActualdeliveryMarksRM:
+                                                  updatedData?.data?.data[0]
+                                                            ?.ReviewerMarks,
+                                        customOnTimeMarksRM:
+                                                  updatedData?.data?.data[1]
+                                                            ?.ReviewerMarks,
+                                        customAvgCodeMarksRM:
+                                                  updatedData?.data?.data[2]
+                                                            ?.ReviewerMarks,
+                                        customReDoMarksRM:
+                                                  updatedData?.data?.data[3]
+                                                            ?.ReviewerMarks,
+                                        customBugsReportedMarksRM:
+                                                  updatedData?.data?.data[4]
+                                                            ?.ReviewerMarks,
+                                        customCriticalIssuesMarksRM:
+                                                  updatedData?.data?.data[5]
+                                                            ?.ReviewerMarks,
+                                        customCustomerSatisfactionMarksRM:
+                                                  updatedData?.data?.data[6]
+                                                            ?.ReviewerMarks,
+                                        customUpskillingMarksRM:
+                                                  updatedData?.data?.data[7]
+                                                            ?.ReviewerMarks,
+                              });
+                    }
 
                     if (updatedData && updatedData.data) {
                               setParentTarget({
@@ -3244,6 +3704,7 @@ const Tableviewnew = ({
           const [parentTarget, setParentTarget] = useState({});
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
+          const [parentReviewerMarks, setParentReviewerMarks] = useState({});
 
           //------------------------------------------------------------------//
           //Behavioural KPI Table//
@@ -3565,6 +4026,7 @@ const Tableviewnew = ({
                                         Target: 0,
                                         AppraiseeSelfRating: 0,
                                         AppraiserRating: 0,
+                                        ReviewerMarks: 0,
                                         UpdatedDate: "",
                                         IsEditable: 1,
                                         ToDate: "",
@@ -3594,6 +4056,9 @@ const Tableviewnew = ({
                                                             0;
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customActualdeliveryMarksAr ||
+                                                            0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customActualdeliveryMarksRM ||
                                                             0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
@@ -3628,6 +4093,9 @@ const Tableviewnew = ({
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customOnTimeMarksAr ||
                                                             0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customOnTimeMarksRM ||
+                                                            0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
                                                   allData.IsEditable = 1;
@@ -3657,6 +4125,9 @@ const Tableviewnew = ({
                                                             0;
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customAvgCodeMarksAr ||
+                                                            0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customAvgCodeMarksRM ||
                                                             0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
@@ -3688,6 +4159,9 @@ const Tableviewnew = ({
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customReDoMarksAr ||
                                                             0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customReDoMarksRM ||
+                                                            0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
                                                   allData.IsEditable = 1;
@@ -3717,6 +4191,9 @@ const Tableviewnew = ({
                                                             0;
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customBugsReportedMarksAr ||
+                                                            0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customBugsReportedMarksRM ||
                                                             0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
@@ -3751,6 +4228,9 @@ const Tableviewnew = ({
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customCriticalIssuesMarksAr ||
                                                             0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customCriticalIssuesMarksRM ||
+                                                            0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
                                                   allData.IsEditable = 1;
@@ -3781,6 +4261,9 @@ const Tableviewnew = ({
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customCustomerSatisfactionMarksAr ||
                                                             0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customCustomerSatisfactionMarksRM ||
+                                                            0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
                                                   allData.IsEditable = 1;
@@ -3810,6 +4293,9 @@ const Tableviewnew = ({
                                                             0;
                                                   allData.AppraiserRating =
                                                             parentAppraise?.customUpskillingMarksAr ||
+                                                            0;
+                                                  allData.ReviewerMarks =
+                                                            parentReviewerMarks?.customUpskillingMarksRM ||
                                                             0;
                                                   allData.UpdatedDate =
                                                             dateTime1 || "";
@@ -4475,6 +4961,12 @@ const Tableviewnew = ({
                                                                                                                           parentSelfAppraise={
                                                                                                                                     parentSelfAppraise
                                                                                                                           }
+                                                                                                                          setParentReviewerMarks={
+                                                                                                                                    setParentReviewerMarks
+                                                                                                                          }
+                                                                                                                          parentReviewerMarks={
+                                                                                                                                    parentReviewerMarks
+                                                                                                                          }
                                                                                                                           setParentTarget={
                                                                                                                                     setParentTarget
                                                                                                                           }
@@ -4532,6 +5024,12 @@ const Tableviewnew = ({
                                                                                                                           }
                                                                                                                           setParentTarget={
                                                                                                                                     setParentTarget
+                                                                                                                          }
+                                                                                                                          setParentReviewerMarks={
+                                                                                                                                    setParentReviewerMarks
+                                                                                                                          }
+                                                                                                                          parentReviewerMarks={
+                                                                                                                                    parentReviewerMarks
                                                                                                                           }
                                                                                                                           parentTarget={
                                                                                                                                     parentTarget
@@ -4760,6 +5258,12 @@ const Tableviewnew = ({
                                                                                                               }
                                                                                                               ind={
                                                                                                                         index
+                                                                                                              }
+                                                                                                              selectedThreeMonths={
+                                                                                                                        selectedThreeMonths
+                                                                                                              }
+                                                                                                              isThreeMonths={
+                                                                                                                        isThreeMonths
                                                                                                               }
                                                                                                               lowPotential={
                                                                                                                         lowPotential
