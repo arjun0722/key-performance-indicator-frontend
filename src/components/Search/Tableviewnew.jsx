@@ -3304,11 +3304,14 @@ const Renderforthtable = ({
                     <>
                               {/* The field must be required less than or equal to 5 */}
                               <tr style={{ textAlign: "center" }}>
-                                        <td>{val.B}</td>
+                                        <td style={{ fontSize: "14px" }}>
+                                                  {val.B}
+                                        </td>
                                         <td
                                                   style={{
                                                             position: "relative",
                                                             // height: "60px",
+                                                            lineHeight: "16px",
                                                   }}
                                         >
                                                   <TextField
@@ -3342,19 +3345,15 @@ const Renderforthtable = ({
                                                                       )
                                                             }
                                                             style={{
-                                                                      outline: "0 !important",
-                                                                      height: " 100% !important",
+                                                                      outline: "0",
+                                                                      height: " 100%",
                                                                       width: "100%",
-                                                                      position: " absolute !important",
-                                                                      top: " 0 !important",
-                                                                      // left: "0",
-                                                                      border: " none !important",
+                                                                      position: " relative",
+                                                                      top: " 0",
+                                                                      left: "0",
+                                                                      border: " none",
                                                                       backgroundColor:
-                                                                                "white !important",
-                                                                      color: "#d32f2f !important",
-                                                                      zindex: " 9999 !important",
-                                                                      // position: "absolute",
-                                                                      left: "149px !important",
+                                                                                "white",
                                                             }}
                                                   />
                                         </td>
@@ -3397,7 +3396,7 @@ const Renderforthtable = ({
                                                                       outline: "0",
                                                                       height: " 100%",
                                                                       width: "100%",
-                                                                      position: " absolute",
+                                                                      position: " relative",
                                                                       top: " 0",
                                                                       left: "0",
                                                                       border: "none",
@@ -3445,7 +3444,7 @@ const Renderforthtable = ({
                                                                       outline: "0",
                                                                       height: " 100%",
                                                                       width: "100%",
-                                                                      position: " absolute",
+                                                                      position: " relative",
                                                                       top: " 0",
                                                                       left: "0",
                                                                       border: "none",
