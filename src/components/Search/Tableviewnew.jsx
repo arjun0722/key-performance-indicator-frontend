@@ -2314,8 +2314,15 @@ const Renderforthtable = ({
           const [approachhp, setApproachhp] = useState(0);
           const [teamworkhp, setTeamworkhp] = useState(0);
 
+          //.................this states use for input validations...............//
           const [overallTotal, setOverallTotal] = useState(0);
-          const [textError, setTextError] = useState(true);
+          const [textError1, setTextError1] = useState(false);
+          const [indError1, setIndError1] = useState();
+          const [textError2, setTextError2] = useState(false);
+          const [indError2, setIndError2] = useState();
+          const [textError3, setTextError3] = useState(false);
+          const [indError3, setIndError3] = useState();
+
           //------------------------------------------------------------------//
           //useEffect for the intital value which will set in table//
           //------------------------------------------------------------------//
@@ -2553,6 +2560,8 @@ const Renderforthtable = ({
           function handleOnChange1(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
                               if (e.target.value <= 5) {
+                                        setTextError1(false);
+                                        setIndError1();
                                         if (
                                                   e.target.value &&
                                                   e.target.value > 0
@@ -2713,9 +2722,8 @@ const Renderforthtable = ({
                                                   });
                                         }
                               } else {
-                                        prompt(
-                                                  "This field must be required less then or equal to 5"
-                                        );
+                                        setTextError1(true);
+                                        setIndError1(ind);
                               }
                     } else {
                               return console.error("error");
@@ -2724,121 +2732,170 @@ const Renderforthtable = ({
 
           function handleOnChange2(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value && e.target.value > 0) {
-                                        setIsDisable({
-                                                  LowPotential: true,
-                                                  GoodPotential: false,
-                                                  HighPotential: true,
-                                        });
+                              if (e.target.value >= 6 && e.target.value <= 8) {
+                                        setTextError2(false);
+                                        setIndError2();
+                                        if (
+                                                  e.target.value &&
+                                                  e.target.value > 0
+                                        ) {
+                                                  setIsDisable({
+                                                            LowPotential: true,
+                                                            GoodPotential: false,
+                                                            HighPotential: true,
+                                                  });
+                                        } else {
+                                                  setIsDisable({
+                                                            LowPotential: false,
+                                                            GoodPotential: false,
+                                                            HighPotential: false,
+                                                  });
+                                        }
+                                        if (ind === 0) {
+                                                  setAttendencegp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            attendencegp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 1) {
+                                                  setLessDDependabilitygp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            lessDDependabilitygp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 2) {
+                                                  setGroupWorkinggp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            groupWorkinggp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 3) {
+                                                  setPositiveAttitudegp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            positiveAttitudegp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 4) {
+                                                  setIntelligencegp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            intelligencegp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 5) {
+                                                  setImaginationgp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            imaginationgp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 6) {
+                                                  setImprovementgp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            improvementgp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 7) {
+                                                  setDisciplinegp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            disciplinegp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 8) {
+                                                  setQualitygp(e.target.value);
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            qualitygp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 9) {
+                                                  setResponsibilitygp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            responsibilitygp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 10) {
+                                                  setMultiSkillsgp(
+                                                            e.target.value
+                                                  );
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            multiSkillsgp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 11) {
+                                                  setMaturitygp(e.target.value);
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            maturitygp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 12) {
+                                                  setApproachgp(e.target.value);
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            approachgp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 13) {
+                                                  setTeamworkgp(e.target.value);
+                                                  setGoodPotential({
+                                                            ...goodPotential,
+                                                            teamworkgp: e.target
+                                                                      .value,
+                                                  });
+                                        }
                               } else {
-                                        setIsDisable({
-                                                  LowPotential: false,
-                                                  GoodPotential: false,
-                                                  HighPotential: false,
-                                        });
-                              }
-                              if (ind === 0) {
-                                        setAttendencegp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  attendencegp: e.target.value,
-                                        });
-                              }
-                              if (ind === 1) {
-                                        setLessDDependabilitygp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  lessDDependabilitygp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 2) {
-                                        setGroupWorkinggp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  groupWorkinggp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 3) {
-                                        setPositiveAttitudegp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  positiveAttitudegp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 4) {
-                                        setIntelligencegp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  intelligencegp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 5) {
-                                        setImaginationgp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  imaginationgp: e.target.value,
-                                        });
-                              }
-                              if (ind === 6) {
-                                        setImprovementgp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  improvementgp: e.target.value,
-                                        });
-                              }
-                              if (ind === 7) {
-                                        setDisciplinegp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  disciplinegp: e.target.value,
-                                        });
-                              }
-                              if (ind === 8) {
-                                        setQualitygp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  qualitygp: e.target.value,
-                                        });
-                              }
-                              if (ind === 9) {
-                                        setResponsibilitygp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  responsibilitygp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 10) {
-                                        setMultiSkillsgp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  multiSkillsgp: e.target.value,
-                                        });
-                              }
-                              if (ind === 11) {
-                                        setMaturitygp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  maturitygp: e.target.value,
-                                        });
-                              }
-                              if (ind === 12) {
-                                        setApproachgp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  approachgp: e.target.value,
-                                        });
-                              }
-                              if (ind === 13) {
-                                        setTeamworkgp(e.target.value);
-                                        setGoodPotential({
-                                                  ...goodPotential,
-                                                  teamworkgp: e.target.value,
-                                        });
+                                        setTextError2(true);
+                                        setIndError2(ind);
                               }
                     } else {
                               return console.error("error");
@@ -2847,121 +2904,170 @@ const Renderforthtable = ({
 
           function handleOnChange3(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value && e.target.value > 0) {
-                                        setIsDisable({
-                                                  LowPotential: true,
-                                                  GoodPotential: true,
-                                                  HighPotential: false,
-                                        });
+                              if (e.target.value >= 9 && e.target.value <= 10) {
+                                        setTextError3(false);
+                                        setIndError3();
+                                        if (
+                                                  e.target.value &&
+                                                  e.target.value > 0
+                                        ) {
+                                                  setIsDisable({
+                                                            LowPotential: true,
+                                                            GoodPotential: true,
+                                                            HighPotential: false,
+                                                  });
+                                        } else {
+                                                  setIsDisable({
+                                                            LowPotential: false,
+                                                            GoodPotential: false,
+                                                            HighPotential: false,
+                                                  });
+                                        }
+                                        if (ind === 0) {
+                                                  setAttendencehp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            attendencehp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 1) {
+                                                  setLessDDependabilityhp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            lessDDependabilityhp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 2) {
+                                                  setGroupWorkinghp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            groupWorkinghp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 3) {
+                                                  setPositiveAttitudehp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            positiveAttitudehp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 4) {
+                                                  setIntelligencehp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            intelligencehp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 5) {
+                                                  setImaginationhp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            imaginationhp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 6) {
+                                                  setImprovementhp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            improvementhp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 7) {
+                                                  setDisciplinehp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            disciplinehp: e
+                                                                      .target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 8) {
+                                                  setQualityhp(e.target.value);
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            qualityhp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 9) {
+                                                  setResponsibilityhp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            responsibilityhp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 10) {
+                                                  setMultiSkillshp(
+                                                            e.target.value
+                                                  );
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            multiSkillshp:
+                                                                      e.target
+                                                                                .value,
+                                                  });
+                                        }
+                                        if (ind === 11) {
+                                                  setMaturityhp(e.target.value);
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            maturityhp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 12) {
+                                                  setApproachhp(e.target.value);
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            approachhp: e.target
+                                                                      .value,
+                                                  });
+                                        }
+                                        if (ind === 13) {
+                                                  setTeamworkhp(e.target.value);
+                                                  setHighPotential({
+                                                            ...highPotential,
+                                                            teamworkhp: e.target
+                                                                      .value,
+                                                  });
+                                        }
                               } else {
-                                        setIsDisable({
-                                                  LowPotential: false,
-                                                  GoodPotential: false,
-                                                  HighPotential: false,
-                                        });
-                              }
-                              if (ind === 0) {
-                                        setAttendencehp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  attendencehp: e.target.value,
-                                        });
-                              }
-                              if (ind === 1) {
-                                        setLessDDependabilityhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  lessDDependabilityhp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 2) {
-                                        setGroupWorkinghp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  groupWorkinghp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 3) {
-                                        setPositiveAttitudehp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  positiveAttitudehp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 4) {
-                                        setIntelligencehp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  intelligencehp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 5) {
-                                        setImaginationhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  imaginationhp: e.target.value,
-                                        });
-                              }
-                              if (ind === 6) {
-                                        setImprovementhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  improvementhp: e.target.value,
-                                        });
-                              }
-                              if (ind === 7) {
-                                        setDisciplinehp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  disciplinehp: e.target.value,
-                                        });
-                              }
-                              if (ind === 8) {
-                                        setQualityhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  qualityhp: e.target.value,
-                                        });
-                              }
-                              if (ind === 9) {
-                                        setResponsibilityhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  responsibilityhp:
-                                                            e.target.value,
-                                        });
-                              }
-                              if (ind === 10) {
-                                        setMultiSkillshp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  multiSkillshp: e.target.value,
-                                        });
-                              }
-                              if (ind === 11) {
-                                        setMaturityhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  maturityhp: e.target.value,
-                                        });
-                              }
-                              if (ind === 12) {
-                                        setApproachhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  approachhp: e.target.value,
-                                        });
-                              }
-                              if (ind === 13) {
-                                        setTeamworkhp(e.target.value);
-                                        setHighPotential({
-                                                  ...highPotential,
-                                                  teamworkhp: e.target.value,
-                                        });
+                                        setTextError3(true);
+                                        setIndError3(ind);
                               }
                     } else {
                               return console.error("error");
@@ -3202,17 +3308,18 @@ const Renderforthtable = ({
                                         <td
                                                   style={{
                                                             position: "relative",
-                                                            height: "60px",
+                                                            // height: "60px",
                                                   }}
                                         >
                                                   <TextField
-                                                            error={textError}
+                                                            error={textError1}
                                                             helperText={
-                                                                      textError
-                                                                                ? "ield must be required less than or equal to 5"
+                                                                      indError1 ===
+                                                                      ind
+                                                                                ? "error"
                                                                                 : ""
                                                             }
-                                                            color="warning"
+                                                            color=""
                                                             min="0"
                                                             max="5"
                                                             type="number"
@@ -3235,27 +3342,38 @@ const Renderforthtable = ({
                                                                       )
                                                             }
                                                             style={{
-                                                                      outline: "0",
-                                                                      height: " 100%",
+                                                                      outline: "0 !important",
+                                                                      height: " 100% !important",
                                                                       width: "100%",
-                                                                      position: " absolute",
-                                                                      top: " 0",
-                                                                      left: "0",
-                                                                      border: " none",
+                                                                      position: " absolute !important",
+                                                                      top: " 0 !important",
+                                                                      // left: "0",
+                                                                      border: " none !important",
                                                                       backgroundColor:
-                                                                                "white",
+                                                                                "white !important",
+                                                                      color: "#d32f2f !important",
+                                                                      zindex: " 9999 !important",
+                                                                      // position: "absolute",
+                                                                      left: "149px !important",
                                                             }}
                                                   />
                                         </td>
                                         <td
                                                   style={{
                                                             position: "relative",
-                                                            height: "60px",
+                                                            // height: "60px",
                                                   }}
                                         >
-                                                  <input
+                                                  <TextField
+                                                            error={textError2}
+                                                            helperText={
+                                                                      indError2 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
                                                             type="number"
-                                                            min="6"
+                                                            min="0"
                                                             max="8"
                                                             value={
                                                                       MANAGEMENt_ID.includes(
@@ -3282,18 +3400,27 @@ const Renderforthtable = ({
                                                                       position: " absolute",
                                                                       top: " 0",
                                                                       left: "0",
-                                                                      border: " none",
+                                                                      border: "none",
+                                                                      backgroundColor:
+                                                                                "white",
                                                             }}
                                                   />
                                         </td>
                                         <td
                                                   style={{
                                                             position: "relative",
-                                                            height: "60px",
+                                                            // height: "60px",
                                                   }}
                                         >
-                                                  <input
-                                                            min="9"
+                                                  <TextField
+                                                            error={textError3}
+                                                            helperText={
+                                                                      indError3 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            min="0"
                                                             max="10"
                                                             type="number"
                                                             value={
@@ -3321,14 +3448,16 @@ const Renderforthtable = ({
                                                                       position: " absolute",
                                                                       top: " 0",
                                                                       left: "0",
-                                                                      border: " none",
+                                                                      border: "none",
+                                                                      backgroundColor:
+                                                                                "white",
                                                             }}
                                                   />
                                         </td>
                                         <td
                                                   style={{
                                                             position: "relative",
-                                                            height: "60px",
+                                                            // height: "60px",
                                                   }}
                                         >
                                                   <input
