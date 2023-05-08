@@ -1312,7 +1312,6 @@ const RenderTestTable = ({
                               });
                     }
           }, [updatedData]);
-          console.log(com, ">>>>>>>>>>>>>>>>>>>>");
           function handleOnChange(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setCustomActualdelivery(e.target.value);

@@ -85,6 +85,20 @@ const Mark = () => {
   );
   const [selectedThreeMonths, setSelectedThreeMonths] = useState(false)
 
+
+  // ******** this state use for months ************ //
+  // const [isVisible, setIsVisible] = useState({
+  //   "janToMar": true,
+  //   "aprToJun": true,
+  //   "julToSep": true,
+  //   "octToDec": true,
+  // })
+
+  // const [janToMar, setJanToMar] = useState(true)
+  // const [aprToJun, setAprToJun] = useState(true)
+  // const [julToSep, setJulToSep] = useState(true)
+  // const [octToDec, setOctToDec] = useState(true)
+
   const classes = useStyles();
 
 
@@ -485,86 +499,182 @@ const Mark = () => {
     setFileData(finalData);
   };
 
+  // ******************************************************************************************//
+  // Get the current date
+  const currentDate = moment();
+
+  const year = moment().year(); // The year you want to divide into quarters
+
+  // Get the first day of each quarter for the given year
+  const q1Start = moment({ year }).startOf('year');
+  const q2Start = moment({ year }).startOf('year').add(3, 'months');
+  const q3Start = moment({ year }).startOf('year').add(6, 'months');
+  const q4Start = moment({ year }).startOf('year').add(9, 'months');
+
+  // Get the last day of each quarter for the given year
+  const q1End = moment(q2Start).subtract(1, 'day');
+  const q2End = moment(q3Start).subtract(1, 'day');
+  const q3End = moment(q4Start).subtract(1, 'day');
+  const q4End = moment({ year }).endOf('year');
+
+  // Format the start and end dates of each quarter as strings
+  const startJanToMar = q1Start.format("YYYY-MM-DD");
+  const endJanToMar = q1End.format("YYYY-MM-DD");
+  const startAprToJun = q2Start.format("YYYY-MM-DD");
+  const endAprToJun = q2End.format("YYYY-MM-DD");
+  const startJulToSep = q3Start.format("YYYY-MM-DD");
+  const endJulToSep = q3End.format("YYYY-MM-DD");
+  const startOctToDec = q4Start.format("YYYY-MM-DD");
+  const endOctToDec = q4End.format("YYYY-MM-DD")
+
+  // Determine which quarter is coming soon or has already passed
+  let janToMar = true;
+  let aprToJun = true;
+  let julToSep = true;
+  let octToDec = true;
+
+  if (currentDate.isBetween(q1Start, q1End, null, '[]')) {
+    janToMar = false
+  } else if (currentDate.isBetween(q2Start, q2End, null, '[]')) {
+    janToMar = false
+    aprToJun = false
+  } else if (currentDate.isBetween(q3Start, q3End, null, '[]')) {
+    janToMar = false
+    aprToJun = false
+    julToSep = false
+  } else if (currentDate.isBetween(q4Start, q4End, null, '[]')) {
+    janToMar = false
+    aprToJun = false
+    julToSep = false
+    octToDec = false
+  }
+
+  // *************************************************************************************** //
+
   const handleChangeSelectBox = (event) => {
     setTimePeriod(event.target.value);
-    //custom
+
+    // ..........................................................................................................
+    // Jan To March Months
+    if (event.target.value == 1) {
+      setEvent(1)
+      setstartDate(startJanToMar);
+      setlastDate(endJanToMar);
+      setSelectedThreeMonths(true)
+    }
+
+    // Apr To Jun Months
+    if (event.target.value == 2) {
+      setEvent(2)
+      setstartDate(startAprToJun);
+      setlastDate(endAprToJun);
+      setSelectedThreeMonths(true)
+    }
+
+    // Jul To Sep Months
+    if (event.target.value == 3) {
+      setEvent(3)
+      setstartDate(startJulToSep);
+      setlastDate(endJulToSep);
+      setSelectedThreeMonths(true)
+    }
+
+    // Oct To Dec Months
+    if (event.target.value == 4) {
+      setEvent(4)
+      setstartDate(startOctToDec);
+      setlastDate(endOctToDec);
+      setSelectedThreeMonths(true)
+    }
+
+    // custom
     if (event.target.value == 5) {
       setshowCustomDate(true);
       setEvent(5)
       setSelectedThreeMonths(false)
       return;
     }
-    setshowCustomDate(false);
-    //last Week
-    if (event.target.value == 1) {
-      setEvent(1)
-      let currentDate = moment();
 
-      let weekStart = moment()
-        .subtract(1, "weeks")
-        .startOf("week")
-        .format("YYYY-MM-DD");
-      let weekEnd = moment()
-        .subtract(1, "weeks")
-        .endOf("week")
-        .format("YYYY-MM-DD");
+    // setshowCustomDate(false);
+    // //last Week
+    // if (event.target.value == 1) {
+    //   setEvent(1)
+    //   let currentDate = moment();
 
-      setstartDate(weekStart);
-      setlastDate(weekEnd);
-      setSelectedThreeMonths(false)
-    }
-    //last Month
+    //   let weekStart = moment()
+    //     .subtract(1, "weeks")
+    //     .startOf("week")
+    //     .format("YYYY-MM-DD");
+    //   let weekEnd = moment()
+    //     .subtract(1, "weeks")
+    //     .endOf("week")
+    //     .format("YYYY-MM-DD");
 
-    if (event.target.value == 2) {
-      setEvent(2)
-      let monthStart = moment()
-        .subtract(1, "months")
-        .startOf("month")
-        .format("YYYY-MM-DD");
-      const monthyear = moment().format("YYYY-MM");
-      const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
-      let monthEnd = moment(firstDay)
-        .subtract("1", "days")
-        .format("YYYY-MM-DD");
-      setstartDate(monthStart);
-      setlastDate(monthEnd);
-      setSelectedThreeMonths(false)
-    }
-    //last Six Month
+    //   setstartDate(weekStart);
+    //   setlastDate(weekEnd);
+    //   setSelectedThreeMonths(false)
+    //   console.log(weekStart, ">>>>>>>>>>>>>>>")
+    //   console.log(weekEnd, ">>>>>>>>>>>>>>>")
+    // }
 
-    if (event.target.value == 3) {
-      setEvent(3)
-      //last Six Month
-      let sixMonthStartDate = moment()
-        .subtract(6, "months")
-        .format("YYYY-MM-DD");
-      let currentDate = moment().format("YYYY-MM-DD");
-      setstartDate(sixMonthStartDate);
-      setlastDate(currentDate);
-      setSelectedThreeMonths(false)
-    }
 
-    if (event.target.value == 6) {
-      setEvent(6)
-      let threeMonthStartDate = moment().subtract(3, "months").format("YYYY-MM-DD")
-      let currentDate = moment().format("YYYY-MM-DD");
-      setstartDate(threeMonthStartDate);
-      setlastDate(currentDate)
-      setSelectedThreeMonths(true)
-    }
+    // if (event.target.value == 2) {
 
-    //last Year
 
-    if (event.target.value == 4) {
+    // }
+    // //last Month
 
-      let sixMonthStartDate = moment()
-        .subtract(12, "months")
-        .format("YYYY-MM-DD");
-      let currentDate = moment().format("YYYY-MM-DD");
-      setstartDate(sixMonthStartDate);
-      setlastDate(currentDate);
-      setSelectedThreeMonths(false)
-    }
+    // if (event.target.value == 2) {
+    //   setEvent(2)
+    //   let monthStart = moment()
+    //     .subtract(1, "months")
+    //     .startOf("month")
+    //     .format("YYYY-MM-DD");
+    //   const monthyear = moment().format("YYYY-MM");
+    //   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
+    //   let monthEnd = moment(firstDay)
+    //     .subtract("1", "days")
+    //     .format("YYYY-MM-DD");
+    //   setstartDate(monthStart);
+    //   setlastDate(monthEnd);
+    //   setSelectedThreeMonths(false)
+
+    // }
+    // //last Six Month
+
+    // if (event.target.value == 3) {
+    //   setEvent(3)
+    //   //last Six Month
+    //   let sixMonthStartDate = moment()
+    //     .subtract(6, "months")
+    //     .format("YYYY-MM-DD");
+    //   let currentDate = moment().format("YYYY-MM-DD");
+    //   setstartDate(sixMonthStartDate);
+    //   setlastDate(currentDate);
+    //   setSelectedThreeMonths(false)
+    // }
+
+    // if (event.target.value == 6) {
+    //   setEvent(6)
+    //   let threeMonthStartDate = moment().subtract(3, "months").format("YYYY-MM-DD")
+    //   let currentDate = moment().format("YYYY-MM-DD");
+    //   setstartDate(threeMonthStartDate);
+    //   setlastDate(currentDate)
+    //   setSelectedThreeMonths(true)
+    // }
+
+    // //last Year
+
+    // if (event.target.value == 4) {
+
+    //   let sixMonthStartDate = moment()
+    //     .subtract(12, "months")
+    //     .format("YYYY-MM-DD");
+    //   let currentDate = moment().format("YYYY-MM-DD");
+    //   setstartDate(sixMonthStartDate);
+    //   setlastDate(currentDate);
+    //   setSelectedThreeMonths(false)
+    // }
   };
 
 
@@ -612,12 +722,12 @@ const Mark = () => {
                   onChange={handleChangeSelectBox}
                   input={<OutlinedInput label="Time Period" />}
                 >
-                  <MenuItem value={1}>Last Week</MenuItem>
-                  <MenuItem value={2}>Last Month</MenuItem>
-                  <MenuItem value={3}>Last Six Months</MenuItem>
-                  <MenuItem value={4}>Last Year</MenuItem>
+                  <MenuItem disabled={janToMar} value={1}>Jan To Mar</MenuItem>
+                  <MenuItem disabled={aprToJun} value={2}>Apr To June</MenuItem>
+                  <MenuItem disabled={julToSep} value={3}>July To Sept</MenuItem>
+                  <MenuItem disabled={octToDec} value={4}>Oct To Dec</MenuItem>
                   <MenuItem value={5}>Custom</MenuItem>
-                  <MenuItem value={6}>Last Three Months</MenuItem>
+                  {/* <MenuItem value={6}>Last Three Months</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
