@@ -46,6 +46,8 @@ const Renderthirdtable = ({
           val,
           thirdTable,
           ind,
+          isThreeMonths,
+          selectedThreeMonths,
           setParentAppraise,
           parentAppraise,
           setParentSelfAppraise,
@@ -781,7 +783,6 @@ const Renderthirdtable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
-
           return (
                     <>
                               <tr id={ind}>
@@ -798,9 +799,13 @@ const Renderthirdtable = ({
                                                             min="0"
                                                             value={value}
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       val.I > 0
-                                                                                ? true
-                                                                                : false
+                                                                                ? false
+                                                                                : true
                                                             }
                                                             style={{
                                                                       height: "100%",
@@ -826,8 +831,12 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       loginUser ===
-                                                                      email
+                                                                                email
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -913,6 +922,10 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       MANAGEMENt_ID.includes(
                                                                                 loginUser
                                                                       )
@@ -1002,12 +1015,15 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
-                                                                      false
-                                                                      // MANAGEMENt_ID.includes(
-                                                                      //           loginUser
-                                                                      // )
-                                                                      //           ? false
-                                                                      //           : true
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
+                                                                      MANAGEMENt_ID[0].includes(
+                                                                                loginUser
+                                                                      )
+                                                                                ? false
+                                                                                : true
                                                             }
                                                             max={
                                                                       ind === 2
@@ -1087,6 +1103,8 @@ const RenderTestTable = ({
           thirdTable,
           ind,
           com,
+          isThreeMonths,
+          selectedThreeMonths,
           setParentAppraise,
           parentAppraise,
           setParentSelfAppraise,
@@ -1920,9 +1938,13 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       value > 0
-                                                                                ? true
-                                                                                : false
+                                                                                ? false
+                                                                                : true
                                                             }
                                                             value={value}
                                                             style={{
@@ -1951,8 +1973,12 @@ const RenderTestTable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       loginUser ===
-                                                                      email
+                                                                                email
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -2067,6 +2093,10 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
                                                                       MANAGEMENt_ID.includes(
                                                                                 loginUser
                                                                       )
@@ -2155,50 +2185,53 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
-                                                                      false
-                                                                      // MANAGEMENt_ID.includes(
-                                                                      //           loginUser
-                                                                      // )
-                                                                      //           ? false
-                                                                      //           : true
+                                                                      !(
+                                                                                isThreeMonths ||
+                                                                                selectedThreeMonths
+                                                                      ) &&
+                                                                      MANAGEMENt_ID[0].includes(
+                                                                                loginUser
+                                                                      )
+                                                                                ? false
+                                                                                : true
                                                             }
                                                             value={
-                                                                      // MANAGEMENt_ID.includes(
-                                                                      //           loginUser
-                                                                      // )
-                                                                      // ?
-                                                                      ind === 0
-                                                                                ? customActualdeliveryMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? customOnTimeMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            2
-                                                                                ? customAvgCodeMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            3
-                                                                                ? customReDoMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            4
-                                                                                ? customBugsReportedMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            5
-                                                                                ? customCriticalIssuesMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            6
-                                                                                ? customCustomerSatisfactionMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            7
-                                                                                ? customUpskillingMarksRM
-                                                                                : 0
-                                                                      // : val.AppraiserRating
+                                                                      MANAGEMENt_ID.includes(
+                                                                                loginUser
+                                                                      )
+                                                                                ? ind ===
+                                                                                  0
+                                                                                          ? customActualdeliveryMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      1
+                                                                                          ? customOnTimeMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      2
+                                                                                          ? customAvgCodeMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      3
+                                                                                          ? customReDoMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      4
+                                                                                          ? customBugsReportedMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      5
+                                                                                          ? customCriticalIssuesMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      6
+                                                                                          ? customCustomerSatisfactionMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      7
+                                                                                          ? customUpskillingMarksRM
+                                                                                          : 0
+                                                                                : val.AppraiserRating
                                                             }
                                                             style={{
                                                                       height: "100%",
@@ -2231,6 +2264,7 @@ const RenderTestTable = ({
 const Renderforthtable = ({
           val,
           ind,
+          setIsSubmit,
           selectedThreeMonths,
           isThreeMonths,
           lowPotential,
@@ -2558,171 +2592,135 @@ const Renderforthtable = ({
 
           function handleOnChange1(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value <= 5) {
-                                        setTextError1(false);
-                                        setIndError1();
-                                        if (
-                                                  e.target.value &&
-                                                  e.target.value > 0
-                                        ) {
-                                                  setIsDisable({
-                                                            LowPotential: false,
-                                                            GoodPotential: true,
-                                                            HighPotential: true,
-                                                  });
-                                        } else {
-                                                  setIsDisable({
-                                                            LowPotential: false,
-                                                            GoodPotential: false,
-                                                            HighPotential: false,
-                                                  });
-                                        }
-
-                                        if (ind === 0) {
-                                                  setAttendencelp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            attendencelp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 1) {
-                                                  setLessDDependabilitylp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            lessDDependabilitylp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 2) {
-                                                  setGroupWorkinglp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            groupWorkinglp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 3) {
-                                                  setPositiveAttitudelp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            positiveAttitudelp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 4) {
-                                                  setIntelligencelp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            intelligencelp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 5) {
-                                                  setImaginationlp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            imaginationlp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 6) {
-                                                  setImprovementlp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            improvementlp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 7) {
-                                                  setDisciplinelp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            disciplinelp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 8) {
-                                                  setQualitylp(e.target.value);
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            qualitylp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 9) {
-                                                  setResponsibilitylp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            responsibilitylp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 10) {
-                                                  setMultiSkillslp(
-                                                            e.target.value
-                                                  );
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            multiSkillslp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 11) {
-                                                  setMaturitylp(e.target.value);
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            maturitylp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 12) {
-                                                  setApproachlp(e.target.value);
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            approachlp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 13) {
-                                                  setTeamworklp(e.target.value);
-                                                  setLowPotential({
-                                                            ...lowPotential,
-                                                            teamworklp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                              } else {
+                              if (e.target.value > 5) {
                                         setTextError1(true);
                                         setIndError1(ind);
+                                        setIsSubmit(true);
+                              } else {
+                                        setIsSubmit(false);
+                                        setTextError1(false);
+                                        setIndError1();
+                                        setTextError2(false);
+                                        setIndError2();
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
+                              if (e.target.value && e.target.value > 0) {
+                                        setIsDisable({
+                                                  LowPotential: false,
+                                                  GoodPotential: true,
+                                                  HighPotential: true,
+                                        });
+                              } else {
+                                        setIsDisable({
+                                                  LowPotential: false,
+                                                  GoodPotential: false,
+                                                  HighPotential: false,
+                                        });
+                              }
+
+                              if (ind === 0) {
+                                        setAttendencelp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  attendencelp: e.target.value,
+                                        });
+                              }
+                              if (ind === 1) {
+                                        setLessDDependabilitylp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  lessDDependabilitylp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 2) {
+                                        setGroupWorkinglp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  groupWorkinglp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 3) {
+                                        setPositiveAttitudelp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  positiveAttitudelp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 4) {
+                                        setIntelligencelp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  intelligencelp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 5) {
+                                        setImaginationlp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  imaginationlp: e.target.value,
+                                        });
+                              }
+                              if (ind === 6) {
+                                        setImprovementlp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  improvementlp: e.target.value,
+                                        });
+                              }
+                              if (ind === 7) {
+                                        setDisciplinelp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  disciplinelp: e.target.value,
+                                        });
+                              }
+                              if (ind === 8) {
+                                        setQualitylp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  qualitylp: e.target.value,
+                                        });
+                              }
+                              if (ind === 9) {
+                                        setResponsibilitylp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  responsibilitylp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 10) {
+                                        setMultiSkillslp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  multiSkillslp: e.target.value,
+                                        });
+                              }
+                              if (ind === 11) {
+                                        setMaturitylp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  maturitylp: e.target.value,
+                                        });
+                              }
+                              if (ind === 12) {
+                                        setApproachlp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  approachlp: e.target.value,
+                                        });
+                              }
+                              if (ind === 13) {
+                                        setTeamworklp(e.target.value);
+                                        setLowPotential({
+                                                  ...lowPotential,
+                                                  teamworklp: e.target.value,
+                                        });
                               }
                     } else {
                               return console.error("error");
@@ -2731,170 +2729,134 @@ const Renderforthtable = ({
 
           function handleOnChange2(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value >= 6 && e.target.value <= 8) {
-                                        setTextError2(false);
-                                        setIndError2();
-                                        if (
-                                                  e.target.value &&
-                                                  e.target.value > 0
-                                        ) {
-                                                  setIsDisable({
-                                                            LowPotential: true,
-                                                            GoodPotential: false,
-                                                            HighPotential: true,
-                                                  });
-                                        } else {
-                                                  setIsDisable({
-                                                            LowPotential: false,
-                                                            GoodPotential: false,
-                                                            HighPotential: false,
-                                                  });
-                                        }
-                                        if (ind === 0) {
-                                                  setAttendencegp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            attendencegp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 1) {
-                                                  setLessDDependabilitygp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            lessDDependabilitygp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 2) {
-                                                  setGroupWorkinggp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            groupWorkinggp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 3) {
-                                                  setPositiveAttitudegp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            positiveAttitudegp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 4) {
-                                                  setIntelligencegp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            intelligencegp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 5) {
-                                                  setImaginationgp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            imaginationgp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 6) {
-                                                  setImprovementgp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            improvementgp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 7) {
-                                                  setDisciplinegp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            disciplinegp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 8) {
-                                                  setQualitygp(e.target.value);
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            qualitygp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 9) {
-                                                  setResponsibilitygp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            responsibilitygp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 10) {
-                                                  setMultiSkillsgp(
-                                                            e.target.value
-                                                  );
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            multiSkillsgp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 11) {
-                                                  setMaturitygp(e.target.value);
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            maturitygp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 12) {
-                                                  setApproachgp(e.target.value);
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            approachgp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 13) {
-                                                  setTeamworkgp(e.target.value);
-                                                  setGoodPotential({
-                                                            ...goodPotential,
-                                                            teamworkgp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                              } else {
+                              if (e.target.value < 6 || e.target.value > 8) {
                                         setTextError2(true);
                                         setIndError2(ind);
+                                        setIsSubmit(true);
+                              } else {
+                                        setIsSubmit(false);
+                                        setTextError1(false);
+                                        setIndError1();
+                                        setTextError2(false);
+                                        setIndError2();
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
+                              if (e.target.value && e.target.value > 0) {
+                                        setIsDisable({
+                                                  LowPotential: true,
+                                                  GoodPotential: false,
+                                                  HighPotential: true,
+                                        });
+                              } else {
+                                        setIsDisable({
+                                                  LowPotential: false,
+                                                  GoodPotential: false,
+                                                  HighPotential: false,
+                                        });
+                              }
+                              if (ind === 0) {
+                                        setAttendencegp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  attendencegp: e.target.value,
+                                        });
+                              }
+                              if (ind === 1) {
+                                        setLessDDependabilitygp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  lessDDependabilitygp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 2) {
+                                        setGroupWorkinggp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  groupWorkinggp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 3) {
+                                        setPositiveAttitudegp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  positiveAttitudegp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 4) {
+                                        setIntelligencegp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  intelligencegp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 5) {
+                                        setImaginationgp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  imaginationgp: e.target.value,
+                                        });
+                              }
+                              if (ind === 6) {
+                                        setImprovementgp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  improvementgp: e.target.value,
+                                        });
+                              }
+                              if (ind === 7) {
+                                        setDisciplinegp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  disciplinegp: e.target.value,
+                                        });
+                              }
+                              if (ind === 8) {
+                                        setQualitygp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  qualitygp: e.target.value,
+                                        });
+                              }
+                              if (ind === 9) {
+                                        setResponsibilitygp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  responsibilitygp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 10) {
+                                        setMultiSkillsgp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  multiSkillsgp: e.target.value,
+                                        });
+                              }
+                              if (ind === 11) {
+                                        setMaturitygp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  maturitygp: e.target.value,
+                                        });
+                              }
+                              if (ind === 12) {
+                                        setApproachgp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  approachgp: e.target.value,
+                                        });
+                              }
+                              if (ind === 13) {
+                                        setTeamworkgp(e.target.value);
+                                        setGoodPotential({
+                                                  ...goodPotential,
+                                                  teamworkgp: e.target.value,
+                                        });
                               }
                     } else {
                               return console.error("error");
@@ -2903,170 +2865,135 @@ const Renderforthtable = ({
 
           function handleOnChange3(e) {
                     if (MANAGEMENt_ID.includes(loginUser)) {
-                              if (e.target.value >= 9 && e.target.value <= 10) {
-                                        setTextError3(false);
-                                        setIndError3();
-                                        if (
-                                                  e.target.value &&
-                                                  e.target.value > 0
-                                        ) {
-                                                  setIsDisable({
-                                                            LowPotential: true,
-                                                            GoodPotential: true,
-                                                            HighPotential: false,
-                                                  });
-                                        } else {
-                                                  setIsDisable({
-                                                            LowPotential: false,
-                                                            GoodPotential: false,
-                                                            HighPotential: false,
-                                                  });
-                                        }
-                                        if (ind === 0) {
-                                                  setAttendencehp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            attendencehp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 1) {
-                                                  setLessDDependabilityhp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            lessDDependabilityhp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 2) {
-                                                  setGroupWorkinghp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            groupWorkinghp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 3) {
-                                                  setPositiveAttitudehp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            positiveAttitudehp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 4) {
-                                                  setIntelligencehp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            intelligencehp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 5) {
-                                                  setImaginationhp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            imaginationhp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 6) {
-                                                  setImprovementhp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            improvementhp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 7) {
-                                                  setDisciplinehp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            disciplinehp: e
-                                                                      .target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 8) {
-                                                  setQualityhp(e.target.value);
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            qualityhp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 9) {
-                                                  setResponsibilityhp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            responsibilityhp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 10) {
-                                                  setMultiSkillshp(
-                                                            e.target.value
-                                                  );
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            multiSkillshp:
-                                                                      e.target
-                                                                                .value,
-                                                  });
-                                        }
-                                        if (ind === 11) {
-                                                  setMaturityhp(e.target.value);
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            maturityhp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 12) {
-                                                  setApproachhp(e.target.value);
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            approachhp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                                        if (ind === 13) {
-                                                  setTeamworkhp(e.target.value);
-                                                  setHighPotential({
-                                                            ...highPotential,
-                                                            teamworkhp: e.target
-                                                                      .value,
-                                                  });
-                                        }
-                              } else {
+                              if (e.target.value < 9 || e.target.value > 10) {
                                         setTextError3(true);
                                         setIndError3(ind);
+                                        setIsSubmit(true);
+                              } else {
+                                        setIsSubmit(false);
+                                        setTextError1(false);
+                                        setIndError1();
+                                        setTextError2(false);
+                                        setIndError2();
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
+
+                              if (e.target.value && e.target.value > 0) {
+                                        setIsDisable({
+                                                  LowPotential: true,
+                                                  GoodPotential: true,
+                                                  HighPotential: false,
+                                        });
+                              } else {
+                                        setIsDisable({
+                                                  LowPotential: false,
+                                                  GoodPotential: false,
+                                                  HighPotential: false,
+                                        });
+                              }
+                              if (ind === 0) {
+                                        setAttendencehp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  attendencehp: e.target.value,
+                                        });
+                              }
+                              if (ind === 1) {
+                                        setLessDDependabilityhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  lessDDependabilityhp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 2) {
+                                        setGroupWorkinghp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  groupWorkinghp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 3) {
+                                        setPositiveAttitudehp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  positiveAttitudehp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 4) {
+                                        setIntelligencehp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  intelligencehp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 5) {
+                                        setImaginationhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  imaginationhp: e.target.value,
+                                        });
+                              }
+                              if (ind === 6) {
+                                        setImprovementhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  improvementhp: e.target.value,
+                                        });
+                              }
+                              if (ind === 7) {
+                                        setDisciplinehp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  disciplinehp: e.target.value,
+                                        });
+                              }
+                              if (ind === 8) {
+                                        setQualityhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  qualityhp: e.target.value,
+                                        });
+                              }
+                              if (ind === 9) {
+                                        setResponsibilityhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  responsibilityhp:
+                                                            e.target.value,
+                                        });
+                              }
+                              if (ind === 10) {
+                                        setMultiSkillshp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  multiSkillshp: e.target.value,
+                                        });
+                              }
+                              if (ind === 11) {
+                                        setMaturityhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  maturityhp: e.target.value,
+                                        });
+                              }
+                              if (ind === 12) {
+                                        setApproachhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  approachhp: e.target.value,
+                                        });
+                              }
+                              if (ind === 13) {
+                                        setTeamworkhp(e.target.value);
+                                        setHighPotential({
+                                                  ...highPotential,
+                                                  teamworkhp: e.target.value,
+                                        });
                               }
                     } else {
                               return console.error("error");
@@ -3322,19 +3249,22 @@ const Renderforthtable = ({
                                                                                 : ""
                                                             }
                                                             color=""
-                                                            min="0"
-                                                            max="5"
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max: 0,
+                                                                                min: 5,
+                                                                      },
+                                                            }}
                                                             type="number"
                                                             value={
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
-                                                                                ? lowPotentialInputValues
-                                                                                : 0
+                                                                      lowPotentialInputValues
                                                             }
                                                             disabled={
-                                                                      selectedThreeMonths ||
-                                                                      isThreeMonths
+                                                                      (selectedThreeMonths ||
+                                                                                isThreeMonths) &&
+                                                                      MANAGEMENt_ID.includes(
+                                                                                !loginUser
+                                                                      )
                                                                                 ? isDisable.LowPotential
                                                                                 : true
                                                             }
@@ -3371,18 +3301,21 @@ const Renderforthtable = ({
                                                                                 : ""
                                                             }
                                                             type="number"
-                                                            min="0"
-                                                            max="8"
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max: 6,
+                                                                                min: 8,
+                                                                      },
+                                                            }}
                                                             value={
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
-                                                                                ? goodPotentialInputValues
-                                                                                : 0
+                                                                      goodPotentialInputValues
                                                             }
                                                             disabled={
-                                                                      selectedThreeMonths ||
-                                                                      isThreeMonths
+                                                                      (selectedThreeMonths ||
+                                                                                isThreeMonths) &&
+                                                                      MANAGEMENt_ID.includes(
+                                                                                !loginUser
+                                                                      )
                                                                                 ? isDisable.GoodPotential
                                                                                 : true
                                                             }
@@ -3418,15 +3351,15 @@ const Renderforthtable = ({
                                                                                 ? "error"
                                                                                 : ""
                                                             }
-                                                            min="0"
-                                                            max="10"
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max: 9,
+                                                                                min: 10,
+                                                                      },
+                                                            }}
                                                             type="number"
                                                             value={
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
-                                                                                ? highPotentialInputValues
-                                                                                : 0
+                                                                      highPotentialInputValues
                                                             }
                                                             onChange={(e) =>
                                                                       handleOnChange3(
@@ -3434,8 +3367,11 @@ const Renderforthtable = ({
                                                                       )
                                                             }
                                                             disabled={
-                                                                      selectedThreeMonths ||
-                                                                      isThreeMonths
+                                                                      (selectedThreeMonths ||
+                                                                                isThreeMonths) &&
+                                                                      MANAGEMENt_ID.includes(
+                                                                                !loginUser
+                                                                      )
                                                                                 ? isDisable.HighPotential
                                                                                 : true
                                                             }
@@ -3534,9 +3470,18 @@ const Tableviewnew = ({
 
           const [scope, setScope] = useState();
           const [feedback, setFeedback] = useState();
-
+          const [agreeData, setAgreeData] = useState();
           const [dataFeedback, setdataFeedback] = useState({});
           const [dataScope, setDataScope] = useState({});
+          const [dataAgree, setDataAgree] = useState("");
+          const [isSubmit, setIsSubmit] = useState(
+                    isThreeMonths ||
+                              (selectedThreeMonths &&
+                                        MANAGEMENt_ID.includes(loginUser))
+                              ? false
+                              : true
+          );
+          const [disableText, setDisableText] = useState(true);
 
           // useEffect(()=>{
 
@@ -3569,7 +3514,6 @@ const Tableviewnew = ({
           //------------------------------------------------------------------//
           //scope of improvement//
           //------------------------------------------------------------------//
-
           const handleScope = (e) => {
                     let currentDate = new Date();
                     let dateTime1 = moment(currentDate).format(
@@ -3583,6 +3527,12 @@ const Tableviewnew = ({
                               ToDate: fileData[0]?.E || "",
                               FromDate: fileData[1]?.E || "",
                     });
+          };
+          //------------------------------------------------------------------//
+          // agree
+          //------------------------------------------------------------------//
+          const handleAgree = (e) => {
+                    setState(e.target.value);
           };
 
           useEffect(() => {
@@ -3608,7 +3558,8 @@ const Tableviewnew = ({
                               ToDate: dataScope ? dataScope[0]?.ToDate : "",
                               FromDate: dataScope ? dataScope[0]?.FromDate : "",
                     });
-          }, [dataFeedback, dataScope]);
+                    setDataAgree(agreeData !== undefined || 0 ? agreeData : "");
+          }, [dataFeedback, dataScope, agreeData]);
 
           async function getAllData() {
                     let reqOptions = {
@@ -3713,6 +3664,7 @@ const Tableviewnew = ({
                               data: data,
                     };
                     let resData = await axios.request(reqOptions);
+                    return setAgreeData(resData?.data?.data);
           }
 
           useEffect(() => {
@@ -4830,6 +4782,14 @@ const Tableviewnew = ({
                     }
           }
 
+          function noText() {
+                    setDisableText(false);
+                    setIsSubmit(false);
+          }
+          function yesText() {
+                    setIsSubmit(false);
+          }
+
           return (
                     <>
                               {loader ? (
@@ -5076,6 +5036,12 @@ const Tableviewnew = ({
                                                                                                                           val={
                                                                                                                                     val
                                                                                                                           }
+                                                                                                                          isThreeMonths={
+                                                                                                                                    isThreeMonths
+                                                                                                                          }
+                                                                                                                          selectedThreeMonths={
+                                                                                                                                    selectedThreeMonths
+                                                                                                                          }
                                                                                                                           setParentAppraise={
                                                                                                                                     setParentAppraise
                                                                                                                           }
@@ -5134,6 +5100,12 @@ const Tableviewnew = ({
                                                                                                                           com={
                                                                                                                                     thirdTable
                                                                                                                           }
+                                                                                                                          isThreeMonths={
+                                                                                                                                    isThreeMonths
+                                                                                                                          }
+                                                                                                                          selectedThreeMonths={
+                                                                                                                                    selectedThreeMonths
+                                                                                                                          }
                                                                                                                           renderTestTable={
                                                                                                                                     thirdTable
                                                                                                                           }
@@ -5188,67 +5160,7 @@ const Tableviewnew = ({
                                                                                 textAlign: "left",
                                                                       }}
                                                                       colSpan="14"
-                                                            >
-                                                                      {/* <div
-                style={{
-                  display: "flex",
-                  lineHeight: "30px",
-                  width: "100%",
-                }}
-              >
-                <div
-                  style={{
-                    paddingLeft: "53px",
-                    fontWeight: "600",
-                    width: "60%",
-                  }}
-                >
-                  {`Average `}
-                </div>
-              
-                  <div className="input1" style={{ width: "40%" }}>
-                    <input
-                      disabled={true}
-                      value={
-                        finalAppraiseAvg === NaN || finalAppraiseAvg === null
-                          ? 0
-                          : finalAppraiseAvg
-                      }
-                      style={{
-                        outline: "none",
-                        border: "0px",
-                        backgroundColor: "#f4b084",
-                        textAlign: "center",
-                        height: "2rem",
-                        width: "5rem",
-                        fontWeight: "600",
-                      }}
-                      type="number"
-                    />
-                  </div>
-                  <div className="input2" style={{ width: "20%" }}>
-                    <input
-                      disabled={true}
-                      value={
-                        finalAppraiseAvg === NaN || finalAppraiseAvg === null
-                          ? 0
-                          : finalAppraiseAvg
-                      }
-                      style={{
-                        outline: "none",
-                        border: "0px",
-                        backgroundColor: "#f4b084",
-                        textAlign: "center",
-                        height: "2rem",
-                        width: "5rem",
-                        fontWeight: "600",
-                        color: "red",
-                      }}
-                      type="number"
-                    />
-                  </div>
-                </div> */}
-                                                            </td>
+                                                            ></td>
 
                                                             <tr
                                                                       style={{
@@ -5385,6 +5297,9 @@ const Tableviewnew = ({
                                                                                                               }
                                                                                                               ind={
                                                                                                                         index
+                                                                                                              }
+                                                                                                              setIsSubmit={
+                                                                                                                        setIsSubmit
                                                                                                               }
                                                                                                               selectedThreeMonths={
                                                                                                                         selectedThreeMonths
@@ -5653,14 +5568,58 @@ const Tableviewnew = ({
                                                                       </span>
                                                             </td>
                                                             <tr
-                                                                      style={{
-                                                                                height: "15px",
-                                                                      }}
+                                                                      style={
+                                                                                {
+                                                                                          // height: "15px",
+                                                                                }
+                                                                      }
                                                             ></tr>
+                                                            <td
+                                                                      style={{
+                                                                                background: "lightgrey",
+                                                                                position: "relative",
+                                                                                height: "9rem",
+                                                                                display: "flex",
+                                                                                border: "none",
+                                                                      }}
+                                                            >
+                                                                      <textarea
+                                                                                disabled={
+                                                                                          disableText
+                                                                                }
+                                                                                type="text"
+                                                                                placeholder="please enter your msg if you are not agree with this feedback"
+                                                                                style={{
+                                                                                          outline: "none",
+                                                                                          position: "absolute",
+                                                                                          background: "rgb(227, 226, 226)",
+                                                                                          border: "none",
+                                                                                          width: " 590px",
+                                                                                          padding: "10px 29px",
+                                                                                          height: "145px",
+                                                                                          resize: "none",
+                                                                                }}
+                                                                                value={
+                                                                                          dataAgree[0]
+                                                                                                    ?.Userfeedback
+                                                                                                    ? dataAgree[0]
+                                                                                                                ?.Userfeedback
+                                                                                                    : ""
+                                                                                }
+                                                                                onChange={(
+                                                                                          e
+                                                                                ) =>
+                                                                                          handleAgree(
+                                                                                                    e
+                                                                                          )
+                                                                                }
+                                                                      />
+                                                            </td>
                                                             <td
                                                                       style={{
                                                                                 display: "flex",
                                                                                 border: "none",
+                                                                                marginTop: "20px",
                                                                       }}
                                                             >
                                                                       <div>
@@ -5680,6 +5639,9 @@ const Tableviewnew = ({
                                                                                                     margin: "0px 10px",
                                                                                           }}
                                                                                           disabled={conditionUserFeddback()}
+                                                                                          onClick={
+                                                                                                    yesText
+                                                                                          }
                                                                                 >
                                                                                           <span>
                                                                                                     Yes
@@ -5687,13 +5649,40 @@ const Tableviewnew = ({
                                                                                 </button>
                                                                       </div>
                                                                       <div>
-                                                                                <ModalFeedback
-                                                                                          setState={
-                                                                                                    setState
-                                                                                          }
+                                                                                <button
+                                                                                          style={{
+                                                                                                    borderRadius: "0px",
+                                                                                                    height: "30px",
+                                                                                                    width: "60px",
+                                                                                                    fontSize: "13px",
+
+                                                                                                    background: "#b0afaf",
+                                                                                                    color: "black",
+                                                                                                    fontWeight: "600",
+                                                                                                    display: "flex",
+                                                                                                    justifyContent:
+                                                                                                              "center",
+                                                                                                    margin: "0px 10px",
+                                                                                          }}
                                                                                           disabled={conditionUserFeddback()}
-                                                                                />
+                                                                                          onClick={
+                                                                                                    noText
+                                                                                          }
+                                                                                >
+                                                                                          <span>
+                                                                                                    No
+                                                                                          </span>
+                                                                                </button>
                                                                       </div>
+
+                                                                      {/* <div>
+                                                                                <ModalFeedback
+                                                                                          // setState={
+                                                                                          //           setState
+                                                                                          // }
+                                                                                          // disabled={conditionUserFeddback()}
+                                                                                />
+                                                                      </div> */}
                                                             </td>
 
                                                             <td
@@ -5736,6 +5725,9 @@ const Tableviewnew = ({
                                                                                 }}
                                                                                 onClick={() =>
                                                                                           KpiMarks()
+                                                                                }
+                                                                                disabled={
+                                                                                          isSubmit
                                                                                 }
                                                                       >
                                                                                 Submit
