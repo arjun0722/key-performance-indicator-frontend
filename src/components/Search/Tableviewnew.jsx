@@ -799,13 +799,13 @@ const Renderthirdtable = ({
                                                             min="0"
                                                             value={value}
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      val.I > 0
-                                                                                ? false
-                                                                                : true
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : val.I >
+                                                                                  0
+                                                                                ? true
+                                                                                : false
                                                             }
                                                             style={{
                                                                       height: "100%",
@@ -831,12 +831,11 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      loginUser ===
-                                                                                email
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : loginUser ===
+                                                                                  email
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -922,13 +921,12 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID.includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -1015,13 +1013,12 @@ const Renderthirdtable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      MANAGEMENt_ID[0].includes(
-                                                                                loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID[0].includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -1938,13 +1935,13 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      value > 0
-                                                                                ? false
-                                                                                : true
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : value >
+                                                                                  0
+                                                                                ? true
+                                                                                : false
                                                             }
                                                             value={value}
                                                             style={{
@@ -1973,12 +1970,11 @@ const RenderTestTable = ({
                                                             type="number"
                                                             min="0"
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      loginUser ===
-                                                                                email
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : loginUser ===
+                                                                                  email
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -2054,28 +2050,6 @@ const RenderTestTable = ({
                                                             position: "relative",
                                                   }}
                                         >
-                                                  {/* {com[ind].K} */}
-                                                  {/* {ind === 0
-            ? formula(actualDelivery, customActualdeliveryMarks, val.Weightage)
-            : 0 || ind === 1
-            ? formula1(onTime, customOnTimeMarks, val.Weightage)
-            : 0 || ind === 2
-            ? formula2(com[ind].I, customAvgCodeMarks, val.Weightage)
-            : 0 || ind === 3
-            ? formula3(com[ind].I, customReDoMarks, val.Weightage)
-            : 0 || ind === 4
-            ? formula4(com[ind].I, customBugsReportedMarks, val.Weightage)
-            : 0 || ind === 5
-            ? formula5(critical, customCriticalIssuesMarks, val.Weightage)
-            : 0 || ind === 6
-            ? formula6(
-                com[ind].I,
-                customCustomerSatisfactionMarks,
-                val.Weightage
-              )
-            : 0 || ind === 7
-            ? formula7(com[ind].I, customUpskillingMarks, val.Weightage)
-            : 0} */}
                                                   {valueAppraiseAMrks}
                                         </td>
                                         <td style={{ position: "relative" }}>
@@ -2093,13 +2067,12 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      MANAGEMENt_ID.includes(
-                                                                                loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID.includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -2185,13 +2158,12 @@ const RenderTestTable = ({
                                                                                 : ""
                                                             }
                                                             disabled={
-                                                                      !(
-                                                                                isThreeMonths ||
-                                                                                selectedThreeMonths
-                                                                      ) &&
-                                                                      MANAGEMENt_ID[0].includes(
-                                                                                loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID[0].includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? false
                                                                                 : true
                                                             }
@@ -3260,11 +3232,12 @@ const Renderforthtable = ({
                                                                       lowPotentialInputValues
                                                             }
                                                             disabled={
-                                                                      (selectedThreeMonths ||
-                                                                                isThreeMonths) &&
-                                                                      MANAGEMENt_ID.includes(
-                                                                                !loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID.includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? isDisable.LowPotential
                                                                                 : true
                                                             }
@@ -3311,11 +3284,12 @@ const Renderforthtable = ({
                                                                       goodPotentialInputValues
                                                             }
                                                             disabled={
-                                                                      (selectedThreeMonths ||
-                                                                                isThreeMonths) &&
-                                                                      MANAGEMENt_ID.includes(
-                                                                                !loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID.includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? isDisable.GoodPotential
                                                                                 : true
                                                             }
@@ -3367,11 +3341,12 @@ const Renderforthtable = ({
                                                                       )
                                                             }
                                                             disabled={
-                                                                      (selectedThreeMonths ||
-                                                                                isThreeMonths) &&
-                                                                      MANAGEMENt_ID.includes(
-                                                                                !loginUser
-                                                                      )
+                                                                      isThreeMonths ||
+                                                                      selectedThreeMonths
+                                                                                ? true
+                                                                                : MANAGEMENt_ID.includes(
+                                                                                            loginUser
+                                                                                  )
                                                                                 ? isDisable.HighPotential
                                                                                 : true
                                                             }
@@ -3475,11 +3450,11 @@ const Tableviewnew = ({
           const [dataScope, setDataScope] = useState({});
           const [dataAgree, setDataAgree] = useState("");
           const [isSubmit, setIsSubmit] = useState(
-                    isThreeMonths ||
-                              (selectedThreeMonths &&
-                                        MANAGEMENt_ID.includes(loginUser))
+                    MANAGEMENt_ID.includes(loginUser)
                               ? false
-                              : true
+                              : isThreeMonths || selectedThreeMonths
+                              ? true
+                              : false
           );
           const [disableText, setDisableText] = useState(true);
 
@@ -5588,7 +5563,7 @@ const Tableviewnew = ({
                                                                                           disableText
                                                                                 }
                                                                                 type="text"
-                                                                                placeholder="please enter your msg if you are not agree with this feedback"
+                                                                                placeholder="Press No buttton and enter your msg if you are not agree with this feedback"
                                                                                 style={{
                                                                                           outline: "none",
                                                                                           position: "absolute",

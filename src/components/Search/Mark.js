@@ -731,46 +731,50 @@ const Mark = () => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item sm={5}>
-              {showCustomDate && (
-                <>
-                  <input
-                    type="date"
-                    id="dob"
-                    onChange={(newValue) => {
-                      setCustomdate([
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                      ]);
-                    }}
-                    value={customdate[0]}
-                  />
-                  <span> to </span>
-                  <input
-                    type="date"
-                    onChange={(newValue) => {
-                      setCustomdate([
-                        customdate[0],
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                      ]);
-                    }}
-                    min={customdate[0]}
-                    id="dob"
-                    value={customdate[1]}
-                  />
-                  &nbsp;&nbsp;
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      setstartDate(customdate[0]);
-                      setlastDate(customdate[1]);
-                    }}
-                  >
-                    Apply
-                  </Button>
-                </>
-              )}
-            </Grid>
+            {
+              isThreeMonths || selectedThreeMonths ? "" :
+                <Grid item sm={5}>
+                  {showCustomDate && (
+                    <>
+                      <input
+                        type="date"
+                        id="dob"
+                        onChange={(newValue) => {
+                          setCustomdate([
+                            moment(newValue.target.value).format("YYYY-MM-DD"),
+                            moment(newValue.target.value).format("YYYY-MM-DD"),
+                          ]);
+                        }}
+                        value={customdate[0]}
+                      />
+                      <span> to </span>
+                      <input
+                        type="date"
+                        onChange={(newValue) => {
+                          setCustomdate([
+                            customdate[0],
+                            moment(newValue.target.value).format("YYYY-MM-DD"),
+                          ]);
+                        }}
+                        min={customdate[0]}
+                        id="dob"
+                        value={customdate[1]}
+                      />
+                      &nbsp;&nbsp;
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          setstartDate(customdate[0]);
+                          setlastDate(customdate[1]);
+                        }}
+                      >
+                        Apply
+                      </Button>
+                    </>
+                  )}
+                </Grid>
+            }
+
             <Grid item sm={2}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
