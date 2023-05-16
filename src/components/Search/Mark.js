@@ -107,7 +107,7 @@ const Mark = () => {
   useEffect(() => {
     setLoadingData(true);
     setExcelFileData(null);
-    setFileData(null);
+    // setFileData(null);
     let responseArr = [];
     let ontimesprint = 0;
     let effortArr = [];

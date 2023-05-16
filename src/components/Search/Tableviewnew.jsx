@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import moment from "moment/moment";
 import Loading from "../Loading";
 import ModalFeedback from "./ModalFeedback";
+import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
 
 const Renderfirsttable = ({ val }) => {
           return (
@@ -184,8 +185,16 @@ const Renderthirdtable = ({
           const [customUpskillingMarksRM, setCustomUpskillingMarksRM] =
                     useState(0);
 
+          //................. this states use for input validations ...............//
+          const [textError1, setTextError1] = useState(false);
+          const [indError1, setIndError1] = useState();
+          const [textError2, setTextError2] = useState(false);
+          const [indError2, setIndError2] = useState();
+          const [textError3, setTextError3] = useState(false);
+          const [indError3, setIndError3] = useState();
+
           function handleOnChange(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdelivery(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
@@ -193,35 +202,56 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customOnTimeMarks: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customAvgCodeMarks: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customReDoMarks: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customBugsReportedMarks: e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
@@ -229,7 +259,7 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarks(
                                         e.target.value
                               );
@@ -238,18 +268,32 @@ const Renderthirdtable = ({
                                         customCustomerSatisfactionMarks:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customUpskillingMarks: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
           }
 
           function handleOnChange1(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdeliveryAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -257,28 +301,49 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customOnTimeMarksAr: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customAvgCodeMarksAr: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customReDoMarksAr: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -286,7 +351,7 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -294,7 +359,7 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarksAr(
                                         e.target.value
                               );
@@ -303,18 +368,32 @@ const Renderthirdtable = ({
                                         customCustomerSatisfactionMarksAr:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customUpskillingMarksAr: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
           }
 
           function handleOnChange2(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdeliveryRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -322,28 +401,49 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customOnTimeMarksRM: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customAvgCodeMarksRM: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customReDoMarksRM: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -351,7 +451,7 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -359,7 +459,7 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarksRM(
                                         e.target.value
                               );
@@ -368,13 +468,27 @@ const Renderthirdtable = ({
                                         customCustomerSatisfactionMarksRM:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customUpskillingMarksRM: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
           }
 
@@ -783,6 +897,7 @@ const Renderthirdtable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
+
           return (
                     <>
                               <tr id={ind}>
@@ -827,9 +942,39 @@ const Renderthirdtable = ({
                                                   />
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  <TextField
+                                                            error={textError1}
+                                                            helperText={
+                                                                      indError1 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
-                                                            min="0"
+                                                            // min={0}
                                                             disabled={
                                                                       isThreeMonths ||
                                                                       selectedThreeMonths
@@ -839,63 +984,53 @@ const Renderthirdtable = ({
                                                                                 ? false
                                                                                 : true
                                                             }
-                                                            max={
-                                                                      ind === 2
-                                                                                ? 5
-                                                                                : "" ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? onTime
-                                                                                : ""
-                                                            }
+                                                            // max={
+                                                            //           ind === 2
+                                                            //                     ? 5
+                                                            //                     : ind ===
+                                                            //                       1
+                                                            //                     ? onTime
+                                                            //                     : ""
+                                                            // }
                                                             value={
                                                                       loginUser ===
                                                                       email
                                                                                 ? ind ===
                                                                                   0
                                                                                           ? customActualdeliveryMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      1
+                                                                                          : ind ===
+                                                                                            1
                                                                                           ? customOnTimeMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      2
+                                                                                          : ind ===
+                                                                                            2
                                                                                           ? customAvgCodeMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      3
+                                                                                          : ind ===
+                                                                                            3
                                                                                           ? customReDoMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      4
+                                                                                          : ind ===
+                                                                                            4
                                                                                           ? customBugsReportedMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      5
+                                                                                          : ind ===
+                                                                                            5
                                                                                           ? customCriticalIssuesMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      6
+                                                                                          : ind ===
+                                                                                            6
                                                                                           ? customCustomerSatisfactionMarks
-                                                                                          : 0 ||
-                                                                                            ind ===
-                                                                                                      7
+                                                                                          : ind ===
+                                                                                            7
                                                                                           ? customUpskillingMarks
-                                                                                          : 0
+                                                                                          : val.J
                                                                                 : val.J
                                                             }
-                                                            // value={val.J}
                                                             style={{
                                                                       height: "100%",
                                                                       position: "absolute",
                                                                       top: "0",
                                                                       bottom: "0",
                                                                       outline: "none",
-                                                                      border: " none",
+                                                                      border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -917,9 +1052,39 @@ const Renderthirdtable = ({
                                                   {valueAppraiseAMrks}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  <TextField
+                                                            error={textError2}
+                                                            helperText={
+                                                                      indError2 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
-                                                            min="0"
+                                                            // min="0"
                                                             disabled={
                                                                       isThreeMonths ||
                                                                       selectedThreeMonths
@@ -930,15 +1095,15 @@ const Renderthirdtable = ({
                                                                                 ? false
                                                                                 : true
                                                             }
-                                                            max={
-                                                                      ind === 2
-                                                                                ? 5
-                                                                                : "" ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? onTime
-                                                                                : ""
-                                                            }
+                                                            // max={
+                                                            //           ind === 2
+                                                            //                     ? 5
+                                                            //                     : "" ||
+                                                            //                       ind ===
+                                                            //                                 1
+                                                            //                     ? onTime
+                                                            //                     : ""
+                                                            // }
                                                             value={
                                                                       MANAGEMENt_ID.includes(
                                                                                 loginUser
@@ -986,7 +1151,6 @@ const Renderthirdtable = ({
                                                                       border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-                                                                      border: "none",
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -1009,65 +1173,95 @@ const Renderthirdtable = ({
                                                   {valueAppraiserMarks}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  <TextField
+                                                            error={textError3}
+                                                            helperText={
+                                                                      indError3 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
-                                                            min="0"
+                                                            // min="0"
                                                             disabled={
                                                                       isThreeMonths ||
                                                                       selectedThreeMonths
                                                                                 ? true
-                                                                                : MANAGEMENt_ID[0].includes(
+                                                                                : REVIEWER_MANAGER.includes(
                                                                                             loginUser
                                                                                   )
                                                                                 ? false
                                                                                 : true
                                                             }
-                                                            max={
-                                                                      ind === 2
-                                                                                ? 5
-                                                                                : "" ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? onTime
-                                                                                : ""
-                                                            }
+                                                            // max={
+                                                            //           ind === 2
+                                                            //                     ? 5
+                                                            //                     : "" ||
+                                                            //                       ind ===
+                                                            //                                 1
+                                                            //                     ? onTime
+                                                            //                     : ""
+                                                            // }
                                                             value={
-                                                                      //           // MANAGEMENt_ID.includes(
-                                                                      //           //           loginUser
-                                                                      //           // )
-                                                                      //           // ?
-                                                                      ind === 0
-                                                                                ? customActualdeliveryMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? customOnTimeMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            2
-                                                                                ? customAvgCodeMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            3
-                                                                                ? customReDoMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            4
-                                                                                ? customBugsReportedMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            5
-                                                                                ? customCriticalIssuesMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            6
-                                                                                ? customCustomerSatisfactionMarksRM
-                                                                                : 0 ||
-                                                                                  ind ===
-                                                                                            7
-                                                                                ? customUpskillingMarksRM
+                                                                      REVIEWER_MANAGER.includes(
+                                                                                loginUser
+                                                                      )
+                                                                                ? ind ===
+                                                                                  0
+                                                                                          ? customActualdeliveryMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      1
+                                                                                          ? customOnTimeMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      2
+                                                                                          ? customAvgCodeMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      3
+                                                                                          ? customReDoMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      4
+                                                                                          ? customBugsReportedMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      5
+                                                                                          ? customCriticalIssuesMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      6
+                                                                                          ? customCustomerSatisfactionMarksRM
+                                                                                          : 0 ||
+                                                                                            ind ===
+                                                                                                      7
+                                                                                          ? customUpskillingMarksRM
+                                                                                          : 0
                                                                                 : 0
-                                                                      //           // : val.L
                                                             }
                                                             style={{
                                                                       height: "100%",
@@ -1223,6 +1417,14 @@ const RenderTestTable = ({
           const [customUpskillingMarksRM, setCustomUpskillingMarksRM] =
                     useState(updatedData?.data?.data[7]?.ReviewerMarks);
 
+          //................. this states use for input validations ...............//
+          const [textError1, setTextError1] = useState(false);
+          const [indError1, setIndError1] = useState();
+          const [textError2, setTextError2] = useState(false);
+          const [indError2, setIndError2] = useState();
+          const [textError3, setTextError3] = useState(false);
+          const [indError3, setIndError3] = useState();
+
           useEffect(() => {
                     if (updatedData && updatedData.data) {
                               setParentSelfAppraise({
@@ -1328,7 +1530,7 @@ const RenderTestTable = ({
                     }
           }, [updatedData]);
           function handleOnChange(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdelivery(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
@@ -1336,35 +1538,56 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customOnTimeMarks: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customAvgCodeMarks: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customReDoMarks: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customBugsReportedMarks: e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
@@ -1372,7 +1595,7 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarks(
                                         e.target.value
                               );
@@ -1381,18 +1604,32 @@ const RenderTestTable = ({
                                         customCustomerSatisfactionMarks:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarks(e.target.value);
                               setParentSelfAppraise({
                                         ...parentSelfAppraise,
                                         customUpskillingMarks: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError1(true);
+                                        setIndError1(ind);
+                              } else {
+                                        setTextError1(false);
+                                        setIndError1();
+                              }
                     }
           }
 
           function handleOnChange1(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdeliveryAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -1400,28 +1637,49 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customOnTimeMarksAr: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customAvgCodeMarksAr: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customReDoMarksAr: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -1429,7 +1687,7 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
@@ -1437,7 +1695,7 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarksAr(
                                         e.target.value
                               );
@@ -1446,17 +1704,31 @@ const RenderTestTable = ({
                                         customCustomerSatisfactionMarksAr:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarksAr(e.target.value);
                               setParentAppraise({
                                         ...parentAppraise,
                                         customUpskillingMarksAr: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError2(true);
+                                        setIndError2(ind);
+                              } else {
+                                        setTextError2(false);
+                                        setIndError2();
+                              }
                     }
           }
           function handleOnChange2(e) {
-                    if (e.target.parentNode.parentNode.id == 0) {
+                    if (ind == 0) {
                               setCustomActualdeliveryRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -1464,28 +1736,49 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 1) {
+                    if (ind == 1) {
                               setCustomOnTimeMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customOnTimeMarksRM: e.target.value,
                               });
+                              if (e.target.value > onTime) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 2) {
+                    if (ind == 2) {
                               setCustomAvgCodeMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customAvgCodeMarksRM: e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 3) {
+                    if (ind == 3) {
                               setCustomCustomReDoMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customReDoMarksRM: e.target.value,
                               });
+                              if (e.target.value > 2) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 4) {
+                    if (ind == 4) {
                               setCustomBugsReportedMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -1493,7 +1786,7 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 5) {
+                    if (ind == 5) {
                               setCustomCriticalIssuesMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
@@ -1501,7 +1794,7 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                     }
-                    if (e.target.parentNode.parentNode.id == 6) {
+                    if (ind == 6) {
                               setCustomCustomerSatisfactionMarksRM(
                                         e.target.value
                               );
@@ -1510,13 +1803,27 @@ const RenderTestTable = ({
                                         customCustomerSatisfactionMarksRM:
                                                   e.target.value,
                               });
+                              if (e.target.value > 5) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
-                    if (e.target.parentNode.parentNode.id == 7) {
+                    if (ind == 7) {
                               setCustomUpskillingMarksRM(e.target.value);
                               setParentReviewerMarks({
                                         ...parentReviewerMarks,
                                         customUpskillingMarksRM: e.target.value,
                               });
+                              if (e.target.value > 1) {
+                                        setTextError3(true);
+                                        setIndError3(ind);
+                              } else {
+                                        setTextError3(false);
+                                        setIndError3();
+                              }
                     }
           }
           function handleTarget(e) {
@@ -1966,9 +2273,39 @@ const RenderTestTable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.J} */}
-                                                  <input
+                                                  <TextField
+                                                            error={textError1}
+                                                            helperText={
+                                                                      indError1 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
-                                                            min="0"
+                                                            // min="0"
                                                             disabled={
                                                                       isThreeMonths ||
                                                                       selectedThreeMonths
@@ -1978,15 +2315,15 @@ const RenderTestTable = ({
                                                                                 ? false
                                                                                 : true
                                                             }
-                                                            max={
-                                                                      ind === 2
-                                                                                ? 5
-                                                                                : "" ||
-                                                                                  ind ===
-                                                                                            1
-                                                                                ? onTime
-                                                                                : ""
-                                                            }
+                                                            // max={
+                                                            //           ind === 2
+                                                            //                     ? 5
+                                                            //                     : "" ||
+                                                            //                       ind ===
+                                                            //                                 1
+                                                            //                     ? onTime
+                                                            //                     : ""
+                                                            // }
                                                             value={
                                                                       loginUser ===
                                                                       users
@@ -2029,10 +2366,10 @@ const RenderTestTable = ({
                                                                       position: "absolute",
                                                                       top: "0",
                                                                       bottom: "0",
-
+                                                                      outline: "none",
+                                                                      border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-                                                                      border: "none",
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -2054,7 +2391,37 @@ const RenderTestTable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.L} */}
-                                                  <input
+                                                  <TextField
+                                                            error={textError2}
+                                                            helperText={
+                                                                      indError2 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
                                                             min="0"
                                                             max={
@@ -2123,7 +2490,6 @@ const RenderTestTable = ({
                                                                       border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -2145,7 +2511,37 @@ const RenderTestTable = ({
                                                   {valueAppraiserMarks}
                                         </td>
                                         <td style={{ position: "relative" }}>
-                                                  <input
+                                                  <TextField
+                                                            error={textError3}
+                                                            helperText={
+                                                                      indError3 ===
+                                                                      ind
+                                                                                ? "error"
+                                                                                : ""
+                                                            }
+                                                            color=""
+                                                            InputProps={{
+                                                                      inputProps: {
+                                                                                max:
+                                                                                          ind ===
+                                                                                          2
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      1
+                                                                                                    ? onTime
+                                                                                                    : ind ===
+                                                                                                      3
+                                                                                                    ? 2
+                                                                                                    : ind ===
+                                                                                                      6
+                                                                                                    ? 5
+                                                                                                    : ind ===
+                                                                                                      7
+                                                                                                    ? 1
+                                                                                                    : "",
+                                                                                min: 0,
+                                                                      },
+                                                            }}
                                                             type="number"
                                                             min="0"
                                                             max={
@@ -2161,14 +2557,14 @@ const RenderTestTable = ({
                                                                       isThreeMonths ||
                                                                       selectedThreeMonths
                                                                                 ? true
-                                                                                : MANAGEMENt_ID[0].includes(
+                                                                                : REVIEWER_MANAGER.includes(
                                                                                             loginUser
                                                                                   )
                                                                                 ? false
                                                                                 : true
                                                             }
                                                             value={
-                                                                      MANAGEMENt_ID.includes(
+                                                                      REVIEWER_MANAGER.includes(
                                                                                 loginUser
                                                                       )
                                                                                 ? ind ===
@@ -2203,7 +2599,7 @@ const RenderTestTable = ({
                                                                                                       7
                                                                                           ? customUpskillingMarksRM
                                                                                           : 0
-                                                                                : val.AppraiserRating
+                                                                                : val.ReviewerMarks
                                                             }
                                                             style={{
                                                                       height: "100%",
@@ -2214,7 +2610,6 @@ const RenderTestTable = ({
                                                                       border: "none",
                                                                       backgroundColor:
                                                                                 "#ecf0f1",
-
                                                                       width: "100%",
                                                                       fontSize: "17px",
                                                             }}
@@ -3223,8 +3618,8 @@ const Renderforthtable = ({
                                                             color=""
                                                             InputProps={{
                                                                       inputProps: {
-                                                                                max: 0,
-                                                                                min: 5,
+                                                                                max: 5,
+                                                                                min: 0,
                                                                       },
                                                             }}
                                                             type="number"
@@ -3276,8 +3671,8 @@ const Renderforthtable = ({
                                                             type="number"
                                                             InputProps={{
                                                                       inputProps: {
-                                                                                max: 6,
-                                                                                min: 8,
+                                                                                max: 8,
+                                                                                min: 6,
                                                                       },
                                                             }}
                                                             value={
@@ -3327,8 +3722,8 @@ const Renderforthtable = ({
                                                             }
                                                             InputProps={{
                                                                       inputProps: {
-                                                                                max: 9,
-                                                                                min: 10,
+                                                                                max: 10,
+                                                                                min: 9,
                                                                       },
                                                             }}
                                                             type="number"
@@ -3457,6 +3852,14 @@ const Tableviewnew = ({
                               : false
           );
           const [disableText, setDisableText] = useState(true);
+
+          useEffect(() => {
+                    setState(
+                              dataAgree[0]?.Userfeedback
+                                        ? dataAgree[0]?.Userfeedback
+                                        : ""
+                    );
+          }, [dataAgree]);
 
           // useEffect(()=>{
 
@@ -3641,6 +4044,7 @@ const Tableviewnew = ({
                     let resData = await axios.request(reqOptions);
                     return setAgreeData(resData?.data?.data);
           }
+          console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA", state);
 
           useEffect(() => {
                     getAllData();
@@ -3759,7 +4163,10 @@ const Tableviewnew = ({
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
           const [parentReviewerMarks, setParentReviewerMarks] = useState({});
-
+          console.log(
+                    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+                    parentReviewerMarks
+          );
           //------------------------------------------------------------------//
           //Behavioural KPI Table//
           //------------------------------------------------------------------//
@@ -5575,11 +5982,7 @@ const Tableviewnew = ({
                                                                                           resize: "none",
                                                                                 }}
                                                                                 value={
-                                                                                          dataAgree[0]
-                                                                                                    ?.Userfeedback
-                                                                                                    ? dataAgree[0]
-                                                                                                                ?.Userfeedback
-                                                                                                    : ""
+                                                                                          state
                                                                                 }
                                                                                 onChange={(
                                                                                           e

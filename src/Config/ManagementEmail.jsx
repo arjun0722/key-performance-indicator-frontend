@@ -4,3 +4,5 @@ export const MANAGEMENt_ID = [
           "samant.sharma@qservicesit.com",
           "info@qservicesit.com",
 ];
+
+export const REVIEWER_MANAGER = ["rohit.dabra@qservicesit.com"];
