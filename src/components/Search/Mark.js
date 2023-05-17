@@ -21,6 +21,7 @@ import { BACKEND_URL, tableData } from "./config";
 import { ACCESS_TOKEN } from "../../Config/Constant";
 import Tableview from "./Tableview";
 import Tableviewnew from "./Tableviewnew";
+import { SignalWifiStatusbarNullRounded } from "@mui/icons-material";
 
 const useStyles = makeStyles({
   sprintbg: {
@@ -732,7 +733,7 @@ const Mark = () => {
               </FormControl>
             </Grid>
             {
-              isThreeMonths || selectedThreeMonths ? "" :
+                timePeriod !==5 && isThreeMonths || selectedThreeMonths ? null :
                 <Grid item sm={5}>
                   {showCustomDate && (
                     <>

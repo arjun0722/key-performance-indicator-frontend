@@ -47,6 +47,7 @@ const Renderthirdtable = ({
           val,
           thirdTable,
           ind,
+          setIsSubmit,
           isThreeMonths,
           selectedThreeMonths,
           setParentAppraise,
@@ -63,7 +64,7 @@ const Renderthirdtable = ({
           finalAppraiserAvg,
 }) => {
           // all user and login user
-
+          console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", thirdTable);
           const [users, setusers] = useState("");
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -209,11 +210,13 @@ const Renderthirdtable = ({
                                         customOnTimeMarks: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
                                         setTextError1(false);
                                         setIndError1();
+                                        setIsSubmit(false);
                               }
                     }
                     if (ind == 2) {
@@ -223,9 +226,11 @@ const Renderthirdtable = ({
                                         customAvgCodeMarks: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -237,9 +242,11 @@ const Renderthirdtable = ({
                                         customReDoMarks: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -269,9 +276,11 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -283,9 +292,11 @@ const Renderthirdtable = ({
                                         customUpskillingMarks: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -308,9 +319,11 @@ const Renderthirdtable = ({
                                         customOnTimeMarksAr: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -322,9 +335,11 @@ const Renderthirdtable = ({
                                         customAvgCodeMarksAr: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -336,9 +351,11 @@ const Renderthirdtable = ({
                                         customReDoMarksAr: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -369,9 +386,11 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -383,9 +402,12 @@ const Renderthirdtable = ({
                                         customUpskillingMarksAr: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
+
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -408,9 +430,12 @@ const Renderthirdtable = ({
                                         customOnTimeMarksRM: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
+
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -422,9 +447,11 @@ const Renderthirdtable = ({
                                         customAvgCodeMarksRM: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -436,9 +463,11 @@ const Renderthirdtable = ({
                                         customReDoMarksRM: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -469,9 +498,11 @@ const Renderthirdtable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -483,14 +514,24 @@ const Renderthirdtable = ({
                                         customUpskillingMarksRM: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
                     }
           }
+
+          useEffect(() => {
+                    setParentTarget({
+                              actualDelivery: thirdTable[0]?.I,
+                              onTime: thirdTable[1]?.I,
+                              critical: thirdTable[5]?.I,
+                    });
+          }, []);
 
           function handleTarget(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
@@ -526,6 +567,7 @@ const Renderthirdtable = ({
                     val.I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
+          console.log("VVVVVVVVVVVVVVVVVVVVVV", valueMap);
 
           const AppraiserRating = [
                     customActualdeliveryMarksAr,
@@ -897,6 +939,8 @@ const Renderthirdtable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
+
+          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", val);
 
           return (
                     <>
@@ -1294,6 +1338,7 @@ const RenderTestTable = ({
           thirdTable,
           ind,
           com,
+          setIsSubmit,
           isThreeMonths,
           selectedThreeMonths,
           setParentAppraise,
@@ -1324,11 +1369,17 @@ const RenderTestTable = ({
                     setusers(email);
           }, [email]);
 
+          //  updatedData?.data?.data[5]?.Target;
+
           const [actualDelivery, setActualDelivery] = useState(
-                    ind === 0 ? com[ind]?.I : 0
+                    updatedData?.data?.data[0]?.Target
           );
-          const [onTime, setOnTime] = useState(ind === 1 ? com[ind]?.I : 0);
-          const [critical, setCritical] = useState(ind === 5 ? com[ind]?.I : 0);
+          const [onTime, setOnTime] = useState(
+                    updatedData?.data?.data[1]?.Target
+          );
+          const [critical, setCritical] = useState(
+                    updatedData?.data?.data[5]?.Target
+          );
 
           //  this state use for Appraisee Self Rating
           const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
@@ -1545,9 +1596,11 @@ const RenderTestTable = ({
                                         customOnTimeMarks: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -1559,9 +1612,11 @@ const RenderTestTable = ({
                                         customAvgCodeMarks: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -1573,9 +1628,11 @@ const RenderTestTable = ({
                                         customReDoMarks: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -1605,9 +1662,11 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -1619,9 +1678,11 @@ const RenderTestTable = ({
                                         customUpskillingMarks: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
                               }
@@ -1644,9 +1705,11 @@ const RenderTestTable = ({
                                         customOnTimeMarksAr: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -1658,9 +1721,11 @@ const RenderTestTable = ({
                                         customAvgCodeMarksAr: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -1672,9 +1737,11 @@ const RenderTestTable = ({
                                         customReDoMarksAr: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -1705,9 +1772,11 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -1719,9 +1788,11 @@ const RenderTestTable = ({
                                         customUpskillingMarksAr: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError2(true);
                                         setIndError2(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError2(false);
                                         setIndError2();
                               }
@@ -1743,9 +1814,11 @@ const RenderTestTable = ({
                                         customOnTimeMarksRM: e.target.value,
                               });
                               if (e.target.value > onTime) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -1757,9 +1830,11 @@ const RenderTestTable = ({
                                         customAvgCodeMarksRM: e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -1771,9 +1846,11 @@ const RenderTestTable = ({
                                         customReDoMarksRM: e.target.value,
                               });
                               if (e.target.value > 2) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -1804,9 +1881,11 @@ const RenderTestTable = ({
                                                   e.target.value,
                               });
                               if (e.target.value > 5) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -1818,9 +1897,11 @@ const RenderTestTable = ({
                                         customUpskillingMarksRM: e.target.value,
                               });
                               if (e.target.value > 1) {
+                                        setIsSubmit(true);
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError3(false);
                                         setIndError3();
                               }
@@ -2220,6 +2301,7 @@ const RenderTestTable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
+          console.log("HHHHHHHHHHHHHHHHHHHHHH", val);
 
           return (
                     <>
@@ -2237,7 +2319,7 @@ const RenderTestTable = ({
                                                             type="number"
                                                             min="0"
                                                             max={
-                                                                      ind === 2
+                                                                      ind === 5
                                                                                 ? "5"
                                                                                 : ""
                                                             }
@@ -3593,6 +3675,8 @@ const Renderforthtable = ({
                     }));
           }, [lowPotential, highPotential, goodPotential]);
 
+        
+
           return (
                     <>
                               {/* The field must be required less than or equal to 5 */}
@@ -4044,7 +4128,6 @@ const Tableviewnew = ({
                     let resData = await axios.request(reqOptions);
                     return setAgreeData(resData?.data?.data);
           }
-          console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA", state);
 
           useEffect(() => {
                     getAllData();
@@ -4055,7 +4138,7 @@ const Tableviewnew = ({
           }, []);
 
           useEffect(() => {
-                    if (updatedData && updatedData.data) {
+                    if (updatedData && updatedData?.data?.data?.length > 0) {
                               setParentSelfAppraise({
                                         customActualdeliveryMarks:
                                                   updatedData?.data?.data[0]
@@ -4088,7 +4171,7 @@ const Tableviewnew = ({
                                                             ?.AppraiseeSelfRating,
                               });
                     }
-                    if (updatedData && updatedData.data) {
+                    if (updatedData && updatedData?.data?.data?.length > 0) {
                               setParentAppraise({
                                         customActualdeliveryMarksAr:
                                                   updatedData?.data?.data[0]
@@ -4116,7 +4199,7 @@ const Tableviewnew = ({
                                                             ?.AppraiserRating,
                               });
                     }
-                    if (updatedData && updatedData.data) {
+                    if (updatedData && updatedData?.data?.data?.length > 0) {
                               setParentReviewerMarks({
                                         customActualdeliveryMarksRM:
                                                   updatedData?.data?.data[0]
@@ -4145,7 +4228,7 @@ const Tableviewnew = ({
                               });
                     }
 
-                    if (updatedData && updatedData.data) {
+                    if (updatedData && updatedData?.data?.data?.length > 0) {
                               setParentTarget({
                                         actualDelivery:
                                                   updatedData?.data?.data[0]
@@ -4159,14 +4242,18 @@ const Tableviewnew = ({
                     }
           }, [updatedData]);
 
+          console.log(
+                    "KKKKKKKKKKKKKKKKKKKKKK",
+                    updatedData?.data?.data[5]?.Target
+          );
+
           const [parentTarget, setParentTarget] = useState({});
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
           const [parentReviewerMarks, setParentReviewerMarks] = useState({});
-          console.log(
-                    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-                    parentReviewerMarks
-          );
+
+          console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", parentTarget);
+
           //------------------------------------------------------------------//
           //Behavioural KPI Table//
           //------------------------------------------------------------------//
@@ -4474,6 +4561,7 @@ const Tableviewnew = ({
                     let allFeedbackData = [feedback];
                     let allScopeData = [scope];
                     let allUserfeedback = [userfeedback];
+                    console.log("UUUUUUUUUUUUUUUUUUUUUUUUU", parentTarget);
 
                     thirdTable.map((val, ind) => {
                               let allData = {
@@ -4510,8 +4598,9 @@ const Tableviewnew = ({
                                                   allData.Weightage =
                                                             val.H || 0;
                                                   allData.Target =
-                                                            parentTarget?.actualDelivery ||
-                                                            0;
+                                                            parentTarget?.actualDelivery
+                                                                      ? parentTarget?.actualDelivery
+                                                                      : 0;
                                                   allData.AppraiseeSelfRating =
                                                             parentSelfAppraise?.customActualdeliveryMarks ||
                                                             0;
@@ -4546,8 +4635,9 @@ const Tableviewnew = ({
                                                   allData.Weightage =
                                                             val.H || 0;
                                                   allData.Target =
-                                                            parentTarget?.onTime ||
-                                                            0;
+                                                            parentTarget?.onTime
+                                                                      ? parentTarget?.onTime
+                                                                      : 0;
                                                   allData.AppraiseeSelfRating =
                                                             parentSelfAppraise?.customOnTimeMarks ||
                                                             0;
@@ -4681,8 +4771,9 @@ const Tableviewnew = ({
                                                   allData.Weightage =
                                                             val.H || 0;
                                                   allData.Target =
-                                                            parentTarget?.critical ||
-                                                            0;
+                                                            parentTarget?.critical
+                                                                      ? parentTarget?.critical
+                                                                      : 0;
                                                   allData.AppraiseeSelfRating =
                                                             parentSelfAppraise?.customCriticalIssuesMarks ||
                                                             0;
@@ -5076,6 +5167,8 @@ const Tableviewnew = ({
                               }
                     });
 
+                    console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLL", allFinalData);
+
                     let data = axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/marks`,
@@ -5418,6 +5511,9 @@ const Tableviewnew = ({
                                                                                                                           val={
                                                                                                                                     val
                                                                                                                           }
+                                                                                                                          setIsSubmit={
+                                                                                                                                    setIsSubmit
+                                                                                                                          }
                                                                                                                           isThreeMonths={
                                                                                                                                     isThreeMonths
                                                                                                                           }
@@ -5481,6 +5577,9 @@ const Tableviewnew = ({
                                                                                                                           }
                                                                                                                           com={
                                                                                                                                     thirdTable
+                                                                                                                          }
+                                                                                                                          setIsSubmit={
+                                                                                                                                    setIsSubmit
                                                                                                                           }
                                                                                                                           isThreeMonths={
                                                                                                                                     isThreeMonths
