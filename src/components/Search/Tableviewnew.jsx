@@ -64,7 +64,7 @@ const Renderthirdtable = ({
           finalAppraiserAvg,
 }) => {
           // all user and login user
-          console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", thirdTable);
+
           const [users, setusers] = useState("");
           const [loginUser, setLoginUser] = useState(
                     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -214,9 +214,9 @@ const Renderthirdtable = ({
                                         setTextError1(true);
                                         setIndError1(ind);
                               } else {
+                                        setIsSubmit(false);
                                         setTextError1(false);
                                         setIndError1();
-                                        setIsSubmit(false);
                               }
                     }
                     if (ind == 2) {
@@ -431,7 +431,6 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-
                                         setTextError3(true);
                                         setIndError3(ind);
                               } else {
@@ -567,7 +566,6 @@ const Renderthirdtable = ({
                     val.I,
           ];
           const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
-          console.log("VVVVVVVVVVVVVVVVVVVVVV", valueMap);
 
           const AppraiserRating = [
                     customActualdeliveryMarksAr,
@@ -720,18 +718,22 @@ const Renderthirdtable = ({
                     }
           };
           const formula7 = (a, b, c) => {
-                    const value = Number(
-                              ((100 + ((a - b) / a) * 100) * c) / 100
-                    ).toFixed(2);
-
-                    if (
-                              value !== "-Infinity" &&
-                              value !== "Infinity" &&
-                              value !== "NaN"
-                    ) {
-                              return value;
-                    } else {
+                    if (b == 0 || b == undefined) {
                               return 0;
+                    } else {
+                              const value = Number(
+                                        ((100 + ((a - b) / a) * 100) * c) / 100
+                              ).toFixed(2);
+
+                              if (
+                                        value !== "-Infinity" &&
+                                        value !== "Infinity" &&
+                                        value !== "NaN"
+                              ) {
+                                        return value;
+                              } else {
+                                        return 0;
+                              }
                     }
           };
           // ....................formula for second input.....................//
@@ -939,8 +941,6 @@ const Renderthirdtable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
-
-          console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", val);
 
           return (
                     <>
@@ -2301,7 +2301,6 @@ const RenderTestTable = ({
                     customCustomerSatisfactionMarksAr,
                     customUpskillingMarksAr,
           ]);
-          console.log("HHHHHHHHHHHHHHHHHHHHHH", val);
 
           return (
                     <>
@@ -2811,6 +2810,7 @@ const Renderforthtable = ({
 
           useEffect(() => {
                     //=============lowpotential states================//
+
                     setAttendencelp(
                               updatedBehaviourData[0]?.LowPotential
                                         ? updatedBehaviourData[0]?.LowPotential
@@ -3561,6 +3561,57 @@ const Renderforthtable = ({
                               : "undefined";
 
           useEffect(() => {
+                    if (updatedBehaviourData.length > 0) {
+                              if (
+                                        lowPotentialInputValues > 0 ||
+                                        lowPotentialInputValues === undefined
+                              ) {
+                                        setIsDisable({
+                                                  LowPotential: false,
+                                                  GoodPotential: true,
+                                                  HighPotential: true,
+                                        });
+                              }
+                              if (
+                                        goodPotentialInputValues > 0 ||
+                                        goodPotentialInputValues === undefined
+                              ) {
+                                        setIsDisable({
+                                                  LowPotential: true,
+                                                  GoodPotential: false,
+                                                  HighPotential: true,
+                                        });
+                              }
+                              if (
+                                        highPotentialInputValues > 0 ||
+                                        highPotentialInputValues === undefined
+                              ) {
+                                        setIsDisable({
+                                                  LowPotential: true,
+                                                  GoodPotential: true,
+                                                  HighPotential: false,
+                                        });
+                              }
+                    }
+          }, [
+                    lowPotentialInputValues,
+                    highPotentialInputValues,
+                    goodPotentialInputValues,
+          ]);
+
+          // if (
+          //           ind === 0 &&
+          //           updatedBehaviourData[0]?.LowPotential &&
+          //           updatedBehaviourData[0]?.LowPotential > 0
+          // ) {
+          //           setIsDisable({
+          //                     LowPotential: false,
+          //                     GoodPotential: true,
+          //                     HighPotential: true,
+          //           });
+          // }
+
+          useEffect(() => {
                     const calculatedValues = {
                               totalAttendence:
                                         Number(attendencelp) +
@@ -3674,8 +3725,6 @@ const Renderforthtable = ({
                               [ind]: calculatedMarks,
                     }));
           }, [lowPotential, highPotential, goodPotential]);
-
-        
 
           return (
                     <>
@@ -4242,17 +4291,10 @@ const Tableviewnew = ({
                     }
           }, [updatedData]);
 
-          console.log(
-                    "KKKKKKKKKKKKKKKKKKKKKK",
-                    updatedData?.data?.data[5]?.Target
-          );
-
           const [parentTarget, setParentTarget] = useState({});
           const [parentAppraise, setParentAppraise] = useState({});
           const [parentSelfAppraise, setParentSelfAppraise] = useState({});
           const [parentReviewerMarks, setParentReviewerMarks] = useState({});
-
-          console.log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", parentTarget);
 
           //------------------------------------------------------------------//
           //Behavioural KPI Table//
@@ -4561,7 +4603,6 @@ const Tableviewnew = ({
                     let allFeedbackData = [feedback];
                     let allScopeData = [scope];
                     let allUserfeedback = [userfeedback];
-                    console.log("UUUUUUUUUUUUUUUUUUUUUUUUU", parentTarget);
 
                     thirdTable.map((val, ind) => {
                               let allData = {
@@ -5167,8 +5208,6 @@ const Tableviewnew = ({
                               }
                     });
 
-                    console.log("LLLLLLLLLLLLLLLLLLLLLLLLLLL", allFinalData);
-
                     let data = axios({
                               method: "post",
                               url: `http://localhost:8080/kpi/marks`,
@@ -5205,8 +5244,11 @@ const Tableviewnew = ({
                     // }
 
                     setTimeout(() => {
-                              setLoader(false);
-                    }, 2000);
+                              window.location.reload(true);
+                              setTimeout(() => {
+                                        setLoader(false);
+                              }, 1000);
+                    }, 1000);
           }
 
           useEffect(() => {

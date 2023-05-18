@@ -72,6 +72,10 @@ const Home = () => {
     setSingleCardCenter(hasSingleCardWithLink);
   }, [users]);
 
+
+      useEffect(()=>{
+      localStorage.removeItem("designation");
+          },[])
   return (
     <>
       {loadingdata ? (

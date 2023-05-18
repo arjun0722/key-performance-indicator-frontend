@@ -108,7 +108,7 @@ const Mark = () => {
   useEffect(() => {
     setLoadingData(true);
     setExcelFileData(null);
-    // setFileData(null);
+    setFileData(null);
     let responseArr = [];
     let ontimesprint = 0;
     let effortArr = [];
@@ -467,7 +467,9 @@ const Mark = () => {
   ]);
 
   const handleexceldropdown = async (e) => {
-    let selectedFile = e.target.value;
+    let selectedFile = e;
+    setDesignation(e)
+    localStorage.setItem("designation", selectedFile)
     let data = await axios({
       method: "post",
       url: `${BACKEND_URL}/dummy/path`,
@@ -499,6 +501,26 @@ const Mark = () => {
     finalData[13].K = 0;
     setFileData(finalData);
   };
+
+  const localdesigantion = localStorage.getItem("designation")
+  useEffect(() => {
+    if (localdesigantion !== null || localdesigantion !== "" || localdesigantion !== undefined) {
+      handleexceldropdown(localdesigantion)
+    }
+
+  }, [localdesigantion])
+
+
+
+  useEffect(() => {
+    setDesignation(localdesigantion)
+    const urlParams = new URLSearchParams(window.location.search)
+    const hasMarkParam = urlParams.has('email');
+    if (hasMarkParam === false) {
+      localStorage.removeItem('designation');
+    }
+
+  }, [])
 
   // ******************************************************************************************//
   // Get the current date
@@ -558,6 +580,8 @@ const Mark = () => {
     // ..........................................................................................................
     // Jan To March Months
     if (event.target.value == 1) {
+      localStorage.setItem("startDate", startJanToMar)
+      localStorage.setItem("endDate", endJanToMar)
       setEvent(1)
       setstartDate(startJanToMar);
       setlastDate(endJanToMar);
@@ -566,6 +590,8 @@ const Mark = () => {
 
     // Apr To Jun Months
     if (event.target.value == 2) {
+      localStorage.setItem("startDate", startAprToJun)
+      localStorage.setItem("endDate", endAprToJun)
       setEvent(2)
       setstartDate(startAprToJun);
       setlastDate(endAprToJun);
@@ -574,6 +600,8 @@ const Mark = () => {
 
     // Jul To Sep Months
     if (event.target.value == 3) {
+      localStorage.setItem("startDate", startJulToSep)
+      localStorage.setItem("endDate", endJulToSep)
       setEvent(3)
       setstartDate(startJulToSep);
       setlastDate(endJulToSep);
@@ -582,6 +610,8 @@ const Mark = () => {
 
     // Oct To Dec Months
     if (event.target.value == 4) {
+      localStorage.setItem("startDate", startOctToDec)
+      localStorage.setItem("endDate", endOctToDec)
       setEvent(4)
       setstartDate(startOctToDec);
       setlastDate(endOctToDec);
@@ -596,88 +626,9 @@ const Mark = () => {
       return;
     }
 
-    // setshowCustomDate(false);
-    // //last Week
-    // if (event.target.value == 1) {
-    //   setEvent(1)
-    //   let currentDate = moment();
 
-    //   let weekStart = moment()
-    //     .subtract(1, "weeks")
-    //     .startOf("week")
-    //     .format("YYYY-MM-DD");
-    //   let weekEnd = moment()
-    //     .subtract(1, "weeks")
-    //     .endOf("week")
-    //     .format("YYYY-MM-DD");
-
-    //   setstartDate(weekStart);
-    //   setlastDate(weekEnd);
-    //   setSelectedThreeMonths(false)
-    //   console.log(weekStart, ">>>>>>>>>>>>>>>")
-    //   console.log(weekEnd, ">>>>>>>>>>>>>>>")
-    // }
-
-
-    // if (event.target.value == 2) {
-
-
-    // }
-    // //last Month
-
-    // if (event.target.value == 2) {
-    //   setEvent(2)
-    //   let monthStart = moment()
-    //     .subtract(1, "months")
-    //     .startOf("month")
-    //     .format("YYYY-MM-DD");
-    //   const monthyear = moment().format("YYYY-MM");
-    //   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
-    //   let monthEnd = moment(firstDay)
-    //     .subtract("1", "days")
-    //     .format("YYYY-MM-DD");
-    //   setstartDate(monthStart);
-    //   setlastDate(monthEnd);
-    //   setSelectedThreeMonths(false)
-
-    // }
-    // //last Six Month
-
-    // if (event.target.value == 3) {
-    //   setEvent(3)
-    //   //last Six Month
-    //   let sixMonthStartDate = moment()
-    //     .subtract(6, "months")
-    //     .format("YYYY-MM-DD");
-    //   let currentDate = moment().format("YYYY-MM-DD");
-    //   setstartDate(sixMonthStartDate);
-    //   setlastDate(currentDate);
-    //   setSelectedThreeMonths(false)
-    // }
-
-    // if (event.target.value == 6) {
-    //   setEvent(6)
-    //   let threeMonthStartDate = moment().subtract(3, "months").format("YYYY-MM-DD")
-    //   let currentDate = moment().format("YYYY-MM-DD");
-    //   setstartDate(threeMonthStartDate);
-    //   setlastDate(currentDate)
-    //   setSelectedThreeMonths(true)
-    // }
-
-    // //last Year
-
-    // if (event.target.value == 4) {
-
-    //   let sixMonthStartDate = moment()
-    //     .subtract(12, "months")
-    //     .format("YYYY-MM-DD");
-    //   let currentDate = moment().format("YYYY-MM-DD");
-    //   setstartDate(sixMonthStartDate);
-    //   setlastDate(currentDate);
-    //   setSelectedThreeMonths(false)
-    // }
   };
-
+ 
 
   function checkThreeMonths() {
 
@@ -733,7 +684,7 @@ const Mark = () => {
               </FormControl>
             </Grid>
             {
-                timePeriod !==5 && isThreeMonths || selectedThreeMonths ? null :
+              timePeriod !== 5 && isThreeMonths || selectedThreeMonths ? null :
                 <Grid item sm={5}>
                   {showCustomDate && (
                     <>
@@ -786,7 +737,7 @@ const Mark = () => {
                   id="demo-simple-select"
                   value={Designation}
                   label=" Designation"
-                  onChange={handleexceldropdown}
+                  onChange={(e) => handleexceldropdown(e.target.value)}
                   input={<OutlinedInput label="Select Designation" />}
                 >
                   <MenuItem value={"seniorDeveloper"}>Senior dev</MenuItem>

@@ -31,6 +31,7 @@ export default function PrimarySearchAppBar({ props }) {
     sessionStorage.removeItem("token-data");
     localStorage.removeItem(ACCESS_TOKEN.USER_EMAIL);
     navigate("/login");
+    localStorage.removeItem('designation');
   }
 
   return (

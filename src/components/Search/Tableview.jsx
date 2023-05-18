@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {
   Table,
   TableBody,
@@ -18,8 +18,13 @@ const useStyles = makeStyles({
     },
   },
 });
+  
 
 const Tableview = ({ test }) => {
+
+   useEffect(() => {
+             localStorage.removeItem("designation");
+   }, []);
   const classes = useStyles();
   return (
     <div>
