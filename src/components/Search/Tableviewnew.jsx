@@ -187,14 +187,39 @@ const Renderthirdtable = ({
                     useState(0);
 
           //................. this states use for input validations ...............//
-          const [textError1, setTextError1] = useState(false);
+          const [textError1, setTextError1] = useState({
+                    customOnTimeMarks: false,
+                    customAvgCodeMarks: false,
+                    customReDoMarks: false,
+                    customCustomerSatisfactionMarks: false,
+                    customUpskillingMarks: false,
+          });
           const [indError1, setIndError1] = useState();
-          const [textError2, setTextError2] = useState(false);
+          const [textError2, setTextError2] = useState({
+                    customOnTimeMarksAr: false,
+                    customAvgCodeMarksAr: false,
+                    customReDoMarksAr: false,
+                    customCustomerSatisfactionMarksAr: false,
+                    customUpskillingMarksAr: false,
+          });
           const [indError2, setIndError2] = useState();
-          const [textError3, setTextError3] = useState(false);
+          const [textError3, setTextError3] = useState({
+                    customOnTimeMarksRM: false,
+                    customAvgCodeMarksRM: false,
+                    customReDoMarksRM: false,
+                    customCustomerSatisfactionMarksRM: false,
+                    customUpskillingMarksRM: false,
+          });
           const [indError3, setIndError3] = useState();
 
+    
+
           function handleOnChange(e) {
+                    console.log(
+                              "IIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+                              e.target.value
+                    );
+
                     if (ind == 0) {
                               setCustomActualdelivery(e.target.value);
                               setParentSelfAppraise({
@@ -211,11 +236,21 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customOnTimeMarks: true,
+                                        });
+
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customOnTimeMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -227,11 +262,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customAvgCodeMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customAvgCodeMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -243,11 +286,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customReDoMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customReDoMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -277,11 +328,20 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customCustomerSatisfactionMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customCustomerSatisfactionMarks: false,
+                                        });
+
                                         setIndError1();
                               }
                     }
@@ -293,11 +353,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customUpskillingMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customUpskillingMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -320,11 +388,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customOnTimeMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customOnTimeMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -336,11 +412,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customAvgCodeMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customAvgCodeMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -352,11 +436,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customReDoMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customReDoMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -387,11 +479,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customCustomerSatisfactionMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customCustomerSatisfactionMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -403,12 +503,20 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customUpskillingMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
 
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customUpskillingMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -431,11 +539,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customOnTimeMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customOnTimeMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -447,11 +563,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customAvgCodeMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customAvgCodeMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -463,11 +587,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customReDoMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customReDoMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -498,11 +630,19 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customCustomerSatisfactionMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customCustomerSatisfactionMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -514,13 +654,75 @@ const Renderthirdtable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customUpskillingMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customUpskillingMarksRM: false,
+                                        });
                                         setIndError3();
                               }
+                    }
+          }
+          console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", textError1);
+          function showTextError1() {
+                    if (ind == 1) {
+                              return textError1.customOnTimeMarks;
+                    }
+                    if (ind == 2) {
+                              return textError1.customAvgCodeMarks;
+                    }
+                    if (ind == 3) {
+                              return textError1.customReDoMarks;
+                    }
+                    if (ind == 6) {
+                              return textError1.customCustomerSatisfactionMarks;
+                    }
+                    if (ind == 7) {
+                              return textError1.customUpskillingMarks;
+                    }
+          }
+
+          function showTextError2() {
+                    if (ind == 1) {
+                              return textError2.customOnTimeMarksAr;
+                    }
+                    if (ind == 2) {
+                              return textError2.customAvgCodeMarksAr;
+                    }
+                    if (ind == 3) {
+                              return textError2.customReDoMarksAr;
+                    }
+                    if (ind == 6) {
+                              return textError2.customCustomerSatisfactionMarksAr;
+                    }
+                    if (ind == 7) {
+                              return textError2.customUpskillingMarksAr;
+                    }
+          }
+
+          function showTextError3() {
+                    if (ind == 1) {
+                              return textError3.customOnTimeMarksRM;
+                    }
+                    if (ind == 2) {
+                              return textError3.customAvgCodeMarksRM;
+                    }
+                    if (ind == 3) {
+                              return textError3.customReDoMarksRM;
+                    }
+                    if (ind == 6) {
+                              return textError3.customCustomerSatisfactionMarksRM;
+                    }
+                    if (ind == 1) {
+                              return textError3.customUpskillingMarksRM;
                     }
           }
 
@@ -987,7 +1189,7 @@ const Renderthirdtable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <TextField
-                                                            error={textError1}
+                                                            error={showTextError1()}
                                                             helperText={
                                                                       indError1 ===
                                                                       ind
@@ -1097,7 +1299,7 @@ const Renderthirdtable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <TextField
-                                                            error={textError2}
+                                                            error={showTextError2()}
                                                             helperText={
                                                                       indError2 ===
                                                                       ind
@@ -1218,7 +1420,7 @@ const Renderthirdtable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <TextField
-                                                            error={textError3}
+                                                            error={showTextError3()}
                                                             helperText={
                                                                       indError3 ===
                                                                       ind
@@ -1469,11 +1671,29 @@ const RenderTestTable = ({
                     useState(updatedData?.data?.data[7]?.ReviewerMarks);
 
           //................. this states use for input validations ...............//
-          const [textError1, setTextError1] = useState(false);
+          const [textError1, setTextError1] = useState({
+                    customOnTimeMarks: false,
+                    customAvgCodeMarks: false,
+                    customReDoMarks: false,
+                    customCustomerSatisfactionMarks: false,
+                    customUpskillingMarks: false,
+          });
           const [indError1, setIndError1] = useState();
-          const [textError2, setTextError2] = useState(false);
+          const [textError2, setTextError2] = useState({
+                    customOnTimeMarksAr: false,
+                    customAvgCodeMarksAr: false,
+                    customReDoMarksAr: false,
+                    customCustomerSatisfactionMarksAr: false,
+                    customUpskillingMarksAr: false,
+          });
           const [indError2, setIndError2] = useState();
-          const [textError3, setTextError3] = useState(false);
+          const [textError3, setTextError3] = useState({
+                    customOnTimeMarksRM: false,
+                    customAvgCodeMarksRM: false,
+                    customReDoMarksRM: false,
+                    customCustomerSatisfactionMarksRM: false,
+                    customUpskillingMarksRM: false,
+          });
           const [indError3, setIndError3] = useState();
 
           useEffect(() => {
@@ -1597,11 +1817,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customOnTimeMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customOnTimeMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -1614,10 +1842,18 @@ const RenderTestTable = ({
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
                                         setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customAvgCodeMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customAvgCodeMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -1629,11 +1865,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customReDoMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customReDoMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -1663,11 +1907,20 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customCustomerSatisfactionMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customCustomerSatisfactionMarks: false,
+                                        });
+
                                         setIndError1();
                               }
                     }
@@ -1679,11 +1932,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError1(true);
+                                        // setTextError1(true);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customUpskillingMarks: true,
+                                        });
                                         setIndError1(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError1(false);
+                                        // setTextError1(false);
+                                        setTextError1({
+                                                  ...textError1,
+                                                  customUpskillingMarks: false,
+                                        });
                                         setIndError1();
                               }
                     }
@@ -1706,11 +1967,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customOnTimeMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customOnTimeMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -1722,11 +1991,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customAvgCodeMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customAvgCodeMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -1738,11 +2015,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customReDoMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customReDoMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -1773,11 +2058,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customCustomerSatisfactionMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customCustomerSatisfactionMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
@@ -1789,15 +2082,25 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError2(true);
+                                        // setTextError2(true);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customUpskillingMarksAr: true,
+                                        });
                                         setIndError2(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError2(false);
+
+                                        // setTextError2(false);
+                                        setTextError2({
+                                                  ...textError2,
+                                                  customUpskillingMarksAr: false,
+                                        });
                                         setIndError2();
                               }
                     }
           }
+
           function handleOnChange2(e) {
                     if (ind == 0) {
                               setCustomActualdeliveryRM(e.target.value);
@@ -1815,11 +2118,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > onTime) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customOnTimeMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customOnTimeMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -1831,11 +2142,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customAvgCodeMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customAvgCodeMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -1847,11 +2166,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 2) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customReDoMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customReDoMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -1882,11 +2209,19 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 5) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customCustomerSatisfactionMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customCustomerSatisfactionMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
@@ -1898,15 +2233,78 @@ const RenderTestTable = ({
                               });
                               if (e.target.value > 1) {
                                         setIsSubmit(true);
-                                        setTextError3(true);
+                                        // setTextError3(true);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customUpskillingMarksRM: true,
+                                        });
                                         setIndError3(ind);
                               } else {
                                         setIsSubmit(false);
-                                        setTextError3(false);
+                                        // setTextError3(false);
+                                        setTextError3({
+                                                  ...textError3,
+                                                  customUpskillingMarksRM: false,
+                                        });
                                         setIndError3();
                               }
                     }
           }
+
+          function showTextError1() {
+                    if (ind == 1) {
+                              return textError1.customOnTimeMarks;
+                    }
+                    if (ind == 2) {
+                              return textError1.customAvgCodeMarks;
+                    }
+                    if (ind == 3) {
+                              return textError1.customReDoMarks;
+                    }
+                    if (ind == 6) {
+                              return textError1.customCustomerSatisfactionMarks;
+                    }
+                    if (ind == 7) {
+                              return textError1.customUpskillingMarks;
+                    }
+          }
+
+          function showTextError2() {
+                    if (ind == 1) {
+                              return textError2.customOnTimeMarksAr;
+                    }
+                    if (ind == 2) {
+                              return textError2.customAvgCodeMarksAr;
+                    }
+                    if (ind == 3) {
+                              return textError2.customReDoMarksAr;
+                    }
+                    if (ind == 6) {
+                              return textError2.customCustomerSatisfactionMarksAr;
+                    }
+                    if (ind == 7) {
+                              return textError2.customUpskillingMarksAr;
+                    }
+          }
+
+          function showTextError3() {
+                    if (ind == 1) {
+                              return textError3.customOnTimeMarksRM;
+                    }
+                    if (ind == 2) {
+                              return textError3.customAvgCodeMarksRM;
+                    }
+                    if (ind == 3) {
+                              return textError3.customReDoMarksRM;
+                    }
+                    if (ind == 6) {
+                              return textError3.customCustomerSatisfactionMarksRM;
+                    }
+                    if (ind == 1) {
+                              return textError3.customUpskillingMarksRM;
+                    }
+          }
+
           function handleTarget(e) {
                     if (e.target.parentNode.parentNode.id == 0) {
                               setActualDelivery(e.target.value);
@@ -2355,7 +2753,7 @@ const RenderTestTable = ({
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.J} */}
                                                   <TextField
-                                                            error={textError1}
+                                                            error={showTextError1()}
                                                             helperText={
                                                                       indError1 ===
                                                                       ind
@@ -2473,7 +2871,7 @@ const RenderTestTable = ({
                                         <td style={{ position: "relative" }}>
                                                   {/* {val.L} */}
                                                   <TextField
-                                                            error={textError2}
+                                                            error={showTextError2()}
                                                             helperText={
                                                                       indError2 ===
                                                                       ind
@@ -2593,7 +2991,7 @@ const RenderTestTable = ({
                                         </td>
                                         <td style={{ position: "relative" }}>
                                                   <TextField
-                                                            error={textError3}
+                                                            error={showTextError3()}
                                                             helperText={
                                                                       indError3 ===
                                                                       ind
@@ -5244,7 +5642,7 @@ const Tableviewnew = ({
                     // }
 
                     setTimeout(() => {
-                              window.location.reload(true);
+                              window.location.reload(false);
                               setTimeout(() => {
                                         setLoader(false);
                               }, 1000);

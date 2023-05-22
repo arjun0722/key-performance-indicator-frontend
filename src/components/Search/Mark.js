@@ -44,6 +44,9 @@ const Mark = () => {
 
   const search = useLocation().search;
   const email = new URLSearchParams(search).get("email");
+  const localdesigantion = localStorage.getItem("designation")
+  const localStartDate = localStorage.getItem("startDate")
+  const localEndDate = localStorage.getItem("endDate")
 
   const [selectedEmail, setSelectedEmail] = useState(email ? email : "");
   const [EmpName, setEmpName] = useState();
@@ -57,7 +60,7 @@ const Mark = () => {
   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
   const [showCustomDate, setshowCustomDate] = useState();
   const [timePeriod, setTimePeriod] = React.useState(2);
-  const [customdate, setCustomdate] = useState([
+  const [customdate, setCustomdate] = useState([  
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
   ]);
@@ -119,6 +122,8 @@ const Mark = () => {
     let taskandbugsArr = [];
     let redocountArr = [];
 
+    console.log("startDate", startDate)
+    console.log("lastDate", lastDate)
     let headersList = {
       Accept: "application/json",
       Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
@@ -502,15 +507,22 @@ const Mark = () => {
     setFileData(finalData);
   };
 
-  const localdesigantion = localStorage.getItem("designation")
+ 
   useEffect(() => {
     if (localdesigantion !== null || localdesigantion !== "" || localdesigantion !== undefined) {
       handleexceldropdown(localdesigantion)
     }
+    if (localStartDate !== null || localStartDate !== "" || localStartDate !== undefined) {
+      setstartDate(localStartDate)
+    }
+    if (localEndDate !== null || localEndDate !== "" || localEndDate !== undefined) {
+      setlastDate(localEndDate)
+    }
 
-  }, [localdesigantion])
+  }, [localdesigantion, localStartDate, localEndDate])
 
-
+  console.log("localStartDate", localStartDate)
+  console.log("localEndDate", localEndDate)
 
   useEffect(() => {
     setDesignation(localdesigantion)
@@ -518,6 +530,8 @@ const Mark = () => {
     const hasMarkParam = urlParams.has('email');
     if (hasMarkParam === false) {
       localStorage.removeItem('designation');
+      localStorage.removeItem('startDate');
+      localStorage.removeItem('endDate');
     }
 
   }, [])
@@ -628,7 +642,7 @@ const Mark = () => {
 
 
   };
- 
+
 
   function checkThreeMonths() {
 
