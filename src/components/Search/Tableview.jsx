@@ -23,7 +23,10 @@ const useStyles = makeStyles({
 const Tableview = ({ test }) => {
 
    useEffect(() => {
-             localStorage.removeItem("designation");
+            
+             localStorage.removeItem('designation');
+            //  localStorage.removeItem('startDate');
+            //  localStorage.removeItem('endDate');
    }, []);
   const classes = useStyles();
   return (
@@ -52,7 +55,7 @@ const Tableview = ({ test }) => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ backgroundColor: "#66cdaa" }}>
-            {test.map((row) => (
+            {test.map((row) => ( 
               <TableRow
                 key={row.title}
                 sx={{ borderBottom: "2px solid black" }}

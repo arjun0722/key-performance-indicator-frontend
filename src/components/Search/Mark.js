@@ -44,9 +44,8 @@ const Mark = () => {
 
   const search = useLocation().search;
   const email = new URLSearchParams(search).get("email");
-  const localdesigantion = localStorage.getItem("designation")
-  const localStartDate = localStorage.getItem("startDate")
-  const localEndDate = localStorage.getItem("endDate")
+
+  const [isReload, setIsRelaod] = useState(0);
 
   const [selectedEmail, setSelectedEmail] = useState(email ? email : "");
   const [EmpName, setEmpName] = useState();
@@ -59,19 +58,19 @@ const Mark = () => {
   const monthyear = moment().format("YYYY-MM");
   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
   const [showCustomDate, setshowCustomDate] = useState();
-  const [timePeriod, setTimePeriod] = React.useState(2);
-  const [customdate, setCustomdate] = useState([  
+  const [timePeriod, setTimePeriod] = React.useState();
+  const [customdate, setCustomdate] = useState([
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
   ]);
-  const [dateEvent, setEvent] = useState()
+  const [dateEvent, setEvent] = useState();
   const [test, setTest] = useState([]);
   const [clientbugMarks, setClientbugMarks] = useState(0);
   const [ExcelFileData, setExcelFileData] = useState(null);
   const [Designation, setDesignation] = useState();
   const [fileData, setFileData] = useState();
-  const [TotalEffort, setTotalEffort] = useState(0);
-  const [codeReviewRating, setCodeReviewRating] = useState(0)
+  const [TotalEffort, setTotalEffort] = useState();
+  const [codeReviewRating, setCodeReviewRating] = useState(0);
   const [Totalactualhour, setTotalactualhour] = useState(0);
   const [AssignTask, setAssignTask] = useState(0);
   const [OntimeTask, setOntimeTask] = useState(0);
@@ -82,29 +81,14 @@ const Mark = () => {
   const [startDate, setstartDate] = useState(
     moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD")
   );
-  const [isThreeMonths, setIsThreeMonths] = useState(false)
+  const [isThreeMonths, setIsThreeMonths] = useState(false);
 
   const [lastDate, setlastDate] = useState(
     moment(firstDay).subtract("1", "days").format("YYYY-MM-DD")
   );
-  const [selectedThreeMonths, setSelectedThreeMonths] = useState(false)
-
-
-  // ******** this state use for months ************ //
-  // const [isVisible, setIsVisible] = useState({
-  //   "janToMar": true,
-  //   "aprToJun": true,
-  //   "julToSep": true,
-  //   "octToDec": true,
-  // })
-
-  // const [janToMar, setJanToMar] = useState(true)
-  // const [aprToJun, setAprToJun] = useState(true)
-  // const [julToSep, setJulToSep] = useState(true)
-  // const [octToDec, setOctToDec] = useState(true)
+  const [selectedThreeMonths, setSelectedThreeMonths] = useState(false);
 
   const classes = useStyles();
-
 
   let dataApi = [];
 
@@ -122,12 +106,11 @@ const Mark = () => {
     let taskandbugsArr = [];
     let redocountArr = [];
 
-    console.log("startDate", startDate)
-    console.log("lastDate", lastDate)
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-        }`,
+      Authorization: `Bearer ${
+        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+      }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -151,7 +134,6 @@ const Mark = () => {
     var ids = [];
 
     taskandbugsResponse.then((response) => {
-
       (response || []).map((res) => {
         res?.data?.workItems?.map((workitem) => {
           ids.push(workitem.id);
@@ -172,8 +154,9 @@ const Mark = () => {
       for (let index = 0; index < Math.ceil(ids.length / 300); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-            }`,
+          Authorization: `Bearer ${
+            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+          }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -212,17 +195,22 @@ const Mark = () => {
                 res.fields["System.State"] === "Rework" ||
                 res.fields["System.State"] === "Merged"
               ) {
-
                 let effort =
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
                 effortArr.push(effort);
-                let CodeReviewRating = res.fields["Custom.CodeReviewRating"] || 0;
-                codeReviewRatingArr.push(CodeReviewRating)
-                const filteredArr = codeReviewRatingArr.filter(val => val !== 0);
-                let ReviewArr = filteredArr.reduce((partialSum, a) => partialSum + a, 0);
-                let finalReviewArr = ReviewArr / filteredArr.length
+                let CodeReviewRating =
+                  res.fields["Custom.CodeReviewRating"] || 0;
+                codeReviewRatingArr.push(CodeReviewRating);
+                const filteredArr = codeReviewRatingArr.filter(
+                  (val) => val !== 0
+                );
+                let ReviewArr = filteredArr.reduce(
+                  (partialSum, a) => partialSum + a,
+                  0
+                );
+                let finalReviewArr = ReviewArr / filteredArr.length;
 
-                setCodeReviewRating(finalReviewArr)
+                setCodeReviewRating(finalReviewArr);
                 let actualHours = 0;
                 if (
                   res.fields["System.WorkItemType"] === "Task" ||
@@ -241,6 +229,7 @@ const Mark = () => {
                 redoHoursArr.push(redoHours);
               }
             });
+
             actualHoursArr = (actualHoursArr || [])
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
@@ -255,7 +244,7 @@ const Mark = () => {
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
             redoHoursArr = parseFloat(redoHoursArr);
-            // actualHoursArr = actualHoursArr + redoHoursArr;
+
             setTotalEffort(effortArr);
             setTotalactualhour(actualHoursArr);
             if (effortArr && actualHoursArr) {
@@ -311,43 +300,22 @@ const Mark = () => {
                       ) {
                         let dueDate = moment(
                           taskdetails.fields[
-                          "Microsoft.VSTS.Scheduling.DueDate"
+                            "Microsoft.VSTS.Scheduling.DueDate"
                           ]
                         ).format("YYYY-MM-DD");
                         let actualEndDate = moment(
                           taskdetails.fields["Custom.ActualEndDate"]
                         ).format("YYYY-MM-DD");
-                        // let sprintFinishdate =
-                        //   innersprint?.attributes?.finishDate || "Not Given";
-                        // let taskEnddate =
-                        //   taskdetails.fields["Custom.ActualEndDate"] ||
-                        //   taskdetails.fields[
-                        //   "Microsoft.VSTS.Common.StateChangeDate"
-                        //   ] ||
-                        //   "Not Given";
-                        // sprintFinishdate =
-                        //   moment(sprintFinishdate).format("MM DD YYYY");
-                        // taskEnddate = moment(taskEnddate).format("MM DD YYYY");
 
-                        // sprintFinishdate = new Date(sprintFinishdate);
-                        // taskEnddate = new Date(taskEnddate);
-
-                        // if (sprintFinishdate && taskEnddate) {
-                        //   if (
-                        //     sprintFinishdate !== "Invalid date" &&
-                        //     taskEnddate !== "Invalid date"
-                        //   ) {
                         if (
                           actualEndDate <= dueDate &&
                           taskdetails.fields["Custom.HoursTaken"] <=
-                          taskdetails.fields[
-                          "Microsoft.VSTS.Scheduling.Effort"
-                          ]
+                            taskdetails.fields[
+                              "Microsoft.VSTS.Scheduling.Effort"
+                            ]
                         ) {
                           ontimesprint++;
                         }
-                        //   }
-                        // }
                       }
                     }
                   });
@@ -432,7 +400,7 @@ const Mark = () => {
                 ((100 +
                   ((2 - numberofbugsreportedbyClient) /
                     numberofbugsreportedbyClient) *
-                  100) *
+                    100) *
                   10) /
                 100;
               reportedbyclientmark = reportedbyclientmark.toFixed(2);
@@ -473,27 +441,28 @@ const Mark = () => {
 
   const handleexceldropdown = async (e) => {
     let selectedFile = e;
-    setDesignation(e)
-    localStorage.setItem("designation", selectedFile)
+    setDesignation(e);
+    localStorage.setItem("designation", selectedFile);
+
     let data = await axios({
       method: "post",
       url: `${BACKEND_URL}/dummy/path`,
       data: {
         selectedFile: selectedFile,
       },
-      // headers: { Accept: "application/json" }
     });
+
     let finalData = [];
     finalData = data.data.Updated;
     finalData[0].C = EmpName;
     finalData[0].E = lastDate;
     finalData[1].E = startDate;
-    finalData[6].I = TotalEffort;
-    finalData[6].J = Totalactualhour;
-    finalData[6].K = TaskwiseMarks;
-    finalData[7].I = AssignTask;
-    finalData[7].J = OntimeTask;
-    finalData[7].K = sprintwiseMarks;
+    finalData[6].I = TotalEffort; //284
+    finalData[6].J = Totalactualhour; //245
+    finalData[6].K = TaskwiseMarks; //23.18
+    finalData[7].I = AssignTask; //45
+    finalData[7].J = OntimeTask; //38
+    finalData[7].K = sprintwiseMarks; //21.11
     finalData[8].K = 0;
     finalData[9].J = Redocount;
     finalData[9].K = redoMarks;
@@ -507,34 +476,16 @@ const Mark = () => {
     setFileData(finalData);
   };
 
- 
   useEffect(() => {
-    if (localdesigantion !== null || localdesigantion !== "" || localdesigantion !== undefined) {
-      handleexceldropdown(localdesigantion)
-    }
-    if (localStartDate !== null || localStartDate !== "" || localStartDate !== undefined) {
-      setstartDate(localStartDate)
-    }
-    if (localEndDate !== null || localEndDate !== "" || localEndDate !== undefined) {
-      setlastDate(localEndDate)
-    }
-
-  }, [localdesigantion, localStartDate, localEndDate])
-
-  console.log("localStartDate", localStartDate)
-  console.log("localEndDate", localEndDate)
-
-  useEffect(() => {
-    setDesignation(localdesigantion)
-    const urlParams = new URLSearchParams(window.location.search)
-    const hasMarkParam = urlParams.has('email');
+    setDesignation(localdesigantion);
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasMarkParam = urlParams.has("email");
     if (hasMarkParam === false) {
-      localStorage.removeItem('designation');
-      localStorage.removeItem('startDate');
-      localStorage.removeItem('endDate');
+      localStorage.removeItem("designation");
+      localStorage.removeItem("startDate");
+      localStorage.removeItem("endDate");
     }
-
-  }, [])
+  }, []);
 
   // ******************************************************************************************//
   // Get the current date
@@ -543,16 +494,16 @@ const Mark = () => {
   const year = moment().year(); // The year you want to divide into quarters
 
   // Get the first day of each quarter for the given year
-  const q1Start = moment({ year }).startOf('year');
-  const q2Start = moment({ year }).startOf('year').add(3, 'months');
-  const q3Start = moment({ year }).startOf('year').add(6, 'months');
-  const q4Start = moment({ year }).startOf('year').add(9, 'months');
+  const q1Start = moment({ year }).startOf("year");
+  const q2Start = moment({ year }).startOf("year").add(3, "months");
+  const q3Start = moment({ year }).startOf("year").add(6, "months");
+  const q4Start = moment({ year }).startOf("year").add(9, "months");
 
   // Get the last day of each quarter for the given year
-  const q1End = moment(q2Start).subtract(1, 'day');
-  const q2End = moment(q3Start).subtract(1, 'day');
-  const q3End = moment(q4Start).subtract(1, 'day');
-  const q4End = moment({ year }).endOf('year');
+  const q1End = moment(q2Start).subtract(1, "day");
+  const q2End = moment(q3Start).subtract(1, "day");
+  const q3End = moment(q4Start).subtract(1, "day");
+  const q4End = moment({ year }).endOf("year");
 
   // Format the start and end dates of each quarter as strings
   const startJanToMar = q1Start.format("YYYY-MM-DD");
@@ -562,7 +513,7 @@ const Mark = () => {
   const startJulToSep = q3Start.format("YYYY-MM-DD");
   const endJulToSep = q3End.format("YYYY-MM-DD");
   const startOctToDec = q4Start.format("YYYY-MM-DD");
-  const endOctToDec = q4End.format("YYYY-MM-DD")
+  const endOctToDec = q4End.format("YYYY-MM-DD");
 
   // Determine which quarter is coming soon or has already passed
   let janToMar = true;
@@ -570,102 +521,187 @@ const Mark = () => {
   let julToSep = true;
   let octToDec = true;
 
-  if (currentDate.isBetween(q1Start, q1End, null, '[]')) {
-    janToMar = false
-  } else if (currentDate.isBetween(q2Start, q2End, null, '[]')) {
-    janToMar = false
-    aprToJun = false
-  } else if (currentDate.isBetween(q3Start, q3End, null, '[]')) {
-    janToMar = false
-    aprToJun = false
-    julToSep = false
-  } else if (currentDate.isBetween(q4Start, q4End, null, '[]')) {
-    janToMar = false
-    aprToJun = false
-    julToSep = false
-    octToDec = false
+  if (currentDate.isBetween(q1Start, q1End, null, "[]")) {
+    janToMar = false;
+  } else if (currentDate.isBetween(q2Start, q2End, null, "[]")) {
+    janToMar = false;
+    aprToJun = false;
+  } else if (currentDate.isBetween(q3Start, q3End, null, "[]")) {
+    janToMar = false;
+    aprToJun = false;
+    julToSep = false;
+  } else if (currentDate.isBetween(q4Start, q4End, null, "[]")) {
+    janToMar = false;
+    aprToJun = false;
+    julToSep = false;
+    octToDec = false;
   }
 
   // *************************************************************************************** //
 
   const handleChangeSelectBox = (event) => {
-    setTimePeriod(event.target.value);
-
+    setTimePeriod(event);
+    localStorage.setItem("timperiod", event);
     // ..........................................................................................................
     // Jan To March Months
-    if (event.target.value == 1) {
-      localStorage.setItem("startDate", startJanToMar)
-      localStorage.setItem("endDate", endJanToMar)
-      setEvent(1)
+    if (event == 1) {
+      localStorage.setItem("startDate", startJanToMar);
+      localStorage.setItem("endDate", endJanToMar);
+      setEvent(1);
       setstartDate(startJanToMar);
       setlastDate(endJanToMar);
-      setSelectedThreeMonths(true)
+      setSelectedThreeMonths(true);
     }
 
     // Apr To Jun Months
-    if (event.target.value == 2) {
-      localStorage.setItem("startDate", startAprToJun)
-      localStorage.setItem("endDate", endAprToJun)
-      setEvent(2)
+    if (event == 2) {
+      localStorage.setItem("startDate", startAprToJun);
+      localStorage.setItem("endDate", endAprToJun);
+      setEvent(2);
       setstartDate(startAprToJun);
       setlastDate(endAprToJun);
-      setSelectedThreeMonths(true)
+      setSelectedThreeMonths(true);
     }
 
     // Jul To Sep Months
-    if (event.target.value == 3) {
-      localStorage.setItem("startDate", startJulToSep)
-      localStorage.setItem("endDate", endJulToSep)
-      setEvent(3)
+    if (event == 3) {
+      localStorage.setItem("startDate", startJulToSep);
+      localStorage.setItem("endDate", endJulToSep);
+      setEvent(3);
       setstartDate(startJulToSep);
       setlastDate(endJulToSep);
-      setSelectedThreeMonths(true)
+      setSelectedThreeMonths(true);
     }
 
     // Oct To Dec Months
-    if (event.target.value == 4) {
-      localStorage.setItem("startDate", startOctToDec)
-      localStorage.setItem("endDate", endOctToDec)
-      setEvent(4)
+    if (event == 4) {
+      localStorage.setItem("startDate", startOctToDec);
+      localStorage.setItem("endDate", endOctToDec);
+      setEvent(4);
       setstartDate(startOctToDec);
       setlastDate(endOctToDec);
-      setSelectedThreeMonths(true)
+      setSelectedThreeMonths(true);
     }
 
     // custom
-    if (event.target.value == 5) {
+    if (event == 5) {
       setshowCustomDate(true);
-      setEvent(5)
-      setSelectedThreeMonths(false)
+      setEvent(5);
+      setSelectedThreeMonths(false);
+     
       return;
     }
-
-
   };
 
-
   function checkThreeMonths() {
-
     if (dateEvent === 5) {
       const date1 = new Date(customdate[0]);
       const date2 = new Date(customdate[1]);
 
-      const diffInMonths = (date2.getFullYear() - date1.getFullYear()) * 12 + (date2.getMonth() - date1.getMonth());
+      const diffInMonths =
+        (date2.getFullYear() - date1.getFullYear()) * 12 +
+        (date2.getMonth() - date1.getMonth());
 
       if (diffInMonths === 3) {
-        setIsThreeMonths(true)
+        setIsThreeMonths(true);
       } else {
-        setIsThreeMonths(false)
+        setIsThreeMonths(false);
       }
     } else {
-      setIsThreeMonths(false)
+      setIsThreeMonths(false);
     }
   }
 
   useEffect(() => {
-    checkThreeMonths()
-  }, [customdate, dateEvent])
+    checkThreeMonths();
+  }, [customdate, dateEvent]);
 
+
+  const localdesigantion = localStorage.getItem("designation");
+  const localStartDate = localStorage.getItem("startDate");
+  const localTimePeriod = localStorage.getItem("timperiod");
+  const localEndDate = localStorage.getItem("endDate");
+
+  const windwoRefresh = async () => {
+    if (
+      localTimePeriod !== null ||
+      localTimePeriod !== "" ||
+      (localTimePeriod !== undefined && localStartDate !== null) ||
+      localStartDate !== "" ||
+      (localStartDate !== undefined && localEndDate !== null) ||
+      localEndDate !== "" ||
+      (localEndDate !== undefined && localdesigantion !== null) ||
+      localdesigantion !== "" ||
+      localdesigantion !== undefined
+    ) {
+      setstartDate(localStartDate);
+      setlastDate(localEndDate);
+      setTimePeriod(localTimePeriod)
+      let data = await axios({
+        method: "post",
+        url: `${BACKEND_URL}/dummy/path`,
+        data: {
+          selectedFile: localdesigantion,
+        },
+      });
+      let finalData = [];
+      finalData = data.data.Updated;
+      finalData[0].C = EmpName;
+      finalData[0].E = lastDate;
+      finalData[1].E = startDate;
+      finalData[6].I = TotalEffort; //284
+      finalData[6].J = Totalactualhour; //245
+      finalData[6].K = TaskwiseMarks; //23.18
+      finalData[7].I = AssignTask; //45
+      finalData[7].J = OntimeTask; //38
+      finalData[7].K = sprintwiseMarks; //21.11
+      finalData[8].K = 0;
+      finalData[9].J = Redocount;
+      finalData[9].K = redoMarks;
+      finalData[10].J = ReportedByclient;
+      finalData[10].K = clientbugMarks;
+      finalData[11].K = criticalMarks;
+      finalData[11].I = TotalcriticalBug;
+      finalData[11].J = ResolvedcriticalBug;
+      finalData[12].K = 0;
+      finalData[13].K = 0;
+      setFileData(finalData);
+    }
+  };
+
+  useEffect(() => {
+    windwoRefresh();
+  }, [
+    localdesigantion,
+    localStartDate,
+    localTimePeriod,
+    localEndDate,
+    EmpName,
+    lastDate,
+    startDate,
+    TotalEffort,
+    Totalactualhour,
+    TaskwiseMarks,
+    AssignTask,
+    OntimeTask,
+    sprintwiseMarks,
+    Redocount,
+    redoMarks,
+    ReportedByclient,
+    clientbugMarks,
+    criticalMarks,
+    TotalcriticalBug,
+    ResolvedcriticalBug,
+  ]);
+
+
+  function handleApply(){
+    setstartDate(customdate[0]);
+    setlastDate(customdate[1]);
+    localStorage.setItem("startDate", customdate[0]);
+    localStorage.setItem("endDate", customdate[1]);
+
+  }
   return (
     <>
       {loadingData ? (
@@ -685,61 +721,68 @@ const Mark = () => {
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={timePeriod}
-                  onChange={handleChangeSelectBox}
+                  onChange={(e) => handleChangeSelectBox(e.target.value)}
                   input={<OutlinedInput label="Time Period" />}
                 >
-                  <MenuItem disabled={janToMar} value={1}>Jan To Mar</MenuItem>
-                  <MenuItem disabled={aprToJun} value={2}>Apr To June</MenuItem>
-                  <MenuItem disabled={julToSep} value={3}>July To Sept</MenuItem>
-                  <MenuItem disabled={octToDec} value={4}>Oct To Dec</MenuItem>
+                  <MenuItem disabled={janToMar} value={1}>
+                    Jan To Mar
+                  </MenuItem>
+                  <MenuItem disabled={aprToJun} value={2}>
+                    Apr To June
+                  </MenuItem>
+                  <MenuItem disabled={julToSep} value={3}>
+                    July To Sept
+                  </MenuItem>
+                  <MenuItem disabled={octToDec} value={4}>
+                    Oct To Dec
+                  </MenuItem>
                   <MenuItem value={5}>Custom</MenuItem>
                   {/* <MenuItem value={6}>Last Three Months</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
-            {
-              timePeriod !== 5 && isThreeMonths || selectedThreeMonths ? null :
-                <Grid item sm={5}>
-                  {showCustomDate && (
-                    <>
-                      <input
-                        type="date"
-                        id="dob"
-                        onChange={(newValue) => {
-                          setCustomdate([
-                            moment(newValue.target.value).format("YYYY-MM-DD"),
-                            moment(newValue.target.value).format("YYYY-MM-DD"),
-                          ]);
-                        }}
-                        value={customdate[0]}
-                      />
-                      <span> to </span>
-                      <input
-                        type="date"
-                        onChange={(newValue) => {
-                          setCustomdate([
-                            customdate[0],
-                            moment(newValue.target.value).format("YYYY-MM-DD"),
-                          ]);
-                        }}
-                        min={customdate[0]}
-                        id="dob"
-                        value={customdate[1]}
-                      />
-                      &nbsp;&nbsp;
-                      <Button
-                        variant="contained"
-                        onClick={() => {
-                          setstartDate(customdate[0]);
-                          setlastDate(customdate[1]);
-                        }}
-                      >
-                        Apply
-                      </Button>
-                    </>
-                  )}
-                </Grid>
-            }
+            {(timePeriod !== 5 && isThreeMonths) ||
+            selectedThreeMonths ? null : (
+              <Grid item sm={5}>
+                {showCustomDate && (
+                  <>
+                    <input
+                      type="date"
+                      id="dob"
+                      onChange={(newValue) => {
+                        setCustomdate([
+                          moment(newValue.target.value).format("YYYY-MM-DD"),
+                          moment(newValue.target.value).format("YYYY-MM-DD"),
+                        ]);
+                      }}
+                      value={customdate[0]}
+                    />
+                    <span> to </span>
+                    <input
+                      type="date"
+                      onChange={(newValue) => {
+                        setCustomdate([
+                          customdate[0],
+                          moment(newValue.target.value).format("YYYY-MM-DD"),
+                        ]);
+                      }}
+                      min={customdate[0]}
+                      id="dob"
+                      value={customdate[1]}
+                    />
+                    &nbsp;&nbsp;
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                       handleApply()
+                      }}
+                    >
+                      Apply
+                    </Button>
+                  </>
+                )}
+              </Grid>
+            )}
 
             <Grid item sm={2}>
               <FormControl fullWidth>
@@ -792,11 +835,3 @@ const Mark = () => {
 };
 
 export default Mark;
-
-
-
-
-
-
-
-
