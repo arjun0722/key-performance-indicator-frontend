@@ -588,7 +588,7 @@ const Mark = () => {
       setshowCustomDate(true);
       setEvent(5);
       setSelectedThreeMonths(false);
-     
+
       return;
     }
   };
@@ -616,7 +616,6 @@ const Mark = () => {
     checkThreeMonths();
   }, [customdate, dateEvent]);
 
-
   const localdesigantion = localStorage.getItem("designation");
   const localStartDate = localStorage.getItem("startDate");
   const localTimePeriod = localStorage.getItem("timperiod");
@@ -636,7 +635,7 @@ const Mark = () => {
     ) {
       setstartDate(localStartDate);
       setlastDate(localEndDate);
-      setTimePeriod(localTimePeriod)
+      setTimePeriod(localTimePeriod);
       let data = await axios({
         method: "post",
         url: `${BACKEND_URL}/dummy/path`,
@@ -649,12 +648,12 @@ const Mark = () => {
       finalData[0].C = EmpName;
       finalData[0].E = lastDate;
       finalData[1].E = startDate;
-      finalData[6].I = TotalEffort; //284
-      finalData[6].J = Totalactualhour; //245
-      finalData[6].K = TaskwiseMarks; //23.18
-      finalData[7].I = AssignTask; //45
-      finalData[7].J = OntimeTask; //38
-      finalData[7].K = sprintwiseMarks; //21.11
+      finalData[6].I = TotalEffort;
+      finalData[6].J = Totalactualhour;
+      finalData[6].K = TaskwiseMarks;
+      finalData[7].I = AssignTask;
+      finalData[7].J = OntimeTask;
+      finalData[7].K = sprintwiseMarks;
       finalData[8].K = 0;
       finalData[9].J = Redocount;
       finalData[9].K = redoMarks;
@@ -694,13 +693,11 @@ const Mark = () => {
     ResolvedcriticalBug,
   ]);
 
-
-  function handleApply(){
+  function handleApply() {
     setstartDate(customdate[0]);
     setlastDate(customdate[1]);
     localStorage.setItem("startDate", customdate[0]);
     localStorage.setItem("endDate", customdate[1]);
-
   }
   return (
     <>
@@ -774,7 +771,7 @@ const Mark = () => {
                     <Button
                       variant="contained"
                       onClick={() => {
-                       handleApply()
+                        handleApply();
                       }}
                     >
                       Apply
