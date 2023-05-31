@@ -58,6 +58,12 @@ const Renderthirdtable = ({
   finalAppraiseAvg,
   setAppraiserAvg,
   finalAppraiserAvg,
+  setTextError1,
+  textError1,
+  setTextError2,
+  textError2,
+  setTextError3,
+  textError3,
 }) => {
   // all user and login user
 
@@ -77,37 +83,6 @@ const Renderthirdtable = ({
   }, [email]);
 
   //UseEffect for the Appraisee Self Rating , Appraiser Rating and target
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setParentSelfAppraise({
-  //       customActualdeliveryMarks: thirdTable[0]?.J,
-  //       customOnTimeMarks: thirdTable[1]?.J,
-  //       customAvgCodeMarks: thirdTable[2]?.J,
-  //       customReDoMarks: thirdTable[3]?.J,
-  //       customBugsReportedMarks: thirdTable[4]?.J,
-  //       customCriticalIssuesMarks: thirdTable[5]?.J,
-  //       customCustomerSatisfactionMarks: thirdTable[6]?.J,
-  //       customUpskillingMarks: thirdTable[7]?.J,
-  //     });
-
-  //     setParentAppraise({
-  //       customActualdeliveryMarksAr: thirdTable[0]?.L,
-  //       customOnTimeMarksAr: thirdTable[1]?.L,
-  //       customAvgCodeMarksAr: thirdTable[2]?.L,
-  //       customReDoMarksAr: thirdTable[3]?.L,
-  //       customBugsReportedMarksAr: thirdTable[4]?.L,
-  //       customCriticalIssuesMarksAr: thirdTable[5]?.L,
-  //       customCustomerSatisfactionMarksAr: thirdTable[6]?.L,
-  //       customUpskillingMarksAr: thirdTable[7]?.L,
-  //     });
-  //     setParentTarget({
-  //       actualDelivery: thirdTable[0]?.I,
-  //       onTime: thirdTable[1]?.I,
-  //       critical: thirdTable[5]?.I,
-  //     });
-  //   }, 500);
-  // }, []);
 
   //state to maintain target values
 
@@ -181,45 +156,18 @@ const Renderthirdtable = ({
   const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(0);
 
   //................. this states use for input validations ...............//
-  const [textError1, setTextError1] = useState({
-    customOnTimeMarks: false,
-    customAvgCodeMarks: false,
-    customReDoMarks: false,
-    customCustomerSatisfactionMarks: false,
-    customUpskillingMarks: false,
-  });
-//--------------------//
-const [textError1customOnTimeMarks,settextError1customOnTimeMarks] = useState(false)
-const [textError1customAvgCodeMarks,settextError1customAvgCodeMarks] = useState(false)
-const [textError1customReDoMarks,settextError1customReDoMarks] = useState(false)
-const [textError1customCustomerSatisfactionMarks,settextError1customCustomerSatisfactionMarks] = useState(false)
-const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = useState(false)
 
+  //--------------------//
 
-//--------------------//
-
+  //--------------------//
 
   const [indError1, setIndError1] = useState();
-  const [textError2, setTextError2] = useState({
-    customOnTimeMarksAr: false,
-    customAvgCodeMarksAr: false,
-    customReDoMarksAr: false,
-    customCustomerSatisfactionMarksAr: false,
-    customUpskillingMarksAr: false,
-  });
+
   const [indError2, setIndError2] = useState();
-  const [textError3, setTextError3] = useState({
-    customOnTimeMarksRM: false,
-    customAvgCodeMarksRM: false,
-    customReDoMarksRM: false,
-    customCustomerSatisfactionMarksRM: false,
-    customUpskillingMarksRM: false,
-  });
+
   const [indError3, setIndError3] = useState();
 
   function handleOnChange(e) {
-   
-
     if (ind == 0) {
       setCustomActualdelivery(e.target.value);
       setParentSelfAppraise({
@@ -235,25 +183,22 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError1(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customOnTimeMarks: true,
-        // });
-        settextError1customOnTimeMarks(true)
+        setTextError1({
+          ...textError1,
+          customOnTimeMarks: true,
+        });
+
         setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
 
-        // setTextError1(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customOnTimeMarks: false,
-        // });
-        settextError1customOnTimeMarks(false)
         setIndError1(ind);
-        return ; 
+        setTextError1({
+          ...textError1,
+          customOnTimeMarks: false,
+        });
+        return;
       }
     }
     if (ind == 2) {
@@ -264,24 +209,22 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError1(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customAvgCodeMarks: true,
-        // });
-        settextError1customAvgCodeMarks(true)
+        setTextError1({
+          ...textError1,
+          customAvgCodeMarks: true,
+        });
+
         setIndError1(ind);
-        return ;
+        return;
       } else {
         setIsSubmit(false);
-        // setTextError1(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customAvgCodeMarks: false,
-        // });
-        settextError1customAvgCodeMarks(false)
+        setTextError1({
+          ...textError1,
+          customAvgCodeMarks: false,
+        });
+
         setIndError1(ind);
-        return ;
+        return;
       }
     }
     if (ind == 3) {
@@ -292,24 +235,22 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 2) {
         setIsSubmit(true);
-        // setTextError1(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customReDoMarks: true,
-        // });
-        settextError1customReDoMarks(true)
+        setTextError1({
+          ...textError1,
+          customReDoMarks: true,
+        });
+
         setIndError1(ind);
-        return ;
+        return;
       } else {
         setIsSubmit(false);
-        // setTextError1(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customReDoMarks: false,
-        // });
-        settextError1customReDoMarks(false)
+        setTextError1({
+          ...textError1,
+          customReDoMarks: false,
+        });
+
         setIndError1(ind);
-        return ; 
+        return;
       }
     }
     if (ind == 4) {
@@ -334,22 +275,20 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError1(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customCustomerSatisfactionMarks: true,
-        // });
-        settextError1customCustomerSatisfactionMarks(true)
+        setTextError1({
+          ...textError1,
+          customCustomerSatisfactionMarks: true,
+        });
+
         setIndError1(ind);
-        return ; 
+        return;
       } else {
         setIsSubmit(false);
-        // setTextError1(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customCustomerSatisfactionMarks: false,
-        // });
-        settextError1customCustomerSatisfactionMarks(false)
+        setTextError1({
+          ...textError1,
+          customCustomerSatisfactionMarks: false,
+        });
+
         setIndError1(ind);
         return;
       }
@@ -362,28 +301,25 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 1) {
         setIsSubmit(true);
-        // setTextError1(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customUpskillingMarks: true,
-        // });
-        settextError1customUpskillingMarks(true)
+        setTextError1({
+          ...textError1,
+          customUpskillingMarks: true,
+        });
+
         setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        // setTextError1(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customUpskillingMarks: false,
-        // });
-        settextError1customUpskillingMarks(false)
+        setTextError1({
+          ...textError1,
+          customUpskillingMarks: false,
+        });
+
         setIndError1(ind);
-        return ; 
+        return;
       }
     }
   }
- 
 
   function handleOnChange1(e) {
     if (ind == 0) {
@@ -401,7 +337,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError2(true);
         setTextError2({
           ...textError2,
           customOnTimeMarksAr: true,
@@ -409,12 +344,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2(false);
         setTextError2({
           ...textError2,
           customOnTimeMarksAr: false,
         });
-        setIndError2();
+        setIndError2(ind);
       }
     }
     if (ind == 2) {
@@ -425,7 +359,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError2(true);
         setTextError2({
           ...textError2,
           customAvgCodeMarksAr: true,
@@ -433,12 +366,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2(false);
         setTextError2({
           ...textError2,
           customAvgCodeMarksAr: false,
         });
-        setIndError2();
+        setIndError2(ind);
       }
     }
     if (ind == 3) {
@@ -449,7 +381,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 2) {
         setIsSubmit(true);
-        // setTextError2(true);
         setTextError2({
           ...textError2,
           customReDoMarksAr: true,
@@ -457,12 +388,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2(false);
         setTextError2({
           ...textError2,
           customReDoMarksAr: false,
         });
-        setIndError2();
+        setIndError2(ind);
       }
     }
     if (ind == 4) {
@@ -487,21 +417,18 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError2(true);
         setTextError2({
           ...textError2,
           customCustomerSatisfactionMarksAr: true,
         });
-    
         setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2(false);
         setTextError2({
           ...textError2,
           customCustomerSatisfactionMarksAr: false,
         });
-        setIndError2();
+        setIndError2(ind);
       }
     }
     if (ind == 7) {
@@ -512,7 +439,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 1) {
         setIsSubmit(true);
-        // setTextError2(true);
         setTextError2({
           ...textError2,
           customUpskillingMarksAr: true,
@@ -520,13 +446,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError2(ind);
       } else {
         setIsSubmit(false);
-
-        // setTextError2(false);
         setTextError2({
           ...textError2,
           customUpskillingMarksAr: false,
         });
-        setIndError2();
+        setIndError2(ind);
       }
     }
   }
@@ -547,7 +471,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError3(true);
         setTextError3({
           ...textError3,
           customOnTimeMarksRM: true,
@@ -555,12 +478,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3(false);
         setTextError3({
           ...textError3,
           customOnTimeMarksRM: false,
         });
-        setIndError3();
+        setIndError3(ind);
       }
     }
     if (ind == 2) {
@@ -571,7 +493,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError3(true);
         setTextError3({
           ...textError3,
           customAvgCodeMarksRM: true,
@@ -579,12 +500,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3(false);
         setTextError3({
           ...textError3,
           customAvgCodeMarksRM: false,
         });
-        setIndError3();
+        setIndError3(ind);
       }
     }
     if (ind == 3) {
@@ -595,7 +515,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 2) {
         setIsSubmit(true);
-        // setTextError3(true);
         setTextError3({
           ...textError3,
           customReDoMarksRM: true,
@@ -603,12 +522,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3(false);
         setTextError3({
           ...textError3,
           customReDoMarksRM: false,
         });
-        setIndError3();
+        setIndError3(ind);
       }
     }
     if (ind == 4) {
@@ -633,7 +551,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError3(true);
         setTextError3({
           ...textError3,
           customCustomerSatisfactionMarksRM: true,
@@ -641,12 +558,11 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3(false);
         setTextError3({
           ...textError3,
           customCustomerSatisfactionMarksRM: false,
         });
-        setIndError3();
+        setIndError3(ind);
       }
     }
     if (ind == 7) {
@@ -657,7 +573,6 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
       });
       if (e.target.value > 1) {
         setIsSubmit(true);
-        // setTextError3(true);
         setTextError3({
           ...textError3,
           customUpskillingMarksRM: true,
@@ -665,16 +580,15 @@ const [textError1customUpskillingMarks,settextError1customUpskillingMarks] = use
         setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3(false);
         setTextError3({
           ...textError3,
           customUpskillingMarksRM: false,
         });
-        setIndError3();
+        setIndError3(ind);
       }
     }
   }
-  
+
   function showTextError1() {
     if (ind == 1) {
       return textError1.customOnTimeMarks;
@@ -2592,6 +2506,12 @@ const Renderforthtable = ({
   designation,
   rowTotal,
   setRowTotal,
+  setTextError1LowPotential,
+  textError1LowPotential,
+  setTextError2GoodPotential,
+  textError2GoodPotential,
+  setTextError3HighPotential,
+  textError3HighPotential,
 }) => {
   // const [avg,setAvg] = useState(0)
 
@@ -2899,19 +2819,37 @@ const Renderforthtable = ({
   //------------------------------------------------------------------//
 
   function handleOnChange1(e) {
+   
     if (MANAGEMENt_ID.includes(loginUser)) {
       if (e.target.value > 5) {
         setTextError1(true);
+        setTextError1LowPotential({
+          ...textError1LowPotential,
+          [ind]: true,
+        });
         setIndError1(ind);
         setIsSubmit(true);
       } else {
         setIsSubmit(false);
+        setTextError1LowPotential({
+          ...textError1LowPotential,
+          [ind]: false,
+        });
         setTextError1(false);
         setIndError1();
         setTextError2(false);
         setIndError2();
         setTextError3(false);
         setIndError3();
+      }
+
+      if (e.target.value === "0" || e.target.value === undefined) {
+        setTextError1LowPotential({
+          ...textError1LowPotential,
+          [ind]: false,
+        });
+
+        setTextError1(false);
       }
       if (e.target.value && e.target.value > 0) {
         setIsDisable({
@@ -3029,21 +2967,40 @@ const Renderforthtable = ({
       return console.error("error");
     }
   }
+ 
 
   function handleOnChange2(e) {
+
     if (MANAGEMENt_ID.includes(loginUser)) {
       if (e.target.value < 6 || e.target.value > 8) {
         setTextError2(true);
+        setTextError2GoodPotential({
+          ...textError2GoodPotential,
+          [ind]: true,
+        });
         setIndError2(ind);
         setIsSubmit(true);
       } else {
         setIsSubmit(false);
         setTextError1(false);
+        setTextError2GoodPotential({
+          ...textError2GoodPotential,
+          [ind]: false,
+        });
         setIndError1();
         setTextError2(false);
         setIndError2();
         setTextError3(false);
         setIndError3();
+      }
+
+      if (e.target.value === "0" || e.target.value === undefined) {
+        setTextError2GoodPotential({
+          ...textError2GoodPotential,
+          [ind]: false,
+        });
+
+        setTextError2(false);
       }
       if (e.target.value && e.target.value > 0) {
         setIsDisable({
@@ -3167,14 +3124,31 @@ const Renderforthtable = ({
         setTextError3(true);
         setIndError3(ind);
         setIsSubmit(true);
+        setTextError3HighPotential({
+          ...textError3HighPotential,
+          [ind]: true,
+        });
       } else {
         setIsSubmit(false);
         setTextError1(false);
         setIndError1();
+        setTextError3HighPotential({
+          ...textError3HighPotential,
+          [ind]: false,
+        });
         setTextError2(false);
         setIndError2();
         setTextError3(false);
         setIndError3();
+      }
+
+      if (e.target.value === "0" || e.target.value === undefined) {
+        setTextError3HighPotential({
+          ...textError3HighPotential,
+          [ind]: false,
+        });
+
+        setTextError3(false);
       }
 
       if (e.target.value && e.target.value > 0) {
@@ -3711,7 +3685,6 @@ const Tableviewnew = ({
   selectedThreeMonths,
   isThreeMonths,
 }) => {
-
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [userfeedback, setUserfeedback] = useState({});
@@ -4635,6 +4608,96 @@ const Tableviewnew = ({
     setIsSubmit(false);
   }
 
+  const [textError1, setTextError1] = useState({
+    customOnTimeMarks: false,
+    customAvgCodeMarks: false,
+    customReDoMarks: false,
+    customCustomerSatisfactionMarks: false,
+    customUpskillingMarks: false,
+  });
+
+  const [textError2, setTextError2] = useState({
+    customOnTimeMarksAr: false,
+    customAvgCodeMarksAr: false,
+    customReDoMarksAr: false,
+    customCustomerSatisfactionMarksAr: false,
+    customUpskillingMarksAr: false,
+  });
+
+  const [textError3, setTextError3] = useState({
+    customOnTimeMarksRM: false,
+    customAvgCodeMarksRM: false,
+    customReDoMarksRM: false,
+    customCustomerSatisfactionMarksRM: false,
+    customUpskillingMarksRM: false,
+  });
+
+
+
+  const [textError1LowPotential, setTextError1LowPotential] = useState({
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+  });
+  const [textError2GoodPotential, setTextError2GoodPotential] = useState({
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+  });
+  const [textError3HighPotential, setTextError3HighPotential] = useState({
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+  });
+
+
+
+  function isButtonShouldDisable(){
+    const values = [
+      ...Object.values(textError1),
+      ...Object.values(textError2),
+      ...Object.values(textError3),
+      ...Object.values(textError1LowPotential),
+      ...Object.values(textError2GoodPotential),
+      ...Object.values(textError3HighPotential),
+
+    ]
+    return values.includes(true);
+  }
+
   return (
     <>
       {loader ? (
@@ -4790,6 +4853,12 @@ const Tableviewnew = ({
                   return (
                     <>
                       <Renderthirdtable
+                        setTextError1={setTextError1}
+                        textError1={textError1}
+                        setTextError2={setTextError2}
+                        textError2={textError2}
+                        setTextError3={setTextError3}
+                        textError3={textError3}
                         thirdTable={thirdTable}
                         ind={ind}
                         val={val}
@@ -4953,6 +5022,12 @@ const Tableviewnew = ({
                     setTotalMarksInputs={setTotalMarksInputs}
                     setRowTotal={setRowTotal}
                     rowTotal={rowTotal}
+                    setTextError1LowPotential={setTextError1LowPotential}
+                    textError1LowPotential={textError1LowPotential}
+                    setTextError2GoodPotential={setTextError2GoodPotential}
+                    textError2GoodPotential={textError2GoodPotential}
+                    setTextError3HighPotential={setTextError3HighPotential}
+                    textError3HighPotential={textError3HighPotential}
                   />
                 </>
               );
@@ -5270,7 +5345,7 @@ const Tableviewnew = ({
                   minWidth: "120px",
                 }}
                 onClick={() => KpiMarks()}
-                disabled={isSubmit}
+                disabled={isButtonShouldDisable()}
               >
                 Submit KPI
               </Button>
