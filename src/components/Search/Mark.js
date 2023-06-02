@@ -699,6 +699,12 @@ const Mark = () => {
     localStorage.setItem("startDate", customdate[0]);
     localStorage.setItem("endDate", customdate[1]);
   }
+
+
+  
+  const getLocalTImeperiod = localStorage.getItem("timperiod")
+
+
   return (
     <>
       {loadingData ? (
@@ -738,7 +744,7 @@ const Mark = () => {
                 </Select>
               </FormControl>
             </Grid>
-            {(timePeriod !== 5 && isThreeMonths) ||
+            {(Number(getLocalTImeperiod) !== 5 || timePeriod < 5 || isThreeMonths) ||
             selectedThreeMonths ? null : (
               <Grid item sm={5}>
                 {showCustomDate && (

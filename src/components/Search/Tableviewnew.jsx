@@ -66,7 +66,7 @@ const Renderthirdtable = ({
   textError3,
 }) => {
   // all user and login user
-
+  const getLocalTImeperiod = localStorage.getItem("timperiod")
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -193,7 +193,7 @@ const Renderthirdtable = ({
       } else {
         setIsSubmit(false);
 
-        setIndError1(ind);
+        setIndError1();
         setTextError1({
           ...textError1,
           customOnTimeMarks: false,
@@ -207,7 +207,7 @@ const Renderthirdtable = ({
         ...parentSelfAppraise,
         customAvgCodeMarks: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError1({
           ...textError1,
@@ -223,7 +223,7 @@ const Renderthirdtable = ({
           customAvgCodeMarks: false,
         });
 
-        setIndError1(ind);
+        setIndError1();
         return;
       }
     }
@@ -233,7 +233,7 @@ const Renderthirdtable = ({
         ...parentSelfAppraise,
         customReDoMarks: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError1({
           ...textError1,
@@ -249,7 +249,7 @@ const Renderthirdtable = ({
           customReDoMarks: false,
         });
 
-        setIndError1(ind);
+        setIndError1();
         return;
       }
     }
@@ -289,7 +289,7 @@ const Renderthirdtable = ({
           customCustomerSatisfactionMarks: false,
         });
 
-        setIndError1(ind);
+        setIndError1();
         return;
       }
     }
@@ -299,7 +299,7 @@ const Renderthirdtable = ({
         ...parentSelfAppraise,
         customUpskillingMarks: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError1({
           ...textError1,
@@ -315,7 +315,7 @@ const Renderthirdtable = ({
           customUpskillingMarks: false,
         });
 
-        setIndError1(ind);
+        setIndError1();
         return;
       }
     }
@@ -348,7 +348,7 @@ const Renderthirdtable = ({
           ...textError2,
           customOnTimeMarksAr: false,
         });
-        setIndError2(ind);
+        setIndError2();
       }
     }
     if (ind == 2) {
@@ -357,7 +357,7 @@ const Renderthirdtable = ({
         ...parentAppraise,
         customAvgCodeMarksAr: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError2({
           ...textError2,
@@ -370,7 +370,7 @@ const Renderthirdtable = ({
           ...textError2,
           customAvgCodeMarksAr: false,
         });
-        setIndError2(ind);
+        setIndError2();
       }
     }
     if (ind == 3) {
@@ -379,7 +379,7 @@ const Renderthirdtable = ({
         ...parentAppraise,
         customReDoMarksAr: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError2({
           ...textError2,
@@ -392,7 +392,7 @@ const Renderthirdtable = ({
           ...textError2,
           customReDoMarksAr: false,
         });
-        setIndError2(ind);
+        setIndError2();
       }
     }
     if (ind == 4) {
@@ -428,7 +428,7 @@ const Renderthirdtable = ({
           ...textError2,
           customCustomerSatisfactionMarksAr: false,
         });
-        setIndError2(ind);
+        setIndError2();
       }
     }
     if (ind == 7) {
@@ -437,7 +437,7 @@ const Renderthirdtable = ({
         ...parentAppraise,
         customUpskillingMarksAr: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError2({
           ...textError2,
@@ -450,7 +450,7 @@ const Renderthirdtable = ({
           ...textError2,
           customUpskillingMarksAr: false,
         });
-        setIndError2(ind);
+        setIndError2();
       }
     }
   }
@@ -482,7 +482,7 @@ const Renderthirdtable = ({
           ...textError3,
           customOnTimeMarksRM: false,
         });
-        setIndError3(ind);
+        setIndError3();
       }
     }
     if (ind == 2) {
@@ -491,7 +491,7 @@ const Renderthirdtable = ({
         ...parentReviewerMarks,
         customAvgCodeMarksRM: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError3({
           ...textError3,
@@ -504,7 +504,7 @@ const Renderthirdtable = ({
           ...textError3,
           customAvgCodeMarksRM: false,
         });
-        setIndError3(ind);
+        setIndError3();
       }
     }
     if (ind == 3) {
@@ -513,7 +513,7 @@ const Renderthirdtable = ({
         ...parentReviewerMarks,
         customReDoMarksRM: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError3({
           ...textError3,
@@ -526,7 +526,7 @@ const Renderthirdtable = ({
           ...textError3,
           customReDoMarksRM: false,
         });
-        setIndError3(ind);
+        setIndError3();
       }
     }
     if (ind == 4) {
@@ -562,7 +562,7 @@ const Renderthirdtable = ({
           ...textError3,
           customCustomerSatisfactionMarksRM: false,
         });
-        setIndError3(ind);
+        setIndError3();
       }
     }
     if (ind == 7) {
@@ -571,7 +571,7 @@ const Renderthirdtable = ({
         ...parentReviewerMarks,
         customUpskillingMarksRM: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError3({
           ...textError3,
@@ -584,7 +584,7 @@ const Renderthirdtable = ({
           ...textError3,
           customUpskillingMarksRM: false,
         });
-        setIndError3(ind);
+        setIndError3();
       }
     }
   }
@@ -943,6 +943,7 @@ const Renderthirdtable = ({
     customCustomerSatisfactionMarksAr,
     customUpskillingMarksAr,
   ]);
+  
 
   return (
     <>
@@ -960,7 +961,7 @@ const Renderthirdtable = ({
             min="0"
             value={value}
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : val.I > 0
                 ? true
@@ -989,15 +990,15 @@ const Renderthirdtable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? val.I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? val.I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? val.I
                     : "",
                 min: 0,
               },
@@ -1005,7 +1006,7 @@ const Renderthirdtable = ({
             type="number"
             // min={0}
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : loginUser === email
                 ? false
@@ -1074,15 +1075,15 @@ const Renderthirdtable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? val.I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? val.I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? val.I
                     : "",
                 min: 0,
               },
@@ -1090,7 +1091,7 @@ const Renderthirdtable = ({
             type="number"
             // min="0"
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                 ? false
@@ -1106,25 +1107,27 @@ const Renderthirdtable = ({
             //                     : ""
             // }
             value={
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths ? 0 
+              : 
               MANAGEMENt_ID.includes(loginUser)
-                ? ind === 0
-                  ? customActualdeliveryMarksAr
-                  : 0 || ind === 1
-                  ? customOnTimeMarksAr
-                  : 0 || ind === 2
-                  ? customAvgCodeMarksAr
-                  : 0 || ind === 3
-                  ? customReDoMarksAr
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksAr
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksAr
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksAr
-                  : 0 || ind === 7
-                  ? customUpskillingMarksAr
-                  : 0
-                : val.L
+              ? ind === 0
+                ? customActualdeliveryMarksAr
+                : 0 || ind === 1
+                ? customOnTimeMarksAr
+                : 0 || ind === 2
+                ? customAvgCodeMarksAr
+                : 0 || ind === 3
+                ? customReDoMarksAr
+                : 0 || ind === 4
+                ? customBugsReportedMarksAr
+                : 0 || ind === 5
+                ? customCriticalIssuesMarksAr
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarksAr
+                : 0 || ind === 7
+                ? customUpskillingMarksAr
+                : 0
+              : val.L
             }
             style={{
               height: "100%",
@@ -1161,15 +1164,15 @@ const Renderthirdtable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? val.I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? val.I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? val.I
                     : "",
                 min: 0,
               },
@@ -1177,7 +1180,7 @@ const Renderthirdtable = ({
             type="number"
             // min="0"
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
                 ? false
@@ -1258,6 +1261,7 @@ const RenderTestTable = ({
   setAppraiserAvg,
 }) => {
   //state to maintain target values
+  const getLocalTImeperiod = localStorage.getItem("timperiod")
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -1497,7 +1501,7 @@ const RenderTestTable = ({
         ...parentSelfAppraise,
         customAvgCodeMarks: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         setTextError1(true);
         setTextError1({
@@ -1521,7 +1525,7 @@ const RenderTestTable = ({
         ...parentSelfAppraise,
         customReDoMarks: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError1(true);
         setTextError1({
@@ -1584,7 +1588,7 @@ const RenderTestTable = ({
         ...parentSelfAppraise,
         customUpskillingMarks: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError1(true);
         setTextError1({
@@ -1642,7 +1646,7 @@ const RenderTestTable = ({
         ...parentAppraise,
         customAvgCodeMarksAr: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError2(true);
         setTextError2({
@@ -1666,7 +1670,7 @@ const RenderTestTable = ({
         ...parentAppraise,
         customReDoMarksAr: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError2(true);
         setTextError2({
@@ -1728,7 +1732,7 @@ const RenderTestTable = ({
         ...parentAppraise,
         customUpskillingMarksAr: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError2(true);
         setTextError2({
@@ -1787,7 +1791,7 @@ const RenderTestTable = ({
         ...parentReviewerMarks,
         customAvgCodeMarksRM: e.target.value,
       });
-      if (e.target.value > 5) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError3(true);
         setTextError3({
@@ -1811,7 +1815,7 @@ const RenderTestTable = ({
         ...parentReviewerMarks,
         customReDoMarksRM: e.target.value,
       });
-      if (e.target.value > 2) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError3(true);
         setTextError3({
@@ -1873,7 +1877,7 @@ const RenderTestTable = ({
         ...parentReviewerMarks,
         customUpskillingMarksRM: e.target.value,
       });
-      if (e.target.value > 1) {
+      if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError3(true);
         setTextError3({
@@ -2209,6 +2213,8 @@ const RenderTestTable = ({
     customUpskillingMarksAr,
   ]);
 
+
+
   return (
     <>
       <tr id={ind}>
@@ -2226,7 +2232,7 @@ const RenderTestTable = ({
             min="0"
             max={ind === 5 ? "5" : ""}
             disabled={
-              isThreeMonths || selectedThreeMonths
+             getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : value > 0
                 ? true
@@ -2258,15 +2264,15 @@ const RenderTestTable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? com[ind].I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? com[ind].I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? com[ind].I
                     : "",
                 min: 0,
               },
@@ -2274,7 +2280,7 @@ const RenderTestTable = ({
             type="number"
             // min="0"
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : loginUser === email
                 ? false
@@ -2344,49 +2350,58 @@ const RenderTestTable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? com[ind].I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? com[ind].I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? com[ind].I
                     : "",
                 min: 0,
               },
             }}
             type="number"
-            min="0"
-            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
+            // min="0"
+            // max={
+            //           ind === 2
+            //                     ? 5
+            //                     : "" ||
+            //                       ind ===
+            //                                 1
+            //                     ? onTime
+            //                     : ""
+            // }
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                 ? false
                 : true
             }
             value={
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths ? 0 :
               MANAGEMENt_ID.includes(loginUser)
-                ? ind === 0
-                  ? customActualdeliveryMarksAr
-                  : 0 || ind === 1
-                  ? customOnTimeMarksAr
-                  : 0 || ind === 2
-                  ? customAvgCodeMarksAr
-                  : 0 || ind === 3
-                  ? customReDoMarksAr
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksAr
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksAr
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksAr
-                  : 0 || ind === 7
-                  ? customUpskillingMarksAr
-                  : 0
-                : val.AppraiserRating
+              ? ind === 0
+                ? customActualdeliveryMarksAr
+                : 0 || ind === 1
+                ? customOnTimeMarksAr
+                : 0 || ind === 2
+                ? customAvgCodeMarksAr
+                : 0 || ind === 3
+                ? customReDoMarksAr
+                : 0 || ind === 4
+                ? customBugsReportedMarksAr
+                : 0 || ind === 5
+                ? customCriticalIssuesMarksAr
+                : 0 || ind === 6
+                ? customCustomerSatisfactionMarksAr
+                : 0 || ind === 7
+                ? customUpskillingMarksAr
+                : 0
+              : val.AppraiserRating
             }
             style={{
               height: "100%",
@@ -2422,24 +2437,32 @@ const RenderTestTable = ({
               inputProps: {
                 max:
                   ind === 2
-                    ? 5
+                    ? com[ind].I
                     : ind === 1
                     ? onTime
                     : ind === 3
-                    ? 2
+                    ? com[ind].I
                     : ind === 6
                     ? 5
                     : ind === 7
-                    ? 1
+                    ? com[ind].I
                     : "",
                 min: 0,
               },
             }}
             type="number"
-            min="0"
-            max={ind === 2 ? 5 : "" || ind === 1 ? onTime : ""}
+            // min="0"
+            // max={
+            //           ind === 2
+            //                     ? 5
+            //                     : "" ||
+            //                       ind ===
+            //                                 1
+            //                     ? onTime
+            //                     : ""
+            // }
             disabled={
-              isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||  isThreeMonths || selectedThreeMonths
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
                 ? false
@@ -2819,7 +2842,6 @@ const Renderforthtable = ({
   //------------------------------------------------------------------//
 
   function handleOnChange1(e) {
-   
     if (MANAGEMENt_ID.includes(loginUser)) {
       if (e.target.value > 5) {
         setTextError1(true);
@@ -2843,12 +2865,12 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined) {
+      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "" ) {
         setTextError1LowPotential({
           ...textError1LowPotential,
           [ind]: false,
         });
-
+        setIndError1();
         setTextError1(false);
       }
       if (e.target.value && e.target.value > 0) {
@@ -2967,10 +2989,8 @@ const Renderforthtable = ({
       return console.error("error");
     }
   }
- 
 
   function handleOnChange2(e) {
-
     if (MANAGEMENt_ID.includes(loginUser)) {
       if (e.target.value < 6 || e.target.value > 8) {
         setTextError2(true);
@@ -2994,12 +3014,12 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined) {
+      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "") {
         setTextError2GoodPotential({
           ...textError2GoodPotential,
           [ind]: false,
         });
-
+        setIndError2();
         setTextError2(false);
       }
       if (e.target.value && e.target.value > 0) {
@@ -3142,12 +3162,12 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined) {
+      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "") {
         setTextError3HighPotential({
           ...textError3HighPotential,
           [ind]: false,
         });
-
+        setIndError3();
         setTextError3(false);
       }
 
@@ -3522,6 +3542,27 @@ const Renderforthtable = ({
     }));
   }, [lowPotential, highPotential, goodPotential]);
 
+
+  const getLocalTImeperiod = localStorage.getItem("timperiod")
+
+//   function behaviouralKpiDisabled(){
+// if(Number(getLocalTImeperiod) < 5 || isThreeMonths || selectedThreeMonths){
+//   return true
+// }else{
+//   if(MANAGEMENt_ID.includes(loginUser)){
+//     return isDisable.GoodPotential
+//   }else{
+//     return true
+//   }
+// }
+//   }
+
+
+// useEffect(()=>{
+// behaviouralKpiDisabled()
+// },[getLocalTImeperiod])
+
+
   return (
     <>
       {/* The field must be required less than or equal to 5 */}
@@ -3547,11 +3588,14 @@ const Renderforthtable = ({
             type="number"
             value={lowPotentialInputValues}
             disabled={
-              isThreeMonths || selectedThreeMonths
-                ? true
-                : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.LowPotential
-                : true
+              getLocalTImeperiod <5 || isThreeMonths ||
+              selectedThreeMonths
+                        ? true
+                        : MANAGEMENt_ID.includes(
+                                    loginUser
+                          )
+                        ? isDisable.LowPotential
+                        : true
             }
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -3584,11 +3628,14 @@ const Renderforthtable = ({
             }}
             value={goodPotentialInputValues}
             disabled={
-              isThreeMonths || selectedThreeMonths
-                ? true
-                : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.GoodPotential
-                : true
+              getLocalTImeperiod <5 || isThreeMonths ||
+              selectedThreeMonths
+                        ? true
+                        : MANAGEMENt_ID.includes(
+                                    loginUser
+                          )
+                        ? isDisable.GoodPotential
+                        : true
             }
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -3622,11 +3669,14 @@ const Renderforthtable = ({
             value={highPotentialInputValues}
             onChange={(e) => handleOnChange3(e)}
             disabled={
-              isThreeMonths || selectedThreeMonths
-                ? true
-                : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.HighPotential
-                : true
+              getLocalTImeperiod <5 || isThreeMonths ||
+              selectedThreeMonths
+                        ? true
+                        : MANAGEMENt_ID.includes(
+                                    loginUser
+                          )
+                        ? isDisable.HighPotential
+                        : true
             }
             style={{
               outline: "0",
@@ -3703,6 +3753,7 @@ const Tableviewnew = ({
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get("email");
   };
+  const getLocalTImeperiod = localStorage.getItem("timperiod")
   const emails = useEmailExtractor();
 
   useEffect(() => {
@@ -3729,6 +3780,8 @@ const Tableviewnew = ({
       ? true
       : false
   );
+
+
   const [disableText, setDisableText] = useState(true);
 
   useEffect(() => {
@@ -4590,7 +4643,7 @@ const Tableviewnew = ({
 
   function conditionUserFeddback() {
     if (users === loginUser) {
-      if (selectedThreeMonths || isThreeMonths) {
+      if ( getLocalTImeperiod < 5 ||  selectedThreeMonths || isThreeMonths) {
         return false;
       } else {
         return true;
@@ -4603,9 +4656,11 @@ const Tableviewnew = ({
   function noText() {
     setDisableText(false);
     setIsSubmit(false);
+    setIsSubmitDisabled(false)
   }
   function yesText() {
     setIsSubmit(false);
+    setIsSubmitDisabled(false)
   }
 
   const [textError1, setTextError1] = useState({
@@ -4631,8 +4686,6 @@ const Tableviewnew = ({
     customCustomerSatisfactionMarksRM: false,
     customUpskillingMarksRM: false,
   });
-
-
 
   const [textError1LowPotential, setTextError1LowPotential] = useState({
     0: false,
@@ -4683,19 +4736,31 @@ const Tableviewnew = ({
     13: false,
   });
 
+  const [isSubmitDisable,setIsSubmitDisabled] = useState(true)
+  
 
-
-  function isButtonShouldDisable(){
-    const values = [
-      ...Object.values(textError1),
-      ...Object.values(textError2),
-      ...Object.values(textError3),
-      ...Object.values(textError1LowPotential),
-      ...Object.values(textError2GoodPotential),
-      ...Object.values(textError3HighPotential),
-
-    ]
-    return values.includes(true);
+  function isButtonShouldDisable() {
+ if(getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths){
+if(users === loginUser){
+if(isSubmitDisable === false){
+  return false
+}else{
+  return true
+}
+}else{
+  return false
+}
+ }else{
+  const values = [
+    ...Object.values(textError1),
+    ...Object.values(textError2),
+    ...Object.values(textError3),
+    ...Object.values(textError1LowPotential),
+    ...Object.values(textError2GoodPotential),
+    ...Object.values(textError3HighPotential),
+  ];
+  return values.includes(true);
+ }
   }
 
   return (
