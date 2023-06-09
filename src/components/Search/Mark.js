@@ -22,6 +22,7 @@ import { ACCESS_TOKEN } from "../../Config/Constant";
 import Tableview from "./Tableview";
 import Tableviewnew from "./Tableviewnew";
 import { SignalWifiStatusbarNullRounded } from "@mui/icons-material";
+import { NULL } from "xlsx-populate/lib/FormulaError";
 
 const useStyles = makeStyles({
   sprintbg: {
@@ -58,10 +59,15 @@ const Mark = () => {
   const monthyear = moment().format("YYYY-MM");
   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
   const [showCustomDate, setshowCustomDate] = useState();
-  const [timePeriod, setTimePeriod] = React.useState();
+  const [timePeriod, setTimePeriod] = useState();
+  // const [customdate, setCustomdate] = useState([
+  //   moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
+  //   moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
+  // ]);
   const [customdate, setCustomdate] = useState([
-    moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
-    moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
+    localStorage.getItem("startDate"),
+
+    localStorage.getItem("endDate"),
   ]);
   const [dateEvent, setEvent] = useState();
   const [test, setTest] = useState([]);
@@ -69,7 +75,7 @@ const Mark = () => {
   const [ExcelFileData, setExcelFileData] = useState(null);
   const [Designation, setDesignation] = useState();
   const [fileData, setFileData] = useState();
-  const [TotalEffort, setTotalEffort] = useState();
+  const [TotalEffort, setTotalEffort] = useState(0);
   const [codeReviewRating, setCodeReviewRating] = useState(0);
   const [Totalactualhour, setTotalactualhour] = useState(0);
   const [AssignTask, setAssignTask] = useState(0);
@@ -104,7 +110,8 @@ const Mark = () => {
     let redoHoursArr = [];
     let uniqueProjectlist = [];
     let taskandbugsArr = [];
-    let redocountArr = [];
+    let redocountArr = 0;
+    let numberofbugsreportedbyClient = 0;
 
     let headersList = {
       Accept: "application/json",
@@ -224,7 +231,11 @@ const Mark = () => {
                 if (res.fields["System.WorkItemType"] === "Bug") {
                   redoHours = res.fields["Custom.RedoHours"] || 2 * effort;
                 }
-                actualHoursArr.push(actualHours);
+                if (actualHours !== 0) {
+                  actualHoursArr.push(actualHours);
+                } else {
+                  actualHoursArr.push(effort * 3);
+                }
 
                 redoHoursArr.push(redoHours);
               }
@@ -244,7 +255,7 @@ const Mark = () => {
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
             redoHoursArr = parseFloat(redoHoursArr);
-
+            // actualHoursArr = actualHoursArr + redoHoursArr;
             setTotalEffort(effortArr);
             setTotalactualhour(actualHoursArr);
             if (effortArr && actualHoursArr) {
@@ -306,6 +317,10 @@ const Mark = () => {
                         let actualEndDate = moment(
                           taskdetails.fields["Custom.ActualEndDate"]
                         ).format("YYYY-MM-DD");
+                        let diffInDays = moment(actualEndDate).diff(
+                          dueDate,
+                          "days"
+                        );
 
                         if (
                           actualEndDate <= dueDate &&
@@ -315,7 +330,15 @@ const Mark = () => {
                             ]
                         ) {
                           ontimesprint++;
+                        } else if (diffInDays == 1) {
+                          ontimesprint += 0.9;
+                        } else if (diffInDays == 2) {
+                          ontimesprint += 0.6;
+                        } else if (diffInDays == 3) {
+                          ontimesprint += 0.3;
                         }
+                        //   }
+                        // }
                       }
                     }
                   });
@@ -339,15 +362,19 @@ const Mark = () => {
             // ---------------------------------------------------------------------------------------------------------
             // marks calculation according to redocount
             task.map((redo) => {
-              let redoCount = redo.fields["Custom.RedoCount"] || 0;
-              redocountArr.push(redoCount);
+              // let redoCount = redo.fields["System.State"] || 0;
+              // redocountArr.push(redoCount);
+              if (redo.fields["System.State"] === "Rework") {
+                return redocountArr++;
+              }
             });
-            redocountArr = (redocountArr || []).reduce(
-              (partialmarks, a) => partialmarks + a,
-              0
-            );
+            // redocountArr = (redocountArr || []).reduce(
+            //   (partialmarks, a) => partialmarks + a,
+            //   0
+            // );
+
+            setRedocount(redocountArr);
             if (redocountArr) {
-              setRedocount(redocountArr);
               let redocountmarks =
                 ((100 + ((2 - redocountArr) / redocountArr) * 100) * 10) / 100;
               redocountmarks = redocountmarks.toFixed(2);
@@ -388,12 +415,34 @@ const Mark = () => {
             }
             //------------------------------------------------------------------------------------------------
             // Marks calculation according to bugs reported by client
-            let bugsreportedbyClient = task.filter((innerval) => {
-              let reportedbyclient =
-                innerval.fields["System.Tags"] == "ReportedByClient";
-              return reportedbyclient;
+            task.filter((innerval) => {
+              if (
+                innerval.fields["System.Tags"] === "ReportedByClient" ||
+                innerval.fields["System.Tags"] === "Critical" ||
+                innerval.fields["System.Tags"] === "Critical; ReportedByClient"
+              ) {
+                numberofbugsreportedbyClient++;
+              }
+              if (innerval.fields["System.Tags"] === "Reopen") {
+                redocountArr++;
+              }
+              if (
+                innerval.fields["System.Tags"] === "Critical; Reopen" ||
+                innerval.fields["System.Tags"] === "Reopen; ReportedByClient" ||
+                innerval.fields["System.Tags"] ===
+                  "Critical; Reopen; ReportedByClient"
+              ) {
+                numberofbugsreportedbyClient++;
+                redocountArr++;
+              }
             });
-            let numberofbugsreportedbyClient = bugsreportedbyClient.length;
+            setRedocount(redocountArr);
+            // let bugsreportedbyClient = task.filter((innerval) => {
+            //   let reportedbyclient =
+            //     innerval.fields["System.Tags"] === "ReportedByClient" || innerval.fields["System.Tags"] === "Critical";
+            //   return reportedbyclient;
+            // });
+            // let numberofbugsreportedbyClient = bugsreportedbyClient.length;
             setReportedByclient(numberofbugsreportedbyClient);
             if (numberofbugsreportedbyClient) {
               let reportedbyclientmark =
@@ -443,26 +492,27 @@ const Mark = () => {
     let selectedFile = e;
     setDesignation(e);
     localStorage.setItem("designation", selectedFile);
-
     let data = await axios({
       method: "post",
       url: `${BACKEND_URL}/dummy/path`,
+      // url: `http://localhost:8080/dummy/path`,
       data: {
         selectedFile: selectedFile,
       },
+      // headers: { Accept: "application/json" }
     });
 
     let finalData = [];
-    finalData = data.data.Updated;
+    finalData = data?.data?.Updated2023;
     finalData[0].C = EmpName;
     finalData[0].E = lastDate;
     finalData[1].E = startDate;
-    finalData[6].I = TotalEffort; //284
-    finalData[6].J = Totalactualhour; //245
-    finalData[6].K = TaskwiseMarks; //23.18
-    finalData[7].I = AssignTask; //45
-    finalData[7].J = OntimeTask; //38
-    finalData[7].K = sprintwiseMarks; //21.11
+    finalData[6].I = TotalEffort;
+    finalData[6].J = Totalactualhour;
+    finalData[6].K = TaskwiseMarks;
+    finalData[7].I = AssignTask;
+    finalData[7].J = OntimeTask;
+    finalData[7].K = sprintwiseMarks;
     finalData[8].K = 0;
     finalData[9].J = Redocount;
     finalData[9].K = redoMarks;
@@ -583,7 +633,7 @@ const Mark = () => {
       setSelectedThreeMonths(true);
     }
 
-    //custom
+    // custom
     if (event == 5) {
       setshowCustomDate(true);
       setEvent(5);
@@ -597,11 +647,9 @@ const Mark = () => {
     if (dateEvent === 5) {
       const date1 = new Date(customdate[0]);
       const date2 = new Date(customdate[1]);
-
       const diffInMonths =
         (date2.getFullYear() - date1.getFullYear()) * 12 +
         (date2.getMonth() - date1.getMonth());
-
       if (diffInMonths === 3) {
         setIsThreeMonths(true);
       } else {
@@ -622,29 +670,23 @@ const Mark = () => {
   const localEndDate = localStorage.getItem("endDate");
 
   const windwoRefresh = async () => {
-    if (
-      localTimePeriod !== null ||
-      localTimePeriod !== "" ||
-      (localTimePeriod !== undefined && localStartDate !== null) ||
-      localStartDate !== "" ||
-      (localStartDate !== undefined && localEndDate !== null) ||
-      localEndDate !== "" ||
-      (localEndDate !== undefined && localdesigantion !== null) ||
-      localdesigantion !== "" ||
-      localdesigantion !== undefined
-    ) {
+    if (localdesigantion !== null) {
+      // setshowCustomDate(true)
       setstartDate(localStartDate);
       setlastDate(localEndDate);
       setTimePeriod(localTimePeriod);
       let data = await axios({
         method: "post",
         url: `${BACKEND_URL}/dummy/path`,
+        // url: `http://localhost:8080/dummy/path`,
         data: {
           selectedFile: localdesigantion,
         },
+        // headers: { Accept: "application/json" }
       });
+      
       let finalData = [];
-      finalData = data.data.Updated;
+      finalData = data?.data?.Updated2023;
       finalData[0].C = EmpName;
       finalData[0].E = lastDate;
       finalData[1].E = startDate;
@@ -665,6 +707,7 @@ const Mark = () => {
       finalData[12].K = 0;
       finalData[13].K = 0;
       setFileData(finalData);
+    } else {
     }
   };
 
@@ -699,10 +742,6 @@ const Mark = () => {
     localStorage.setItem("startDate", customdate[0]);
     localStorage.setItem("endDate", customdate[1]);
   }
-
-
-  
-  const getLocalTImeperiod = localStorage.getItem("timperiod")
 
 
   return (
@@ -744,48 +783,58 @@ const Mark = () => {
                 </Select>
               </FormControl>
             </Grid>
-            {(Number(getLocalTImeperiod) !== 5 || timePeriod < 5 || isThreeMonths) ||
-            selectedThreeMonths ? null : (
-              <Grid item sm={5}>
-                {showCustomDate && (
-                  <>
-                    <input
-                      type="date"
-                      id="dob"
-                      onChange={(newValue) => {
-                        setCustomdate([
-                          moment(newValue.target.value).format("YYYY-MM-DD"),
-                          moment(newValue.target.value).format("YYYY-MM-DD"),
-                        ]);
-                      }}
-                      value={customdate[0]}
-                    />
-                    <span> to </span>
-                    <input
-                      type="date"
-                      onChange={(newValue) => {
-                        setCustomdate([
-                          customdate[0],
-                          moment(newValue.target.value).format("YYYY-MM-DD"),
-                        ]);
-                      }}
-                      min={customdate[0]}
-                      id="dob"
-                      value={customdate[1]}
-                    />
-                    &nbsp;&nbsp;
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        handleApply();
-                      }}
-                    >
-                      Apply
-                    </Button>
-                  </>
-                )}
-              </Grid>
-            )}
+            {/* {timePeriod === 5
+              ? ( */}
+            <Grid item sm={5}>
+              {/* {true && ( */}
+              <>
+                <input
+                  type="date"
+                  id="dob"
+                  disabled={Number(localTimePeriod) === 5 ? false : true}
+                  onChange={(newValue) => {
+                    setCustomdate([
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                    ]);
+                  }}
+                  value={
+                    Number(localTimePeriod) === 5
+                      ? customdate[0]
+                      : localStartDate
+                  }
+                />
+                <span> to </span>
+                <input
+                  type="date"
+                  disabled={Number(localTimePeriod) === 5 ? false : true}
+                  onChange={(newValue) => {
+                    setCustomdate([
+                      customdate[0],
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                    ]);
+                  }}
+                  // min={customdate[0]}
+                  id="dob"
+                  // value={localEndDate !== "" ? localEndDate :customdate[1]}
+                  value={
+                    Number(localTimePeriod) === 5 ? customdate[1] : localEndDate
+                  }
+                />
+                &nbsp;&nbsp;
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    handleApply();
+                  }}
+                  disabled={Number(localTimePeriod) === 5 ? false : true}
+                >
+                  Apply
+                </Button>
+              </>
+              {/* )} */}
+            </Grid>
+            {/* ) : ""} */}
 
             <Grid item sm={2}>
               <FormControl fullWidth>

@@ -9,6 +9,7 @@ import moment from "moment/moment";
 import Loading from "../Loading";
 import ModalFeedback from "./ModalFeedback";
 import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
+import { BACKEND_URL } from "./config";
 
 const Renderfirsttable = ({ val }) => {
   return (
@@ -66,7 +67,7 @@ const Renderthirdtable = ({
   textError3,
 }) => {
   // all user and login user
-  const getLocalTImeperiod = localStorage.getItem("timperiod")
+  const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -116,30 +117,18 @@ const Renderthirdtable = ({
   );
 
   // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    ind === 0 ? val.L : 0
-  );
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    ind === 1 ? val.L : 0
-  );
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    ind === 2 ? val.L : 0
-  );
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    ind === 3 ? val.L : 0
-  );
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    ind === 4 ? val.L : 0
-  );
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(0);
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(0);
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(0);
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(0);
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(0);
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState(ind === 5 ? val.L : 0);
+    useState(0);
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState(ind === 6 ? val.L : 0);
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    ind === 7 ? val.L : 0
-  );
+  ] = useState(0);
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(0);
 
   // this states use for Reviewer Marks
   const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(0);
@@ -943,7 +932,6 @@ const Renderthirdtable = ({
     customCustomerSatisfactionMarksAr,
     customUpskillingMarksAr,
   ]);
-  
 
   return (
     <>
@@ -1107,27 +1095,27 @@ const Renderthirdtable = ({
             //                     : ""
             // }
             value={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths ? 0 
-              : 
-              MANAGEMENt_ID.includes(loginUser)
-              ? ind === 0
-                ? customActualdeliveryMarksAr
-                : 0 || ind === 1
-                ? customOnTimeMarksAr
-                : 0 || ind === 2
-                ? customAvgCodeMarksAr
-                : 0 || ind === 3
-                ? customReDoMarksAr
-                : 0 || ind === 4
-                ? customBugsReportedMarksAr
-                : 0 || ind === 5
-                ? customCriticalIssuesMarksAr
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarksAr
-                : 0 || ind === 7
-                ? customUpskillingMarksAr
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+                ? 0
+                : MANAGEMENt_ID.includes(loginUser)
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
+                  : 0
                 : 0
-              : val.L
             }
             style={{
               height: "100%",
@@ -1261,7 +1249,7 @@ const RenderTestTable = ({
   setAppraiserAvg,
 }) => {
   //state to maintain target values
-  const getLocalTImeperiod = localStorage.getItem("timperiod")
+  const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -2213,8 +2201,6 @@ const RenderTestTable = ({
     customUpskillingMarksAr,
   ]);
 
-
-
   return (
     <>
       <tr id={ind}>
@@ -2232,7 +2218,7 @@ const RenderTestTable = ({
             min="0"
             max={ind === 5 ? "5" : ""}
             disabled={
-             getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : value > 0
                 ? true
@@ -2382,26 +2368,27 @@ const RenderTestTable = ({
                 : true
             }
             value={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths ? 0 :
-              MANAGEMENt_ID.includes(loginUser)
-              ? ind === 0
-                ? customActualdeliveryMarksAr
-                : 0 || ind === 1
-                ? customOnTimeMarksAr
-                : 0 || ind === 2
-                ? customAvgCodeMarksAr
-                : 0 || ind === 3
-                ? customReDoMarksAr
-                : 0 || ind === 4
-                ? customBugsReportedMarksAr
-                : 0 || ind === 5
-                ? customCriticalIssuesMarksAr
-                : 0 || ind === 6
-                ? customCustomerSatisfactionMarksAr
-                : 0 || ind === 7
-                ? customUpskillingMarksAr
-                : 0
-              : val.AppraiserRating
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+                ? 0
+                : MANAGEMENt_ID.includes(loginUser)
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
+                  : 0
+                : val.AppraiserRating
             }
             style={{
               height: "100%",
@@ -2462,7 +2449,7 @@ const RenderTestTable = ({
             //                     : ""
             // }
             disabled={
-              getLocalTImeperiod < 5 ||  isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
                 ? false
@@ -2865,7 +2852,11 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "" ) {
+      if (
+        e.target.value === "0" ||
+        e.target.value === undefined ||
+        e.target.value === ""
+      ) {
         setTextError1LowPotential({
           ...textError1LowPotential,
           [ind]: false,
@@ -3014,7 +3005,11 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "") {
+      if (
+        e.target.value === "0" ||
+        e.target.value === undefined ||
+        e.target.value === ""
+      ) {
         setTextError2GoodPotential({
           ...textError2GoodPotential,
           [ind]: false,
@@ -3162,7 +3157,11 @@ const Renderforthtable = ({
         setIndError3();
       }
 
-      if (e.target.value === "0" || e.target.value === undefined ||e.target.value === "") {
+      if (
+        e.target.value === "0" ||
+        e.target.value === undefined ||
+        e.target.value === ""
+      ) {
         setTextError3HighPotential({
           ...textError3HighPotential,
           [ind]: false,
@@ -3542,26 +3541,23 @@ const Renderforthtable = ({
     }));
   }, [lowPotential, highPotential, goodPotential]);
 
+  const getLocalTImeperiod = localStorage.getItem("timperiod");
 
-  const getLocalTImeperiod = localStorage.getItem("timperiod")
+  //   function behaviouralKpiDisabled(){
+  // if(Number(getLocalTImeperiod) < 5 || isThreeMonths || selectedThreeMonths){
+  //   return true
+  // }else{
+  //   if(MANAGEMENt_ID.includes(loginUser)){
+  //     return isDisable.GoodPotential
+  //   }else{
+  //     return true
+  //   }
+  // }
+  //   }
 
-//   function behaviouralKpiDisabled(){
-// if(Number(getLocalTImeperiod) < 5 || isThreeMonths || selectedThreeMonths){
-//   return true
-// }else{
-//   if(MANAGEMENt_ID.includes(loginUser)){
-//     return isDisable.GoodPotential
-//   }else{
-//     return true
-//   }
-// }
-//   }
-
-
-// useEffect(()=>{
-// behaviouralKpiDisabled()
-// },[getLocalTImeperiod])
-
+  // useEffect(()=>{
+  // behaviouralKpiDisabled()
+  // },[getLocalTImeperiod])
 
   return (
     <>
@@ -3588,14 +3584,11 @@ const Renderforthtable = ({
             type="number"
             value={lowPotentialInputValues}
             disabled={
-              getLocalTImeperiod <5 || isThreeMonths ||
-              selectedThreeMonths
-                        ? true
-                        : MANAGEMENt_ID.includes(
-                                    loginUser
-                          )
-                        ? isDisable.LowPotential
-                        : true
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+                ? true
+                : MANAGEMENt_ID.includes(loginUser)
+                ? isDisable.LowPotential
+                : true
             }
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -3628,14 +3621,11 @@ const Renderforthtable = ({
             }}
             value={goodPotentialInputValues}
             disabled={
-              getLocalTImeperiod <5 || isThreeMonths ||
-              selectedThreeMonths
-                        ? true
-                        : MANAGEMENt_ID.includes(
-                                    loginUser
-                          )
-                        ? isDisable.GoodPotential
-                        : true
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+                ? true
+                : MANAGEMENt_ID.includes(loginUser)
+                ? isDisable.GoodPotential
+                : true
             }
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -3669,14 +3659,11 @@ const Renderforthtable = ({
             value={highPotentialInputValues}
             onChange={(e) => handleOnChange3(e)}
             disabled={
-              getLocalTImeperiod <5 || isThreeMonths ||
-              selectedThreeMonths
-                        ? true
-                        : MANAGEMENt_ID.includes(
-                                    loginUser
-                          )
-                        ? isDisable.HighPotential
-                        : true
+              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+                ? true
+                : MANAGEMENt_ID.includes(loginUser)
+                ? isDisable.HighPotential
+                : true
             }
             style={{
               outline: "0",
@@ -3735,6 +3722,8 @@ const Tableviewnew = ({
   selectedThreeMonths,
   isThreeMonths,
 }) => {
+
+ 
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [userfeedback, setUserfeedback] = useState({});
@@ -3753,7 +3742,7 @@ const Tableviewnew = ({
     const searchParams = new URLSearchParams(location.search);
     return searchParams.get("email");
   };
-  const getLocalTImeperiod = localStorage.getItem("timperiod")
+  const getLocalTImeperiod = localStorage.getItem("timperiod");
   const emails = useEmailExtractor();
 
   useEffect(() => {
@@ -3780,7 +3769,6 @@ const Tableviewnew = ({
       ? true
       : false
   );
-
 
   const [disableText, setDisableText] = useState(true);
 
@@ -3859,7 +3847,7 @@ const Tableviewnew = ({
   async function getAllData() {
     let reqOptions = {
       method: "post",
-      url: `http://localhost:8080/kpi/marks/data`,
+      url: `${BACKEND_URL}/kpi/marks/data`,
       data: [
         {
           email: email,
@@ -3870,11 +3858,13 @@ const Tableviewnew = ({
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
+  
 
     setUpdatedData(data);
   }
 
   async function getBehaviouralData() {
+  
     let data = [
       {
         email: email,
@@ -3887,12 +3877,13 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `http://localhost:8080/kpi/behavioural/data`,
+      url: `${BACKEND_URL}/kpi/behavioural/data`,
       method: "POST",
       headers: headersList,
       data: data,
     };
     let resData = await axios.request(reqOptions);
+  
     return setUpdatedBehaviourData(resData.data.data);
   }
 
@@ -3909,7 +3900,7 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `http://localhost:8080/kpi/positivepoint/data`,
+      url: `${BACKEND_URL}/kpi/positivepoint/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -3931,7 +3922,7 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `http://localhost:8080/kpi/scopeofimprovement/data`,
+      url: `${BACKEND_URL}/kpi/scopeofimprovement/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -3953,7 +3944,7 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `http://localhost:8080/kpi/userfeedback/data`,
+      url: `${BACKEND_URL}/kpi/userfeedback/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -4566,26 +4557,26 @@ const Tableviewnew = ({
 
     let data = axios({
       method: "post",
-      url: `http://localhost:8080/kpi/marks`,
+      url: `${BACKEND_URL}/kpi/marks`,
       data: allFinalData,
       headers: { Accept: "application/json" },
     });
     let bData = axios({
       method: "post",
-      url: `http://localhost:8080/kpi/behavioural`,
+      url: `${BACKEND_URL}/kpi/behavioural`,
       data: allBehaviourKpiData,
       headers: { Accept: "application/json" },
     });
     let pData = axios({
       method: "post",
-      url: `http://localhost:8080/kpi/positivepoint`,
+      url: `${BACKEND_URL}/kpi/positivepoint`,
       data: allFeedbackData,
       headers: { Accept: "application/json" },
     });
 
     let sData = axios({
       method: "post",
-      url: `http://localhost:8080/kpi/scopeofimprovement`,
+      url: `${BACKEND_URL}/kpi/scopeofimprovement`,
       data: allScopeData,
       headers: { Accept: "application/json" },
     });
@@ -4593,7 +4584,7 @@ const Tableviewnew = ({
     // if (state !== undefined && state.length > 0) {
     let uData = axios({
       method: "post",
-      url: `http://localhost:8080/kpi/userfeedback`,
+      url: `${BACKEND_URL}/kpi/userfeedback`,
       data: allUserfeedback,
       headers: { Accept: "application/json" },
     });
@@ -4643,7 +4634,7 @@ const Tableviewnew = ({
 
   function conditionUserFeddback() {
     if (users === loginUser) {
-      if ( getLocalTImeperiod < 5 ||  selectedThreeMonths || isThreeMonths) {
+      if (getLocalTImeperiod < 5 || selectedThreeMonths || isThreeMonths) {
         return false;
       } else {
         return true;
@@ -4656,11 +4647,11 @@ const Tableviewnew = ({
   function noText() {
     setDisableText(false);
     setIsSubmit(false);
-    setIsSubmitDisabled(false)
+    setIsSubmitDisabled(false);
   }
   function yesText() {
     setIsSubmit(false);
-    setIsSubmitDisabled(false)
+    setIsSubmitDisabled(false);
   }
 
   const [textError1, setTextError1] = useState({
@@ -4736,31 +4727,30 @@ const Tableviewnew = ({
     13: false,
   });
 
-  const [isSubmitDisable,setIsSubmitDisabled] = useState(true)
-  
+  const [isSubmitDisable, setIsSubmitDisabled] = useState(true);
 
   function isButtonShouldDisable() {
- if(getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths){
-if(users === loginUser){
-if(isSubmitDisable === false){
-  return false
-}else{
-  return true
-}
-}else{
-  return false
-}
- }else{
-  const values = [
-    ...Object.values(textError1),
-    ...Object.values(textError2),
-    ...Object.values(textError3),
-    ...Object.values(textError1LowPotential),
-    ...Object.values(textError2GoodPotential),
-    ...Object.values(textError3HighPotential),
-  ];
-  return values.includes(true);
- }
+    if (getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths) {
+      if (users === loginUser) {
+        if (isSubmitDisable === false) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      const values = [
+        ...Object.values(textError1),
+        ...Object.values(textError2),
+        ...Object.values(textError3),
+        ...Object.values(textError1LowPotential),
+        ...Object.values(textError2GoodPotential),
+        ...Object.values(textError3HighPotential),
+      ];
+      return values.includes(true);
+    }
   }
 
   return (
