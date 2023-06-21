@@ -1273,9 +1273,7 @@ const RenderTestTable = ({
   const [critical, setCritical] = useState(updatedData?.data?.data[5]?.Target);
 
   //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    updatedData?.data?.data[0]?.AppraiseeSelfRating
-  );
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(500);
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
     updatedData?.data?.data[1]?.AppraiseeSelfRating
   );
@@ -3723,7 +3721,7 @@ const Tableviewnew = ({
   isThreeMonths,
 }) => {
 
- 
+
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [userfeedback, setUserfeedback] = useState({});
@@ -3858,13 +3856,12 @@ const Tableviewnew = ({
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
-  
 
+   
     setUpdatedData(data);
   }
 
   async function getBehaviouralData() {
-  
     let data = [
       {
         email: email,
@@ -3883,7 +3880,7 @@ const Tableviewnew = ({
       data: data,
     };
     let resData = await axios.request(reqOptions);
-  
+
     return setUpdatedBehaviourData(resData.data.data);
   }
 
@@ -3961,66 +3958,66 @@ const Tableviewnew = ({
     getUserFeedback();
   }, []);
 
-  useEffect(() => {
-    if (updatedData && updatedData?.data?.data?.length > 0) {
-      setParentSelfAppraise({
-        customActualdeliveryMarks:
-          updatedData?.data?.data[0]?.AppraiseeSelfRating,
-        customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
-        customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
+  // useEffect(() => {
+  //   if (updatedData && updatedData?.data?.data?.length > 0) {
+  //     setParentSelfAppraise({
+  //       customActualdeliveryMarks:
+  //         updatedData?.data?.data[0]?.AppraiseeSelfRating,
+  //       customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
+  //       customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
 
-        customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
+  //       customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
 
-        customBugsReportedMarks:
-          updatedData?.data?.data[4]?.AppraiseeSelfRating,
+  //       customBugsReportedMarks:
+  //         updatedData?.data?.data[4]?.AppraiseeSelfRating,
 
-        customCriticalIssuesMarks:
-          updatedData?.data?.data[5]?.AppraiseeSelfRating,
+  //       customCriticalIssuesMarks:
+  //         updatedData?.data?.data[5]?.AppraiseeSelfRating,
 
-        customCustomerSatisfactionMarks:
-          updatedData?.data?.data[6]?.AppraiseeSelfRating,
+  //       customCustomerSatisfactionMarks:
+  //         updatedData?.data?.data[6]?.AppraiseeSelfRating,
 
-        customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
-      });
-    }
-    if (updatedData && updatedData?.data?.data?.length > 0) {
-      setParentAppraise({
-        customActualdeliveryMarksAr:
-          updatedData?.data?.data[0]?.AppraiserRating,
-        customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
-        customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
-        customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
-        customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
-        customCriticalIssuesMarksAr:
-          updatedData?.data?.data[5]?.AppraiserRating,
-        customCustomerSatisfactionMarksAr:
-          updatedData?.data?.data[6]?.AppraiserRating,
-        customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
-      });
-    }
-    if (updatedData && updatedData?.data?.data?.length > 0) {
-      setParentReviewerMarks({
-        customActualdeliveryMarksRM: updatedData?.data?.data[0]?.ReviewerMarks,
-        customOnTimeMarksRM: updatedData?.data?.data[1]?.ReviewerMarks,
-        customAvgCodeMarksRM: updatedData?.data?.data[2]?.ReviewerMarks,
-        customReDoMarksRM: updatedData?.data?.data[3]?.ReviewerMarks,
-        customBugsReportedMarksRM: updatedData?.data?.data[4]?.ReviewerMarks,
-        customCriticalIssuesMarksRM: updatedData?.data?.data[5]?.ReviewerMarks,
-        customCustomerSatisfactionMarksRM:
-          updatedData?.data?.data[6]?.ReviewerMarks,
-        customUpskillingMarksRM: updatedData?.data?.data[7]?.ReviewerMarks,
-      });
-    }
+  //       customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
+  //     });
+  //   }
+  //   if (updatedData && updatedData?.data?.data?.length > 0) {
+  //     setParentAppraise({
+  //       customActualdeliveryMarksAr:
+  //         updatedData?.data?.data[0]?.AppraiserRating,
+  //       customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
+  //       customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
+  //       customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
+  //       customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
+  //       customCriticalIssuesMarksAr:
+  //         updatedData?.data?.data[5]?.AppraiserRating,
+  //       customCustomerSatisfactionMarksAr:
+  //         updatedData?.data?.data[6]?.AppraiserRating,
+  //       customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
+  //     });
+  //   }
+  //   if (updatedData && updatedData?.data?.data?.length > 0) {
+  //     setParentReviewerMarks({
+  //       customActualdeliveryMarksRM: updatedData?.data?.data[0]?.ReviewerMarks,
+  //       customOnTimeMarksRM: updatedData?.data?.data[1]?.ReviewerMarks,
+  //       customAvgCodeMarksRM: updatedData?.data?.data[2]?.ReviewerMarks,
+  //       customReDoMarksRM: updatedData?.data?.data[3]?.ReviewerMarks,
+  //       customBugsReportedMarksRM: updatedData?.data?.data[4]?.ReviewerMarks,
+  //       customCriticalIssuesMarksRM: updatedData?.data?.data[5]?.ReviewerMarks,
+  //       customCustomerSatisfactionMarksRM:
+  //         updatedData?.data?.data[6]?.ReviewerMarks,
+  //       customUpskillingMarksRM: updatedData?.data?.data[7]?.ReviewerMarks,
+  //     });
+  //   }
 
-    if (updatedData && updatedData?.data?.data?.length > 0) {
-      setParentTarget({
-        actualDelivery: updatedData?.data?.data[0]?.Target,
-        onTime: updatedData?.data?.data[1]?.Target,
+  //   if (updatedData && updatedData?.data?.data?.length > 0) {
+  //     setParentTarget({
+  //       actualDelivery: updatedData?.data?.data[0]?.Target,
+  //       onTime: updatedData?.data?.data[1]?.Target,
 
-        critical: updatedData?.data?.data[5]?.Target,
-      });
-    }
-  }, [updatedData]);
+  //       critical: updatedData?.data?.data[5]?.Target,
+  //     });
+  //   }
+  // }, [updatedData]);
 
   const [parentTarget, setParentTarget] = useState({});
   const [parentAppraise, setParentAppraise] = useState({});

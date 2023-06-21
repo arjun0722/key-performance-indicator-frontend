@@ -502,6 +502,8 @@ const Mark = () => {
       // headers: { Accept: "application/json" }
     });
 
+  
+
     let finalData = [];
     finalData = data?.data?.Updated2023;
     finalData[0].C = EmpName;
@@ -643,16 +645,28 @@ const Mark = () => {
     }
   };
 
+  const localdesigantion = localStorage.getItem("designation");
+  const localStartDate = localStorage.getItem("startDate");
+  const localTimePeriod = localStorage.getItem("timperiod");
+  const localEndDate = localStorage.getItem("endDate");
+
   function checkThreeMonths() {
-    if (dateEvent === 5) {
-      const date1 = new Date(customdate[0]);
-      const date2 = new Date(customdate[1]);
+    if (Number(localTimePeriod) == 5) {
+    
+      const date1 = new Date(localStartDate);
+      const date2 = new Date(localEndDate);
+
       const diffInMonths =
         (date2.getFullYear() - date1.getFullYear()) * 12 +
         (date2.getMonth() - date1.getMonth());
-      if (diffInMonths === 3) {
+
+     
+
+      if (diffInMonths + 1 === 3) {
+        
         setIsThreeMonths(true);
       } else {
+       
         setIsThreeMonths(false);
       }
     } else {
@@ -662,12 +676,7 @@ const Mark = () => {
 
   useEffect(() => {
     checkThreeMonths();
-  }, [customdate, dateEvent]);
-
-  const localdesigantion = localStorage.getItem("designation");
-  const localStartDate = localStorage.getItem("startDate");
-  const localTimePeriod = localStorage.getItem("timperiod");
-  const localEndDate = localStorage.getItem("endDate");
+  }, [localTimePeriod, localStartDate, localEndDate]);
 
   const windwoRefresh = async () => {
     if (localdesigantion !== null) {
@@ -684,7 +693,8 @@ const Mark = () => {
         },
         // headers: { Accept: "application/json" }
       });
-      
+     
+
       let finalData = [];
       finalData = data?.data?.Updated2023;
       finalData[0].C = EmpName;
@@ -742,7 +752,6 @@ const Mark = () => {
     localStorage.setItem("startDate", customdate[0]);
     localStorage.setItem("endDate", customdate[1]);
   }
-
 
   return (
     <>
