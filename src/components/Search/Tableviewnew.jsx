@@ -66,6 +66,7 @@ const Renderthirdtable = ({
   setTextError3,
   textError3,
 }) => {
+
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -3727,6 +3728,7 @@ const Tableviewnew = ({
   const [userfeedback, setUserfeedback] = useState({});
   const [appraiseMarksAvg, setAppraiseMarksAvg] = useState({});
   const [appraiserAvg, setAppraiserAvg] = useState({});
+  const [avgQuaterlyData,setAvgQuaterlyData]=useState()
 
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
   const [state, setState] = useState("");
@@ -3857,8 +3859,37 @@ const Tableviewnew = ({
     };
     let data = await axios.request(reqOptions);
 
+    if(isThreeMonths || selectedThreeMonths){
+      let sum = {
+        AppraiseeSelfRating: [],
+        AppraiserRating: [],
+        Target: [],
+        ReviewerMarks: []
+      };
+      
+      const groupedData = data.reduce((result, item) => {
+        const toDate = item.ToDate; 
+        if (!result[toDate]) {
+          result[toDate] = [];
+        }
+        result[toDate].push(item);
+        return result;
+      }, {});
+      
+      Object.values(groupedData).forEach((data, index) => {
+        data.forEach((allData, allindex) => {
+          sum.AppraiseeSelfRating[allindex] = (sum.AppraiseeSelfRating[allindex] || 0) + allData.AppraiseeSelfRating;
+          sum.AppraiserRating[allindex] = (sum.AppraiserRating[allindex] || 0) + allData.AppraiserRating;
+          sum.Target[allindex] = (sum.Target[allindex] || 0) + allData.Target;
+          sum.ReviewerMarks[allindex] = (sum.ReviewerMarks[allindex] || 0) + allData.ReviewerMarks;
+        });
+      });
+    setAvgQuaterlyData(sum)
+    }else{
+      setUpdatedData(data);
+    }
+
    
-    setUpdatedData(data);
   }
 
   async function getBehaviouralData() {
@@ -3958,66 +3989,66 @@ const Tableviewnew = ({
     getUserFeedback();
   }, []);
 
-  // useEffect(() => {
-  //   if (updatedData && updatedData?.data?.data?.length > 0) {
-  //     setParentSelfAppraise({
-  //       customActualdeliveryMarks:
-  //         updatedData?.data?.data[0]?.AppraiseeSelfRating,
-  //       customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
-  //       customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
+  useEffect(() => {
+    if (updatedData && updatedData?.data?.data?.length > 0) {
+      setParentSelfAppraise({
+        customActualdeliveryMarks:
+          updatedData?.data?.data[0]?.AppraiseeSelfRating,
+        customOnTimeMarks: updatedData?.data?.data[1]?.AppraiseeSelfRating,
+        customAvgCodeMarks: updatedData?.data?.data[2]?.AppraiseeSelfRating,
 
-  //       customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
+        customReDoMarks: updatedData?.data?.data[3]?.AppraiseeSelfRating,
 
-  //       customBugsReportedMarks:
-  //         updatedData?.data?.data[4]?.AppraiseeSelfRating,
+        customBugsReportedMarks:
+          updatedData?.data?.data[4]?.AppraiseeSelfRating,
 
-  //       customCriticalIssuesMarks:
-  //         updatedData?.data?.data[5]?.AppraiseeSelfRating,
+        customCriticalIssuesMarks:
+          updatedData?.data?.data[5]?.AppraiseeSelfRating,
 
-  //       customCustomerSatisfactionMarks:
-  //         updatedData?.data?.data[6]?.AppraiseeSelfRating,
+        customCustomerSatisfactionMarks:
+          updatedData?.data?.data[6]?.AppraiseeSelfRating,
 
-  //       customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
-  //     });
-  //   }
-  //   if (updatedData && updatedData?.data?.data?.length > 0) {
-  //     setParentAppraise({
-  //       customActualdeliveryMarksAr:
-  //         updatedData?.data?.data[0]?.AppraiserRating,
-  //       customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
-  //       customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
-  //       customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
-  //       customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
-  //       customCriticalIssuesMarksAr:
-  //         updatedData?.data?.data[5]?.AppraiserRating,
-  //       customCustomerSatisfactionMarksAr:
-  //         updatedData?.data?.data[6]?.AppraiserRating,
-  //       customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
-  //     });
-  //   }
-  //   if (updatedData && updatedData?.data?.data?.length > 0) {
-  //     setParentReviewerMarks({
-  //       customActualdeliveryMarksRM: updatedData?.data?.data[0]?.ReviewerMarks,
-  //       customOnTimeMarksRM: updatedData?.data?.data[1]?.ReviewerMarks,
-  //       customAvgCodeMarksRM: updatedData?.data?.data[2]?.ReviewerMarks,
-  //       customReDoMarksRM: updatedData?.data?.data[3]?.ReviewerMarks,
-  //       customBugsReportedMarksRM: updatedData?.data?.data[4]?.ReviewerMarks,
-  //       customCriticalIssuesMarksRM: updatedData?.data?.data[5]?.ReviewerMarks,
-  //       customCustomerSatisfactionMarksRM:
-  //         updatedData?.data?.data[6]?.ReviewerMarks,
-  //       customUpskillingMarksRM: updatedData?.data?.data[7]?.ReviewerMarks,
-  //     });
-  //   }
+        customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
+      });
+    }
+    if (updatedData && updatedData?.data?.data?.length > 0) {
+      setParentAppraise({
+        customActualdeliveryMarksAr:
+          updatedData?.data?.data[0]?.AppraiserRating,
+        customOnTimeMarksAr: updatedData?.data?.data[1]?.AppraiserRating,
+        customAvgCodeMarksAr: updatedData?.data?.data[2]?.AppraiserRating,
+        customReDoMarksAr: updatedData?.data?.data[3]?.AppraiserRating,
+        customBugsReportedMarksAr: updatedData?.data?.data[4]?.AppraiserRating,
+        customCriticalIssuesMarksAr:
+          updatedData?.data?.data[5]?.AppraiserRating,
+        customCustomerSatisfactionMarksAr:
+          updatedData?.data?.data[6]?.AppraiserRating,
+        customUpskillingMarksAr: updatedData?.data?.data[7]?.AppraiserRating,
+      });
+    }
+    if (updatedData && updatedData?.data?.data?.length > 0) {
+      setParentReviewerMarks({
+        customActualdeliveryMarksRM: updatedData?.data?.data[0]?.ReviewerMarks,
+        customOnTimeMarksRM: updatedData?.data?.data[1]?.ReviewerMarks,
+        customAvgCodeMarksRM: updatedData?.data?.data[2]?.ReviewerMarks,
+        customReDoMarksRM: updatedData?.data?.data[3]?.ReviewerMarks,
+        customBugsReportedMarksRM: updatedData?.data?.data[4]?.ReviewerMarks,
+        customCriticalIssuesMarksRM: updatedData?.data?.data[5]?.ReviewerMarks,
+        customCustomerSatisfactionMarksRM:
+          updatedData?.data?.data[6]?.ReviewerMarks,
+        customUpskillingMarksRM: updatedData?.data?.data[7]?.ReviewerMarks,
+      });
+    }
 
-  //   if (updatedData && updatedData?.data?.data?.length > 0) {
-  //     setParentTarget({
-  //       actualDelivery: updatedData?.data?.data[0]?.Target,
-  //       onTime: updatedData?.data?.data[1]?.Target,
+    if (updatedData && updatedData?.data?.data?.length > 0) {
+      setParentTarget({
+        actualDelivery: updatedData?.data?.data[0]?.Target,
+        onTime: updatedData?.data?.data[1]?.Target,
 
-  //       critical: updatedData?.data?.data[5]?.Target,
-  //     });
-  //   }
-  // }, [updatedData]);
+        critical: updatedData?.data?.data[5]?.Target,
+      });
+    }
+  }, [updatedData]);
 
   const [parentTarget, setParentTarget] = useState({});
   const [parentAppraise, setParentAppraise] = useState({});
