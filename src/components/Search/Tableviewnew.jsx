@@ -45,10 +45,12 @@ const Renderthirdtable = ({
   thirdTable,
   ind,
   setIsSubmit,
+  division,
   isThreeMonths,
   selectedThreeMonths,
   setParentAppraise,
   parentAppraise,
+  avgQuaterlyData,
   setParentSelfAppraise,
   parentSelfAppraise,
   setParentReviewerMarks,
@@ -66,7 +68,6 @@ const Renderthirdtable = ({
   setTextError3,
   textError3,
 }) => {
-
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -88,68 +89,232 @@ const Renderthirdtable = ({
 
   //state to maintain target values
 
-  const [actualDelivery, setActualDelivery] = useState(ind === 0 ? val.I : 0);
-  const [onTime, setOnTime] = useState(ind === 1 ? val.I : 0);
-  const [critical, setCritical] = useState(ind === 5 ? val.I : 0);
+  const [actualDelivery, setActualDelivery] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[0]
+      : ind === 0
+      ? val.I
+      : 0
+  );
+  const [onTime, setOnTime] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[1]
+      : ind === 1
+      ? val.I
+      : 0
+  );
+  const [critical, setCritical] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[5]
+      : ind === 5
+      ? val.I
+      : 0
+  );
 
   //  this state use for Appraisee Self Rating
   const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    ind === 0 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[0]
+      : ind === 0
+      ? val.J
+      : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    ind === 1 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[1]
+      : ind === 1
+      ? val.J
+      : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    ind === 2 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[2]
+      : ind === 2
+      ? val.J
+      : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    ind === 3 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[3]
+      : ind === 3
+      ? val.J
+      : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    ind === 4 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[4]
+      : ind === 4
+      ? val.J
+      : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    ind === 5 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[5]
+      : ind === 5
+      ? val.J
+      : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState(ind === 6 ? val.J : 0);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.AppraiseeSelfRating[6]
+        : ind === 6
+        ? val.J
+        : 0
+    );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    ind === 7 ? val.J : 0
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[7]
+      : ind === 7
+      ? val.J
+      : 0
   );
 
   // this states use for Appraiser Rating
-  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(0);
-  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(0);
-  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(0);
-  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(0);
-  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(0);
+  const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[0]
+      : 0
+  );
+  const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[1]
+      : 0
+  );
+  const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[2]
+      : 0
+  );
+  const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[3]
+      : 0
+  );
+  const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[4]
+      : 0
+  );
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState(0);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.AppraiserRating[5]
+        : 0
+    );
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState(0);
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(0);
+  ] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[6]
+      : 0
+  );
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[7]
+      : 0
+  );
 
   // this states use for Reviewer Marks
-  const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(0);
-  const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(0);
-  const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(0);
-  const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(0);
-  const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] = useState(0);
+  const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[0] : 0
+  );
+  const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[1] : 0
+  );
+  const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[2] : 0
+  );
+  const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[3] : 0
+  );
+  const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[4] : 0
+  );
   const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
-    useState(0);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.ReviewerMarks[5]
+        : 0
+    );
   const [
     customCustomerSatisfactionMarksRM,
     setCustomCustomerSatisfactionMarksRM,
-  ] = useState(0);
-  const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(0);
+  ] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[6] : 0
+  );
+  const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(
+    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[7] : 0
+  );
 
   //................. this states use for input validations ...............//
 
   //--------------------//
 
   //--------------------//
+
+  useEffect(() => {
+    if (division * 8 > 8) {
+      //state to maintain target values
+      setActualDelivery(avgQuaterlyData?.Target[0]);
+
+      setOnTime(avgQuaterlyData?.Target[1]);
+
+      setCritical(avgQuaterlyData?.Target[5]);
+
+      //  this state use for Appraisee Self Rating
+      setCustomActualdelivery(avgQuaterlyData?.AppraiseeSelfRating[0]);
+      setCustomOnTimeMarks(avgQuaterlyData?.AppraiseeSelfRating[1]);
+      setCustomAvgCodeMarks(avgQuaterlyData?.AppraiseeSelfRating[2] / division);
+      setCustomCustomReDoMarks(
+        avgQuaterlyData?.AppraiseeSelfRating[3] / division
+      );
+      setCustomBugsReportedMarks(
+        avgQuaterlyData?.AppraiseeSelfRating[4] / division
+      );
+      setCustomCriticalIssuesMarks(avgQuaterlyData?.AppraiseeSelfRating[5]);
+      setCustomCustomerSatisfactionMarks(
+        avgQuaterlyData?.AppraiseeSelfRating[6] / division
+      );
+      setCustomUpskillingMarks(
+        avgQuaterlyData?.AppraiseeSelfRating[7] / division
+      );
+
+      // this states use for Appraiser Rating
+
+      setCustomActualdeliveryAr(avgQuaterlyData?.AppraiserRating[0]);
+      setCustomOnTimeMarksAr(avgQuaterlyData?.AppraiserRating[1]);
+      setCustomAvgCodeMarksAr(avgQuaterlyData?.AppraiserRating[2] / division);
+      setCustomCustomReDoMarksAr(
+        avgQuaterlyData?.AppraiserRating[3] / division
+      );
+      setCustomBugsReportedMarksAr(
+        avgQuaterlyData?.AppraiserRating[4] / division
+      );
+      setCustomCriticalIssuesMarksAr(avgQuaterlyData?.AppraiserRating[5]);
+      setCustomCustomerSatisfactionMarksAr(
+        avgQuaterlyData?.AppraiserRating[6] / division
+      );
+      setCustomUpskillingMarksAr(
+        avgQuaterlyData?.AppraiserRating[7] / division
+      );
+
+      // this states use for Reviewer Marks
+      setCustomActualdeliveryRM(avgQuaterlyData?.ReviewerMarks[0]);
+      setCustomOnTimeMarksRM(avgQuaterlyData?.ReviewerMarks[1]);
+      setCustomAvgCodeMarksRM(avgQuaterlyData?.ReviewerMarks[2] / division);
+      setCustomCustomReDoMarksRM(avgQuaterlyData?.ReviewerMarks[3] / division);
+      setCustomBugsReportedMarksRM(
+        avgQuaterlyData?.ReviewerMarks[4] / division
+      );
+      setCustomCriticalIssuesMarksRM(avgQuaterlyData?.ReviewerMarks[5]);
+      setCustomCustomerSatisfactionMarksRM(
+        avgQuaterlyData?.ReviewerMarks[6] / division
+      );
+      setCustomUpskillingMarksRM(avgQuaterlyData?.ReviewerMarks[7] / division);
+    }
+  }, [avgQuaterlyData, isThreeMonths, selectedThreeMonths, division]);
 
   const [indError1, setIndError1] = useState();
 
@@ -665,12 +830,24 @@ const Renderthirdtable = ({
     }
   }
   const valueMap = [
-    val.I === 0 ? actualDelivery : val.I,
-    val.I === 0 ? onTime : val.I,
+    isThreeMonths || selectedThreeMonths
+      ? actualDelivery
+      : val.I === 0
+      ? actualDelivery
+      : val.I,
+    isThreeMonths || selectedThreeMonths
+      ? onTime
+      : val.I === 0
+      ? onTime
+      : val.I,
     val.I,
     val.I,
     val.I,
-    val.I === 0 ? critical : val.I,
+    isThreeMonths || selectedThreeMonths
+      ? critical
+      : val.I === 0
+      ? critical
+      : val.I,
     val.I,
     val.I,
   ];
@@ -1238,6 +1415,7 @@ const RenderTestTable = ({
   selectedThreeMonths,
   setParentAppraise,
   parentAppraise,
+  avgQuaterlyData,
   setParentSelfAppraise,
   parentSelfAppraise,
   setParentReviewerMarks,
@@ -1268,100 +1446,155 @@ const RenderTestTable = ({
   //  updatedData?.data?.data[5]?.Target;
 
   const [actualDelivery, setActualDelivery] = useState(
-    updatedData?.data?.data[0]?.Target
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[0]
+      : updatedData?.data?.data[0]?.Target
   );
-  const [onTime, setOnTime] = useState(updatedData?.data?.data[1]?.Target);
-  const [critical, setCritical] = useState(updatedData?.data?.data[5]?.Target);
+  const [onTime, setOnTime] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[1]
+      : updatedData?.data?.data[1]?.Target
+  );
+  const [critical, setCritical] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.Target[5]
+      : updatedData?.data?.data[5]?.Target
+  );
 
   //  this state use for Appraisee Self Rating
-  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(500);
+  const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[0]
+      : updatedData?.data?.data[0]?.AppraiseeSelfRating
+  );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    updatedData?.data?.data[1]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[1]
+      : updatedData?.data?.data[1]?.AppraiseeSelfRating
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    updatedData?.data?.data[2]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[2]
+      : updatedData?.data?.data[2]?.AppraiseeSelfRating
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    updatedData?.data?.data[3]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[3]
+      : updatedData?.data?.data[3]?.AppraiseeSelfRating
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    updatedData?.data?.data[4]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[4]
+      : updatedData?.data?.data[4]?.AppraiseeSelfRating
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    updatedData?.data?.data[5]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[5]
+      : updatedData?.data?.data[5]?.AppraiseeSelfRating
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
-    useState(updatedData?.data?.data[6]?.AppraiseeSelfRating);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.AppraiseeSelfRating[6]
+        : updatedData?.data?.data[6]?.AppraiseeSelfRating
+    );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    updatedData?.data?.data[7]?.AppraiseeSelfRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiseeSelfRating[7]
+      : updatedData?.data?.data[7]?.AppraiseeSelfRating
   );
 
   // this states use for Appraiser Rating
   const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    updatedData?.data?.data[0]?.AppraiserRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[0]
+      : updatedData?.data?.data[0]?.AppraiserRating
   );
   const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    updatedData?.data?.data[1]?.AppraiserRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[1]
+      : updatedData?.data?.data[1]?.AppraiserRating
   );
   const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    updatedData?.data?.data[2]?.AppraiserRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[2]
+      : updatedData?.data?.data[2]?.AppraiserRating
   );
   const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    updatedData?.data?.data[3]?.AppraiserRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[3]
+      : updatedData?.data?.data[3]?.AppraiserRating
   );
   const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    updatedData?.data?.data[4]?.AppraiserRating
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[4]
+      : updatedData?.data?.data[4]?.AppraiserRating
   );
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
-    useState(updatedData?.data?.data[5]?.AppraiserRating);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.AppraiserRating[5]
+        : updatedData?.data?.data[5]?.AppraiserRating
+    );
+
   const [
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
-  ] = useState(updatedData?.data?.data[6]?.AppraiserRating);
-  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    updatedData?.data?.data[7]?.AppraiserRating
+  ] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[6]
+      : updatedData?.data?.data[6]?.AppraiserRating
   );
 
-  // this states use for Final Appraisee Marks
-  // const [finalActualdeliveryMarks, setFinalActualdelivery] =
-  //           useState(0);
-  // const [finalOnTimeMarks, setFinalOnTimeMarks] = useState(0);
-  // const [finalAvgCodeMarks, setFinalAvgCodeMarks] = useState(0);
-  // const [finalReDoMarks, setCustomFinalReDoMarks] = useState(0);
-  // const [finalBugsReportedMarks, setFinalBugsReportedMarks] =
-  //           useState(0);
-  // const [finalCriticalIssuesMarks, setFinalCriticalIssuesMarks] =
-  //           useState(0);
-  // const [
-  //           finalCustomerSatisfactionMarks,
-  //           setFinalCustomerSatisfactionMarks,
-  // ] = useState(0);
-  // const [finalUpskillingMarks, setFinalUpskillingMarks] = useState(0);
+  const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.AppraiserRating[7]
+      : updatedData?.data?.data[7]?.AppraiserRating
+  );
 
-  // this states use for Reviewer Marks
   const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(
-    updatedData?.data?.data[0]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[0]
+      : updatedData?.data?.data[0]?.ReviewerMarks
   );
   const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(
-    updatedData?.data?.data[1]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[1]
+      : updatedData?.data?.data[1]?.ReviewerMarks
   );
   const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(
-    updatedData?.data?.data[2]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[2]
+      : updatedData?.data?.data[2]?.ReviewerMarks
   );
   const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(
-    updatedData?.data?.data[3]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[3]
+      : updatedData?.data?.data[3]?.ReviewerMarks
   );
   const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] = useState(
-    updatedData?.data?.data[4]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[4]
+      : updatedData?.data?.data[4]?.ReviewerMarks
   );
   const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
-    useState(updatedData?.data?.data[5]?.ReviewerMarks);
+    useState(
+      isThreeMonths || selectedThreeMonths
+        ? avgQuaterlyData?.ReviewerMarks[5]
+        : updatedData?.data?.data[5]?.ReviewerMarks
+    );
   const [
     customCustomerSatisfactionMarksRM,
     setCustomCustomerSatisfactionMarksRM,
-  ] = useState(updatedData?.data?.data[6]?.ReviewerMarks);
+  ] = useState(
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[6]
+      : updatedData?.data?.data[6]?.ReviewerMarks
+  );
   const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(
-    updatedData?.data?.data[7]?.ReviewerMarks
+    isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[7]
+      : updatedData?.data?.data[7]?.ReviewerMarks
   );
 
   //................. this states use for input validations ...............//
@@ -2521,6 +2754,8 @@ const Renderforthtable = ({
   textError2GoodPotential,
   setTextError3HighPotential,
   textError3HighPotential,
+  quarterlyBehavioural,
+  behviouralDivision
 }) => {
   // const [avg,setAvg] = useState(0)
 
@@ -2607,221 +2842,440 @@ const Renderforthtable = ({
   useEffect(() => {
     //=============lowpotential states================//
 
-    setAttendencelp(
-      updatedBehaviourData[0]?.LowPotential
-        ? updatedBehaviourData[0]?.LowPotential
+    if(updatedBehaviourData.length < 14){
+      setAttendencelp(
+        updatedBehaviourData[0]?.LowPotential
+          ? updatedBehaviourData[0]?.LowPotential
+          : 0
+      );
+      setLessDDependabilitylp(
+        updatedBehaviourData[1]?.LowPotential
+          ? updatedBehaviourData[1]?.LowPotential
+          : 0
+      );
+      setGroupWorkinglp(
+        updatedBehaviourData[2]?.LowPotential
+          ? updatedBehaviourData[2]?.LowPotential
+          : 0
+      );
+      setPositiveAttitudelp(
+        updatedBehaviourData[3]?.LowPotential
+          ? updatedBehaviourData[3]?.LowPotential
+          : 0
+      );
+      setIntelligencelp(
+        updatedBehaviourData[4]?.LowPotential
+          ? updatedBehaviourData[4]?.LowPotential
+          : 0
+      );
+      setImaginationlp(
+        updatedBehaviourData[5]?.LowPotential
+          ? updatedBehaviourData[5]?.LowPotential
+          : 0
+      );
+      setImprovementlp(
+        updatedBehaviourData[6]?.LowPotential
+          ? updatedBehaviourData[6]?.LowPotential
+          : 0
+      );
+      setDisciplinelp(
+        updatedBehaviourData[7]?.LowPotential
+          ? updatedBehaviourData[7]?.LowPotential
+          : 0
+      );
+      setQualitylp(
+        updatedBehaviourData[8]?.LowPotential
+          ? updatedBehaviourData[8]?.LowPotential
+          : 0
+      );
+      setResponsibilitylp(
+        updatedBehaviourData[9]?.LowPotential
+          ? updatedBehaviourData[9]?.LowPotential
+          : 0
+      );
+      setMultiSkillslp(
+        updatedBehaviourData[10]?.LowPotential
+          ? updatedBehaviourData[10]?.LowPotential
+          : 0
+      );
+      setMaturitylp(
+        updatedBehaviourData[11]?.LowPotential
+          ? updatedBehaviourData[11]?.LowPotential
+          : 0
+      );
+      setApproachlp(
+        updatedBehaviourData[12]?.LowPotential
+          ? updatedBehaviourData[12]?.LowPotential
+          : 0
+      );
+      setTeamworklp(
+        updatedBehaviourData[13]?.LowPotential
+          ? updatedBehaviourData[13]?.LowPotential
+          : 0
+      );
+  
+      //=============goodpotential states================//
+      setAttendencegp(
+        updatedBehaviourData[0]?.GoodPotential
+          ? updatedBehaviourData[0]?.GoodPotential
+          : 0
+      );
+      setLessDDependabilitygp(
+        updatedBehaviourData[1]?.GoodPotential
+          ? updatedBehaviourData[1]?.GoodPotential
+          : 0
+      );
+      setGroupWorkinggp(
+        updatedBehaviourData[2]?.GoodPotential
+          ? updatedBehaviourData[2]?.GoodPotential
+          : 0
+      );
+      setPositiveAttitudegp(
+        updatedBehaviourData[3]?.GoodPotential
+          ? updatedBehaviourData[3]?.GoodPotential
+          : 0
+      );
+      setIntelligencegp(
+        updatedBehaviourData[4]?.GoodPotential
+          ? updatedBehaviourData[4]?.GoodPotential
+          : 0
+      );
+      setImaginationgp(
+        updatedBehaviourData[5]?.GoodPotential
+          ? updatedBehaviourData[5]?.GoodPotential
+          : 0
+      );
+      setImprovementgp(
+        updatedBehaviourData[6]?.GoodPotential
+          ? updatedBehaviourData[6]?.GoodPotential
+          : 0
+      );
+      setDisciplinegp(
+        updatedBehaviourData[7]?.GoodPotential
+          ? updatedBehaviourData[7]?.GoodPotential
+          : 0
+      );
+      setQualitygp(
+        updatedBehaviourData[8]?.GoodPotential
+          ? updatedBehaviourData[8]?.GoodPotential
+          : 0
+      );
+      setResponsibilitygp(
+        updatedBehaviourData[9]?.GoodPotential
+          ? updatedBehaviourData[9]?.GoodPotential
+          : 0
+      );
+      setMultiSkillsgp(
+        updatedBehaviourData[10]?.GoodPotential
+          ? updatedBehaviourData[10]?.GoodPotential
+          : 0
+      );
+      setMaturitygp(
+        updatedBehaviourData[11]?.GoodPotential
+          ? updatedBehaviourData[11]?.GoodPotential
+          : 0
+      );
+      setApproachgp(
+        updatedBehaviourData[12]?.GoodPotential
+          ? updatedBehaviourData[12]?.GoodPotential
+          : 0
+      );
+      setTeamworkgp(
+        updatedBehaviourData[13]?.GoodPotential
+          ? updatedBehaviourData[13]?.GoodPotential
+          : 0
+      );
+  
+      //=============highpotential states================//
+      setAttendencehp(
+        updatedBehaviourData[0]?.HighPotential
+          ? updatedBehaviourData[0]?.HighPotential
+          : 0
+      );
+      setLessDDependabilityhp(
+        updatedBehaviourData[1]?.HighPotential
+          ? updatedBehaviourData[1]?.HighPotential
+          : 0
+      );
+      setGroupWorkinghp(
+        updatedBehaviourData[2]?.HighPotential
+          ? updatedBehaviourData[2]?.HighPotential
+          : 0
+      );
+      setPositiveAttitudehp(
+        updatedBehaviourData[3]?.HighPotential
+          ? updatedBehaviourData[3]?.HighPotential
+          : 0
+      );
+      setIntelligencehp(
+        updatedBehaviourData[4]?.HighPotential
+          ? updatedBehaviourData[4]?.HighPotential
+          : 0
+      );
+      setImaginationhp(
+        updatedBehaviourData[5]?.HighPotential
+          ? updatedBehaviourData[5]?.HighPotential
+          : 0
+      );
+      setImprovementhp(
+        updatedBehaviourData[6]?.HighPotential
+          ? updatedBehaviourData[6]?.HighPotential
+          : 0
+      );
+      setDisciplinehp(
+        updatedBehaviourData[7]?.HighPotential
+          ? updatedBehaviourData[7]?.HighPotential
+          : 0
+      );
+      setQualityhp(
+        updatedBehaviourData[8]?.HighPotential
+          ? updatedBehaviourData[8]?.HighPotential
+          : 0
+      );
+      setResponsibilityhp(
+        updatedBehaviourData[9]?.HighPotential
+          ? updatedBehaviourData[9]?.HighPotential
+          : 0
+      );
+      setMultiSkillshp(
+        updatedBehaviourData[10]?.HighPotential
+          ? updatedBehaviourData[10]?.HighPotential
+          : 0
+      );
+      setMaturityhp(
+        updatedBehaviourData[11]?.HighPotential
+          ? updatedBehaviourData[11]?.HighPotential
+          : 0
+      );
+      setApproachhp(
+        updatedBehaviourData[12]?.HighPotential
+          ? updatedBehaviourData[12]?.HighPotential
+          : 0
+      );
+      setTeamworkhp(
+        updatedBehaviourData[13]?.HighPotential
+          ? updatedBehaviourData[13]?.HighPotential
+          : 0
+      );
+    }else{
+      setAttendencelp(
+        quarterlyBehavioural?.LowPotential[0]
+          ?  quarterlyBehavioural?.LowPotential[0]
+          : 0
+      );
+      setLessDDependabilitylp(
+        quarterlyBehavioural?.LowPotential[1]
+        ?  quarterlyBehavioural?.LowPotential[1]
         : 0
-    );
-    setLessDDependabilitylp(
-      updatedBehaviourData[1]?.LowPotential
-        ? updatedBehaviourData[1]?.LowPotential
+      );
+      setGroupWorkinglp(
+        quarterlyBehavioural?.LowPotential[2]
+        ?  quarterlyBehavioural?.LowPotential[2]
         : 0
-    );
-    setGroupWorkinglp(
-      updatedBehaviourData[2]?.LowPotential
-        ? updatedBehaviourData[2]?.LowPotential
+      );
+      setPositiveAttitudelp(
+        quarterlyBehavioural?.LowPotential[3]
+        ?  quarterlyBehavioural?.LowPotential[3]
         : 0
-    );
-    setPositiveAttitudelp(
-      updatedBehaviourData[3]?.LowPotential
-        ? updatedBehaviourData[3]?.LowPotential
+      );
+      setIntelligencelp(
+        quarterlyBehavioural?.LowPotential[4]
+        ?  quarterlyBehavioural?.LowPotential[4]
         : 0
-    );
-    setIntelligencelp(
-      updatedBehaviourData[4]?.LowPotential
-        ? updatedBehaviourData[4]?.LowPotential
+      );
+      setImaginationlp(
+        quarterlyBehavioural?.LowPotential[5]
+        ?  quarterlyBehavioural?.LowPotential[5]
         : 0
-    );
-    setImaginationlp(
-      updatedBehaviourData[5]?.LowPotential
-        ? updatedBehaviourData[5]?.LowPotential
+      );
+      setImprovementlp(
+        quarterlyBehavioural?.LowPotential[6]
+        ?  quarterlyBehavioural?.LowPotential[6]
         : 0
-    );
-    setImprovementlp(
-      updatedBehaviourData[6]?.LowPotential
-        ? updatedBehaviourData[6]?.LowPotential
+      );
+      setDisciplinelp(
+        quarterlyBehavioural?.LowPotential[7]
+        ?  quarterlyBehavioural?.LowPotential[7]
         : 0
-    );
-    setDisciplinelp(
-      updatedBehaviourData[7]?.LowPotential
-        ? updatedBehaviourData[7]?.LowPotential
+      );
+      setQualitylp(
+        quarterlyBehavioural?.LowPotential[8]
+          ?  quarterlyBehavioural?.LowPotential[8]
+          : 0
+      );
+      setResponsibilitylp(
+        quarterlyBehavioural?.LowPotential[9]
+          ?  quarterlyBehavioural?.LowPotential[9]
+          : 0
+      );
+      setMultiSkillslp(
+        quarterlyBehavioural?.LowPotential[10]
+        ?  quarterlyBehavioural?.LowPotential[10]
         : 0
-    );
-    setQualitylp(
-      updatedBehaviourData[8]?.LowPotential
-        ? updatedBehaviourData[8]?.LowPotential
+      );
+      setMaturitylp(
+        quarterlyBehavioural?.LowPotential[11]
+        ?  quarterlyBehavioural?.LowPotential[11]
         : 0
-    );
-    setResponsibilitylp(
-      updatedBehaviourData[9]?.LowPotential
-        ? updatedBehaviourData[9]?.LowPotential
+      );
+      setApproachlp(
+        quarterlyBehavioural?.LowPotential[12]
+        ?  quarterlyBehavioural?.LowPotential[12]
         : 0
-    );
-    setMultiSkillslp(
-      updatedBehaviourData[10]?.LowPotential
-        ? updatedBehaviourData[10]?.LowPotential
+      );
+      setTeamworklp(
+        quarterlyBehavioural?.LowPotential[13]
+        ?  quarterlyBehavioural?.LowPotential[13]
         : 0
-    );
-    setMaturitylp(
-      updatedBehaviourData[11]?.LowPotential
-        ? updatedBehaviourData[11]?.LowPotential
+      );
+  
+      //=============goodpotential states================//
+      setAttendencegp(
+        quarterlyBehavioural?.GoodPotential[0]
+        ?  quarterlyBehavioural?.GoodPotential[0]
         : 0
-    );
-    setApproachlp(
-      updatedBehaviourData[12]?.LowPotential
-        ? updatedBehaviourData[12]?.LowPotential
+      );
+      setLessDDependabilitygp(
+        quarterlyBehavioural?.GoodPotential[1]
+        ?  quarterlyBehavioural?.GoodPotential[1]
         : 0
-    );
-    setTeamworklp(
-      updatedBehaviourData[13]?.LowPotential
-        ? updatedBehaviourData[13]?.LowPotential
+      );
+      setGroupWorkinggp(
+        quarterlyBehavioural?.GoodPotential[2]
+        ?  quarterlyBehavioural?.GoodPotential[2]
         : 0
-    );
+      );
+      setPositiveAttitudegp(
+        quarterlyBehavioural?.GoodPotential[3]
+        ?  quarterlyBehavioural?.GoodPotential[3]
+        : 0
+      );
+      setIntelligencegp(
+        quarterlyBehavioural?.GoodPotential[4]
+        ?  quarterlyBehavioural?.GoodPotential[4]
+        : 0
+      );
+      setImaginationgp(
+        quarterlyBehavioural?.GoodPotential[5]
+        ?  quarterlyBehavioural?.GoodPotential[5]
+        : 0
+      );
+      setImprovementgp(
+        quarterlyBehavioural?.GoodPotential[6]
+        ?  quarterlyBehavioural?.GoodPotential[6]
+        : 0
+      );
+      setDisciplinegp(
+        quarterlyBehavioural?.GoodPotential[7]
+        ?  quarterlyBehavioural?.GoodPotential[7]
+        : 0
+      );
+      setQualitygp(
+        quarterlyBehavioural?.GoodPotential[8]
+        ?  quarterlyBehavioural?.GoodPotential[8]
+        : 0
+      );
+      setResponsibilitygp(
+        quarterlyBehavioural?.GoodPotential[9]
+        ?  quarterlyBehavioural?.GoodPotential[9]
+        : 0
+      );
+      setMultiSkillsgp(
+        quarterlyBehavioural?.GoodPotential[10]
+        ?  quarterlyBehavioural?.GoodPotential[10]
+        : 0
+      );
+      setMaturitygp(
+        quarterlyBehavioural?.GoodPotential[11]
+        ?  quarterlyBehavioural?.GoodPotential[11]
+        : 0
+      );
+      setApproachgp(
+        quarterlyBehavioural?.GoodPotential[12]
+        ?  quarterlyBehavioural?.GoodPotential[12]
+        : 0
+      );
+      setTeamworkgp(
+        quarterlyBehavioural?.GoodPotential[13]
+        ?  quarterlyBehavioural?.GoodPotential[13]
+        : 0
+      );
+  
+      //=============highpotential states================//
+      setAttendencehp(
+        quarterlyBehavioural?.HighPotential[0]
+        ?  quarterlyBehavioural?.HighPotential[0]
+        : 0
+      );
+      setLessDDependabilityhp(
+        quarterlyBehavioural?.HighPotential[1]
+        ?  quarterlyBehavioural?.HighPotential[1]
+        : 0
+      );
+      setGroupWorkinghp(
+        quarterlyBehavioural?.HighPotential[2]
+        ?  quarterlyBehavioural?.HighPotential[2]
+        : 0
+      );
+      setPositiveAttitudehp(
+        quarterlyBehavioural?.HighPotential[3]
+        ?  quarterlyBehavioural?.HighPotential[3]
+        : 0
+      );
+      setIntelligencehp(
+        quarterlyBehavioural?.HighPotential[4]
+        ?  quarterlyBehavioural?.HighPotential[4]
+        : 0
+      );
+      setImaginationhp(
+        quarterlyBehavioural?.HighPotential[5]
+        ?  quarterlyBehavioural?.HighPotential[5]
+        : 0
+      );
+      setImprovementhp(
+        quarterlyBehavioural?.HighPotential[6]
+        ?  quarterlyBehavioural?.HighPotential[6]
+        : 0
+      );
+      setDisciplinehp(
+        quarterlyBehavioural?.HighPotential[7]
+        ?  quarterlyBehavioural?.HighPotential[7]
+        : 0
+      );
+      setQualityhp(
+        quarterlyBehavioural?.HighPotential[8]
+        ?  quarterlyBehavioural?.HighPotential[8]
+        : 0
+      );
+      setResponsibilityhp(
+        quarterlyBehavioural?.HighPotential[9]
+        ?  quarterlyBehavioural?.HighPotential[9]
+        : 0
+      );
+      setMultiSkillshp(
+        quarterlyBehavioural?.HighPotential[10]
+        ?  quarterlyBehavioural?.HighPotential[10]
+        : 0
+      );
+      setMaturityhp(
+        quarterlyBehavioural?.HighPotential[11]
+        ?  quarterlyBehavioural?.HighPotential[11]
+        : 0
+      );
+      setApproachhp(
+        quarterlyBehavioural?.HighPotential[12]
+        ?  quarterlyBehavioural?.HighPotential[12]
+        : 0
+      );
+      setTeamworkhp(
+        quarterlyBehavioural?.HighPotential[13]
+        ?  quarterlyBehavioural?.HighPotential[13]
+        : 0
+      );
+    }
 
-    //=============goodpotential states================//
-    setAttendencegp(
-      updatedBehaviourData[0]?.GoodPotential
-        ? updatedBehaviourData[0]?.GoodPotential
-        : 0
-    );
-    setLessDDependabilitygp(
-      updatedBehaviourData[1]?.GoodPotential
-        ? updatedBehaviourData[1]?.GoodPotential
-        : 0
-    );
-    setGroupWorkinggp(
-      updatedBehaviourData[2]?.GoodPotential
-        ? updatedBehaviourData[2]?.GoodPotential
-        : 0
-    );
-    setPositiveAttitudegp(
-      updatedBehaviourData[3]?.GoodPotential
-        ? updatedBehaviourData[3]?.GoodPotential
-        : 0
-    );
-    setIntelligencegp(
-      updatedBehaviourData[4]?.GoodPotential
-        ? updatedBehaviourData[4]?.GoodPotential
-        : 0
-    );
-    setImaginationgp(
-      updatedBehaviourData[5]?.GoodPotential
-        ? updatedBehaviourData[5]?.GoodPotential
-        : 0
-    );
-    setImprovementgp(
-      updatedBehaviourData[6]?.GoodPotential
-        ? updatedBehaviourData[6]?.GoodPotential
-        : 0
-    );
-    setDisciplinegp(
-      updatedBehaviourData[7]?.GoodPotential
-        ? updatedBehaviourData[7]?.GoodPotential
-        : 0
-    );
-    setQualitygp(
-      updatedBehaviourData[8]?.GoodPotential
-        ? updatedBehaviourData[8]?.GoodPotential
-        : 0
-    );
-    setResponsibilitygp(
-      updatedBehaviourData[9]?.GoodPotential
-        ? updatedBehaviourData[9]?.GoodPotential
-        : 0
-    );
-    setMultiSkillsgp(
-      updatedBehaviourData[10]?.GoodPotential
-        ? updatedBehaviourData[10]?.GoodPotential
-        : 0
-    );
-    setMaturitygp(
-      updatedBehaviourData[11]?.GoodPotential
-        ? updatedBehaviourData[11]?.GoodPotential
-        : 0
-    );
-    setApproachgp(
-      updatedBehaviourData[12]?.GoodPotential
-        ? updatedBehaviourData[12]?.GoodPotential
-        : 0
-    );
-    setTeamworkgp(
-      updatedBehaviourData[13]?.GoodPotential
-        ? updatedBehaviourData[13]?.GoodPotential
-        : 0
-    );
-
-    //=============highpotential states================//
-    setAttendencehp(
-      updatedBehaviourData[0]?.HighPotential
-        ? updatedBehaviourData[0]?.HighPotential
-        : 0
-    );
-    setLessDDependabilityhp(
-      updatedBehaviourData[1]?.HighPotential
-        ? updatedBehaviourData[1]?.HighPotential
-        : 0
-    );
-    setGroupWorkinghp(
-      updatedBehaviourData[2]?.HighPotential
-        ? updatedBehaviourData[2]?.HighPotential
-        : 0
-    );
-    setPositiveAttitudehp(
-      updatedBehaviourData[3]?.HighPotential
-        ? updatedBehaviourData[3]?.HighPotential
-        : 0
-    );
-    setIntelligencehp(
-      updatedBehaviourData[4]?.HighPotential
-        ? updatedBehaviourData[4]?.HighPotential
-        : 0
-    );
-    setImaginationhp(
-      updatedBehaviourData[5]?.HighPotential
-        ? updatedBehaviourData[5]?.HighPotential
-        : 0
-    );
-    setImprovementhp(
-      updatedBehaviourData[6]?.HighPotential
-        ? updatedBehaviourData[6]?.HighPotential
-        : 0
-    );
-    setDisciplinehp(
-      updatedBehaviourData[7]?.HighPotential
-        ? updatedBehaviourData[7]?.HighPotential
-        : 0
-    );
-    setQualityhp(
-      updatedBehaviourData[8]?.HighPotential
-        ? updatedBehaviourData[8]?.HighPotential
-        : 0
-    );
-    setResponsibilityhp(
-      updatedBehaviourData[9]?.HighPotential
-        ? updatedBehaviourData[9]?.HighPotential
-        : 0
-    );
-    setMultiSkillshp(
-      updatedBehaviourData[10]?.HighPotential
-        ? updatedBehaviourData[10]?.HighPotential
-        : 0
-    );
-    setMaturityhp(
-      updatedBehaviourData[11]?.HighPotential
-        ? updatedBehaviourData[11]?.HighPotential
-        : 0
-    );
-    setApproachhp(
-      updatedBehaviourData[12]?.HighPotential
-        ? updatedBehaviourData[12]?.HighPotential
-        : 0
-    );
-    setTeamworkhp(
-      updatedBehaviourData[13]?.HighPotential
-        ? updatedBehaviourData[13]?.HighPotential
-        : 0
-    );
-  }, [updatedBehaviourData]);
+   
+  }, [updatedBehaviourData,quarterlyBehavioural]);
 
   //------------------------------------------------------------------//
   //OnChnage//
@@ -3721,14 +4175,15 @@ const Tableviewnew = ({
   selectedThreeMonths,
   isThreeMonths,
 }) => {
-
-
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [userfeedback, setUserfeedback] = useState({});
   const [appraiseMarksAvg, setAppraiseMarksAvg] = useState({});
+  const [division, setDivision] = useState(0);
   const [appraiserAvg, setAppraiserAvg] = useState({});
-  const [avgQuaterlyData,setAvgQuaterlyData]=useState()
+  const [avgQuaterlyData, setAvgQuaterlyData] = useState();
+  const [quarterlyBehavioural ,setQuarterlyBehavioural ] = useState()
+  const [behviouralDivision,setBehviouralDivision] = useState(0)
 
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
   const [state, setState] = useState("");
@@ -3847,7 +4302,7 @@ const Tableviewnew = ({
   async function getAllData() {
     let reqOptions = {
       method: "post",
-      url: `${BACKEND_URL}/kpi/marks/data`,
+      url: `http://localhost:8080/kpi/marks/data`,
       data: [
         {
           email: email,
@@ -3859,37 +4314,40 @@ const Tableviewnew = ({
     };
     let data = await axios.request(reqOptions);
 
-    if(isThreeMonths || selectedThreeMonths){
+    if (data.data.data.length > 9) {
+      setDivision(data.data.data.length / 8);
       let sum = {
         AppraiseeSelfRating: [],
         AppraiserRating: [],
         Target: [],
-        ReviewerMarks: []
+        ReviewerMarks: [],
       };
-      
-      const groupedData = data.reduce((result, item) => {
-        const toDate = item.ToDate; 
+
+      const groupedData = data?.data?.data?.reduce((result, item) => {
+        const toDate = item?.ToDate;
         if (!result[toDate]) {
           result[toDate] = [];
         }
         result[toDate].push(item);
         return result;
       }, {});
-      
+
       Object.values(groupedData).forEach((data, index) => {
         data.forEach((allData, allindex) => {
-          sum.AppraiseeSelfRating[allindex] = (sum.AppraiseeSelfRating[allindex] || 0) + allData.AppraiseeSelfRating;
-          sum.AppraiserRating[allindex] = (sum.AppraiserRating[allindex] || 0) + allData.AppraiserRating;
-          sum.Target[allindex] = (sum.Target[allindex] || 0) + allData.Target;
-          sum.ReviewerMarks[allindex] = (sum.ReviewerMarks[allindex] || 0) + allData.ReviewerMarks;
+          sum.AppraiseeSelfRating[allindex] =
+            (sum.AppraiseeSelfRating[allindex] || 0) +
+            allData?.AppraiseeSelfRating;
+          sum.AppraiserRating[allindex] =
+            (sum.AppraiserRating[allindex] || 0) + allData?.AppraiserRating;
+          sum.Target[allindex] = (sum.Target[allindex] || 0) + allData?.Target;
+          sum.ReviewerMarks[allindex] =
+            (sum.ReviewerMarks[allindex] || 0) + allData?.ReviewerMarks;
         });
       });
-    setAvgQuaterlyData(sum)
-    }else{
+      setAvgQuaterlyData(sum);
+    } else {
       setUpdatedData(data);
     }
-
-   
   }
 
   async function getBehaviouralData() {
@@ -3905,14 +4363,53 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `${BACKEND_URL}/kpi/behavioural/data`,
+      url: `http://localhost:8080/kpi/behavioural/data`,
       method: "POST",
       headers: headersList,
       data: data,
     };
     let resData = await axios.request(reqOptions);
 
-    return setUpdatedBehaviourData(resData.data.data);
+    if(resData.data.data < 14){
+      return setUpdatedBehaviourData(resData.data.data);
+    }else{
+
+      if(designation.includes("Senior")){
+        setBehviouralDivision(resData.data.data.length/14)
+      }else{
+        setBehviouralDivision(resData.data.data.length/11)
+      }
+
+      const sum = {
+        LowPotential : [],
+        GoodPotential : [],
+        HighPotential : []
+    }
+
+      const groupedData = resData?.data?.data?.reduce((result, item) => {
+        const toDate = item?.ToDate;
+        if (!result[toDate]) {
+          result[toDate] = [];
+        }
+        result[toDate].push(item);
+        return result;
+      }, {});
+    }
+
+    Object.values(groupedData).forEach((data, index) => {
+      data.forEach((allData, allindex) => {
+        sum.LowPotential[allindex] =
+          (sum.LowPotential[allindex] || 0) +
+          Number(allData?.LowPotential);
+        sum.GoodPotential[allindex] =
+          (sum.GoodPotential[allindex] || 0) + Number(allData?.GoodPotential);
+        sum.HighPotential[allindex] = (sum.HighPotential[allindex] || 0) + Number(allData?.HighPotential);
+     
+      });
+    });
+
+    setQuarterlyBehavioural(sum)
+    
   }
 
   async function getPositivePoint() {
@@ -4010,7 +4507,24 @@ const Tableviewnew = ({
 
         customUpskillingMarks: updatedData?.data?.data[7]?.AppraiseeSelfRating,
       });
+    } else {
+      setParentSelfAppraise({
+        customActualdeliveryMarks: thirdTable[0].J,
+        customOnTimeMarks: thirdTable[1].J,
+        customAvgCodeMarks: thirdTable[2].J,
+
+        customReDoMarks: thirdTable[3].J,
+
+        customBugsReportedMarks: thirdTable[4].J,
+
+        customCriticalIssuesMarks: thirdTable[5].J,
+
+        customCustomerSatisfactionMarks: thirdTable[6].J,
+
+        customUpskillingMarks: thirdTable[7].J,
+      });
     }
+
     if (updatedData && updatedData?.data?.data?.length > 0) {
       setParentAppraise({
         customActualdeliveryMarksAr:
@@ -4039,13 +4553,19 @@ const Tableviewnew = ({
         customUpskillingMarksRM: updatedData?.data?.data[7]?.ReviewerMarks,
       });
     }
-
     if (updatedData && updatedData?.data?.data?.length > 0) {
       setParentTarget({
         actualDelivery: updatedData?.data?.data[0]?.Target,
         onTime: updatedData?.data?.data[1]?.Target,
 
         critical: updatedData?.data?.data[5]?.Target,
+      });
+    } else {
+      setParentTarget({
+        actualDelivery: thirdTable[0].I,
+        onTime: thirdTable[1].I,
+
+        critical: thirdTable[5].I,
       });
     }
   }, [updatedData]);
@@ -4583,46 +5103,51 @@ const Tableviewnew = ({
       }
     });
 
-    let data = axios({
-      method: "post",
-      url: `${BACKEND_URL}/kpi/marks`,
-      data: allFinalData,
-      headers: { Accept: "application/json" },
-    });
-    let bData = axios({
-      method: "post",
-      url: `${BACKEND_URL}/kpi/behavioural`,
-      data: allBehaviourKpiData,
-      headers: { Accept: "application/json" },
-    });
-    let pData = axios({
-      method: "post",
-      url: `${BACKEND_URL}/kpi/positivepoint`,
-      data: allFeedbackData,
-      headers: { Accept: "application/json" },
-    });
+    if (isThreeMonths === false && selectedThreeMonths === false) {
+      let data = axios({
+        method: "post",
+        url: `${BACKEND_URL}/kpi/marks`,
+        data: allFinalData,
+        headers: { Accept: "application/json" },
+      });
+      let bData = axios({
+        method: "post",
+        url: `${BACKEND_URL}/kpi/behavioural`,
+        data: allBehaviourKpiData,
+        headers: { Accept: "application/json" },
+      });
+    }
 
-    let sData = axios({
-      method: "post",
-      url: `${BACKEND_URL}/kpi/scopeofimprovement`,
-      data: allScopeData,
-      headers: { Accept: "application/json" },
-    });
+    if (isThreeMonths || selectedThreeMonths) {
+      let pData = axios({
+        method: "post",
+        url: `${BACKEND_URL}/kpi/positivepoint`,
+        data: allFeedbackData,
+        headers: { Accept: "application/json" },
+      });
 
-    // if (state !== undefined && state.length > 0) {
-    let uData = axios({
-      method: "post",
-      url: `${BACKEND_URL}/kpi/userfeedback`,
-      data: allUserfeedback,
-      headers: { Accept: "application/json" },
-    });
-    // }
+      let sData = axios({
+        method: "post",
+        url: `${BACKEND_URL}/kpi/scopeofimprovement`,
+        data: allScopeData,
+        headers: { Accept: "application/json" },
+      });
+
+      // if (state !== undefined && state.length > 0) {
+      let uData = axios({
+        method: "post",
+        url: `${BACKEND_URL}/kpi/userfeedback`,
+        data: allUserfeedback,
+        headers: { Accept: "application/json" },
+      });
+      // }
+    }
 
     setTimeout(() => {
       window.location.reload(false);
       setTimeout(() => {
         setLoader(false);
-      }, 1000);
+      }, 2000);
     }, 1000);
   }
 
@@ -4946,6 +5471,8 @@ const Tableviewnew = ({
                         ind={ind}
                         val={val}
                         setIsSubmit={setIsSubmit}
+                        division={division}
+                        avgQuaterlyData={avgQuaterlyData}
                         isThreeMonths={isThreeMonths}
                         selectedThreeMonths={selectedThreeMonths}
                         setParentAppraise={setParentAppraise}
@@ -4960,6 +5487,7 @@ const Tableviewnew = ({
                         finalAppraiseAvg={finalAppraiseAvg}
                         setAppraiserAvg={setAppraiserAvg}
                         finalAppraiserAvg={finalAppraiserAvg}
+                        setDivision={setDivision}
                       />
                     </>
                   );
@@ -4988,6 +5516,7 @@ const Tableviewnew = ({
                         finalAppraiseAvg={finalAppraiseAvg}
                         setAppraiserAvg={setAppraiserAvg}
                         finalAppraiserAvg={finalAppraiserAvg}
+                        avgQuaterlyData={avgQuaterlyData}
                       />
                     </>
                   );
@@ -5111,6 +5640,8 @@ const Tableviewnew = ({
                     textError2GoodPotential={textError2GoodPotential}
                     setTextError3HighPotential={setTextError3HighPotential}
                     textError3HighPotential={textError3HighPotential}
+                    quarterlyBehavioural={quarterlyBehavioural}
+                    behviouralDivision={behviouralDivision}
                   />
                 </>
               );
