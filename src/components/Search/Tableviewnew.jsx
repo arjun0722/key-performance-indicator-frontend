@@ -93,22 +93,22 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [onTime, setOnTime] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [critical, setCritical] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
 
   //  this state use for Appraisee Self Rating
@@ -116,58 +116,58 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
       isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
-          ? val.J
-          : 0
+        ? val.J
+        : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
 
   // this states use for Appraiser Rating
@@ -833,21 +833,21 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
-        ? actualDelivery
-        : val.I,
+      ? actualDelivery
+      : val.I,
     isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
-        ? onTime
-        : val.I,
+      ? onTime
+      : val.I,
     val.I,
     val.I,
     val.I,
     isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
-        ? critical
-        : val.I,
+      ? critical
+      : val.I,
     val.I,
     val.I,
   ];
@@ -885,69 +885,6 @@ const Renderthirdtable = ({
 
   // ....................formula for first input.....................//
   const formula = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula1 = (a, b, c) => {
-    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula2 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula3 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula4 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula5 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula6 = (a, b, c) => {
-    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
-      return 0;
-    }
-  };
-  const formula7 = (a, b, c) => {
     if (b == 0 || b == undefined) {
       return 0;
     } else {
@@ -960,77 +897,199 @@ const Renderthirdtable = ({
       }
     }
   };
+  const formula1 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula2 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula3 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula4 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula5 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula6 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
+  const formula7 = (a, b, c) => {
+    if (b == 0 || b == undefined) {
+      return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
+    }
+  };
   // ....................formula for second input.....................//
   const formulaA = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA1 = (a, b, c) => {
-    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA2 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA3 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA4 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA5 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA6 = (a, b, c) => {
-    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA7 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const appraiseeMarks = [
@@ -1130,8 +1189,8 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : val.I > 0
-                  ? true
-                  : false
+                ? true
+                : false
             }
             style={{
               height: "100%",
@@ -1158,14 +1217,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1175,8 +1234,8 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : loginUser === email
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1191,20 +1250,20 @@ const Renderthirdtable = ({
                 ? ind === 0
                   ? customActualdeliveryMarks
                   : ind === 1
-                    ? customOnTimeMarks
-                    : ind === 2
-                      ? customAvgCodeMarks
-                      : ind === 3
-                        ? customReDoMarks
-                        : ind === 4
-                          ? customBugsReportedMarks
-                          : ind === 5
-                            ? customCriticalIssuesMarks
-                            : ind === 6
-                              ? customCustomerSatisfactionMarks
-                              : ind === 7
-                                ? customUpskillingMarks
-                                : val.J
+                  ? customOnTimeMarks
+                  : ind === 2
+                  ? customAvgCodeMarks
+                  : ind === 3
+                  ? customReDoMarks
+                  : ind === 4
+                  ? customBugsReportedMarks
+                  : ind === 5
+                  ? customCriticalIssuesMarks
+                  : ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : ind === 7
+                  ? customUpskillingMarks
+                  : val.J
                 : val.J
             }
             style={{
@@ -1243,14 +1302,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1260,8 +1319,8 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1276,24 +1335,24 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? 0
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? ind === 0
-                    ? customActualdeliveryMarksAr
-                    : 0 || ind === 1
-                      ? customOnTimeMarksAr
-                      : 0 || ind === 2
-                        ? customAvgCodeMarksAr
-                        : 0 || ind === 3
-                          ? customReDoMarksAr
-                          : 0 || ind === 4
-                            ? customBugsReportedMarksAr
-                            : 0 || ind === 5
-                              ? customCriticalIssuesMarksAr
-                              : 0 || ind === 6
-                                ? customCustomerSatisfactionMarksAr
-                                : 0 || ind === 7
-                                  ? customUpskillingMarksAr
-                                  : 0
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
                   : 0
+                : 0
             }
             style={{
               height: "100%",
@@ -1332,14 +1391,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1349,8 +1408,8 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1366,20 +1425,20 @@ const Renderthirdtable = ({
                 ? ind === 0
                   ? customActualdeliveryMarksRM
                   : 0 || ind === 1
-                    ? customOnTimeMarksRM
-                    : 0 || ind === 2
-                      ? customAvgCodeMarksRM
-                      : 0 || ind === 3
-                        ? customReDoMarksRM
-                        : 0 || ind === 4
-                          ? customBugsReportedMarksRM
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarksRM
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarksRM
-                              : 0 || ind === 7
-                                ? customUpskillingMarksRM
-                                : 0
+                  ? customOnTimeMarksRM
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksRM
+                  : 0 || ind === 3
+                  ? customReDoMarksRM
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksRM
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksRM
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksRM
+                  : 0 || ind === 7
+                  ? customUpskillingMarksRM
+                  : 0
                 : 0
             }
             style={{
@@ -2209,149 +2268,213 @@ const RenderTestTable = ({
 
   // .................formulas for first input..........//
   const formula = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula1 = (a, b, c) => {
-    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula2 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula3 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula4 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula5 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula6 = (a, b, c) => {
-    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formula7 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
 
   //.............formulas for second table...........//
   const formulaA = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA1 = (a, b, c) => {
-    const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((b - a) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA2 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA3 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA4 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / b) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA5 = (a, b, c) => {
-    const value = Number((b / a) * c).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number((b / a) * c).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA6 = (a, b, c) => {
-    const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 - ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
   const formulaA7 = (a, b, c) => {
-    const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
-
-    if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
-      return value;
-    } else {
+    if (b == 0 || b == undefined) {
       return 0;
+    } else {
+      const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
+
+      if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
+        return value;
+      } else {
+        return 0;
+      }
     }
   };
 
@@ -2407,7 +2530,7 @@ const RenderTestTable = ({
     formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage) || 0,
 
     formulaA6(com[ind].I, customCustomerSatisfactionMarksAr, val.Weightage) ||
-    0,
+      0,
 
     formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage) || 0,
   ];
@@ -2453,8 +2576,8 @@ const RenderTestTable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : com[ind].I > 0
-                  ? true
-                  : false
+                ? true
+                : false
             }
             value={value}
             style={{
@@ -2484,14 +2607,14 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
@@ -2501,8 +2624,8 @@ const RenderTestTable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : loginUser === email
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -2518,20 +2641,20 @@ const RenderTestTable = ({
                 ? ind === 0
                   ? customActualdeliveryMarks
                   : 0 || ind === 1
-                    ? customOnTimeMarks
-                    : 0 || ind === 2
-                      ? customAvgCodeMarks
-                      : 0 || ind === 3
-                        ? customReDoMarks
-                        : 0 || ind === 4
-                          ? customBugsReportedMarks
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarks
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarks
-                              : 0 || ind === 7
-                                ? customUpskillingMarks
-                                : 0
+                  ? customOnTimeMarks
+                  : 0 || ind === 2
+                  ? customAvgCodeMarks
+                  : 0 || ind === 3
+                  ? customReDoMarks
+                  : 0 || ind === 4
+                  ? customBugsReportedMarks
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarks
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : 0 || ind === 7
+                  ? customUpskillingMarks
+                  : 0
                 : val.AppraiseeSelfRating
             }
             style={{
@@ -2570,14 +2693,14 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
@@ -2596,31 +2719,31 @@ const RenderTestTable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             value={
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? 0
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? ind === 0
-                    ? customActualdeliveryMarksAr
-                    : 0 || ind === 1
-                      ? customOnTimeMarksAr
-                      : 0 || ind === 2
-                        ? customAvgCodeMarksAr
-                        : 0 || ind === 3
-                          ? customReDoMarksAr
-                          : 0 || ind === 4
-                            ? customBugsReportedMarksAr
-                            : 0 || ind === 5
-                              ? customCriticalIssuesMarksAr
-                              : 0 || ind === 6
-                                ? customCustomerSatisfactionMarksAr
-                                : 0 || ind === 7
-                                  ? customUpskillingMarksAr
-                                  : 0
-                  : val.AppraiserRating
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
+                  : 0
+                : val.AppraiserRating
             }
             style={{
               height: "100%",
@@ -2658,14 +2781,14 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
@@ -2684,28 +2807,28 @@ const RenderTestTable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             value={
               REVIEWER_MANAGER.includes(loginUser)
                 ? ind === 0
                   ? customActualdeliveryMarksRM
                   : 0 || ind === 1
-                    ? customOnTimeMarksRM
-                    : 0 || ind === 2
-                      ? customAvgCodeMarksRM
-                      : 0 || ind === 3
-                        ? customReDoMarksRM
-                        : 0 || ind === 4
-                          ? customBugsReportedMarksRM
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarksRM
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarksRM
-                              : 0 || ind === 7
-                                ? customUpskillingMarksRM
-                                : 0
+                  ? customOnTimeMarksRM
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksRM
+                  : 0 || ind === 3
+                  ? customReDoMarksRM
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksRM
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksRM
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksRM
+                  : 0 || ind === 7
+                  ? customUpskillingMarksRM
+                  : 0
                 : val.ReviewerMarks
             }
             style={{
@@ -2755,7 +2878,7 @@ const Renderforthtable = ({
   setTextError3HighPotential,
   textError3HighPotential,
   quarterlyBehavioural,
-  behviouralDivision
+  behviouralDivision,
 }) => {
   // const [avg,setAvg] = useState(0)
 
@@ -2841,8 +2964,8 @@ const Renderforthtable = ({
 
   useEffect(() => {
     //=============lowpotential states================//
-  
-    if (updatedBehaviourData.length === undefined ) {
+
+    if (updatedBehaviourData.length === undefined) {
       setAttendencelp(
         quarterlyBehavioural?.LowPotential[0]
           ? quarterlyBehavioural?.LowPotential[0]
@@ -3273,8 +3396,6 @@ const Renderforthtable = ({
           : 0
       );
     }
-
-
   }, [updatedBehaviourData, quarterlyBehavioural]);
 
   //------------------------------------------------------------------//
@@ -3745,34 +3866,34 @@ const Renderforthtable = ({
 
   const lowPotentialValues = designation?.includes("Senior")
     ? [
-      attendencelp,
-      lessDDependabilitylp,
-      groupWorkinglp,
-      positiveAttitudelp,
-      intelligencelp,
-      imaginationlp,
-      improvementlp,
-      disciplinelp,
-      qualitylp,
-      responsibilitylp,
-      multiSkillslp,
-      maturitylp,
-      approachlp,
-      teamworklp,
-    ]
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+        maturitylp,
+        approachlp,
+        teamworklp,
+      ]
     : [
-      attendencelp,
-      lessDDependabilitylp,
-      groupWorkinglp,
-      positiveAttitudelp,
-      intelligencelp,
-      imaginationlp,
-      improvementlp,
-      disciplinelp,
-      qualitylp,
-      responsibilitylp,
-      multiSkillslp,
-    ];
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+      ];
 
   const lowPotentialInputValues =
     lowPotentialValues[ind] !== undefined
@@ -3781,34 +3902,34 @@ const Renderforthtable = ({
 
   const goodPotentialValues = designation.includes("Senior")
     ? [
-      attendencegp,
-      lessDDependabilitygp,
-      groupWorkinggp,
-      positiveAttitudegp,
-      intelligencegp,
-      imaginationgp,
-      improvementgp,
-      disciplinegp,
-      qualitygp,
-      responsibilitygp,
-      multiSkillsgp,
-      maturitygp,
-      approachgp,
-      teamworkgp,
-    ]
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+        maturitygp,
+        approachgp,
+        teamworkgp,
+      ]
     : [
-      attendencegp,
-      lessDDependabilitygp,
-      groupWorkinggp,
-      positiveAttitudegp,
-      intelligencegp,
-      imaginationgp,
-      improvementgp,
-      disciplinegp,
-      qualitygp,
-      responsibilitygp,
-      multiSkillsgp,
-    ];
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+      ];
 
   const goodPotentialInputValues =
     goodPotentialValues[ind] !== undefined
@@ -3817,41 +3938,38 @@ const Renderforthtable = ({
 
   const highPotentialValues = designation.includes("Senior")
     ? [
-      attendencehp,
-      lessDDependabilityhp,
-      groupWorkinghp,
-      positiveAttitudehp,
-      intelligencehp,
-      imaginationhp,
-      improvementhp,
-      disciplinehp,
-      qualityhp,
-      responsibilityhp,
-      multiSkillshp,
-      maturityhp,
-      approachhp,
-      teamworkhp,
-    ]
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+        maturityhp,
+        approachhp,
+        teamworkhp,
+      ]
     : [
-      attendencehp,
-      lessDDependabilityhp,
-      groupWorkinghp,
-      positiveAttitudehp,
-      intelligencehp,
-      imaginationhp,
-      improvementhp,
-      disciplinehp,
-      qualityhp,
-      responsibilityhp,
-      multiSkillshp,
-    ];
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+      ];
   const highPotentialInputValues =
     highPotentialValues[ind] !== undefined
       ? highPotentialValues[ind]
       : "undefined";
-
-
-  
 
   useEffect(() => {
     if (updatedBehaviourData.length > 0) {
@@ -3903,8 +4021,6 @@ const Renderforthtable = ({
   //                     HighPotential: true,
   //           });
   // }
-
-
 
   useEffect(() => {
     const calculatedValues = {
@@ -3958,44 +4074,41 @@ const Renderforthtable = ({
         Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
     };
 
-    
     const totalMarks = designation.includes("Senior")
       ? [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-        calculatedValues.totalMaturity,
-        calculatedValues.totalApproach,
-        calculatedValues.totalTeamwork,
-      ]
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          calculatedValues.totalMaturity,
+          calculatedValues.totalApproach,
+          calculatedValues.totalTeamwork,
+        ]
       : [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-        0,
-        0,
-        0,
-      ];
-
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          0,
+          0,
+          0,
+        ];
 
     const calculatedMarks = totalMarks[ind] !== undefined ? totalMarks[ind] : 0;
-   
 
     setRowTotal((marks) => ({
       ...marks,
@@ -4049,8 +4162,8 @@ const Renderforthtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.LowPotential
-                  : true
+                ? isDisable.LowPotential
+                : true
             }
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -4086,8 +4199,8 @@ const Renderforthtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.GoodPotential
-                  : true
+                ? isDisable.GoodPotential
+                : true
             }
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -4124,8 +4237,8 @@ const Renderforthtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.HighPotential
-                  : true
+                ? isDisable.HighPotential
+                : true
             }
             style={{
               outline: "0",
@@ -4191,8 +4304,8 @@ const Tableviewnew = ({
   const [division, setDivision] = useState(0);
   const [appraiserAvg, setAppraiserAvg] = useState({});
   const [avgQuaterlyData, setAvgQuaterlyData] = useState();
-  const [quarterlyBehavioural, setQuarterlyBehavioural] = useState()
-  const [behviouralDivision, setBehviouralDivision] = useState(0)
+  const [quarterlyBehavioural, setQuarterlyBehavioural] = useState();
+  const [behviouralDivision, setBehviouralDivision] = useState(0);
 
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
   const [state, setState] = useState("");
@@ -4230,8 +4343,8 @@ const Tableviewnew = ({
     MANAGEMENt_ID.includes(loginUser)
       ? false
       : isThreeMonths || selectedThreeMonths
-        ? true
-        : false
+      ? true
+      : false
   );
 
   const [disableText, setDisableText] = useState(true);
@@ -4379,49 +4492,43 @@ const Tableviewnew = ({
     };
     let resData = await axios.request(reqOptions);
 
-   if(resData?.data?.data?.length > 13){
-     if (designation.includes("Senior")) {
-       setBehviouralDivision(resData.data.data.length / 14)
-     } else {
-       setBehviouralDivision(resData.data.data.length / 11)
-     }
+    if (resData?.data?.data?.length > 13) {
+      if (designation.includes("Senior")) {
+        setBehviouralDivision(resData.data.data.length / 14);
+      } else {
+        setBehviouralDivision(resData.data.data.length / 11);
+      }
 
-     const sum = {
-       LowPotential: [],
-       GoodPotential: [],
-       HighPotential: []
-     }
+      const sum = {
+        LowPotential: [],
+        GoodPotential: [],
+        HighPotential: [],
+      };
 
-     const groupedData = resData?.data?.data?.reduce((result, item) => {
-       const toDate = item?.ToDate;
-       if (!result[toDate]) {
-         result[toDate] = [];
-       }
-       result[toDate].push(item);
-       return result;
-     }, {});
+      const groupedData = resData?.data?.data?.reduce((result, item) => {
+        const toDate = item?.ToDate;
+        if (!result[toDate]) {
+          result[toDate] = [];
+        }
+        result[toDate].push(item);
+        return result;
+      }, {});
 
+      Object.values(groupedData).forEach((data, index) => {
+        data.forEach((allData, allindex) => {
+          sum.LowPotential[allindex] =
+            (sum.LowPotential[allindex] || 0) + Number(allData?.LowPotential);
+          sum.GoodPotential[allindex] =
+            (sum.GoodPotential[allindex] || 0) + Number(allData?.GoodPotential);
+          sum.HighPotential[allindex] =
+            (sum.HighPotential[allindex] || 0) + Number(allData?.HighPotential);
+        });
+      });
 
-     Object.values(groupedData).forEach((data, index) => {
-       data.forEach((allData, allindex) => {
-         sum.LowPotential[allindex] =
-           (sum.LowPotential[allindex] || 0) +
-           Number(allData?.LowPotential);
-         sum.GoodPotential[allindex] =
-           (sum.GoodPotential[allindex] || 0) + Number(allData?.GoodPotential);
-         sum.HighPotential[allindex] = (sum.HighPotential[allindex] || 0) + Number(allData?.HighPotential);
-
-       });
-     });
-
-     setQuarterlyBehavioural(sum)
-   }else{
-
-     setUpdatedBehaviourData(resData.data.data);
-   }
-
-
-
+      setQuarterlyBehavioural(sum);
+    } else {
+      setUpdatedBehaviourData(resData.data.data);
+    }
   }
 
   async function getPositivePoint() {
@@ -4587,7 +4694,6 @@ const Tableviewnew = ({
   const [parentSelfAppraise, setParentSelfAppraise] = useState({});
   const [parentReviewerMarks, setParentReviewerMarks] = useState({});
 
-
   //------------------------------------------------------------------//
   //Behavioural KPI Table//
   //------------------------------------------------------------------//
@@ -4600,10 +4706,11 @@ const Tableviewnew = ({
   const [finalAppraiseAvg, setFinalAppraiseAvg] = useState(0);
   const [finalAppraiserAvg, setFinalAppraiserAvg] = useState(0);
 
+
+
   useEffect(() => {
-   if(updatedBehaviourData.length === undefined){
- if (designation.includes("Senior")) {
-    
+    if (updatedBehaviourData.length === undefined) {
+      if (designation.includes("Senior")) {
         setLowPotential({
           attendencelp: quarterlyBehavioural?.LowPotential[0],
           lessDDependabilitylp: quarterlyBehavioural?.LowPotential[1],
@@ -4622,15 +4729,15 @@ const Tableviewnew = ({
         });
         setGoodPotential({
           attendencegp: quarterlyBehavioural?.GoodPotential[0],
-          lessDDependabilitygp:quarterlyBehavioural?.GoodPotential[1],
-          groupWorkinggp:quarterlyBehavioural?.GoodPotential[2],
-          positiveAttitudegp:quarterlyBehavioural?.GoodPotential[3],
-          intelligencegp:quarterlyBehavioural?.GoodPotential[4],
-          imaginationgp:quarterlyBehavioural?.GoodPotential[5],
-          improvementgp:quarterlyBehavioural?.GoodPotential[6],
-          disciplinegp:quarterlyBehavioural?.GoodPotential[7],
-          qualitygp:quarterlyBehavioural?.GoodPotential[8],
-          responsibilitygp:quarterlyBehavioural?.GoodPotential[9],
+          lessDDependabilitygp: quarterlyBehavioural?.GoodPotential[1],
+          groupWorkinggp: quarterlyBehavioural?.GoodPotential[2],
+          positiveAttitudegp: quarterlyBehavioural?.GoodPotential[3],
+          intelligencegp: quarterlyBehavioural?.GoodPotential[4],
+          imaginationgp: quarterlyBehavioural?.GoodPotential[5],
+          improvementgp: quarterlyBehavioural?.GoodPotential[6],
+          disciplinegp: quarterlyBehavioural?.GoodPotential[7],
+          qualitygp: quarterlyBehavioural?.GoodPotential[8],
+          responsibilitygp: quarterlyBehavioural?.GoodPotential[9],
           multiSkillsgp: quarterlyBehavioural?.GoodPotential[10],
           maturitygp: quarterlyBehavioural?.GoodPotential[11],
           approachgp: quarterlyBehavioural?.GoodPotential[12],
@@ -4647,14 +4754,12 @@ const Tableviewnew = ({
           disciplinehp: quarterlyBehavioural?.HighPotential[7],
           qualityhp: quarterlyBehavioural?.HighPotential[8],
           responsibilityhp: quarterlyBehavioural?.HighPotential[9],
-          multiSkillshp:  quarterlyBehavioural?.HighPotential[10],
-          maturityhp:  quarterlyBehavioural?.HighPotential[11],
-          approachhp:  quarterlyBehavioural?.HighPotential[12],
-          teamworkhp:  quarterlyBehavioural?.HighPotential[13],
+          multiSkillshp: quarterlyBehavioural?.HighPotential[10],
+          maturityhp: quarterlyBehavioural?.HighPotential[11],
+          approachhp: quarterlyBehavioural?.HighPotential[12],
+          teamworkhp: quarterlyBehavioural?.HighPotential[13],
         });
-      
-    } else {
-      
+      } else {
         setLowPotential({
           attendencelp: quarterlyBehavioural?.LowPotential[0],
           lessDDependabilitylp: quarterlyBehavioural?.LowPotential[1],
@@ -4694,113 +4799,100 @@ const Tableviewnew = ({
           responsibilityhp: quarterlyBehavioural?.HighPotential[9],
           multiSkillshp: quarterlyBehavioural?.HighPotential[10],
         });
-      
+      }
+    } else {
+      if (designation.includes("Senior")) {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+          maturitylp: updatedBehaviourData[11]?.LowPotential,
+          approachlp: updatedBehaviourData[12]?.LowPotential,
+          teamworklp: updatedBehaviourData[13]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+          maturitygp: updatedBehaviourData[11]?.GoodPotential,
+          approachgp: updatedBehaviourData[12]?.GoodPotential,
+          teamworkgp: updatedBehaviourData[13]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+          maturityhp: updatedBehaviourData[11]?.HighPotential,
+          approachhp: updatedBehaviourData[12]?.HighPotential,
+          teamworkhp: updatedBehaviourData[13]?.HighPotential,
+        });
+      } else {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+        });
+      }
     }
-   }
-   else{
-     if (designation.includes("Senior")) {
-
-       setLowPotential({
-         attendencelp: updatedBehaviourData[0]?.LowPotential,
-         lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
-         groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
-         positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
-         intelligencelp: updatedBehaviourData[4]?.LowPotential,
-         imaginationlp: updatedBehaviourData[5]?.LowPotential,
-         improvementlp: updatedBehaviourData[6]?.LowPotential,
-         disciplinelp: updatedBehaviourData[7]?.LowPotential,
-         qualitylp: updatedBehaviourData[8]?.LowPotential,
-         responsibilitylp: updatedBehaviourData[9]?.LowPotential,
-         multiSkillslp: updatedBehaviourData[10]?.LowPotential,
-         maturitylp: updatedBehaviourData[11]?.LowPotential,
-         approachlp: updatedBehaviourData[12]?.LowPotential,
-         teamworklp: updatedBehaviourData[13]?.LowPotential,
-       });
-       setGoodPotential({
-         attendencegp: updatedBehaviourData[0]?.GoodPotential,
-         lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
-         groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
-         positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
-         intelligencegp: updatedBehaviourData[4]?.GoodPotential,
-         imaginationgp: updatedBehaviourData[5]?.GoodPotential,
-         improvementgp: updatedBehaviourData[6]?.GoodPotential,
-         disciplinegp: updatedBehaviourData[7]?.GoodPotential,
-         qualitygp: updatedBehaviourData[8]?.GoodPotential,
-         responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
-         multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
-         maturitygp: updatedBehaviourData[11]?.GoodPotential,
-         approachgp: updatedBehaviourData[12]?.GoodPotential,
-         teamworkgp: updatedBehaviourData[13]?.GoodPotential,
-       });
-       setHighPotential({
-         attendencehp: updatedBehaviourData[0]?.HighPotential,
-         lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
-         groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
-         positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
-         intelligencehp: updatedBehaviourData[4]?.HighPotential,
-         imaginationhp: updatedBehaviourData[5]?.HighPotential,
-         improvementhp: updatedBehaviourData[6]?.HighPotential,
-         disciplinehp: updatedBehaviourData[7]?.HighPotential,
-         qualityhp: updatedBehaviourData[8]?.HighPotential,
-         responsibilityhp: updatedBehaviourData[9]?.HighPotential,
-         multiSkillshp: updatedBehaviourData[10]?.HighPotential,
-         maturityhp: updatedBehaviourData[11]?.HighPotential,
-         approachhp: updatedBehaviourData[12]?.HighPotential,
-         teamworkhp: updatedBehaviourData[13]?.HighPotential,
-       });
-
-     } else {
-
-       setLowPotential({
-         attendencelp: updatedBehaviourData[0]?.LowPotential,
-         lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
-         groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
-         positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
-         intelligencelp: updatedBehaviourData[4]?.LowPotential,
-         imaginationlp: updatedBehaviourData[5]?.LowPotential,
-         improvementlp: updatedBehaviourData[6]?.LowPotential,
-         disciplinelp: updatedBehaviourData[7]?.LowPotential,
-         qualitylp: updatedBehaviourData[8]?.LowPotential,
-         responsibilitylp: updatedBehaviourData[9]?.LowPotential,
-         multiSkillslp: updatedBehaviourData[10]?.LowPotential,
-       });
-       setGoodPotential({
-         attendencegp: updatedBehaviourData[0]?.GoodPotential,
-         lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
-         groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
-         positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
-         intelligencegp: updatedBehaviourData[4]?.GoodPotential,
-         imaginationgp: updatedBehaviourData[5]?.GoodPotential,
-         improvementgp: updatedBehaviourData[6]?.GoodPotential,
-         disciplinegp: updatedBehaviourData[7]?.GoodPotential,
-         qualitygp: updatedBehaviourData[8]?.GoodPotential,
-         responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
-         multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
-       });
-       setHighPotential({
-         attendencehp: updatedBehaviourData[0]?.HighPotential,
-         lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
-         groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
-         positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
-         intelligencehp: updatedBehaviourData[4]?.HighPotential,
-         imaginationhp: updatedBehaviourData[5]?.HighPotential,
-         improvementhp: updatedBehaviourData[6]?.HighPotential,
-         disciplinehp: updatedBehaviourData[7]?.HighPotential,
-         qualityhp: updatedBehaviourData[8]?.HighPotential,
-         responsibilityhp: updatedBehaviourData[9]?.HighPotential,
-         multiSkillshp: updatedBehaviourData[10]?.HighPotential,
-       });
-
-     }
-   }
   }, [updatedBehaviourData, quarterlyBehavioural]);
-
-
- 
-
-
-
- 
 
   function checkArr() {
     const rawTotalArr = Object.values(rowTotal);
@@ -5221,6 +5313,70 @@ const Tableviewnew = ({
       }
     });
 
+    let indicesToCheck = [0, 1, 2, 3, 4, 6];
+     
+    let hasAppraiseeZero = false;
+    if (MANAGEMENt_ID.includes(loginUser)) {
+      
+      for (let index of indicesToCheck) {
+        if (allFinalData[index].AppraiserRating === 0) {
+          hasAppraiseeZero = true;
+          break;
+        } 
+      }
+      
+      if (hasAppraiseeZero) {
+        alert("Appraisee rating not filled correctly");
+        return;
+      }
+    }
+    
+    let hasAppraiseeselfZero = false;
+    if (!MANAGEMENt_ID.includes(loginUser)) {
+      for (let index of indicesToCheck) {
+        if (allFinalData[index].AppraiseeSelfRating === 0) {
+          hasAppraiseeselfZero = true;
+          break;
+        }
+      }
+      if (hasAppraiseeselfZero) {
+        alert("Appraiseeself rating not filled correctly");
+        return;
+      }
+    }
+    
+    let reviewMarksZero = false;
+    if (REVIEWER_MANAGER.includes(loginUser)) {
+      for (let index of indicesToCheck) {
+        if (allFinalData[index].ReviewerMarks === 0) {
+          reviewMarksZero = true;
+          break;
+        }
+      }
+      if (reviewMarksZero) {
+        alert("Behaviour KPI not filled correctly");
+        return;
+      }
+    }
+    
+
+    let hasZeroValue = false;
+    if (MANAGEMENt_ID.includes(loginUser)) {
+      for (let key in rowTotal) {
+        if (rowTotal[key] === 0) {
+          hasZeroValue = true;
+          break;
+        }
+      }
+
+      if (hasZeroValue) {
+        alert("behaviou kpi not filled properly ")
+        return;
+      }
+
+     
+    }
+
     if (isThreeMonths === false && selectedThreeMonths === false) {
       let data = axios({
         method: "post",
@@ -5265,8 +5421,8 @@ const Tableviewnew = ({
       window.location.reload(false);
       setTimeout(() => {
         setLoader(false);
-      }, 2000);
-    }, 1000);
+      }, 4000);
+    }, 4000);
   }
 
   useEffect(() => {
@@ -5574,71 +5730,71 @@ const Tableviewnew = ({
             </tr>
 
             {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
-              updatedData?.data?.data[0]?.ShowDevOpsData === undefined
+            updatedData?.data?.data[0]?.ShowDevOpsData === undefined
               ? thirdTable?.map((val, ind) => {
-                return (
-                  <>
-                    <Renderthirdtable
-                      setTextError1={setTextError1}
-                      textError1={textError1}
-                      setTextError2={setTextError2}
-                      textError2={textError2}
-                      setTextError3={setTextError3}
-                      textError3={textError3}
-                      thirdTable={thirdTable}
-                      ind={ind}
-                      val={val}
-                      setIsSubmit={setIsSubmit}
-                      division={division}
-                      avgQuaterlyData={avgQuaterlyData}
-                      isThreeMonths={isThreeMonths}
-                      selectedThreeMonths={selectedThreeMonths}
-                      setParentAppraise={setParentAppraise}
-                      parentAppraise={parentAppraise}
-                      setParentSelfAppraise={setParentSelfAppraise}
-                      parentSelfAppraise={parentSelfAppraise}
-                      setParentReviewerMarks={setParentReviewerMarks}
-                      parentReviewerMarks={parentReviewerMarks}
-                      setParentTarget={setParentTarget}
-                      parentTarget={parentTarget}
-                      setAppraiseMarksAvg={setAppraiseMarksAvg}
-                      finalAppraiseAvg={finalAppraiseAvg}
-                      setAppraiserAvg={setAppraiserAvg}
-                      finalAppraiserAvg={finalAppraiserAvg}
-                      setDivision={setDivision}
-                    />
-                  </>
-                );
-              })
+                  return (
+                    <>
+                      <Renderthirdtable
+                        setTextError1={setTextError1}
+                        textError1={textError1}
+                        setTextError2={setTextError2}
+                        textError2={textError2}
+                        setTextError3={setTextError3}
+                        textError3={textError3}
+                        thirdTable={thirdTable}
+                        ind={ind}
+                        val={val}
+                        setIsSubmit={setIsSubmit}
+                        division={division}
+                        avgQuaterlyData={avgQuaterlyData}
+                        isThreeMonths={isThreeMonths}
+                        selectedThreeMonths={selectedThreeMonths}
+                        setParentAppraise={setParentAppraise}
+                        parentAppraise={parentAppraise}
+                        setParentSelfAppraise={setParentSelfAppraise}
+                        parentSelfAppraise={parentSelfAppraise}
+                        setParentReviewerMarks={setParentReviewerMarks}
+                        parentReviewerMarks={parentReviewerMarks}
+                        setParentTarget={setParentTarget}
+                        parentTarget={parentTarget}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
+                        setDivision={setDivision}
+                      />
+                    </>
+                  );
+                })
               : updatedData?.data?.data?.map((val, ind) => {
-                return (
-                  <>
-                    <RenderTestTable
-                      ind={ind}
-                      val={val}
-                      com={thirdTable}
-                      setIsSubmit={setIsSubmit}
-                      isThreeMonths={isThreeMonths}
-                      selectedThreeMonths={selectedThreeMonths}
-                      renderTestTable={thirdTable}
-                      setParentAppraise={setParentAppraise}
-                      parentAppraise={parentAppraise}
-                      setParentSelfAppraise={setParentSelfAppraise}
-                      parentSelfAppraise={parentSelfAppraise}
-                      setParentTarget={setParentTarget}
-                      setParentReviewerMarks={setParentReviewerMarks}
-                      parentReviewerMarks={parentReviewerMarks}
-                      parentTarget={parentTarget}
-                      updatedData={updatedData}
-                      setAppraiseMarksAvg={setAppraiseMarksAvg}
-                      finalAppraiseAvg={finalAppraiseAvg}
-                      setAppraiserAvg={setAppraiserAvg}
-                      finalAppraiserAvg={finalAppraiserAvg}
-                      avgQuaterlyData={avgQuaterlyData}
-                    />
-                  </>
-                );
-              })}
+                  return (
+                    <>
+                      <RenderTestTable
+                        ind={ind}
+                        val={val}
+                        com={thirdTable}
+                        setIsSubmit={setIsSubmit}
+                        isThreeMonths={isThreeMonths}
+                        selectedThreeMonths={selectedThreeMonths}
+                        renderTestTable={thirdTable}
+                        setParentAppraise={setParentAppraise}
+                        parentAppraise={parentAppraise}
+                        setParentSelfAppraise={setParentSelfAppraise}
+                        parentSelfAppraise={parentSelfAppraise}
+                        setParentTarget={setParentTarget}
+                        setParentReviewerMarks={setParentReviewerMarks}
+                        parentReviewerMarks={parentReviewerMarks}
+                        parentTarget={parentTarget}
+                        updatedData={updatedData}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
+                        avgQuaterlyData={avgQuaterlyData}
+                      />
+                    </>
+                  );
+                })}
             <td
               style={{
                 backgroundColor: "#f4b084",
