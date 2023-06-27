@@ -5360,22 +5360,49 @@ const Tableviewnew = ({
     }
     
 
-    let hasZeroValue = false;
-    if (MANAGEMENt_ID.includes(loginUser)) {
-      for (let key in rowTotal) {
-        if (rowTotal[key] === 0) {
-          hasZeroValue = true;
-          break;
-        }
-      }
+    // let hasZeroValue = false;
+    // if (MANAGEMENt_ID.includes(loginUser)) {
+    //   for (let key in rowTotal) {
+    //     if (rowTotal[key] === 0) {
+    //       hasZeroValue = true;
+    //       break;
+    //     }
+    //   }
 
-      if (hasZeroValue) {
-        alert("behaviou kpi not filled properly ")
-        return;
-      }
+    //   if (hasZeroValue) {
+    //     alert("behaviou kpi not filled properly ")
+    //     return;
+    //   }
 
      
+    // }
+
+        
+    let hasZeroValue = false;
+    
+    
+   function checkoj(){
+            if(designation.includes("Senior")){
+                for(let i=0;i<14;i++){
+            if (rowTotal[i] === 0) {
+          hasZeroValue = true;
+          break;
+            } 
+        }
+    }else{
+               for(let i=0;i<11;i++){
+            if (rowTotal[i] === 0) {
+          hasZeroValue = true;
+          break;
+            } 
+        }
     }
+        if (hasZeroValue) {
+     alert("error")
+        return;
+      }
+   }
+   checkoj()
 
     if (isThreeMonths === false && selectedThreeMonths === false) {
       let data = axios({
