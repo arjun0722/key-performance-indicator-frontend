@@ -120,14 +120,18 @@ const Mark = () => {
       url: `${API_END_POINTS.BASE_URL}/_apis/wit/wiql?api-version=6.0`,
       method: "POST",
       headers: headersList,
-      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Task' AND ([Custom.ExpectedStartDate] >= '${startDate}' AND [Custom.ExpectedStartDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >= '${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
+      data: `{
+  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Task' AND [Microsoft.VSTS.Scheduling.DueDate] >= '${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate] <= '${lastDate}' AND [System.AssignedTo] = '${selectedEmail}'"
+}`,
     };
 
     let reqOptionsforBugs = {
       url: `${API_END_POINTS.BASE_URL}/_apis/wit/wiql?api-version=6.0`,
       method: "POST",
       headers: headersList,
-      data: `{\n  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Bug' AND ( [Custom.ExpectedStartDate] >= '${startDate}' AND [Custom.ExpectedStartDate] <= '${lastDate}' OR [Microsoft.VSTS.Scheduling.DueDate] >='${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate]<= '${lastDate}') AND [System.AssignedTo] = \'${selectedEmail}\'"\n}`,
+      data: `{
+  "query": "Select * From workItems WHERE [System.WorkItemType] = 'Bug' AND [Microsoft.VSTS.Scheduling.DueDate] >= '${startDate}' AND [Microsoft.VSTS.Scheduling.DueDate] <= '${lastDate}' AND [System.AssignedTo] = '${selectedEmail}'"
+}`,
     };
     taskandbugsArr.push(axios.request(reqOptions));
     taskandbugsArr.push(axios.request(reqOptionsforBugs));

@@ -4974,6 +4974,8 @@ const Tableviewnew = ({
     checkAppraiserArr();
   }, [rowTotal, appraiseMarksAvg, appraiserAvg]);
 
+ 
+
   async function KpiMarks() {
     try {
       setLoader(true);
@@ -4991,12 +4993,25 @@ const Tableviewnew = ({
       userfeedback.FromDate = fileData[1]?.E || "";
       userfeedback.UpdatedDate = dateTime1 || "";
       // userfeedback.IsEditable = 1;
-      if(parseInt(userfeedback?.IsEditable) === 0){
-        userfeedback?.IsEditable = 1;
+
+     
+
+
+      if(agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) &&  parseInt(agreeData[0]?.IsEditable) === 0  || agreeData[0]?.IsEditable === undefined ){
+        userfeedback.IsEditable = 1;
+        
+      }else if( agreeData && agreeData.length > 0 &&  MANAGEMENt_ID.includes(loginUser) &&   parseInt(agreeData[0]?.IsEditable) === 1){
+        userfeedback.IsEditable = 2;
       }
-      if(parseInt(userfeedback?.IsEditable) === 1){
-        userfeedback?.IsEditable = 2;
+
+
+      if(agreeData && agreeData.length > 0 && users === loginUser &&  parseInt(agreeData[0]?.IsEditable)){
+        userfeedback.IsEditable = agreeData[0]?.IsEditable;
+        
       }
+
+
+     
 
       let allFeedbackData = [feedback];
       let allScopeData = [scope];
@@ -5534,10 +5549,11 @@ const Tableviewnew = ({
     B: "category",
     C: "T1 R1",
   });
+ 
 
   function conditionTables() {
 
-    if(MANAGEMENt_ID.includes(loginUser) && parseInt(userfeedback?.IsEditable) === 2){
+    if(agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) && parseInt(agreeData[0]?.IsEditable) === 2){
       return true;
     }
 
@@ -5554,7 +5570,7 @@ const Tableviewnew = ({
 
   function conditionUserFeddback() {
 
-    if(users === loginUser && parseInt(userfeedback?.IsEditable) === 1){
+    if(  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 2 ){
       return true;
     }
 
@@ -5655,10 +5671,12 @@ const Tableviewnew = ({
 
   const [isSubmitDisable, setIsSubmitDisabled] = useState(true);
 
+
+
   function isButtonShouldDisable() {
     if (
       parseInt(newwDiffMonthhs) === 2 ||
-      parseInt(newwDiffMonthhs) > 3 || MANAGEMENt_ID.includes(loginUser) && parseInt(userfeedback?.IsEditable) === 2 || users === loginUser && parseInt(userfeedback?.IsEditable) === 1
+      parseInt(newwDiffMonthhs) > 3 || agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) && parseInt(agreeData[0]?.IsEditable) === 2 || agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) ===2
     ) {
       return true;
     } else {
