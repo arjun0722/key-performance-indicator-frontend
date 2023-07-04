@@ -5570,9 +5570,10 @@ const Tableviewnew = ({
 
   function conditionUserFeddback() {
 
-    if(  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 2 ){
+    if(  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 2 ||  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === undefined || agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 0 ){
       return true;
     }
+
 
 
     if (users === loginUser) {
