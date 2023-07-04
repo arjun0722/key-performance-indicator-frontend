@@ -106,22 +106,22 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [onTime, setOnTime] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [critical, setCritical] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
 
   //  this state use for Appraisee Self Rating
@@ -129,58 +129,58 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
       isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
-          ? val.J
-          : 0
+        ? val.J
+        : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
     isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
 
   // this states use for Appraiser Rating
@@ -846,21 +846,21 @@ const Renderthirdtable = ({
     isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
-        ? actualDelivery
-        : val.I,
+      ? actualDelivery
+      : val.I,
     isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
-        ? onTime
-        : val.I,
+      ? onTime
+      : val.I,
     val.I,
     val.I,
     val.I,
     isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
-        ? critical
-        : val.I,
+      ? critical
+      : val.I,
     val.I,
     val.I,
   ];
@@ -1200,14 +1200,14 @@ const Renderthirdtable = ({
             value={value}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : val.I > 0
-                  ? true
-                  : false
+                ? true
+                : false
             }
             style={{
               height: "100%",
@@ -1234,14 +1234,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1249,14 +1249,14 @@ const Renderthirdtable = ({
             // min={0}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : loginUser === email
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1271,20 +1271,20 @@ const Renderthirdtable = ({
                 ? ind === 0
                   ? customActualdeliveryMarks
                   : ind === 1
-                    ? customOnTimeMarks
-                    : ind === 2
-                      ? customAvgCodeMarks
-                      : ind === 3
-                        ? customReDoMarks
-                        : ind === 4
-                          ? customBugsReportedMarks
-                          : ind === 5
-                            ? customCriticalIssuesMarks
-                            : ind === 6
-                              ? customCustomerSatisfactionMarks
-                              : ind === 7
-                                ? customUpskillingMarks
-                                : val.J
+                  ? customOnTimeMarks
+                  : ind === 2
+                  ? customAvgCodeMarks
+                  : ind === 3
+                  ? customReDoMarks
+                  : ind === 4
+                  ? customBugsReportedMarks
+                  : ind === 5
+                  ? customCriticalIssuesMarks
+                  : ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : ind === 7
+                  ? customUpskillingMarks
+                  : val.J
                 : val.J
             }
             style={{
@@ -1323,14 +1323,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1338,14 +1338,14 @@ const Renderthirdtable = ({
             // min="0"
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1360,24 +1360,24 @@ const Renderthirdtable = ({
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? 0
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? ind === 0
-                    ? customActualdeliveryMarksAr
-                    : 0 || ind === 1
-                      ? customOnTimeMarksAr
-                      : 0 || ind === 2
-                        ? customAvgCodeMarksAr
-                        : 0 || ind === 3
-                          ? customReDoMarksAr
-                          : 0 || ind === 4
-                            ? customBugsReportedMarksAr
-                            : 0 || ind === 5
-                              ? customCriticalIssuesMarksAr
-                              : 0 || ind === 6
-                                ? customCustomerSatisfactionMarksAr
-                                : 0 || ind === 7
-                                  ? customUpskillingMarksAr
-                                  : 0
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
                   : 0
+                : 0
             }
             style={{
               height: "100%",
@@ -1416,14 +1416,14 @@ const Renderthirdtable = ({
                   ind === 2
                     ? val.I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? val.I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? val.I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? val.I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? val.I
+                    : "",
                 min: 0,
               },
             }}
@@ -1431,14 +1431,14 @@ const Renderthirdtable = ({
             // min="0"
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             // max={
             //           ind === 2
@@ -1454,20 +1454,20 @@ const Renderthirdtable = ({
                 ? ind === 0
                   ? customActualdeliveryMarksRM
                   : 0 || ind === 1
-                    ? customOnTimeMarksRM
-                    : 0 || ind === 2
-                      ? customAvgCodeMarksRM
-                      : 0 || ind === 3
-                        ? customReDoMarksRM
-                        : 0 || ind === 4
-                          ? customBugsReportedMarksRM
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarksRM
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarksRM
-                              : 0 || ind === 7
-                                ? customUpskillingMarksRM
-                                : 0
+                  ? customOnTimeMarksRM
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksRM
+                  : 0 || ind === 3
+                  ? customReDoMarksRM
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksRM
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksRM
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksRM
+                  : 0 || ind === 7
+                  ? customUpskillingMarksRM
+                  : 0
                 : 0
             }
             style={{
@@ -2571,7 +2571,7 @@ const RenderTestTable = ({
     formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage) || 0,
 
     formulaA6(com[ind].I, customCustomerSatisfactionMarksAr, val.Weightage) ||
-    0,
+      0,
 
     formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage) || 0,
   ];
@@ -2615,16 +2615,16 @@ const RenderTestTable = ({
             max={ind === 5 ? "5" : ""}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : com[ind].I > 0 ||
                   (!MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                  ? true
-                  : false
+                ? true
+                : false
             }
             value={value}
             style={{
@@ -2654,14 +2654,14 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
@@ -2669,37 +2669,36 @@ const RenderTestTable = ({
             // min="0"
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : loginUser !== email ||
                   (!MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                  ? true
-                  : false
+                ? true
+                : false
             }
-            
             value={
               loginUser === users
                 ? ind === 0
                   ? customActualdeliveryMarks
                   : 0 || ind === 1
-                    ? customOnTimeMarks
-                    : 0 || ind === 2
-                      ? customAvgCodeMarks
-                      : 0 || ind === 3
-                        ? customReDoMarks
-                        : 0 || ind === 4
-                          ? customBugsReportedMarks
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarks
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarks
-                              : 0 || ind === 7
-                                ? customUpskillingMarks
-                                : 0
+                  ? customOnTimeMarks
+                  : 0 || ind === 2
+                  ? customAvgCodeMarks
+                  : 0 || ind === 3
+                  ? customReDoMarks
+                  : 0 || ind === 4
+                  ? customBugsReportedMarks
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarks
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarks
+                  : 0 || ind === 7
+                  ? customUpskillingMarks
+                  : 0
                 : val.AppraiseeSelfRating
             }
             style={{
@@ -2738,53 +2737,53 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
             type="number"
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser) ||
                   (MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             value={
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? 0
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? ind === 0
-                    ? customActualdeliveryMarksAr
-                    : 0 || ind === 1
-                      ? customOnTimeMarksAr
-                      : 0 || ind === 2
-                        ? customAvgCodeMarksAr
-                        : 0 || ind === 3
-                          ? customReDoMarksAr
-                          : 0 || ind === 4
-                            ? customBugsReportedMarksAr
-                            : 0 || ind === 5
-                              ? customCriticalIssuesMarksAr
-                              : 0 || ind === 6
-                                ? customCustomerSatisfactionMarksAr
-                                : 0 || ind === 7
-                                  ? customUpskillingMarksAr
-                                  : 0
-                  : val.AppraiserRating
+                ? ind === 0
+                  ? customActualdeliveryMarksAr
+                  : 0 || ind === 1
+                  ? customOnTimeMarksAr
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksAr
+                  : 0 || ind === 3
+                  ? customReDoMarksAr
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksAr
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksAr
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksAr
+                  : 0 || ind === 7
+                  ? customUpskillingMarksAr
+                  : 0
+                : val.AppraiserRating
             }
             style={{
               height: "100%",
@@ -2822,50 +2821,50 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                      ? onTime
-                      : ind === 3
-                        ? com[ind].I
-                        : ind === 6
-                          ? 5
-                          : ind === 7
-                            ? com[ind].I
-                            : "",
+                    ? onTime
+                    : ind === 3
+                    ? com[ind].I
+                    : ind === 6
+                    ? 5
+                    : ind === 7
+                    ? com[ind].I
+                    : "",
                 min: 0,
               },
             }}
             type="number"
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                (!REVIEWER_MANAGER.includes(users) &&
-                  updatedData?.data?.data[0]?.IsEditable == 0) ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              (!REVIEWER_MANAGER.includes(users) &&
+                updatedData?.data?.data[0]?.IsEditable == 0) ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                  ? false
-                  : true
+                ? false
+                : true
             }
             value={
               REVIEWER_MANAGER.includes(loginUser)
                 ? ind === 0
                   ? customActualdeliveryMarksRM
                   : 0 || ind === 1
-                    ? customOnTimeMarksRM
-                    : 0 || ind === 2
-                      ? customAvgCodeMarksRM
-                      : 0 || ind === 3
-                        ? customReDoMarksRM
-                        : 0 || ind === 4
-                          ? customBugsReportedMarksRM
-                          : 0 || ind === 5
-                            ? customCriticalIssuesMarksRM
-                            : 0 || ind === 6
-                              ? customCustomerSatisfactionMarksRM
-                              : 0 || ind === 7
-                                ? customUpskillingMarksRM
-                                : 0
+                  ? customOnTimeMarksRM
+                  : 0 || ind === 2
+                  ? customAvgCodeMarksRM
+                  : 0 || ind === 3
+                  ? customReDoMarksRM
+                  : 0 || ind === 4
+                  ? customBugsReportedMarksRM
+                  : 0 || ind === 5
+                  ? customCriticalIssuesMarksRM
+                  : 0 || ind === 6
+                  ? customCustomerSatisfactionMarksRM
+                  : 0 || ind === 7
+                  ? customUpskillingMarksRM
+                  : 0
                 : val.ReviewerMarks
             }
             style={{
@@ -3914,34 +3913,34 @@ const Renderforthtable = ({
 
   const lowPotentialValues = designation?.includes("Senior")
     ? [
-      attendencelp,
-      lessDDependabilitylp,
-      groupWorkinglp,
-      positiveAttitudelp,
-      intelligencelp,
-      imaginationlp,
-      improvementlp,
-      disciplinelp,
-      qualitylp,
-      responsibilitylp,
-      multiSkillslp,
-      maturitylp,
-      approachlp,
-      teamworklp,
-    ]
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+        maturitylp,
+        approachlp,
+        teamworklp,
+      ]
     : [
-      attendencelp,
-      lessDDependabilitylp,
-      groupWorkinglp,
-      positiveAttitudelp,
-      intelligencelp,
-      imaginationlp,
-      improvementlp,
-      disciplinelp,
-      qualitylp,
-      responsibilitylp,
-      multiSkillslp,
-    ];
+        attendencelp,
+        lessDDependabilitylp,
+        groupWorkinglp,
+        positiveAttitudelp,
+        intelligencelp,
+        imaginationlp,
+        improvementlp,
+        disciplinelp,
+        qualitylp,
+        responsibilitylp,
+        multiSkillslp,
+      ];
 
   const lowPotentialInputValues =
     lowPotentialValues[ind] !== undefined
@@ -3950,34 +3949,34 @@ const Renderforthtable = ({
 
   const goodPotentialValues = designation.includes("Senior")
     ? [
-      attendencegp,
-      lessDDependabilitygp,
-      groupWorkinggp,
-      positiveAttitudegp,
-      intelligencegp,
-      imaginationgp,
-      improvementgp,
-      disciplinegp,
-      qualitygp,
-      responsibilitygp,
-      multiSkillsgp,
-      maturitygp,
-      approachgp,
-      teamworkgp,
-    ]
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+        maturitygp,
+        approachgp,
+        teamworkgp,
+      ]
     : [
-      attendencegp,
-      lessDDependabilitygp,
-      groupWorkinggp,
-      positiveAttitudegp,
-      intelligencegp,
-      imaginationgp,
-      improvementgp,
-      disciplinegp,
-      qualitygp,
-      responsibilitygp,
-      multiSkillsgp,
-    ];
+        attendencegp,
+        lessDDependabilitygp,
+        groupWorkinggp,
+        positiveAttitudegp,
+        intelligencegp,
+        imaginationgp,
+        improvementgp,
+        disciplinegp,
+        qualitygp,
+        responsibilitygp,
+        multiSkillsgp,
+      ];
 
   const goodPotentialInputValues =
     goodPotentialValues[ind] !== undefined
@@ -3986,34 +3985,34 @@ const Renderforthtable = ({
 
   const highPotentialValues = designation.includes("Senior")
     ? [
-      attendencehp,
-      lessDDependabilityhp,
-      groupWorkinghp,
-      positiveAttitudehp,
-      intelligencehp,
-      imaginationhp,
-      improvementhp,
-      disciplinehp,
-      qualityhp,
-      responsibilityhp,
-      multiSkillshp,
-      maturityhp,
-      approachhp,
-      teamworkhp,
-    ]
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+        maturityhp,
+        approachhp,
+        teamworkhp,
+      ]
     : [
-      attendencehp,
-      lessDDependabilityhp,
-      groupWorkinghp,
-      positiveAttitudehp,
-      intelligencehp,
-      imaginationhp,
-      improvementhp,
-      disciplinehp,
-      qualityhp,
-      responsibilityhp,
-      multiSkillshp,
-    ];
+        attendencehp,
+        lessDDependabilityhp,
+        groupWorkinghp,
+        positiveAttitudehp,
+        intelligencehp,
+        imaginationhp,
+        improvementhp,
+        disciplinehp,
+        qualityhp,
+        responsibilityhp,
+        multiSkillshp,
+      ];
   const highPotentialInputValues =
     highPotentialValues[ind] !== undefined
       ? highPotentialValues[ind]
@@ -4112,43 +4111,46 @@ const Renderforthtable = ({
 
     const totalMarks = designation.includes("Senior")
       ? [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-        calculatedValues.totalMaturity,
-        calculatedValues.totalApproach,
-        calculatedValues.totalTeamwork,
-      ]
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          calculatedValues.totalMaturity,
+          calculatedValues.totalApproach,
+          calculatedValues.totalTeamwork,
+        ]
       : [
-        calculatedValues.totalAttendence,
-        calculatedValues.totalDependablity,
-        calculatedValues.tatalGroupWorking,
-        calculatedValues.totalPositiveAttitude,
-        calculatedValues.totalInteligence,
-        calculatedValues.totalImagination,
-        calculatedValues.totalImprovement,
-        calculatedValues.totalDiscipline,
-        calculatedValues.totalQuality,
-        calculatedValues.totalRespnsibility,
-        calculatedValues.totalMultiSkill,
-        0,
-        0,
-        0,
-      ];
+          calculatedValues.totalAttendence,
+          calculatedValues.totalDependablity,
+          calculatedValues.tatalGroupWorking,
+          calculatedValues.totalPositiveAttitude,
+          calculatedValues.totalInteligence,
+          calculatedValues.totalImagination,
+          calculatedValues.totalImprovement,
+          calculatedValues.totalDiscipline,
+          calculatedValues.totalQuality,
+          calculatedValues.totalRespnsibility,
+          calculatedValues.totalMultiSkill,
+          0,
+          0,
+          0,
+        ];
 
     const calculatedMarks = totalMarks[ind] !== undefined ? totalMarks[ind] : 0;
 
     setRowTotal((marks) => ({
       ...marks,
-      [ind]: newwDiffMonthhs > 1 ? (calculatedMarks/newwDiffMonthhs).toFixed(2) : calculatedMarks ,
+      [ind]:
+        newwDiffMonthhs > 1
+          ? (calculatedMarks / newwDiffMonthhs).toFixed(2)
+          : calculatedMarks,
     }));
   }, [lowPotential, highPotential, goodPotential]);
 
@@ -4180,14 +4182,14 @@ const Renderforthtable = ({
             value={lowPotentialInputValues}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.LowPotential
-                  : true
+                ? isDisable.LowPotential
+                : true
             }
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -4221,14 +4223,14 @@ const Renderforthtable = ({
             value={goodPotentialInputValues}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.GoodPotential
-                  : true
+                ? isDisable.GoodPotential
+                : true
             }
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -4263,14 +4265,14 @@ const Renderforthtable = ({
             onChange={(e) => handleOnChange3(e)}
             disabled={
               getLocalTImeperiod < 5 ||
-                isThreeMonths ||
-                selectedThreeMonths ||
-                parseInt(newwDiffMonthhs) === 2 ||
-                parseInt(newwDiffMonthhs) > 3
+              isThreeMonths ||
+              selectedThreeMonths ||
+              parseInt(newwDiffMonthhs) === 2 ||
+              parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                  ? isDisable.HighPotential
-                  : true
+                ? isDisable.HighPotential
+                : true
             }
             style={{
               outline: "0",
@@ -4293,7 +4295,7 @@ const Renderforthtable = ({
           <input
             disabled={true}
             type="number"
-            value={  rowTotal[ind]}
+            value={rowTotal[ind]}
             style={{
               outline: "0",
               height: " 100%",
@@ -4375,8 +4377,8 @@ const Tableviewnew = ({
     MANAGEMENt_ID.includes(loginUser)
       ? false
       : isThreeMonths || selectedThreeMonths
-        ? true
-        : false
+      ? true
+      : false
   );
 
   const [disableText, setDisableText] = useState(true);
@@ -4929,13 +4931,12 @@ const Tableviewnew = ({
 
   function checkArr() {
     const rawTotalArr = Object.values(rowTotal);
-    
-    if (rawTotalArr !== null && rawTotalArr.length !== 0) {
 
+    if (rawTotalArr !== null && rawTotalArr.length !== 0) {
       const total = rawTotalArr.reduce(function (accumulator, currentValue) {
         return accumulator + parseFloat(currentValue);
-    }, 0);
-     
+      }, 0);
+
       if (designation.includes("Senior")) {
         setFinalTotal(total / 14);
       } else {
@@ -4974,8 +4975,6 @@ const Tableviewnew = ({
     checkAppraiserArr();
   }, [rowTotal, appraiseMarksAvg, appraiserAvg]);
 
- 
-
   async function KpiMarks() {
     try {
       setLoader(true);
@@ -4994,24 +4993,31 @@ const Tableviewnew = ({
       userfeedback.UpdatedDate = dateTime1 || "";
       // userfeedback.IsEditable = 1;
 
-     
-
-
-      if(agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) &&  parseInt(agreeData[0]?.IsEditable) === 0  || agreeData[0]?.IsEditable === undefined ){
+      if (
+        (agreeData &&
+          agreeData.length > 0 &&
+          MANAGEMENt_ID.includes(loginUser) &&
+          parseInt(agreeData[0]?.IsEditable) === 0) ||
+        agreeData[0]?.IsEditable === undefined
+      ) {
         userfeedback.IsEditable = 1;
-        
-      }else if( agreeData && agreeData.length > 0 &&  MANAGEMENt_ID.includes(loginUser) &&   parseInt(agreeData[0]?.IsEditable) === 1){
+      } else if (
+        agreeData &&
+        agreeData.length > 0 &&
+        MANAGEMENt_ID.includes(loginUser) &&
+        parseInt(agreeData[0]?.IsEditable) === 1
+      ) {
         userfeedback.IsEditable = 2;
       }
 
-
-      if(agreeData && agreeData.length > 0 && users === loginUser &&  parseInt(agreeData[0]?.IsEditable)){
+      if (
+        agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable)
+      ) {
         userfeedback.IsEditable = agreeData[0]?.IsEditable;
-        
       }
-
-
-     
 
       let allFeedbackData = [feedback];
       let allScopeData = [scope];
@@ -5549,11 +5555,14 @@ const Tableviewnew = ({
     B: "category",
     C: "T1 R1",
   });
- 
 
   function conditionTables() {
-
-    if(agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) && parseInt(agreeData[0]?.IsEditable) === 2){
+    if (
+      agreeData &&
+      agreeData.length > 0 &&
+      MANAGEMENt_ID.includes(loginUser) &&
+      parseInt(agreeData[0]?.IsEditable) === 2
+    ) {
       return true;
     }
 
@@ -5567,14 +5576,26 @@ const Tableviewnew = ({
       return true;
     }
   }
+  
 
   function conditionUserFeddback() {
-
-    if(  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 2 ||  agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === undefined || agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) === 0 ){
+    if (
+      (agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable) === 2) ||
+      (agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable) === undefined) ||
+      (agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable) === 0) || 
+        agreeData && agreeData.length === 0
+    ) {
       return true;
     }
-
-
 
     if (users === loginUser) {
       if (getLocalTImeperiod < 5 || selectedThreeMonths || isThreeMonths) {
@@ -5672,12 +5693,18 @@ const Tableviewnew = ({
 
   const [isSubmitDisable, setIsSubmitDisabled] = useState(true);
 
-
-
   function isButtonShouldDisable() {
     if (
       parseInt(newwDiffMonthhs) === 2 ||
-      parseInt(newwDiffMonthhs) > 3 || agreeData && agreeData.length > 0 && MANAGEMENt_ID.includes(loginUser) && parseInt(agreeData[0]?.IsEditable) === 2 || agreeData && agreeData.length > 0 && users === loginUser && parseInt(agreeData[0]?.IsEditable) ===2
+      parseInt(newwDiffMonthhs) > 3 ||
+      (agreeData &&
+        agreeData.length > 0 &&
+        MANAGEMENt_ID.includes(loginUser) &&
+        parseInt(agreeData[0]?.IsEditable) === 2) ||
+      (agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable) === 2)
     ) {
       return true;
     } else {
@@ -5855,71 +5882,71 @@ const Tableviewnew = ({
             </tr>
 
             {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
-              updatedData?.data?.data[0]?.ShowDevOpsData === undefined
+            updatedData?.data?.data[0]?.ShowDevOpsData === undefined
               ? thirdTable?.map((val, ind) => {
-                return (
-                  <>
-                    <Renderthirdtable
-                      setTextError1={setTextError1}
-                      textError1={textError1}
-                      setTextError2={setTextError2}
-                      textError2={textError2}
-                      setTextError3={setTextError3}
-                      textError3={textError3}
-                      thirdTable={thirdTable}
-                      ind={ind}
-                      val={val}
-                      setIsSubmit={setIsSubmit}
-                      division={division}
-                      avgQuaterlyData={avgQuaterlyData}
-                      isThreeMonths={isThreeMonths}
-                      selectedThreeMonths={selectedThreeMonths}
-                      setParentAppraise={setParentAppraise}
-                      parentAppraise={parentAppraise}
-                      setParentSelfAppraise={setParentSelfAppraise}
-                      parentSelfAppraise={parentSelfAppraise}
-                      setParentReviewerMarks={setParentReviewerMarks}
-                      parentReviewerMarks={parentReviewerMarks}
-                      setParentTarget={setParentTarget}
-                      parentTarget={parentTarget}
-                      setAppraiseMarksAvg={setAppraiseMarksAvg}
-                      finalAppraiseAvg={finalAppraiseAvg}
-                      setAppraiserAvg={setAppraiserAvg}
-                      finalAppraiserAvg={finalAppraiserAvg}
-                      setDivision={setDivision}
-                    />
-                  </>
-                );
-              })
+                  return (
+                    <>
+                      <Renderthirdtable
+                        setTextError1={setTextError1}
+                        textError1={textError1}
+                        setTextError2={setTextError2}
+                        textError2={textError2}
+                        setTextError3={setTextError3}
+                        textError3={textError3}
+                        thirdTable={thirdTable}
+                        ind={ind}
+                        val={val}
+                        setIsSubmit={setIsSubmit}
+                        division={division}
+                        avgQuaterlyData={avgQuaterlyData}
+                        isThreeMonths={isThreeMonths}
+                        selectedThreeMonths={selectedThreeMonths}
+                        setParentAppraise={setParentAppraise}
+                        parentAppraise={parentAppraise}
+                        setParentSelfAppraise={setParentSelfAppraise}
+                        parentSelfAppraise={parentSelfAppraise}
+                        setParentReviewerMarks={setParentReviewerMarks}
+                        parentReviewerMarks={parentReviewerMarks}
+                        setParentTarget={setParentTarget}
+                        parentTarget={parentTarget}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
+                        setDivision={setDivision}
+                      />
+                    </>
+                  );
+                })
               : updatedData?.data?.data?.map((val, ind) => {
-                return (
-                  <>
-                    <RenderTestTable
-                      ind={ind}
-                      val={val}
-                      com={thirdTable}
-                      setIsSubmit={setIsSubmit}
-                      isThreeMonths={isThreeMonths}
-                      selectedThreeMonths={selectedThreeMonths}
-                      renderTestTable={thirdTable}
-                      setParentAppraise={setParentAppraise}
-                      parentAppraise={parentAppraise}
-                      setParentSelfAppraise={setParentSelfAppraise}
-                      parentSelfAppraise={parentSelfAppraise}
-                      setParentTarget={setParentTarget}
-                      setParentReviewerMarks={setParentReviewerMarks}
-                      parentReviewerMarks={parentReviewerMarks}
-                      parentTarget={parentTarget}
-                      updatedData={updatedData}
-                      setAppraiseMarksAvg={setAppraiseMarksAvg}
-                      finalAppraiseAvg={finalAppraiseAvg}
-                      setAppraiserAvg={setAppraiserAvg}
-                      finalAppraiserAvg={finalAppraiserAvg}
-                      avgQuaterlyData={avgQuaterlyData}
-                    />
-                  </>
-                );
-              })}
+                  return (
+                    <>
+                      <RenderTestTable
+                        ind={ind}
+                        val={val}
+                        com={thirdTable}
+                        setIsSubmit={setIsSubmit}
+                        isThreeMonths={isThreeMonths}
+                        selectedThreeMonths={selectedThreeMonths}
+                        renderTestTable={thirdTable}
+                        setParentAppraise={setParentAppraise}
+                        parentAppraise={parentAppraise}
+                        setParentSelfAppraise={setParentSelfAppraise}
+                        parentSelfAppraise={parentSelfAppraise}
+                        setParentTarget={setParentTarget}
+                        setParentReviewerMarks={setParentReviewerMarks}
+                        parentReviewerMarks={parentReviewerMarks}
+                        parentTarget={parentTarget}
+                        updatedData={updatedData}
+                        setAppraiseMarksAvg={setAppraiseMarksAvg}
+                        finalAppraiseAvg={finalAppraiseAvg}
+                        setAppraiserAvg={setAppraiserAvg}
+                        finalAppraiserAvg={finalAppraiserAvg}
+                        avgQuaterlyData={avgQuaterlyData}
+                      />
+                    </>
+                  );
+                })}
             <td
               style={{
                 backgroundColor: "#f4b084",
