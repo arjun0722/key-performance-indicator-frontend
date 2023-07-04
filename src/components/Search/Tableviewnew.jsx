@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import ModalFeedback from "./ModalFeedback";
 import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
 import { BACKEND_URL } from "./config";
+import { show_error1, show_kpi_submit } from "../../Config/Helper";
 
 const Renderfirsttable = ({ val }) => {
   return (
@@ -84,6 +85,18 @@ const Renderthirdtable = ({
   useEffect(() => {
     setusers(email);
   }, [email]);
+
+  const localStartDate = localStorage.getItem("startDate");
+  const localEndDate = localStorage.getItem("endDate");
+
+  const date1 = new Date(localStartDate);
+  const date2 = new Date(localEndDate);
+
+  const diffInMonths =
+    (date2.getFullYear() - date1.getFullYear()) * 12 +
+    (date2.getMonth() - date1.getMonth());
+
+  let newwDiffMonthhs = diffInMonths + 1;
 
   //UseEffect for the Appraisee Self Rating , Appraiser Rating and target
 
@@ -896,7 +909,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula1 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -910,7 +922,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-    
   };
   const formula2 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -924,7 +935,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula3 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -938,7 +948,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula4 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -952,7 +961,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula5 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -966,7 +974,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula6 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -980,10 +987,9 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formula7 = (a, b, c) => {
-    if (b == 0 || b == undefined ) {
+    if (b == 0 || b == undefined) {
       return 0;
     } else {
       const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
@@ -1007,7 +1013,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-    
   };
   const formulaA1 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1021,7 +1026,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formulaA2 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1035,7 +1039,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-    
   };
   const formulaA3 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1049,7 +1052,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-    
   };
   const formulaA4 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1063,7 +1065,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-    
   };
   const formulaA5 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1077,7 +1078,6 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formulaA6 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -1091,12 +1091,11 @@ const Renderthirdtable = ({
         return 0;
       }
     }
-   
   };
   const formulaA7 = (a, b, c) => {
-    if (b == 0 || b == undefined ){
+    if (b == 0 || b == undefined) {
       return 0;
-    }else{
+    } else {
       const value = Number(((100 + ((a - b) / a) * 100) * c) / 100).toFixed(2);
 
       if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
@@ -1200,7 +1199,11 @@ const Renderthirdtable = ({
             min="0"
             value={value}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : val.I > 0
                   ? true
@@ -1245,7 +1248,11 @@ const Renderthirdtable = ({
             type="number"
             // min={0}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : loginUser === email
                   ? false
@@ -1330,7 +1337,11 @@ const Renderthirdtable = ({
             type="number"
             // min="0"
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                   ? false
@@ -1419,7 +1430,11 @@ const Renderthirdtable = ({
             type="number"
             // min="0"
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
                   ? false
@@ -1515,6 +1530,18 @@ const RenderTestTable = ({
   useEffect(() => {
     setusers(email);
   }, [email]);
+
+  const localStartDate = localStorage.getItem("startDate");
+  const localEndDate = localStorage.getItem("endDate");
+
+  const date1 = new Date(localStartDate);
+  const date2 = new Date(localEndDate);
+
+  const diffInMonths =
+    (date2.getFullYear() - date1.getFullYear()) * 12 +
+    (date2.getMonth() - date1.getMonth());
+
+  let newwDiffMonthhs = diffInMonths + 1;
 
   //  updatedData?.data?.data[5]?.Target;
 
@@ -2293,7 +2320,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
   const formula1 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2307,7 +2333,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formula2 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2321,7 +2346,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
   const formula3 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2335,7 +2359,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formula4 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2349,7 +2372,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formula5 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2363,7 +2385,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formula6 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2377,7 +2398,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formula7 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2391,7 +2411,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
 
   //.............formulas for second table...........//
@@ -2407,7 +2426,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formulaA1 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2421,12 +2439,11 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
   const formulaA2 = (a, b, c) => {
     if (b == 0 || b == undefined) {
       return 0;
-    }else {
+    } else {
       const value = Number((b / a) * c).toFixed(2);
 
       if (value !== "-Infinity" && value !== "Infinity" && value !== "NaN") {
@@ -2434,8 +2451,7 @@ const RenderTestTable = ({
       } else {
         return 0;
       }
-    } 
-    
+    }
   };
   const formulaA3 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2449,7 +2465,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
   const formulaA4 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2463,7 +2478,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-   
   };
   const formulaA5 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2477,7 +2491,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formulaA6 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2491,7 +2504,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
   const formulaA7 = (a, b, c) => {
     if (b == 0 || b == undefined) {
@@ -2505,7 +2517,6 @@ const RenderTestTable = ({
         return 0;
       }
     }
-    
   };
 
   const appraiseeMarks = [
@@ -2603,9 +2614,15 @@ const RenderTestTable = ({
             min="0"
             max={ind === 5 ? "5" : ""}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths || updatedData.data.data[0].IsEditable == 0
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
-                : com[ind].I > 0
+                : com[ind].I > 0 ||
+                  (!MANAGEMENt_ID.includes(users) &&
+                    updatedData?.data?.data[0]?.IsEditable == 0)
                   ? true
                   : false
             }
@@ -2651,21 +2668,19 @@ const RenderTestTable = ({
             type="number"
             // min="0"
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths || updatedData.data.data[0].IsEditable == 0
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
-                : loginUser === email
-                  ? false
-                  : true
+                : loginUser !== email ||
+                  (!MANAGEMENt_ID.includes(users) &&
+                    updatedData?.data?.data[0]?.IsEditable == 0)
+                  ? true
+                  : false
             }
-            // max={
-            //           ind === 2
-            //                     ? 5
-            //                     : "" ||
-            //                       ind ===
-            //                                 1
-            //                     ? onTime
-            //                     : ""
-            // }
+            
             value={
               loginUser === users
                 ? ind === 0
@@ -2735,20 +2750,16 @@ const RenderTestTable = ({
               },
             }}
             type="number"
-            // min="0"
-            // max={
-            //           ind === 2
-            //                     ? 5
-            //                     : "" ||
-            //                       ind ===
-            //                                 1
-            //                     ? onTime
-            //                     : ""
-            // }
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths || updatedData.data.data[0].IsEditable == 0
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
-                : MANAGEMENt_ID.includes(loginUser)
+                : MANAGEMENt_ID.includes(loginUser) ||
+                  (MANAGEMENt_ID.includes(users) &&
+                    updatedData?.data?.data[0]?.IsEditable == 0)
                   ? false
                   : true
             }
@@ -2823,18 +2834,14 @@ const RenderTestTable = ({
               },
             }}
             type="number"
-            // min="0"
-            // max={
-            //           ind === 2
-            //                     ? 5
-            //                     : "" ||
-            //                       ind ===
-            //                                 1
-            //                     ? onTime
-            //                     : ""
-            // }
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths || updatedData.data.data[0].IsEditable == 0
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                (!REVIEWER_MANAGER.includes(users) &&
+                  updatedData?.data?.data[0]?.IsEditable == 0) ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
                   ? false
@@ -2908,7 +2915,7 @@ const Renderforthtable = ({
   setTextError3HighPotential,
   textError3HighPotential,
   quarterlyBehavioural,
-  behviouralDivision
+  behviouralDivision,
 }) => {
   // const [avg,setAvg] = useState(0)
 
@@ -2988,14 +2995,25 @@ const Renderforthtable = ({
   const [textError3, setTextError3] = useState(false);
   const [indError3, setIndError3] = useState();
 
+  const localStartDate = localStorage.getItem("startDate");
+  const localEndDate = localStorage.getItem("endDate");
+
+  const date1 = new Date(localStartDate);
+  const date2 = new Date(localEndDate);
+
+  const diffInMonths =
+    (date2.getFullYear() - date1.getFullYear()) * 12 +
+    (date2.getMonth() - date1.getMonth());
+
+  let newwDiffMonthhs = diffInMonths + 1;
   //------------------------------------------------------------------//
   //useEffect for the intital value which will set in table//
   //------------------------------------------------------------------//
 
   useEffect(() => {
     //=============lowpotential states================//
-  
-    if (updatedBehaviourData.length === undefined ) {
+
+    if (updatedBehaviourData.length === undefined) {
       setAttendencelp(
         quarterlyBehavioural?.LowPotential[0]
           ? quarterlyBehavioural?.LowPotential[0]
@@ -3426,8 +3444,6 @@ const Renderforthtable = ({
           : 0
       );
     }
-
-
   }, [updatedBehaviourData, quarterlyBehavioural]);
 
   //------------------------------------------------------------------//
@@ -4003,9 +4019,6 @@ const Renderforthtable = ({
       ? highPotentialValues[ind]
       : "undefined";
 
-
-  
-
   useEffect(() => {
     if (updatedBehaviourData.length > 0) {
       if (
@@ -4044,20 +4057,6 @@ const Renderforthtable = ({
     highPotentialInputValues,
     goodPotentialInputValues,
   ]);
-
-  // if (
-  //           ind === 0 &&
-  //           updatedBehaviourData[0]?.LowPotential &&
-  //           updatedBehaviourData[0]?.LowPotential > 0
-  // ) {
-  //           setIsDisable({
-  //                     LowPotential: false,
-  //                     GoodPotential: true,
-  //                     HighPotential: true,
-  //           });
-  // }
-
-
 
   useEffect(() => {
     const calculatedValues = {
@@ -4111,7 +4110,6 @@ const Renderforthtable = ({
         Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
     };
 
-    
     const totalMarks = designation.includes("Senior")
       ? [
         calculatedValues.totalAttendence,
@@ -4146,33 +4144,15 @@ const Renderforthtable = ({
         0,
       ];
 
-
     const calculatedMarks = totalMarks[ind] !== undefined ? totalMarks[ind] : 0;
-   
 
     setRowTotal((marks) => ({
       ...marks,
-      [ind]: calculatedMarks,
+      [ind]: newwDiffMonthhs > 1 ? (calculatedMarks/newwDiffMonthhs).toFixed(2) : calculatedMarks ,
     }));
   }, [lowPotential, highPotential, goodPotential]);
 
   const getLocalTImeperiod = localStorage.getItem("timperiod");
-
-  //   function behaviouralKpiDisabled(){
-  // if(Number(getLocalTImeperiod) < 5 || isThreeMonths || selectedThreeMonths){
-  //   return true
-  // }else{
-  //   if(MANAGEMENt_ID.includes(loginUser)){
-  //     return isDisable.GoodPotential
-  //   }else{
-  //     return true
-  //   }
-  // }
-  //   }
-
-  // useEffect(()=>{
-  // behaviouralKpiDisabled()
-  // },[getLocalTImeperiod])
 
   return (
     <>
@@ -4199,7 +4179,11 @@ const Renderforthtable = ({
             type="number"
             value={lowPotentialInputValues}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                   ? isDisable.LowPotential
@@ -4236,7 +4220,11 @@ const Renderforthtable = ({
             }}
             value={goodPotentialInputValues}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                   ? isDisable.GoodPotential
@@ -4274,7 +4262,11 @@ const Renderforthtable = ({
             value={highPotentialInputValues}
             onChange={(e) => handleOnChange3(e)}
             disabled={
-              getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
+              getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
                   ? isDisable.HighPotential
@@ -4301,7 +4293,7 @@ const Renderforthtable = ({
           <input
             disabled={true}
             type="number"
-            value={rowTotal[ind]}
+            value={  rowTotal[ind]}
             style={{
               outline: "0",
               height: " 100%",
@@ -4344,8 +4336,8 @@ const Tableviewnew = ({
   const [division, setDivision] = useState(0);
   const [appraiserAvg, setAppraiserAvg] = useState({});
   const [avgQuaterlyData, setAvgQuaterlyData] = useState();
-  const [quarterlyBehavioural, setQuarterlyBehavioural] = useState()
-  const [behviouralDivision, setBehviouralDivision] = useState(0)
+  const [quarterlyBehavioural, setQuarterlyBehavioural] = useState();
+  const [behviouralDivision, setBehviouralDivision] = useState(0);
 
   const [updatedBehaviourData, setUpdatedBehaviourData] = useState({});
   const [state, setState] = useState("");
@@ -4393,14 +4385,17 @@ const Tableviewnew = ({
     setState(dataAgree[0]?.Userfeedback ? dataAgree[0]?.Userfeedback : "");
   }, [dataAgree]);
 
-  // useEffect(()=>{
+  const localStartDate = localStorage.getItem("startDate");
+  const localEndDate = localStorage.getItem("endDate");
 
-  //   if(isThreeMonths !== undefined && selectedThreeMonths !== undefined){
-  //     setFilterDate(isThreeMonths)
-  //     setCustomDate(selectedThreeMonths)
-  //   }
+  const date1 = new Date(localStartDate);
+  const date2 = new Date(localEndDate);
 
-  // },[selectedThreeMonths,isThreeMonths])
+  const diffInMonths =
+    (date2.getFullYear() - date1.getFullYear()) * 12 +
+    (date2.getMonth() - date1.getMonth());
+
+  let newwDiffMonthhs = diffInMonths + 1;
 
   //------------------------------------------------------------------//
   //feedback//
@@ -4464,7 +4459,7 @@ const Tableviewnew = ({
   async function getAllData() {
     let reqOptions = {
       method: "post",
-      url: `http://localhost:8080/kpi/marks/data`,
+      url: `${BACKEND_URL}/kpi/marks/data`,
       data: [
         {
           email: email,
@@ -4525,56 +4520,50 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `http://localhost:8080/kpi/behavioural/data`,
+      url: `${BACKEND_URL}/kpi/behavioural/data`,
       method: "POST",
       headers: headersList,
       data: data,
     };
     let resData = await axios.request(reqOptions);
 
-   if(resData?.data?.data?.length > 13){
-     if (designation.includes("Senior")) {
-       setBehviouralDivision(resData.data.data.length / 14)
-     } else {
-       setBehviouralDivision(resData.data.data.length / 11)
-     }
+    if (resData?.data?.data?.length > 13) {
+      if (designation.includes("Senior")) {
+        setBehviouralDivision(resData.data.data.length / 14);
+      } else {
+        setBehviouralDivision(resData.data.data.length / 11);
+      }
 
-     const sum = {
-       LowPotential: [],
-       GoodPotential: [],
-       HighPotential: []
-     }
+      const sum = {
+        LowPotential: [],
+        GoodPotential: [],
+        HighPotential: [],
+      };
 
-     const groupedData = resData?.data?.data?.reduce((result, item) => {
-       const toDate = item?.ToDate;
-       if (!result[toDate]) {
-         result[toDate] = [];
-       }
-       result[toDate].push(item);
-       return result;
-     }, {});
+      const groupedData = resData?.data?.data?.reduce((result, item) => {
+        const toDate = item?.ToDate;
+        if (!result[toDate]) {
+          result[toDate] = [];
+        }
+        result[toDate].push(item);
+        return result;
+      }, {});
 
+      Object.values(groupedData).forEach((data, index) => {
+        data.forEach((allData, allindex) => {
+          sum.LowPotential[allindex] =
+            (sum.LowPotential[allindex] || 0) + Number(allData?.LowPotential);
+          sum.GoodPotential[allindex] =
+            (sum.GoodPotential[allindex] || 0) + Number(allData?.GoodPotential);
+          sum.HighPotential[allindex] =
+            (sum.HighPotential[allindex] || 0) + Number(allData?.HighPotential);
+        });
+      });
 
-     Object.values(groupedData).forEach((data, index) => {
-       data.forEach((allData, allindex) => {
-         sum.LowPotential[allindex] =
-           (sum.LowPotential[allindex] || 0) +
-           Number(allData?.LowPotential);
-         sum.GoodPotential[allindex] =
-           (sum.GoodPotential[allindex] || 0) + Number(allData?.GoodPotential);
-         sum.HighPotential[allindex] = (sum.HighPotential[allindex] || 0) + Number(allData?.HighPotential);
-
-       });
-     });
-
-     setQuarterlyBehavioural(sum)
-   }else{
-
-     setUpdatedBehaviourData(resData.data.data);
-   }
-
-
-
+      setQuarterlyBehavioural(sum);
+    } else {
+      setUpdatedBehaviourData(resData.data.data);
+    }
   }
 
   async function getPositivePoint() {
@@ -4740,7 +4729,6 @@ const Tableviewnew = ({
   const [parentSelfAppraise, setParentSelfAppraise] = useState({});
   const [parentReviewerMarks, setParentReviewerMarks] = useState({});
 
-
   //------------------------------------------------------------------//
   //Behavioural KPI Table//
   //------------------------------------------------------------------//
@@ -4754,9 +4742,8 @@ const Tableviewnew = ({
   const [finalAppraiserAvg, setFinalAppraiserAvg] = useState(0);
 
   useEffect(() => {
-   if(updatedBehaviourData.length === undefined){
- if (designation.includes("Senior")) {
-    
+    if (updatedBehaviourData.length === undefined) {
+      if (designation.includes("Senior")) {
         setLowPotential({
           attendencelp: quarterlyBehavioural?.LowPotential[0],
           lessDDependabilitylp: quarterlyBehavioural?.LowPotential[1],
@@ -4775,15 +4762,15 @@ const Tableviewnew = ({
         });
         setGoodPotential({
           attendencegp: quarterlyBehavioural?.GoodPotential[0],
-          lessDDependabilitygp:quarterlyBehavioural?.GoodPotential[1],
-          groupWorkinggp:quarterlyBehavioural?.GoodPotential[2],
-          positiveAttitudegp:quarterlyBehavioural?.GoodPotential[3],
-          intelligencegp:quarterlyBehavioural?.GoodPotential[4],
-          imaginationgp:quarterlyBehavioural?.GoodPotential[5],
-          improvementgp:quarterlyBehavioural?.GoodPotential[6],
-          disciplinegp:quarterlyBehavioural?.GoodPotential[7],
-          qualitygp:quarterlyBehavioural?.GoodPotential[8],
-          responsibilitygp:quarterlyBehavioural?.GoodPotential[9],
+          lessDDependabilitygp: quarterlyBehavioural?.GoodPotential[1],
+          groupWorkinggp: quarterlyBehavioural?.GoodPotential[2],
+          positiveAttitudegp: quarterlyBehavioural?.GoodPotential[3],
+          intelligencegp: quarterlyBehavioural?.GoodPotential[4],
+          imaginationgp: quarterlyBehavioural?.GoodPotential[5],
+          improvementgp: quarterlyBehavioural?.GoodPotential[6],
+          disciplinegp: quarterlyBehavioural?.GoodPotential[7],
+          qualitygp: quarterlyBehavioural?.GoodPotential[8],
+          responsibilitygp: quarterlyBehavioural?.GoodPotential[9],
           multiSkillsgp: quarterlyBehavioural?.GoodPotential[10],
           maturitygp: quarterlyBehavioural?.GoodPotential[11],
           approachgp: quarterlyBehavioural?.GoodPotential[12],
@@ -4800,14 +4787,12 @@ const Tableviewnew = ({
           disciplinehp: quarterlyBehavioural?.HighPotential[7],
           qualityhp: quarterlyBehavioural?.HighPotential[8],
           responsibilityhp: quarterlyBehavioural?.HighPotential[9],
-          multiSkillshp:  quarterlyBehavioural?.HighPotential[10],
-          maturityhp:  quarterlyBehavioural?.HighPotential[11],
-          approachhp:  quarterlyBehavioural?.HighPotential[12],
-          teamworkhp:  quarterlyBehavioural?.HighPotential[13],
+          multiSkillshp: quarterlyBehavioural?.HighPotential[10],
+          maturityhp: quarterlyBehavioural?.HighPotential[11],
+          approachhp: quarterlyBehavioural?.HighPotential[12],
+          teamworkhp: quarterlyBehavioural?.HighPotential[13],
         });
-      
-    } else {
-      
+      } else {
         setLowPotential({
           attendencelp: quarterlyBehavioural?.LowPotential[0],
           lessDDependabilitylp: quarterlyBehavioural?.LowPotential[1],
@@ -4847,120 +4832,110 @@ const Tableviewnew = ({
           responsibilityhp: quarterlyBehavioural?.HighPotential[9],
           multiSkillshp: quarterlyBehavioural?.HighPotential[10],
         });
-      
+      }
+    } else {
+      if (designation.includes("Senior")) {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+          maturitylp: updatedBehaviourData[11]?.LowPotential,
+          approachlp: updatedBehaviourData[12]?.LowPotential,
+          teamworklp: updatedBehaviourData[13]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+          maturitygp: updatedBehaviourData[11]?.GoodPotential,
+          approachgp: updatedBehaviourData[12]?.GoodPotential,
+          teamworkgp: updatedBehaviourData[13]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+          maturityhp: updatedBehaviourData[11]?.HighPotential,
+          approachhp: updatedBehaviourData[12]?.HighPotential,
+          teamworkhp: updatedBehaviourData[13]?.HighPotential,
+        });
+      } else {
+        setLowPotential({
+          attendencelp: updatedBehaviourData[0]?.LowPotential,
+          lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
+          groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
+          positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
+          intelligencelp: updatedBehaviourData[4]?.LowPotential,
+          imaginationlp: updatedBehaviourData[5]?.LowPotential,
+          improvementlp: updatedBehaviourData[6]?.LowPotential,
+          disciplinelp: updatedBehaviourData[7]?.LowPotential,
+          qualitylp: updatedBehaviourData[8]?.LowPotential,
+          responsibilitylp: updatedBehaviourData[9]?.LowPotential,
+          multiSkillslp: updatedBehaviourData[10]?.LowPotential,
+        });
+        setGoodPotential({
+          attendencegp: updatedBehaviourData[0]?.GoodPotential,
+          lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
+          groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
+          positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
+          intelligencegp: updatedBehaviourData[4]?.GoodPotential,
+          imaginationgp: updatedBehaviourData[5]?.GoodPotential,
+          improvementgp: updatedBehaviourData[6]?.GoodPotential,
+          disciplinegp: updatedBehaviourData[7]?.GoodPotential,
+          qualitygp: updatedBehaviourData[8]?.GoodPotential,
+          responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
+          multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
+        });
+        setHighPotential({
+          attendencehp: updatedBehaviourData[0]?.HighPotential,
+          lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
+          groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
+          positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
+          intelligencehp: updatedBehaviourData[4]?.HighPotential,
+          imaginationhp: updatedBehaviourData[5]?.HighPotential,
+          improvementhp: updatedBehaviourData[6]?.HighPotential,
+          disciplinehp: updatedBehaviourData[7]?.HighPotential,
+          qualityhp: updatedBehaviourData[8]?.HighPotential,
+          responsibilityhp: updatedBehaviourData[9]?.HighPotential,
+          multiSkillshp: updatedBehaviourData[10]?.HighPotential,
+        });
+      }
     }
-   }
-   else{
-     if (designation.includes("Senior")) {
-
-       setLowPotential({
-         attendencelp: updatedBehaviourData[0]?.LowPotential,
-         lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
-         groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
-         positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
-         intelligencelp: updatedBehaviourData[4]?.LowPotential,
-         imaginationlp: updatedBehaviourData[5]?.LowPotential,
-         improvementlp: updatedBehaviourData[6]?.LowPotential,
-         disciplinelp: updatedBehaviourData[7]?.LowPotential,
-         qualitylp: updatedBehaviourData[8]?.LowPotential,
-         responsibilitylp: updatedBehaviourData[9]?.LowPotential,
-         multiSkillslp: updatedBehaviourData[10]?.LowPotential,
-         maturitylp: updatedBehaviourData[11]?.LowPotential,
-         approachlp: updatedBehaviourData[12]?.LowPotential,
-         teamworklp: updatedBehaviourData[13]?.LowPotential,
-       });
-       setGoodPotential({
-         attendencegp: updatedBehaviourData[0]?.GoodPotential,
-         lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
-         groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
-         positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
-         intelligencegp: updatedBehaviourData[4]?.GoodPotential,
-         imaginationgp: updatedBehaviourData[5]?.GoodPotential,
-         improvementgp: updatedBehaviourData[6]?.GoodPotential,
-         disciplinegp: updatedBehaviourData[7]?.GoodPotential,
-         qualitygp: updatedBehaviourData[8]?.GoodPotential,
-         responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
-         multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
-         maturitygp: updatedBehaviourData[11]?.GoodPotential,
-         approachgp: updatedBehaviourData[12]?.GoodPotential,
-         teamworkgp: updatedBehaviourData[13]?.GoodPotential,
-       });
-       setHighPotential({
-         attendencehp: updatedBehaviourData[0]?.HighPotential,
-         lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
-         groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
-         positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
-         intelligencehp: updatedBehaviourData[4]?.HighPotential,
-         imaginationhp: updatedBehaviourData[5]?.HighPotential,
-         improvementhp: updatedBehaviourData[6]?.HighPotential,
-         disciplinehp: updatedBehaviourData[7]?.HighPotential,
-         qualityhp: updatedBehaviourData[8]?.HighPotential,
-         responsibilityhp: updatedBehaviourData[9]?.HighPotential,
-         multiSkillshp: updatedBehaviourData[10]?.HighPotential,
-         maturityhp: updatedBehaviourData[11]?.HighPotential,
-         approachhp: updatedBehaviourData[12]?.HighPotential,
-         teamworkhp: updatedBehaviourData[13]?.HighPotential,
-       });
-
-     } else {
-
-       setLowPotential({
-         attendencelp: updatedBehaviourData[0]?.LowPotential,
-         lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
-         groupWorkinglp: updatedBehaviourData[2]?.LowPotential,
-         positiveAttitudelp: updatedBehaviourData[3]?.LowPotential,
-         intelligencelp: updatedBehaviourData[4]?.LowPotential,
-         imaginationlp: updatedBehaviourData[5]?.LowPotential,
-         improvementlp: updatedBehaviourData[6]?.LowPotential,
-         disciplinelp: updatedBehaviourData[7]?.LowPotential,
-         qualitylp: updatedBehaviourData[8]?.LowPotential,
-         responsibilitylp: updatedBehaviourData[9]?.LowPotential,
-         multiSkillslp: updatedBehaviourData[10]?.LowPotential,
-       });
-       setGoodPotential({
-         attendencegp: updatedBehaviourData[0]?.GoodPotential,
-         lessDDependabilitygp: updatedBehaviourData[1]?.GoodPotential,
-         groupWorkinggp: updatedBehaviourData[2]?.GoodPotential,
-         positiveAttitudegp: updatedBehaviourData[3]?.GoodPotential,
-         intelligencegp: updatedBehaviourData[4]?.GoodPotential,
-         imaginationgp: updatedBehaviourData[5]?.GoodPotential,
-         improvementgp: updatedBehaviourData[6]?.GoodPotential,
-         disciplinegp: updatedBehaviourData[7]?.GoodPotential,
-         qualitygp: updatedBehaviourData[8]?.GoodPotential,
-         responsibilitygp: updatedBehaviourData[9]?.GoodPotential,
-         multiSkillsgp: updatedBehaviourData[10]?.GoodPotential,
-       });
-       setHighPotential({
-         attendencehp: updatedBehaviourData[0]?.HighPotential,
-         lessDDependabilityhp: updatedBehaviourData[1]?.HighPotential,
-         groupWorkinghp: updatedBehaviourData[2]?.HighPotential,
-         positiveAttitudehp: updatedBehaviourData[3]?.HighPotential,
-         intelligencehp: updatedBehaviourData[4]?.HighPotential,
-         imaginationhp: updatedBehaviourData[5]?.HighPotential,
-         improvementhp: updatedBehaviourData[6]?.HighPotential,
-         disciplinehp: updatedBehaviourData[7]?.HighPotential,
-         qualityhp: updatedBehaviourData[8]?.HighPotential,
-         responsibilityhp: updatedBehaviourData[9]?.HighPotential,
-         multiSkillshp: updatedBehaviourData[10]?.HighPotential,
-       });
-
-     }
-   }
   }, [updatedBehaviourData, quarterlyBehavioural]);
-
-
- 
-
-
-
- 
 
   function checkArr() {
     const rawTotalArr = Object.values(rowTotal);
+    
     if (rawTotalArr !== null && rawTotalArr.length !== 0) {
-      const total = rawTotalArr?.reduce(
-        (accumulator, currentValue) => accumulator + currentValue
-      );
+
+      const total = rawTotalArr.reduce(function (accumulator, currentValue) {
+        return accumulator + parseFloat(currentValue);
+    }, 0);
+     
       if (designation.includes("Senior")) {
         setFinalTotal(total / 14);
       } else {
@@ -5000,560 +4975,542 @@ const Tableviewnew = ({
   }, [rowTotal, appraiseMarksAvg, appraiserAvg]);
 
   async function KpiMarks() {
-
-    setLoader(true);
-    let allFinalData = [];
-    let allBehaviourKpiData = [];
-    let currentDate = new Date();
-    let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
-    scope.UpdatedDate = dateTime1 || "";
-    scope.ToDate = fileData[0]?.E || "";
-    scope.FromDate = fileData[1]?.E || "";
-    feedback.ToDate = fileData[0]?.E || "";
-    feedback.FromDate = fileData[1]?.E || "";
-    feedback.UpdatedDate = dateTime1 || "";
-    userfeedback.ToDate = fileData[0]?.E || "";
-    userfeedback.FromDate = fileData[1]?.E || "";
-    userfeedback.UpdatedDate = dateTime1 || "";
-    userfeedback.IsEditable = 1;
-
-    let allFeedbackData = [feedback];
-    let allScopeData = [scope];
-    let allUserfeedback = [userfeedback];
-
-    thirdTable.map((val, ind) => {
-      let allData = {
-        KpiTitle: "",
-        KpiDescription: "",
-        Category: "",
-        Type: "",
-        ToUserId: "",
-        FromUserId: "",
-        Weightage: 0,
-        Target: 0,
-        AppraiseeSelfRating: 0,
-        AppraiserRating: 0,
-        ReviewerMarks: 0,
-        UpdatedDate: "",
-        IsEditable: MANAGEMENt_ID.includes(loginUser) ? 0 : 1,
-        ToDate: "",
-        FromDate: "",
-        ShowDevOpsData: 0,
-      };
-      switch (ind) {
-        case (ind = 0):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.Target = parentTarget?.actualDelivery
-            ? parentTarget?.actualDelivery
-            : 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customActualdeliveryMarks || 0;
-          allData.AppraiserRating =
-            parentAppraise?.customActualdeliveryMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customActualdeliveryMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 1):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.Target = parentTarget?.onTime ? parentTarget?.onTime : 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customOnTimeMarks || 0;
-          allData.AppraiserRating = parentAppraise?.customOnTimeMarksAr || 0;
-          allData.ReviewerMarks = parentReviewerMarks?.customOnTimeMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 2):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customAvgCodeMarks || 0;
-          allData.AppraiserRating = parentAppraise?.customAvgCodeMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customAvgCodeMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 3):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customReDoMarks || 0;
-          allData.AppraiserRating = parentAppraise?.customReDoMarksAr || 0;
-          allData.ReviewerMarks = parentReviewerMarks?.customReDoMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 4):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customBugsReportedMarks || 0;
-          allData.AppraiserRating =
-            parentAppraise?.customBugsReportedMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customBugsReportedMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 5):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.Target = parentTarget?.critical ? parentTarget?.critical : 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customCriticalIssuesMarks || 0;
-          allData.AppraiserRating =
-            parentAppraise?.customCriticalIssuesMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customCriticalIssuesMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 6):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customCustomerSatisfactionMarks || 0;
-          allData.AppraiserRating =
-            parentAppraise?.customCustomerSatisfactionMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customCustomerSatisfactionMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        case (ind = 7):
-          allData.KpiTitle = val.C || "";
-          allData.KpiDescription = val.D || "";
-          allData.Category = val.B || "";
-          allData.Type = val.F || "";
-          allData.ToUserId = email || "";
-          allData.FromUserId = loginUser || "";
-          allData.Weightage = val.H || 0;
-          allData.AppraiseeSelfRating =
-            parentSelfAppraise?.customUpskillingMarks || 0;
-          allData.AppraiserRating =
-            parentAppraise?.customUpskillingMarksAr || 0;
-          allData.ReviewerMarks =
-            parentReviewerMarks?.customUpskillingMarksRM || 0;
-          allData.UpdatedDate = dateTime1 || "";
-          // allData.IsEditable = 1;
-          allData.ToDate = fileData[0].E || "";
-          allData.FromDate = fileData[1].E || "";
-          return allFinalData.push(allData);
-        default:
-          return allFinalData;
+    try {
+      setLoader(true);
+      let allFinalData = [];
+      let allBehaviourKpiData = [];
+      let currentDate = new Date();
+      let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+      scope.UpdatedDate = dateTime1 || "";
+      scope.ToDate = fileData[0]?.E || "";
+      scope.FromDate = fileData[1]?.E || "";
+      feedback.ToDate = fileData[0]?.E || "";
+      feedback.FromDate = fileData[1]?.E || "";
+      feedback.UpdatedDate = dateTime1 || "";
+      userfeedback.ToDate = fileData[0]?.E || "";
+      userfeedback.FromDate = fileData[1]?.E || "";
+      userfeedback.UpdatedDate = dateTime1 || "";
+      // userfeedback.IsEditable = 1;
+      if(parseInt(userfeedback?.IsEditable) === 0){
+        userfeedback?.IsEditable = 1;
       }
-    });
-    forthTable.map((val, ind) => {
-      let allBehaviourKpiDatamap = {
-        BehaviouralKPIs: "",
-        LowPotential: "",
-        GoodPotential: "",
-        HighPotential: "",
-        ToUserId: "",
-        FromUserId: "",
-        ToDate: "",
-        FromDate: "",
-        UpdatedDate: "",
-      };
-
-      switch (ind) {
-        case (ind = 0):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential = lowPotential?.attendencelp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.attendencegp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.attendencehp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 1):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.lessDDependabilitylp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.lessDDependabilitygp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.lessDDependabilityhp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 2):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.groupWorkinglp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.groupWorkinggp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.groupWorkinghp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 3):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.positiveAttitudelp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.positiveAttitudegp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.positiveAttitudehp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 4):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.intelligencelp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.intelligencegp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.intelligencehp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 5):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.imaginationlp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.imaginationgp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.imaginationhp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 6):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.improvementlp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.improvementgp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.improvementhp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 7):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential = lowPotential?.disciplinelp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.disciplinegp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.attendencehp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 8):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential = lowPotential?.qualitylp || 0;
-          allBehaviourKpiDatamap.GoodPotential = goodPotential?.qualitygp || 0;
-          allBehaviourKpiDatamap.HighPotential = highPotential?.qualityhp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 9):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.responsibilitylp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.responsibilitygp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.responsibilityhp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-        case (ind = 10):
-          allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-          allBehaviourKpiDatamap.LowPotential =
-            lowPotential?.multiSkillslp || 0;
-          allBehaviourKpiDatamap.GoodPotential =
-            goodPotential?.multiSkillsgp || 0;
-          allBehaviourKpiDatamap.HighPotential =
-            highPotential?.multiSkillshp || 0;
-          allBehaviourKpiDatamap.ToUserId = email || "";
-          allBehaviourKpiDatamap.FromUserId = loginUser || "";
-          allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-          allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-          allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-          return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-        default:
-          return allBehaviourKpiData;
-      }
-    });
-    const localStartDate = localStorage.getItem("startDate");
-    const localEndDate = localStorage.getItem("endDate");
-
-    const date1 = new Date(localStartDate);
-    const date2 = new Date(localEndDate);
-
-    const diffInMonths =
-    (date2.getFullYear() - date1.getFullYear()) * 12 +
-    (date2.getMonth() - date1.getMonth());
-
-
-    let newwDiffMonthhs = diffInMonths+1
-console.log("22222222222222222222",newwDiffMonthhs)
-
-    if ( newwDiffMonthhs < 3) {
-
-  
-  
-
-
-      let indicesToCheck = [0, 1, 2, 3, 4, 6];
-
-      let hasAppraiseeZero = false;
-      if (MANAGEMENt_ID.includes(loginUser)) {
-
-        for (let index of indicesToCheck) {
-
-          if (parseInt(allFinalData[index].AppraiserRating) === 0) {
-
-            hasAppraiseeZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-
-        if (hasAppraiseeZero) {
-
-          alert("Appraisee rating not filled correctly");
-          return;
-        }
+      if(parseInt(userfeedback?.IsEditable) === 1){
+        userfeedback?.IsEditable = 2;
       }
 
-      let hasAppraiseeselfZero = false;
-      if (!MANAGEMENt_ID.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-            hasAppraiseeselfZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-        if (hasAppraiseeselfZero) {
-          alert("Appraiseeself rating not filled correctly");
-          return;
-        }
-      }
+      let allFeedbackData = [feedback];
+      let allScopeData = [scope];
+      let allUserfeedback = [userfeedback];
 
-      let reviewMarksZero = false;
-      if (REVIEWER_MANAGER.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-            reviewMarksZero = true;
-            setLoader(false);
-            break;
-          }
+      thirdTable.map((val, ind) => {
+        let allData = {
+          KpiTitle: "",
+          KpiDescription: "",
+          Category: "",
+          Type: "",
+          ToUserId: "",
+          FromUserId: "",
+          Weightage: 0,
+          Target: 0,
+          AppraiseeSelfRating: 0,
+          AppraiserRating: 0,
+          ReviewerMarks: 0,
+          UpdatedDate: "",
+          IsEditable: MANAGEMENt_ID.includes(loginUser) ? 0 : 1,
+          ToDate: "",
+          FromDate: "",
+          ShowDevOpsData: 0,
+        };
+        switch (ind) {
+          case (ind = 0):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.Target = parentTarget?.actualDelivery
+              ? parentTarget?.actualDelivery
+              : 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customActualdeliveryMarks || 0;
+            allData.AppraiserRating =
+              parentAppraise?.customActualdeliveryMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customActualdeliveryMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 1):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.Target = parentTarget?.onTime ? parentTarget?.onTime : 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customOnTimeMarks || 0;
+            allData.AppraiserRating = parentAppraise?.customOnTimeMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customOnTimeMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 2):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customAvgCodeMarks || 0;
+            allData.AppraiserRating = parentAppraise?.customAvgCodeMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customAvgCodeMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 3):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customReDoMarks || 0;
+            allData.AppraiserRating = parentAppraise?.customReDoMarksAr || 0;
+            allData.ReviewerMarks = parentReviewerMarks?.customReDoMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 4):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customBugsReportedMarks || 0;
+            allData.AppraiserRating =
+              parentAppraise?.customBugsReportedMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customBugsReportedMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 5):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.Target = parentTarget?.critical
+              ? parentTarget?.critical
+              : 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customCriticalIssuesMarks || 0;
+            allData.AppraiserRating =
+              parentAppraise?.customCriticalIssuesMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customCriticalIssuesMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 6):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customCustomerSatisfactionMarks || 0;
+            allData.AppraiserRating =
+              parentAppraise?.customCustomerSatisfactionMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customCustomerSatisfactionMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          case (ind = 7):
+            allData.KpiTitle = val.C || "";
+            allData.KpiDescription = val.D || "";
+            allData.Category = val.B || "";
+            allData.Type = val.F || "";
+            allData.ToUserId = email || "";
+            allData.FromUserId = loginUser || "";
+            allData.Weightage = val.H || 0;
+            allData.AppraiseeSelfRating =
+              parentSelfAppraise?.customUpskillingMarks || 0;
+            allData.AppraiserRating =
+              parentAppraise?.customUpskillingMarksAr || 0;
+            allData.ReviewerMarks =
+              parentReviewerMarks?.customUpskillingMarksRM || 0;
+            allData.UpdatedDate = dateTime1 || "";
+            // allData.IsEditable = 1;
+            allData.ToDate = fileData[0].E || "";
+            allData.FromDate = fileData[1].E || "";
+            return allFinalData.push(allData);
+          default:
+            return allFinalData;
         }
-        if (reviewMarksZero) {
-          alert("Behaviour KPI not filled correctly");
-          return;
+      });
+      forthTable.map((val, ind) => {
+        let allBehaviourKpiDatamap = {
+          BehaviouralKPIs: "",
+          LowPotential: "",
+          GoodPotential: "",
+          HighPotential: "",
+          ToUserId: "",
+          FromUserId: "",
+          ToDate: "",
+          FromDate: "",
+          UpdatedDate: "",
+        };
+
+        switch (ind) {
+          case (ind = 0):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.attendencelp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.attendencegp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.attendencehp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 1):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.lessDDependabilitylp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.lessDDependabilitygp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.lessDDependabilityhp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 2):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.groupWorkinglp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.groupWorkinggp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.groupWorkinghp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 3):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.positiveAttitudelp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.positiveAttitudegp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.positiveAttitudehp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 4):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.intelligencelp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.intelligencegp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.intelligencehp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 5):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.imaginationlp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.imaginationgp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.imaginationhp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 6):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.improvementlp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.improvementgp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.improvementhp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 7):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.disciplinelp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.disciplinegp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.attendencehp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 8):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential = lowPotential?.qualitylp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.qualitygp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.qualityhp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 9):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.responsibilitylp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.responsibilitygp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.responsibilityhp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+          case (ind = 10):
+            allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+            allBehaviourKpiDatamap.LowPotential =
+              lowPotential?.multiSkillslp || 0;
+            allBehaviourKpiDatamap.GoodPotential =
+              goodPotential?.multiSkillsgp || 0;
+            allBehaviourKpiDatamap.HighPotential =
+              highPotential?.multiSkillshp || 0;
+            allBehaviourKpiDatamap.ToUserId = email || "";
+            allBehaviourKpiDatamap.FromUserId = loginUser || "";
+            allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+            allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+            allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+            return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+          default:
+            return allBehaviourKpiData;
         }
-      }
+      });
 
-
-      let hasZeroValue = false;
-      if (MANAGEMENt_ID.includes(loginUser)) {
-        if (designation.includes("Senior")) {
-          for (let i = 0; i < 14; i++) {
-            if (parseInt(rowTotal[i]) === 0) {
+      if (newwDiffMonthhs < 3) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
+        let hasAppraiseeZero = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiserRating) === 0) {
+              hasAppraiseeZero = true;
               setLoader(false);
-              hasZeroValue = true;
               break;
             }
           }
+
+          if (hasAppraiseeZero) {
+            show_error1("AppraiserRating not filled properly");
+            return;
+          }
         }
-        else {
-          for (let i = 0; i < 11; i++) {
-            if (parseInt(rowTotal[i]) === 0) {
-              hasZeroValue = true;
+
+        let hasAppraiseeselfZero = false;
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+              hasAppraiseeselfZero = true;
+              setLoader(false);
               break;
             }
           }
-        }
-        if (hasZeroValue) {
-          setLoader(false);
-          alert("error")
-          return;
-        }
-      }
-
-
-
-
-      let data = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/marks`,
-        data: allFinalData,
-        headers: { Accept: "application/json" },
-      });
-      let bData = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/behavioural`,
-        data: allBehaviourKpiData,
-        headers: { Accept: "application/json" },
-      });
-    }
-
-    if ( parseInt(newwDiffMonthhs) === 3) {
-
-   
-
-      if (MANAGEMENt_ID.includes(loginUser)) {
-       
-       
-          if (feedback.PositivePoint ===  undefined  || scope.ScopeOfImprovement === undefined || feedback.PositivePoint ===  "" || scope.ScopeOfImprovement === "" ) {
-            setLoader(false);
-            alert("false")
+          if (hasAppraiseeselfZero) {
+            show_error1("AppraiseeSelfRating not filled properly");
             return;
           }
-         
-        
-      }
+        }
 
-
-     
-
-      if (!MANAGEMENt_ID.includes(loginUser)) {
-       
-          if (userfeedback.Userfeedback ===  undefined || userfeedback.Userfeedback ===  "" ) {
-       
-            setLoader(false);
-            alert("false2")
+        let reviewMarksZero = false;
+        if (REVIEWER_MANAGER.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+              reviewMarksZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (reviewMarksZero) {
+            show_error1("ReviewerMarks not filled properly");
             return;
           }
-        
+        }
+
+        let hasZeroValue = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          if (designation.includes("Senior")) {
+            for (let i = 0; i < 14; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                setLoader(false);
+                hasZeroValue = true;
+                break;
+              }
+            }
+          } else {
+            for (let i = 0; i < 11; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                hasZeroValue = true;
+                break;
+              }
+            }
+          }
+          if (hasZeroValue) {
+            setLoader(false);
+            show_error1("Behavioural KPIs not filled properly");
+            return;
+          }
+        }
+
+        let data = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/marks`,
+          data: allFinalData,
+          headers: { Accept: "application/json" },
+        });
+        let bData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/behavioural`,
+          data: allBehaviourKpiData,
+          headers: { Accept: "application/json" },
+        });
       }
 
+      if (parseInt(newwDiffMonthhs) === 3) {
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            feedback.PositivePoint === undefined ||
+            scope.ScopeOfImprovement === undefined ||
+            feedback.PositivePoint === "" ||
+            scope.ScopeOfImprovement === ""
+          ) {
+            setLoader(false);
+            show_error1(
+              "Neither Feedback not scopeOfimprovement should be empty"
+            );
+            return;
+          }
+        }
 
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            userfeedback.Userfeedback === undefined ||
+            userfeedback.Userfeedback === ""
+          ) {
+            setLoader(false);
+            show_error1("Userfeedback not filled properly");
+            return;
+          }
+        }
 
+        let pData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/positivepoint`,
+          data: allFeedbackData,
+          headers: { Accept: "application/json" },
+        });
 
+        let sData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/scopeofimprovement`,
+          data: allScopeData,
+          headers: { Accept: "application/json" },
+        });
 
-      let pData = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/positivepoint`,
-        data: allFeedbackData,
-        headers: { Accept: "application/json" },
-      });
+        // if (state !== undefined && state.length > 0) {
+        let uData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/userfeedback`,
+          data: allUserfeedback,
+          headers: { Accept: "application/json" },
+        });
+        // }
+      }
 
-      let sData = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/scopeofimprovement`,
-        data: allScopeData,
-        headers: { Accept: "application/json" },
-      });
-
-      // if (state !== undefined && state.length > 0) {
-      let uData = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/userfeedback`,
-        data: allUserfeedback,
-        headers: { Accept: "application/json" },
-      });
-      // }
-    }
-
-    setTimeout(() => {
-      window.location.reload(false);
       setTimeout(() => {
-        setLoader(false);
+        show_kpi_submit("your kpi submit successfully");
+        window.location.reload(false);
+        setTimeout(() => {
+          setLoader(false);
+        }, 5000);
       }, 5000);
-    }, 5000);
+    } catch (error) {
+      show_kpi_submit("your kpi not submit please try again");
+    }
   }
 
   useEffect(() => {
@@ -5579,6 +5536,11 @@ console.log("22222222222222222222",newwDiffMonthhs)
   });
 
   function conditionTables() {
+
+    if(MANAGEMENt_ID.includes(loginUser) && parseInt(userfeedback?.IsEditable) === 2){
+      return true;
+    }
+
     if (selectedThreeMonths || isThreeMonths) {
       if (MANAGEMENt_ID.includes(loginUser)) {
         return false;
@@ -5591,6 +5553,12 @@ console.log("22222222222222222222",newwDiffMonthhs)
   }
 
   function conditionUserFeddback() {
+
+    if(users === loginUser && parseInt(userfeedback?.IsEditable) === 1){
+      return true;
+    }
+
+
     if (users === loginUser) {
       if (getLocalTImeperiod < 5 || selectedThreeMonths || isThreeMonths) {
         return false;
@@ -5688,10 +5656,12 @@ console.log("22222222222222222222",newwDiffMonthhs)
   const [isSubmitDisable, setIsSubmitDisabled] = useState(true);
 
   function isButtonShouldDisable() {
-    if (updatedData?.data?.data[0]?.IsEditable == 0){
-        return true
-    }
-    else{
+    if (
+      parseInt(newwDiffMonthhs) === 2 ||
+      parseInt(newwDiffMonthhs) > 3 || MANAGEMENt_ID.includes(loginUser) && parseInt(userfeedback?.IsEditable) === 2 || users === loginUser && parseInt(userfeedback?.IsEditable) === 1
+    ) {
+      return true;
+    } else {
       if (getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths) {
         if (users === loginUser) {
           if (isSubmitDisable === false) {
@@ -5714,7 +5684,6 @@ console.log("22222222222222222222",newwDiffMonthhs)
         return values.includes(true);
       }
     }
-   
   }
 
   return (
@@ -5871,7 +5840,6 @@ console.log("22222222222222222222",newwDiffMonthhs)
               ? thirdTable?.map((val, ind) => {
                 return (
                   <>
-                  
                     <Renderthirdtable
                       setTextError1={setTextError1}
                       textError1={textError1}
@@ -5901,7 +5869,6 @@ console.log("22222222222222222222",newwDiffMonthhs)
                       finalAppraiserAvg={finalAppraiserAvg}
                       setDivision={setDivision}
                     />
-                    
                   </>
                 );
               })
@@ -6151,9 +6118,9 @@ console.log("22222222222222222222",newwDiffMonthhs)
               colSpan="5"
             >
               <textarea
-rows="10"
-cols="117"
-disabled={conditionTables()}
+                rows="10"
+                cols="117"
+                disabled={conditionTables()}
                 type="text"
                 placeholder="positive point should fill quaterly by manager"
                 style={{
@@ -6207,8 +6174,8 @@ disabled={conditionTables()}
               colSpan="5"
             >
               <textarea
-                  rows="10"
-                  cols="117"
+                rows="10"
+                cols="117"
                 type="text"
                 disabled={conditionTables()}
                 placeholder="scope of improvement should fill quaterly by manager"
@@ -6263,8 +6230,8 @@ disabled={conditionTables()}
               colSpan="5"
             >
               <textarea
-                  rows="10"
-                  cols="117"
+                rows="10"
+                cols="117"
                 disabled={disableText}
                 type="text"
                 placeholder="Press No buttton and enter your msg if you are not agree with this feedback"
@@ -6282,59 +6249,58 @@ disabled={conditionTables()}
                 onChange={(e) => handleAgree(e)}
               />
             </td>
-              <tr>
-                <td
-                  style={{
-                    display: "flex",
-                    border: "none",
-                    marginTop: "20px",
-                  }}
-                >
+            <tr>
+              <td
+                style={{
+                  display: "flex",
+                  border: "none",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <button
+                    style={{
+                      borderRadius: "0px",
+                      height: "30px",
+                      width: "60px",
+                      fontSize: "13px",
 
-                  <div>
-                    <button
-                      style={{
-                        borderRadius: "0px",
-                        height: "30px",
-                        width: "60px",
-                        fontSize: "13px",
+                      background: "#b0afaf",
+                      color: "black",
+                      fontWeight: "600",
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "0px 10px",
+                    }}
+                    disabled={conditionUserFeddback()}
+                    onClick={yesText}
+                  >
+                    <span>Yes</span>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    style={{
+                      borderRadius: "0px",
+                      height: "30px",
+                      width: "60px",
+                      fontSize: "13px",
 
-                        background: "#b0afaf",
-                        color: "black",
-                        fontWeight: "600",
-                        display: "flex",
-                        justifyContent: "center",
-                        margin: "0px 10px",
-                      }}
-                      disabled={conditionUserFeddback()}
-                      onClick={yesText}
-                    >
-                      <span>Yes</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      style={{
-                        borderRadius: "0px",
-                        height: "30px",
-                        width: "60px",
-                        fontSize: "13px",
+                      background: "#b0afaf",
+                      color: "black",
+                      fontWeight: "600",
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "0px 10px",
+                    }}
+                    disabled={conditionUserFeddback()}
+                    onClick={noText}
+                  >
+                    <span>No</span>
+                  </button>
+                </div>
 
-                        background: "#b0afaf",
-                        color: "black",
-                        fontWeight: "600",
-                        display: "flex",
-                        justifyContent: "center",
-                        margin: "0px 10px",
-                      }}
-                      disabled={conditionUserFeddback()}
-                      onClick={noText}
-                    >
-                      <span>No</span>
-                    </button>
-                  </div>
-
-                  {/* <div>
+                {/* <div>
                                                                                 <ModalFeedback
                                                                                           // setState={
                                                                                           //           setState
@@ -6342,49 +6308,45 @@ disabled={conditionTables()}
                                                                                           // disabled={conditionUserFeddback()}
                                                                                 />
                                                                       </div> */}
-                </td>
+              </td>
 
+              <td
+                style={{
+                  border: "none",
+                }}
+              ></td>
+              <td
+                style={{
+                  border: "none",
+                }}
+              ></td>
+              <td
+                style={{
+                  border: "none",
+                }}
+              ></td>
 
-                <td
-                  style={{
-                    border: "none",
-                  }}
-                ></td>
-                <td
-                  style={{
-                    border: "none",
-                  }}
-                ></td>
-                <td
-                  style={{
-                    border: "none", 
-                  }}
-                ></td>
-                
-               
-          <div></div>
+              <div></div>
 
-                <div className="text-end">
-                  <Button
-                    variant="contained"
-                    style={{
-                     
-                      minWidth: "130px",
-                    }}
-                    onClick={() => KpiMarks()}
-                    disabled={isButtonShouldDisable()}
-                  >
-                    Submit KPI
-                  </Button>
-                </div>
-
-                <tr
+              <div className="text-end">
+                <Button
+                  variant="contained"
                   style={{
-                    height: "100px",
+                    minWidth: "130px",
                   }}
-                ></tr>
-              </tr>
-           
+                  onClick={() => KpiMarks()}
+                  disabled={isButtonShouldDisable()}
+                >
+                  Submit KPI
+                </Button>
+              </div>
+
+              <tr
+                style={{
+                  height: "100px",
+                }}
+              ></tr>
+            </tr>
 
             {fifthTable.map((val, index) => {
               return (

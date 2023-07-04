@@ -60,10 +60,6 @@ const Mark = () => {
   const firstDay = moment(monthyear + "-01").format("YYYY-MM-DD");
   const [showCustomDate, setshowCustomDate] = useState();
   const [timePeriod, setTimePeriod] = useState();
-  // const [customdate, setCustomdate] = useState([
-  //   moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD"),
-  //   moment(firstDay).subtract("1", "days").format("YYYY-MM-DD"),
-  // ]);
   const [customdate, setCustomdate] = useState([
     localStorage.getItem("startDate"),
 
@@ -83,15 +79,16 @@ const Mark = () => {
   const [TotalcriticalBug, setTotalcriticalBug] = useState(0);
   const [ResolvedcriticalBug, setResolvedcriticalBug] = useState(0);
   const [ReportedByclient, setReportedByclient] = useState(0);
-
-  const [startDate, setstartDate] = useState(
-    moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD")
-  );
   const [isThreeMonths, setIsThreeMonths] = useState(false);
+  const [startDate, setstartDate] = useState(() => {
+    const localStartDate = localStorage.getItem("startDate");
+    return localStartDate ? localStartDate : moment().subtract(1, "months").startOf("month").format("YYYY-MM-DD");
+  });
+  const [lastDate, setlastDate] = useState(() => {
+    const localEndDate = localStorage.getItem("endDate");
+    return localEndDate ? localEndDate : moment().subtract(1, "days").format("YYYY-MM-DD");
+  });
 
-  const [lastDate, setlastDate] = useState(
-    moment(firstDay).subtract("1", "days").format("YYYY-MM-DD")
-  );
   const [selectedThreeMonths, setSelectedThreeMonths] = useState(false);
 
   const classes = useStyles();
@@ -115,9 +112,8 @@ const Mark = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -161,9 +157,8 @@ const Mark = () => {
       for (let index = 0; index < Math.ceil(ids.length / 300); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-          }`,
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+            }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -311,7 +306,7 @@ const Mark = () => {
                       ) {
                         let dueDate = moment(
                           taskdetails.fields[
-                            "Microsoft.VSTS.Scheduling.DueDate"
+                          "Microsoft.VSTS.Scheduling.DueDate"
                           ]
                         ).format("YYYY-MM-DD");
                         let actualEndDate = moment(
@@ -325,9 +320,9 @@ const Mark = () => {
                         if (
                           actualEndDate <= dueDate &&
                           taskdetails.fields["Custom.HoursTaken"] <=
-                            taskdetails.fields[
-                              "Microsoft.VSTS.Scheduling.Effort"
-                            ]
+                          taskdetails.fields[
+                          "Microsoft.VSTS.Scheduling.Effort"
+                          ]
                         ) {
                           ontimesprint++;
                         } else if (diffInDays == 1) {
@@ -430,7 +425,7 @@ const Mark = () => {
                 innerval.fields["System.Tags"] === "Critical; Reopen" ||
                 innerval.fields["System.Tags"] === "Reopen; ReportedByClient" ||
                 innerval.fields["System.Tags"] ===
-                  "Critical; Reopen; ReportedByClient"
+                "Critical; Reopen; ReportedByClient"
               ) {
                 numberofbugsreportedbyClient++;
                 redocountArr++;
@@ -449,7 +444,7 @@ const Mark = () => {
                 ((100 +
                   ((2 - numberofbugsreportedbyClient) /
                     numberofbugsreportedbyClient) *
-                    100) *
+                  100) *
                   10) /
                 100;
               reportedbyclientmark = reportedbyclientmark.toFixed(2);
@@ -488,6 +483,8 @@ const Mark = () => {
     clientbugMarks,
   ]);
 
+
+
   const handleexceldropdown = async (e) => {
     let selectedFile = e;
     setDesignation(e);
@@ -502,7 +499,7 @@ const Mark = () => {
       // headers: { Accept: "application/json" }
     });
 
-  
+
 
     let finalData = [];
     finalData = data?.data?.Updated2023;
@@ -573,16 +570,23 @@ const Mark = () => {
   let julToSep = true;
   let octToDec = true;
 
-  if (currentDate.isBetween(q1Start, q1End, null, "[]")) {
+  // Determine which quarter is coming soon or has already passed
+  let janToMar1 = currentDate.isBetween(q1Start, q1End, null, "[]") || currentDate.isSame(q1Start, "day") || currentDate.isSame(q1End, "day");
+  let aprToJun1 = currentDate.isBetween(q2Start, q2End, null, "[]") || currentDate.isSame(q2Start, "day") || currentDate.isSame(q2End, "day");
+  let julToSep1 = currentDate.isBetween(q3Start, q3End, null, "[]") || currentDate.isSame(q3Start, "day") || currentDate.isSame(q3End, "day");
+  let octToDec1 = currentDate.isBetween(q4Start, q4End, null, "[]") || currentDate.isSame(q4Start, "day") || currentDate.isSame(q4End, "day");
+
+  // Set appropriate flags
+  if (janToMar1) {
     janToMar = false;
-  } else if (currentDate.isBetween(q2Start, q2End, null, "[]")) {
+  } else if (aprToJun1) {
     janToMar = false;
     aprToJun = false;
-  } else if (currentDate.isBetween(q3Start, q3End, null, "[]")) {
+  } else if (julToSep1) {
     janToMar = false;
     aprToJun = false;
     julToSep = false;
-  } else if (currentDate.isBetween(q4Start, q4End, null, "[]")) {
+  } else if (octToDec1) {
     janToMar = false;
     aprToJun = false;
     julToSep = false;
@@ -652,7 +656,7 @@ const Mark = () => {
 
   function checkThreeMonths() {
     if (Number(localTimePeriod) == 5) {
-    
+
       const date1 = new Date(localStartDate);
       const date2 = new Date(localEndDate);
 
@@ -660,13 +664,13 @@ const Mark = () => {
         (date2.getFullYear() - date1.getFullYear()) * 12 +
         (date2.getMonth() - date1.getMonth());
 
-     
+
 
       if (diffInMonths + 1 === 3) {
-        
+
         setIsThreeMonths(true);
       } else {
-       
+
         setIsThreeMonths(false);
       }
     } else {
@@ -679,6 +683,7 @@ const Mark = () => {
   }, [localTimePeriod, localStartDate, localEndDate]);
 
   const windwoRefresh = async () => {
+   
     if (localdesigantion !== null) {
       // setshowCustomDate(true)
       setstartDate(localStartDate);
@@ -693,7 +698,7 @@ const Mark = () => {
         },
         // headers: { Accept: "application/json" }
       });
- 
+
 
       let finalData = [];
       finalData = data?.data?.Updated2023;
