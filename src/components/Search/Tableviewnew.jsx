@@ -5704,7 +5704,10 @@ const Tableviewnew = ({
       (agreeData &&
         agreeData.length > 0 &&
         users === loginUser &&
-        parseInt(agreeData[0]?.IsEditable) === 2)
+        parseInt(agreeData[0]?.IsEditable) === 2) ||
+
+        users === loginUser && newwDiffMonthhs == 1 &&
+        updatedData?.data?.data[0]?.IsEditable == 0
     ) {
       return true;
     } else {
