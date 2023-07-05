@@ -69,6 +69,8 @@ const Renderthirdtable = ({
   setTextError3,
   textError3,
 }) => {
+
+
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -103,21 +105,21 @@ const Renderthirdtable = ({
   //state to maintain target values
 
   const [actualDelivery, setActualDelivery] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
       ? val.I
       : 0
   );
   const [onTime, setOnTime] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
       ? val.I
       : 0
   );
   const [critical, setCritical] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
       ? val.I
@@ -268,7 +270,7 @@ const Renderthirdtable = ({
   //--------------------//
 
   useEffect(() => {
-    if (division * 8 > 8) {
+    if ( parseInt(newwDiffMonthhs) ===3 ||  division * 8 > 8) {
       //state to maintain target values
       setActualDelivery(avgQuaterlyData?.Target[0]);
 
@@ -327,7 +329,7 @@ const Renderthirdtable = ({
       );
       setCustomUpskillingMarksRM(avgQuaterlyData?.ReviewerMarks[7] / division);
     }
-  }, [avgQuaterlyData, isThreeMonths, selectedThreeMonths, division]);
+  }, [newwDiffMonthhs,avgQuaterlyData, isThreeMonths, selectedThreeMonths, division]);
 
   const [indError1, setIndError1] = useState();
 
@@ -842,13 +844,16 @@ const Renderthirdtable = ({
       });
     }
   }
+
+
+
   const valueMap = [
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
       ? actualDelivery
       : val.I,
-    isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
       ? onTime
@@ -856,7 +861,7 @@ const Renderthirdtable = ({
     val.I,
     val.I,
     val.I,
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
       ? critical
@@ -1258,15 +1263,9 @@ const Renderthirdtable = ({
                 ? false
                 : true
             }
-            // max={
-            //           ind === 2
-            //                     ? 5
-            //                     : ind ===
-            //                       1
-            //                     ? onTime
-            //                     : ""
-            // }
+        
             value={
+              
               loginUser === email
                 ? ind === 0
                   ? customActualdeliveryMarks
@@ -1357,6 +1356,7 @@ const Renderthirdtable = ({
             //                     : ""
             // }
             value={
+             
               getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths
                 ? 0
                 : MANAGEMENt_ID.includes(loginUser)
@@ -1450,6 +1450,7 @@ const Renderthirdtable = ({
             //                     : ""
             // }
             value={
+            
               REVIEWER_MANAGER.includes(loginUser)
                 ? ind === 0
                   ? customActualdeliveryMarksRM
@@ -4360,6 +4361,7 @@ const Tableviewnew = ({
     setusers(emails);
   }, [emails]);
 
+
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
   let thirdTable = fileData.slice(6, 14);
@@ -4472,8 +4474,9 @@ const Tableviewnew = ({
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
+  
 
-    if (data.data.data.length > 9) {
+    if ( newwDiffMonthhs ===3 ) {
       setDivision(data.data.data.length / 8);
       let sum = {
         AppraiseeSelfRating: [],
@@ -4503,6 +4506,7 @@ const Tableviewnew = ({
             (sum.ReviewerMarks[allindex] || 0) + allData?.ReviewerMarks;
         });
       });
+      
       setAvgQuaterlyData(sum);
     } else {
       setUpdatedData(data);
