@@ -128,42 +128,42 @@ const Renderthirdtable = ({
 
   //  this state use for Appraisee Self Rating
   const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
       ? val.J
       : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 ||isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
       ? val.J
       : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
       ? val.J
       : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
       ? val.J
       : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
       ? val.J
       : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
       ? val.J
@@ -171,14 +171,14 @@ const Renderthirdtable = ({
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
-      isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
         ? val.J
         : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
       ? val.J
@@ -187,33 +187,33 @@ const Renderthirdtable = ({
 
   // this states use for Appraiser Rating
   const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[0]
       : 0
   );
   const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[1]
       : 0
   );
   const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[2]
       : 0
   );
   const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[3]
       : 0
   );
   const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[4]
       : 0
   );
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
     useState(
-      isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs ===3 ||   isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiserRating[5]
         : 0
     );
@@ -221,35 +221,35 @@ const Renderthirdtable = ({
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
   ] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[6]
       : 0
   );
   const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[7]
       : 0
   );
 
   // this states use for Reviewer Marks
   const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[0] : 0
+    newwDiffMonthhs ===3 ||isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[0] : 0
   );
   const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[1] : 0
+    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[1] : 0
   );
   const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[2] : 0
+    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[2] : 0
   );
   const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[3] : 0
+    newwDiffMonthhs ===3 ||   isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[3] : 0
   );
   const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[4] : 0
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[4] : 0
   );
   const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
     useState(
-      isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.ReviewerMarks[5]
         : 0
     );
@@ -257,10 +257,10 @@ const Renderthirdtable = ({
     customCustomerSatisfactionMarksRM,
     setCustomCustomerSatisfactionMarksRM,
   ] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[6] : 0
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[6] : 0
   );
   const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(
-    isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[7] : 0
+    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[7] : 0
   );
 
   //................. this states use for input validations ...............//
@@ -1265,7 +1265,27 @@ const Renderthirdtable = ({
             }
         
             value={
-              
+
+              newwDiffMonthhs ===3 ? 
+              ind === 0
+              ? avgQuaterlyData?.AppraiseeSelfRating[0]
+              : ind === 1
+              ? avgQuaterlyData?.AppraiseeSelfRating[1]
+              : ind === 2
+              ? avgQuaterlyData?.AppraiseeSelfRating[2] / division
+              : ind === 3
+              ? avgQuaterlyData?.AppraiseeSelfRating[3] / division
+              : ind === 4
+              ? avgQuaterlyData?.AppraiseeSelfRating[4] / division
+              : ind === 5
+              ? avgQuaterlyData?.AppraiseeSelfRating[5]
+              : ind === 6
+              ? avgQuaterlyData?.AppraiseeSelfRating[6] / division
+              : ind === 7 ? 
+              avgQuaterlyData?.AppraiseeSelfRating[7] / division
+              : val.J
+              :
+             
               loginUser === email
                 ? ind === 0
                   ? customActualdeliveryMarks
@@ -1284,7 +1304,8 @@ const Renderthirdtable = ({
                   : ind === 7
                   ? customUpskillingMarks
                   : val.J
-                : val.J
+                : val.J 
+               
             }
             style={{
               height: "100%",
@@ -1516,6 +1537,7 @@ const RenderTestTable = ({
   finalAppraiseAvg,
   setAppraiserAvg,
 }) => {
+
   //state to maintain target values
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
