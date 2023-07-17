@@ -186,6 +186,7 @@ const Mark = () => {
             // ----------------------------------------------------------------------------------------
             // task wise  marks calculation according to hours
             task.map((res) => {
+          
               setEmpName(res?.fields["System.AssignedTo"]?.displayName);
               if (
                 res.fields["System.State"] === "Closed" ||
@@ -206,16 +207,18 @@ const Mark = () => {
                 effortArr.push(effort);
                 let CodeReviewRating =
                   res.fields["Custom.CodeReviewRating"] || 0;
-                codeReviewRatingArr.push(CodeReviewRating);
+                  codeReviewRatingArr.push(CodeReviewRating);
+                 
                 const filteredArr = codeReviewRatingArr.filter(
-                  (val) => val !== 0
+                  (val) => val !== 0 || undefined
                 );
+               
                 let ReviewArr = filteredArr.reduce(
                   (partialSum, a) => partialSum + a,
                   0
                 );
+               
                 let finalReviewArr = ReviewArr / filteredArr.length;
-
                 setCodeReviewRating(finalReviewArr);
                 let actualHours = 0;
                 if (
@@ -226,16 +229,20 @@ const Mark = () => {
                 }
 
                 let redoHours;
+               
                 redoHours = res.fields["Custom.RedoHours"] || 0;
+              
                 if (res.fields["System.WorkItemType"] === "Bug") {
+                
                   redoHours = res.fields["Custom.RedoHours"] || 2 * effort;
                 }
+              
                 if (actualHours !== 0) {
                   actualHoursArr.push(actualHours);
                 } else {
                   actualHoursArr.push(effort * 3);
                 }
-
+   
                 redoHoursArr.push(redoHours);
               }
             });
@@ -249,11 +256,14 @@ const Mark = () => {
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
             effortArr = parseFloat(effortArr);
+           
 
             redoHoursArr = (redoHoursArr || [])
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
+
             redoHoursArr = parseFloat(redoHoursArr);
+          
             // actualHoursArr = actualHoursArr + redoHoursArr;
             setTotalEffort(effortArr);
             setTotalactualhour(actualHoursArr);

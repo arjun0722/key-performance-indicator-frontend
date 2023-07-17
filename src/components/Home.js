@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { ACCESS_TOKEN } from "../Config/Constant";
-import { MANAGEMENt_ID } from "../Config/ManagementEmail";
+import { MANAGEMENt_ID, REVIEWER_MANAGER } from "../Config/ManagementEmail";
 import Loading from "./Loading";
 import { show_error } from "../Config/Helper";
 
@@ -53,7 +53,7 @@ const Home = () => {
   };
 
   const userPath = (user) => {
-    if (MANAGEMENt_ID.includes(userEmail)) {
+    if (MANAGEMENt_ID.includes(userEmail) || REVIEWER_MANAGER.includes(userEmail)) {
       return `/mark?email=${user.mailAddress}`;
     } else {
       if (userEmail === user.mailAddress) {
