@@ -49,7 +49,7 @@ const Mark = () => {
   const [isReload, setIsRelaod] = useState(0);
 
   const [selectedEmail, setSelectedEmail] = useState(email ? email : "");
-  const [EmpName, setEmpName] = useState();
+  const [EmpName, setEmpName] = useState("");
   const [loadingData, setLoadingData] = useState(true);
   const [TaskwiseMarks, setTaskwiseMarks] = useState(0);
   const [criticalMarks, setcriticalMarks] = useState(0);
@@ -186,7 +186,6 @@ const Mark = () => {
             // ----------------------------------------------------------------------------------------
             // task wise  marks calculation according to hours
             task.map((res) => {
-          
               setEmpName(res?.fields["System.AssignedTo"]?.displayName);
               if (
                 res.fields["System.State"] === "Closed" ||
@@ -200,25 +199,26 @@ const Mark = () => {
                 res.fields["System.State"] === "Removed" ||
                 res.fields["System.State"] === "New" ||
                 res.fields["System.State"] === "Rework" ||
-                res.fields["System.State"] === "Merged"
+                res.fields["System.State"] === "Merged" ||
+                res.fields["System.State"] === "Checked In" ||
+                res.fields["System.State"] === "Final Review" ||
+                res.fields["System.State"] === "QA Blocked" ||
+                res.fields["System.State"] === "More Info Required"
               ) {
                 let effort =
                   res.fields["Microsoft.VSTS.Scheduling.Effort"] || 0;
                 effortArr.push(effort);
                 let CodeReviewRating =
                   res.fields["Custom.CodeReviewRating"] || 0;
-                  codeReviewRatingArr.push(CodeReviewRating);
-                 
+                codeReviewRatingArr.push(CodeReviewRating);
                 const filteredArr = codeReviewRatingArr.filter(
-                  (val) => val !== 0 || undefined
-                );
-               
+                  (val) => val !== 0   || undefined  );
                 let ReviewArr = filteredArr.reduce(
                   (partialSum, a) => partialSum + a,
                   0
                 );
-               
                 let finalReviewArr = ReviewArr / filteredArr.length;
+
                 setCodeReviewRating(finalReviewArr);
                 let actualHours = 0;
                 if (
@@ -229,21 +229,19 @@ const Mark = () => {
                 }
 
                 let redoHours;
-               
                 redoHours = res.fields["Custom.RedoHours"] || 0;
-              
+               
                 if (res.fields["System.WorkItemType"] === "Bug") {
-                
+                 
                   redoHours = res.fields["Custom.RedoHours"] || 2 * effort;
                 }
-              
                 if (actualHours !== 0) {
                   actualHoursArr.push(actualHours);
                 } else {
                   actualHoursArr.push(effort * 3);
                 }
-   
                 redoHoursArr.push(redoHours);
+                
               }
             });
 
@@ -256,14 +254,11 @@ const Mark = () => {
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
             effortArr = parseFloat(effortArr);
-           
 
             redoHoursArr = (redoHoursArr || [])
               .reduce((partialmarks, a) => partialmarks + a, 0)
               .toFixed(2);
-
             redoHoursArr = parseFloat(redoHoursArr);
-          
             // actualHoursArr = actualHoursArr + redoHoursArr;
             setTotalEffort(effortArr);
             setTotalactualhour(actualHoursArr);
@@ -316,7 +311,11 @@ const Mark = () => {
                         taskdetails.fields["System.State"] === "Removed" ||
                         taskdetails.fields["System.State"] === "New" ||
                         taskdetails.fields["System.State"] === "Rework" ||
-                        taskdetails.fields["System.State"] === "Merged"
+                        taskdetails.fields["System.State"] === "Merged" ||
+                        taskdetails.fields["System.State"] === "Checked In" ||
+                        taskdetails.fields["System.State"] === "Final Review" ||
+                        taskdetails.fields["System.State"] === "QA Blocked" ||
+                        taskdetails.fields["System.State"] === "More Info Required"
                       ) {
                         let dueDate = moment(
                           taskdetails.fields[
@@ -381,7 +380,7 @@ const Mark = () => {
             //   (partialmarks, a) => partialmarks + a,
             //   0
             // );
-
+        
             setRedocount(redocountArr);
             if (redocountArr) {
               let redocountmarks =
@@ -428,7 +427,11 @@ const Mark = () => {
               if (
                 innerval.fields["System.Tags"] === "ReportedByClient" ||
                 innerval.fields["System.Tags"] === "Critical" ||
-                innerval.fields["System.Tags"] === "Critical; ReportedByClient"
+                innerval.fields["System.Tags"] === "#Critical" ||
+                innerval.fields["System.Tags"] === "Critical; ReportedByClient" ||
+                innerval.fields["System.Tags"] === "#Critical; ReportedByClient" ||
+                innerval.fields["System.Tags"] === "#Critical; Critical" ||
+                innerval.fields["System.Tags"] === "#Critical; ReportedByClient; Critical"
               ) {
                 numberofbugsreportedbyClient++;
               }
@@ -439,12 +442,15 @@ const Mark = () => {
                 innerval.fields["System.Tags"] === "Critical; Reopen" ||
                 innerval.fields["System.Tags"] === "Reopen; ReportedByClient" ||
                 innerval.fields["System.Tags"] ===
-                "Critical; Reopen; ReportedByClient"
+                "Critical; Reopen; ReportedByClient; #Critical" ||
+                innerval.fields["System.Tags"] === "#Critical; Reopen" 
+
               ) {
                 numberofbugsreportedbyClient++;
                 redocountArr++;
               }
             });
+          
             setRedocount(redocountArr);
             // let bugsreportedbyClient = task.filter((innerval) => {
             //   let reportedbyclient =
@@ -498,7 +504,7 @@ const Mark = () => {
   ]);
 
 
-
+  
   const handleexceldropdown = async (e) => {
     let selectedFile = e;
     setDesignation(e);
@@ -554,58 +560,81 @@ const Mark = () => {
   // Get the current date
   const currentDate = moment();
 
-  const year = moment().year(); // The year you want to divide into quarters
+  // Check quarter is jan to march or no
+  const testYear = moment().year()
+  const checkStart = moment({ testYear }).startOf("year").add(12, "months");
+  const checkEnd = moment({ testYear }).endOf("year").add(3, "months");
+  let checkJanToMar = currentDate.isBetween(checkStart, checkEnd, null, "[]") || currentDate.isSame(checkStart, "day") || currentDate.isSame(checkEnd, "day");
+
+  const currentYear = moment().year(); // The year you want to divide into quarters
+  const previousYear = moment().subtract(1, 'years').year();
+  const year = dateEvent == 4 ? currentYear : checkJanToMar ? previousYear : currentYear
 
   // Get the first day of each quarter for the given year
-  const q1Start = moment({ year }).startOf("year");
-  const q2Start = moment({ year }).startOf("year").add(3, "months");
-  const q3Start = moment({ year }).startOf("year").add(6, "months");
-  const q4Start = moment({ year }).startOf("year").add(9, "months");
+  const q1Start = moment({ year }).startOf("year").add(3, "months");
+  const q2Start = moment({ year }).startOf("year").add(6, "months");
+  const q3Start = moment({ year }).startOf("year").add(9, "months");
+  const q4Start = moment({ year }).startOf("year").add(12, "months");
 
   // Get the last day of each quarter for the given year
-  const q1End = moment(q2Start).subtract(1, "day");
-  const q2End = moment(q3Start).subtract(1, "day");
-  const q3End = moment(q4Start).subtract(1, "day");
-  const q4End = moment({ year }).endOf("year");
+  const q1End = moment(q2Start).subtract(1, "day")
+  const q2End = moment(q3Start).subtract(1, "day")
+  const q3End = moment(q4Start).subtract(1, "day")
+  const q4End = moment({ year }).endOf("year").add(3, "months");
 
   // Format the start and end dates of each quarter as strings
-  const startJanToMar = q1Start.format("YYYY-MM-DD");
-  const endJanToMar = q1End.format("YYYY-MM-DD");
-  const startAprToJun = q2Start.format("YYYY-MM-DD");
-  const endAprToJun = q2End.format("YYYY-MM-DD");
-  const startJulToSep = q3Start.format("YYYY-MM-DD");
-  const endJulToSep = q3End.format("YYYY-MM-DD");
-  const startOctToDec = q4Start.format("YYYY-MM-DD");
-  const endOctToDec = q4End.format("YYYY-MM-DD");
-
+  const startAprToJun = q1Start.format("YYYY-MM-DD");
+  const endAprToJun = q1End.format("YYYY-MM-DD");
+  const startJulToSep = q2Start.format("YYYY-MM-DD");
+  const endJulToSep = q2End.format("YYYY-MM-DD");
+  const startOctToDec = q3Start.format("YYYY-MM-DD");
+  const endOctToDec = q3End.format("YYYY-MM-DD");
+  const startJanToMar = q4Start.format("YYYY-MM-DD");
+  const endJanToMar = q4End.format("YYYY-MM-DD");
   // Determine which quarter is coming soon or has already passed
-  let janToMar = true;
+  
   let aprToJun = true;
   let julToSep = true;
   let octToDec = true;
+  let janToMar = true;
 
   // Determine which quarter is coming soon or has already passed
-  let janToMar1 = currentDate.isBetween(q1Start, q1End, null, "[]") || currentDate.isSame(q1Start, "day") || currentDate.isSame(q1End, "day");
-  let aprToJun1 = currentDate.isBetween(q2Start, q2End, null, "[]") || currentDate.isSame(q2Start, "day") || currentDate.isSame(q2End, "day");
-  let julToSep1 = currentDate.isBetween(q3Start, q3End, null, "[]") || currentDate.isSame(q3Start, "day") || currentDate.isSame(q3End, "day");
-  let octToDec1 = currentDate.isBetween(q4Start, q4End, null, "[]") || currentDate.isSame(q4Start, "day") || currentDate.isSame(q4End, "day");
+  let aprToJun1 = currentDate.isBetween(q1Start, q1End, null, "[]") || currentDate.isSame(q1Start, "day") || currentDate.isSame(q1End, "day");
+  let julToSep1 = currentDate.isBetween(q2Start, q2End, null, "[]") || currentDate.isSame(q2Start, "day") || currentDate.isSame(q2End, "day");
+  let octToDec1 = currentDate.isBetween(q3Start, q3End, null, "[]") || currentDate.isSame(q3Start, "day") || currentDate.isSame(q3End, "day");
+  let janToMar1 = currentDate.isBetween(q4Start, q4End, null, "[]") || currentDate.isSame(q4Start, "day") || currentDate.isSame(q4End, "day");
 
   // Set appropriate flags
-  if (janToMar1) {
-    janToMar = false;
-  } else if (aprToJun1) {
-    janToMar = false;
+  if (aprToJun1) {
     aprToJun = false;
   } else if (julToSep1) {
-    janToMar = false;
     aprToJun = false;
     julToSep = false;
   } else if (octToDec1) {
-    janToMar = false;
     aprToJun = false;
     julToSep = false;
     octToDec = false;
+  } else if (janToMar1) {
+    aprToJun = false;
+    julToSep = false;
+    octToDec = false;
+    janToMar = false;
   }
+  // if (janToMar1) {
+  //   janToMar = false;
+  // } else if (aprToJun1) {
+  //   janToMar = false;
+  //   aprToJun = false;
+  // } else if (julToSep1) {
+  //   janToMar = false;
+  //   aprToJun = false;
+  //   julToSep = false;
+  // } else if (octToDec1) {
+  //   janToMar = false;
+  //   aprToJun = false;
+  //   julToSep = false;
+  //   octToDec = false;
+  // }
 
   // *************************************************************************************** //
 
@@ -615,41 +644,41 @@ const Mark = () => {
     // ..........................................................................................................
     // Jan To March Months
     if (event == 1) {
-      localStorage.setItem("startDate", startJanToMar);
-      localStorage.setItem("endDate", endJanToMar);
-      setEvent(1);
-      setstartDate(startJanToMar);
-      setlastDate(endJanToMar);
-      setSelectedThreeMonths(true);
-    }
-
-    // Apr To Jun Months
-    if (event == 2) {
       localStorage.setItem("startDate", startAprToJun);
       localStorage.setItem("endDate", endAprToJun);
-      setEvent(2);
+      setEvent(1);
       setstartDate(startAprToJun);
       setlastDate(endAprToJun);
       setSelectedThreeMonths(true);
     }
 
-    // Jul To Sep Months
-    if (event == 3) {
+    // Apr To Jun Months
+    if (event == 2) {
       localStorage.setItem("startDate", startJulToSep);
       localStorage.setItem("endDate", endJulToSep);
-      setEvent(3);
+      setEvent(2);
       setstartDate(startJulToSep);
       setlastDate(endJulToSep);
       setSelectedThreeMonths(true);
     }
 
-    // Oct To Dec Months
-    if (event == 4) {
+    // Jul To Sep Months
+    if (event == 3) {
       localStorage.setItem("startDate", startOctToDec);
       localStorage.setItem("endDate", endOctToDec);
-      setEvent(4);
+      setEvent(3);
       setstartDate(startOctToDec);
       setlastDate(endOctToDec);
+      setSelectedThreeMonths(true);
+    }
+
+    // Oct To Dec Months
+    if (event == 4) {
+      localStorage.setItem("startDate", startJanToMar);
+      localStorage.setItem("endDate", endJanToMar);
+      setEvent(4);
+      setstartDate(startJanToMar);
+      setlastDate(endJanToMar);
       setSelectedThreeMonths(true);
     }
 
@@ -667,6 +696,7 @@ const Mark = () => {
   const localStartDate = localStorage.getItem("startDate");
   const localTimePeriod = localStorage.getItem("timperiod");
   const localEndDate = localStorage.getItem("endDate");
+  const currentDateForDatePicker = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
 
   function checkThreeMonths() {
     if (Number(localTimePeriod) == 5) {
@@ -794,18 +824,18 @@ const Mark = () => {
                   onChange={(e) => handleChangeSelectBox(e.target.value)}
                   input={<OutlinedInput label="Time Period" />}
                 >
-                  <MenuItem disabled={janToMar} value={1}>
-                    Jan To Mar
-                  </MenuItem>
-                  <MenuItem disabled={aprToJun} value={2}>
+                  <MenuItem disabled={aprToJun} value={1}>
                     Apr To June
                   </MenuItem>
-                  <MenuItem disabled={julToSep} value={3}>
+                  <MenuItem disabled={julToSep} value={2}>
                     July To Sept
                   </MenuItem>
-                  <MenuItem disabled={octToDec} value={4}>
+                  <MenuItem disabled={octToDec} value={3}>
                     Oct To Dec
                   </MenuItem>
+                    <MenuItem disabled={janToMar} value={4}>
+                      Jan To Mar
+                    </MenuItem>
                   <MenuItem value={5}>Custom</MenuItem>
                   {/* <MenuItem value={6}>Last Three Months</MenuItem> */}
                 </Select>
@@ -816,39 +846,39 @@ const Mark = () => {
             <Grid item sm={5}>
               {/* {true && ( */}
               <>
-                <input
-                  type="date"
-                  id="dob"
-                  disabled={Number(localTimePeriod) === 5 ? false : true}
-                  onChange={(newValue) => {
-                    setCustomdate([
-                      moment(newValue.target.value).format("YYYY-MM-DD"),
-                      moment(newValue.target.value).format("YYYY-MM-DD"),
-                    ]);
-                  }}
-                  value={
-                    Number(localTimePeriod) === 5
-                      ? customdate[0]
-                      : localStartDate
-                  }
-                />
-                <span> to </span>
-                <input
-                  type="date"
-                  disabled={Number(localTimePeriod) === 5 ? false : true}
-                  onChange={(newValue) => {
-                    setCustomdate([
-                      customdate[0],
-                      moment(newValue.target.value).format("YYYY-MM-DD"),
-                    ]);
-                  }}
-                  // min={customdate[0]}
-                  id="dob"
-                  // value={localEndDate !== "" ? localEndDate :customdate[1]}
-                  value={
-                    Number(localTimePeriod) === 5 ? customdate[1] : localEndDate
-                  }
-                />
+                  <input
+                    type="date"
+                    id="dob"
+                    disabled={Number(localTimePeriod) === 5 ? false : true}
+                    onChange={(newValue) => {
+                      setCustomdate([
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                      ]);
+                    }}
+                    max={currentDateForDatePicker} // Set the max date as the current date
+                    value={
+                      Number(localTimePeriod) === 5 ? customdate[0] : localStartDate
+                    }
+                  />
+                   <span> to </span>
+                   <input
+                    type="date"
+                    disabled={Number(localTimePeriod) === 5 ? false : true}
+                    onChange={(newValue) => {
+                      setCustomdate([
+                        customdate[0],
+                        moment(newValue.target.value).format("YYYY-MM-DD"),
+                      ]);
+                    }}
+                    min={customdate[0]} // Set the minimum date as the value of the first date picker
+                    max={currentDateForDatePicker} // Set the max date as the current date
+                    id="dob"
+                    value={
+                      Number(localTimePeriod) === 5 ? customdate[1] : localEndDate
+                    }
+                  />
+
                 &nbsp;&nbsp;
                 <Button
                   variant="contained"
@@ -902,6 +932,7 @@ const Mark = () => {
             <Tableviewnew
               fileData={fileData}
               email={email}
+                  EmpName={EmpName}
               handleexceldropdown={handleexceldropdown}
               selectedThreeMonths={selectedThreeMonths}
               isThreeMonths={isThreeMonths}

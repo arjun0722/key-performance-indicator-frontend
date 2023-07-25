@@ -69,9 +69,12 @@ const Renderthirdtable = ({
   setTextError3,
   textError3,
   codeReviewRating,
-  updatedData
+  updatedData,
+  IsExactDataExist
 }) => {
-console.log("JJJJJJJJJJJJJJJ",updatedData)
+ 
+
+
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -106,115 +109,119 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
   //state to maintain target values
 
   const [actualDelivery, setActualDelivery] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
-      ? val.I
-      : 0
+        ? val.I
+        : 0
   );
   const [onTime, setOnTime] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
-      ? val.I
-      : 0
+        ? val.I
+        : 0
   );
   const [critical, setCritical] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
-      ? val.I
-      : 0
+        ? val.I
+        : 0
   );
 
   //  this state use for Appraisee Self Rating
   const [customActualdeliveryMarks, setCustomActualdelivery] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
-      ? val.J
-      : 0
+        ? val.J
+        : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
-    newwDiffMonthhs ===3 ||isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
-      ? val.J
-      : 0
+        ? val.J
+        : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
-      ? 1
-      : 0
+        ? codeReviewRating === undefined || "" || "NaN"
+          ? 0
+          : codeReviewRating
+        : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
-    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
-      ? val.J
-      : 0
+        ? val.J
+        : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
-      ? val.J
-      : 0
+        ? val.J
+        : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
-      ? val.J
-      : 0
+        ? val.J
+        : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
-      newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
-        ? val.J
-        : 0
+          ? val.J
+          : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
-      ? val.J
-      : 0
+        ? val.J === undefined || "" || "NaN"
+          ? 0
+          : val.J
+        : 0
   );
 
   // this states use for Appraiser Rating
   const [customActualdeliveryMarksAr, setCustomActualdeliveryAr] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[0]
       : 0
   );
   const [customOnTimeMarksAr, setCustomOnTimeMarksAr] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[1]
       : 0
   );
   const [customAvgCodeMarksAr, setCustomAvgCodeMarksAr] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[2]
       : 0
   );
   const [customReDoMarksAr, setCustomCustomReDoMarksAr] = useState(
-    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[3]
       : 0
   );
   const [customBugsReportedMarksAr, setCustomBugsReportedMarksAr] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[4]
       : 0
   );
   const [customCriticalIssuesMarksAr, setCustomCriticalIssuesMarksAr] =
     useState(
-      newwDiffMonthhs ===3 ||   isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiserRating[5]
         : 0
     );
@@ -222,35 +229,45 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
     customCustomerSatisfactionMarksAr,
     setCustomCustomerSatisfactionMarksAr,
   ] = useState(
-    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[6]
       : 0
   );
   const [customUpskillingMarksAr, setCustomUpskillingMarksAr] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiserRating[7]
       : 0
   );
 
   // this states use for Reviewer Marks
   const [customActualdeliveryMarksRM, setCustomActualdeliveryRM] = useState(
-    newwDiffMonthhs ===3 ||isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[0] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[0]
+      : 0
   );
   const [customOnTimeMarksRM, setCustomOnTimeMarksRM] = useState(
-    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[1] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[1]
+      : 0
   );
   const [customAvgCodeMarksRM, setCustomAvgCodeMarksRM] = useState(
-    newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[2] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[2]
+      : 0
   );
   const [customReDoMarksRM, setCustomCustomReDoMarksRM] = useState(
-    newwDiffMonthhs ===3 ||   isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[3] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[3]
+      : 0
   );
   const [customBugsReportedMarksRM, setCustomBugsReportedMarksRM] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[4] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[4]
+      : 0
   );
   const [customCriticalIssuesMarksRM, setCustomCriticalIssuesMarksRM] =
     useState(
-      newwDiffMonthhs ===3 ||  isThreeMonths || selectedThreeMonths
+      newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.ReviewerMarks[5]
         : 0
     );
@@ -258,10 +275,14 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
     customCustomerSatisfactionMarksRM,
     setCustomCustomerSatisfactionMarksRM,
   ] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[6] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[6]
+      : 0
   );
   const [customUpskillingMarksRM, setCustomUpskillingMarksRM] = useState(
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths ? avgQuaterlyData?.ReviewerMarks[7] : 0
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
+      ? avgQuaterlyData?.ReviewerMarks[7]
+      : 0
   );
 
   //................. this states use for input validations ...............//
@@ -271,7 +292,7 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
   //--------------------//
 
   useEffect(() => {
-    if ( parseInt(newwDiffMonthhs) > 1 ||  division * 8 > 8) {
+    if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       //state to maintain target values
       setActualDelivery(avgQuaterlyData?.Target[0]);
 
@@ -330,13 +351,80 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
       );
       setCustomUpskillingMarksRM(avgQuaterlyData?.ReviewerMarks[7] / division);
     }
-  }, [newwDiffMonthhs,avgQuaterlyData, isThreeMonths, selectedThreeMonths, division]);
+  }, [
+    newwDiffMonthhs,
+    avgQuaterlyData,
+    isThreeMonths,
+    selectedThreeMonths,
+    division,
+  ]);
 
   const [indError1, setIndError1] = useState();
 
   const [indError2, setIndError2] = useState();
 
   const [indError3, setIndError3] = useState();
+
+  useEffect(() => {
+    if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
+      setParentSelfAppraise({
+        customActualdeliveryMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[0],
+        customOnTimeMarks: avgQuaterlyData?.AppraiseeSelfRating[1],
+        customAvgCodeMarks: avgQuaterlyData?.AppraiseeSelfRating[2],
+
+        customReDoMarks: avgQuaterlyData?.AppraiseeSelfRating[3],
+
+        customBugsReportedMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[4],
+
+        customCriticalIssuesMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[5],
+
+        customCustomerSatisfactionMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[6],
+
+        customUpskillingMarks: avgQuaterlyData?.AppraiseeSelfRating[7],
+      });
+    }
+    if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
+      setParentAppraise({
+        customActualdeliveryMarksAr:
+          avgQuaterlyData?.AppraiserRating[0],
+        customOnTimeMarksAr: avgQuaterlyData?.AppraiserRating[1],
+        customAvgCodeMarksAr: avgQuaterlyData?.AppraiserRating[2],
+        customReDoMarksAr: avgQuaterlyData?.AppraiserRating[3],
+        customBugsReportedMarksAr: avgQuaterlyData?.AppraiserRating[4],
+        customCriticalIssuesMarksAr:
+          avgQuaterlyData?.AppraiserRating[5],
+        customCustomerSatisfactionMarksAr:
+          avgQuaterlyData?.AppraiserRating[6],
+        customUpskillingMarksAr: avgQuaterlyData?.AppraiserRating[7],
+      });
+    }
+    if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
+      setParentReviewerMarks({
+        customActualdeliveryMarksRM: avgQuaterlyData?.ReviewerMarks[0],
+        customOnTimeMarksRM: avgQuaterlyData?.ReviewerMarks[1],
+        customAvgCodeMarksRM: avgQuaterlyData?.ReviewerMarks[2],
+        customReDoMarksRM: avgQuaterlyData?.ReviewerMarks[3],
+        customBugsReportedMarksRM: avgQuaterlyData?.ReviewerMarks[4],
+        customCriticalIssuesMarksRM: avgQuaterlyData?.ReviewerMarks[5],
+        customCustomerSatisfactionMarksRM:
+          avgQuaterlyData?.ReviewerMarks[6],
+        customUpskillingMarksRM: avgQuaterlyData?.ReviewerMarks[7],
+      });
+    }
+
+    if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
+      setParentTarget({
+        actualDelivery: avgQuaterlyData?.Target[0],
+        onTime: avgQuaterlyData?.Target[1],
+
+        critical: avgQuaterlyData?.Target[5],
+      });
+    }
+  }, [avgQuaterlyData]);
 
   function handleOnChange(e) {
     if (ind == 0) {
@@ -603,13 +691,12 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
       }
     }
     if (ind == 7) {
-    
       setCustomUpskillingMarksAr(e.target.value);
       setParentAppraise({
         ...parentAppraise,
         customUpskillingMarksAr: e.target.value,
       });
-     
+
       if (e.target.value > val.I) {
         setIsSubmit(true);
         setTextError2({
@@ -724,7 +811,7 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        setTextError3({ 
+        setTextError3({
           ...textError3,
           customCustomerSatisfactionMarksRM: true,
         });
@@ -848,27 +935,25 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
     }
   }
 
-
-
   const valueMap = [
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
-      ? actualDelivery
-      : val.I,
-      newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+        ? actualDelivery
+        : val.I,
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
-      ? onTime
-      : val.I,
+        ? onTime
+        : val.I,
     val.I,
     val.I,
     val.I,
-    newwDiffMonthhs ===3 || isThreeMonths || selectedThreeMonths
+    newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
-      ? critical
-      : val.I,
+        ? critical
+        : val.I,
     val.I,
     val.I,
   ];
@@ -1114,10 +1199,10 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
     }
   };
   const appraiseeMarks = [
-     formula(actualDelivery, customActualdeliveryMarks, val.H) || 0,
+    formula(actualDelivery, customActualdeliveryMarks, val.H) || 0,
 
-   formula1(onTime, customOnTimeMarks, val.H) || 0,
-  formula2(val.I, customAvgCodeMarks, val.H) || 0,
+    formula1(onTime, customOnTimeMarks, val.H) || 0,
+    formula2(val.I, customAvgCodeMarks, val.H) || 0,
 
     formula3(val.I, customReDoMarks, val.H) || 0,
 
@@ -1152,21 +1237,21 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
   ]);
 
   const appraiserMarks = [
-     formulaA(actualDelivery, customActualdeliveryMarksAr, val.H) || 0,
+    formulaA(actualDelivery, customActualdeliveryMarksAr, val.H) || 0,
 
-     formulaA1(onTime, customOnTimeMarksAr, val.H) || 0,
+    formulaA1(onTime, customOnTimeMarksAr, val.H) || 0,
 
-      formulaA2(val.I, customAvgCodeMarksAr, val.H) || 0,
+    formulaA2(val.I, customAvgCodeMarksAr, val.H) || 0,
 
-     formulaA3(val.I, customReDoMarksAr, val.H) || 0,
+    formulaA3(val.I, customReDoMarksAr, val.H) || 0,
 
-     formulaA4(val.I, customBugsReportedMarksAr, val.H) || 0,
+    formulaA4(val.I, customBugsReportedMarksAr, val.H) || 0,
 
-     formulaA5(critical, customCriticalIssuesMarksAr, val.H) || 0,
+    formulaA5(critical, customCriticalIssuesMarksAr, val.H) || 0,
 
-     formulaA6(val.I, customCustomerSatisfactionMarksAr, val.H) || 0,
+    formulaA6(val.I, customCustomerSatisfactionMarksAr, val.H) || 0,
 
-     formulaA7(val.I, customUpskillingMarksAr, val.H) || 0,
+    formulaA7(val.I, customUpskillingMarksAr, val.H) || 0,
   ];
   const valueAppraiserMarks =
     appraiserMarks[ind] !== undefined ? appraiserMarks[ind] : 0;
@@ -1206,16 +1291,15 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
             min="0"
             value={value}
             disabled={
-              
               getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : val.I > 0
-                ? true
-                : false
+                  ? true
+                  : false
             }
             style={{
               height: "100%",
@@ -1242,14 +1326,12 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
                   ind === 2
                     ? val.I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? val.I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? val.I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? val.I
+                          : "",
                 min: 0,
               },
             }}
@@ -1258,60 +1340,55 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
             disabled={
 
 
-            
+              
               getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : loginUser === email
-                ? false
-                : true
+                  ? false
+                  : true
             }
-        
             value={
-
-              newwDiffMonthhs ===3 ? 
-              ind === 0
-              ? avgQuaterlyData?.AppraiseeSelfRating[0]
-              : ind === 1
-              ? avgQuaterlyData?.AppraiseeSelfRating[1]
-              : ind === 2
-              ? avgQuaterlyData?.AppraiseeSelfRating[2] / division
-              : ind === 3
-              ? avgQuaterlyData?.AppraiseeSelfRating[3] / division
-              : ind === 4
-              ? avgQuaterlyData?.AppraiseeSelfRating[4] / division
-              : ind === 5
-              ? avgQuaterlyData?.AppraiseeSelfRating[5]
-              : ind === 6
-              ? avgQuaterlyData?.AppraiseeSelfRating[6] / division
-              : ind === 7 ? 
-              avgQuaterlyData?.AppraiseeSelfRating[7] / division
-              : val.J
-              :
-             
-              loginUser === email
+              newwDiffMonthhs > 1
                 ? ind === 0
-                  ? customActualdeliveryMarks
+                  ? avgQuaterlyData?.AppraiseeSelfRating[0]
                   : ind === 1
-                  ? customOnTimeMarks
-                  : ind === 2
-                  ? customAvgCodeMarks
-                  : ind === 3
-                  ? customReDoMarks
-                  : ind === 4
-                  ? customBugsReportedMarks
-                  : ind === 5
-                  ? customCriticalIssuesMarks
-                  : ind === 6
-                  ? customCustomerSatisfactionMarks
-                  : ind === 7
-                  ? customUpskillingMarks
+                    ? avgQuaterlyData?.AppraiseeSelfRating[1]
+                    : ind === 2
+                      ? avgQuaterlyData?.AppraiseeSelfRating[2] / division
+                      : ind === 3
+                        ? avgQuaterlyData?.AppraiseeSelfRating[3] / division
+                        : ind === 4
+                          ? avgQuaterlyData?.AppraiseeSelfRating[4] / division
+                          : ind === 5
+                            ? avgQuaterlyData?.AppraiseeSelfRating[5]
+                            : ind === 6
+                              ? avgQuaterlyData?.AppraiseeSelfRating[6] / division
+                              : ind === 7
+                                ? avgQuaterlyData?.AppraiseeSelfRating[7] / division
+                                : val.J
+                : loginUser === email
+                  ? ind === 0
+                    ? customActualdeliveryMarks
+                    : ind === 1
+                      ? customOnTimeMarks
+                      : ind === 2
+                        ? customAvgCodeMarks
+                        : ind === 3
+                          ? customReDoMarks
+                          : ind === 4
+                            ? customBugsReportedMarks
+                            : ind === 5
+                              ? customCriticalIssuesMarks
+                              : ind === 6
+                                ? customCustomerSatisfactionMarks
+                                : ind === 7
+                                  ? customUpskillingMarks
+                                  : val.J
                   : val.J
-                : val.J 
-               
             }
             style={{
               height: "100%",
@@ -1349,31 +1426,34 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
                   ind === 2
                     ? val.I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? val.I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? val.I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? val.I
+                          : "",
                 min: 0,
               },
             }}
             type="number"
             // min="0"
             disabled={
+              (newwDiffMonthhs === 3 && IsExactDataExist > 0) ||
+              
+              
 
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-              ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-             
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                ? false
-                : true
+                  ? false
+                  : true
             }
             // max={
             //           ind === 2
@@ -1385,27 +1465,23 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
             //                     : ""
             // }
             value={
-             
-            
-                
-                 ind === 0
-                  ? customActualdeliveryMarksAr
-                  : 0 || ind === 1
+              ind === 0
+                ? customActualdeliveryMarksAr
+                : 0 || ind === 1
                   ? customOnTimeMarksAr
                   : 0 || ind === 2
-                  ? customAvgCodeMarksAr
-                  : 0 || ind === 3
-                  ? customReDoMarksAr
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksAr
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksAr
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksAr
-                  : 0 || ind === 7
-                  ? customUpskillingMarksAr
-                  : 0
-                
+                    ? customAvgCodeMarksAr
+                    : 0 || ind === 3
+                      ? customReDoMarksAr
+                      : 0 || ind === 4
+                        ? customBugsReportedMarksAr
+                        : 0 || ind === 5
+                          ? customCriticalIssuesMarksAr
+                          : 0 || ind === 6
+                            ? customCustomerSatisfactionMarksAr
+                            : 0 || ind === 7
+                              ? customUpskillingMarksAr
+                              : 0
             }
             style={{
               height: "100%",
@@ -1444,29 +1520,32 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
                   ind === 2
                     ? val.I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? val.I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? val.I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? val.I
+                          : "",
                 min: 0,
               },
             }}
             type="number"
             // min="0"
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-              ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (newwDiffMonthhs === 3 && IsExactDataExist === 3) ||
+
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                ? false
-                : true
+                  ? false
+                  : true
             }
             // max={
             //           ind === 2
@@ -1478,26 +1557,23 @@ console.log("JJJJJJJJJJJJJJJ",updatedData)
             //                     : ""
             // }
             value={
-            
-              
-                 ind === 0
-                  ? customActualdeliveryMarksRM
-                  : 0 || ind === 1
+              ind === 0
+                ? customActualdeliveryMarksRM
+                : 0 || ind === 1
                   ? customOnTimeMarksRM
                   : 0 || ind === 2
-                  ? customAvgCodeMarksRM
-                  : 0 || ind === 3
-                  ? customReDoMarksRM
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksRM
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksRM
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksRM
-                  : 0 || ind === 7
-                  ? customUpskillingMarksRM
-                  : 0
-               
+                    ? customAvgCodeMarksRM
+                    : 0 || ind === 3
+                      ? customReDoMarksRM
+                      : 0 || ind === 4
+                        ? customBugsReportedMarksRM
+                        : 0 || ind === 5
+                          ? customCriticalIssuesMarksRM
+                          : 0 || ind === 6
+                            ? customCustomerSatisfactionMarksRM
+                            : 0 || ind === 7
+                              ? customUpskillingMarksRM
+                              : 0
             }
             style={{
               height: "100%",
@@ -1549,9 +1625,11 @@ const RenderTestTable = ({
   textError2,
   setTextError3,
   textError3,
-  division
+  division,
 }) => {
 
+
+  
   //state to maintain target values
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -1802,8 +1880,9 @@ const RenderTestTable = ({
       });
     }
   }, [updatedData]);
+
+
   function handleOnChange(e) {
-   
     if (ind == 0) {
       setCustomActualdelivery(e.target.value);
       setParentSelfAppraise({
@@ -1949,7 +2028,6 @@ const RenderTestTable = ({
   }
 
   function handleOnChange1(e) {
-
     if (ind == 0) {
       setCustomActualdeliveryAr(e.target.value);
       setParentAppraise({
@@ -2073,7 +2151,7 @@ const RenderTestTable = ({
         ...parentAppraise,
         customUpskillingMarksAr: e.target.value,
       });
-    
+
       if (e.target.value > com[ind].I) {
         setIsSubmit(true);
         // setTextError2(true);
@@ -2081,7 +2159,7 @@ const RenderTestTable = ({
           ...textError2,
           customUpskillingMarksAr: true,
         });
-        
+
         setIndError2(ind);
       } else {
         setIsSubmit(false);
@@ -2091,7 +2169,7 @@ const RenderTestTable = ({
           ...textError2,
           customUpskillingMarksAr: false,
         });
-      
+
         setIndError2();
       }
     }
@@ -2243,7 +2321,6 @@ const RenderTestTable = ({
 
   function showTextError1() {
     if (ind == 1) {
-      
       return textError1.customOnTimeMarks;
     }
     if (ind == 2) {
@@ -2596,7 +2673,7 @@ const RenderTestTable = ({
     formulaA5(critical, customCriticalIssuesMarksAr, val.Weightage) || 0,
 
     formulaA6(com[ind].I, customCustomerSatisfactionMarksAr, val.Weightage) ||
-      0,
+    0,
 
     formulaA7(com[ind].I, customUpskillingMarksAr, val.Weightage) || 0,
   ];
@@ -2639,18 +2716,17 @@ const RenderTestTable = ({
             min="0"
             max={ind === 5 ? "5" : ""}
             disabled={
-              
               getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : com[ind].I > 0 ||
                   (!MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                ? true
-                : false
+                  ? true
+                  : false
             }
             value={value}
             style={{
@@ -2680,52 +2756,49 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? com[ind].I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? com[ind].I
+                          : "",
                 min: 0,
               },
             }}
             type="number"
             // min="0"
             disabled={
-             
               getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : loginUser !== email ||
                   (!MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                ? true
-                : false
+                  ? true
+                  : false
             }
             value={
               loginUser === users
                 ? ind === 0
                   ? customActualdeliveryMarks
                   : 0 || ind === 1
-                  ? customOnTimeMarks
-                  : 0 || ind === 2
-                  ? customAvgCodeMarks
-                  : 0 || ind === 3
-                  ? customReDoMarks
-                  : 0 || ind === 4
-                  ? customBugsReportedMarks
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarks
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarks
-                  : 0 || ind === 7
-                  ? customUpskillingMarks
-                  : 0
+                    ? customOnTimeMarks
+                    : 0 || ind === 2
+                      ? customAvgCodeMarks
+                      : 0 || ind === 3
+                        ? customReDoMarks
+                        : 0 || ind === 4
+                          ? customBugsReportedMarks
+                          : 0 || ind === 5
+                            ? customCriticalIssuesMarks
+                            : 0 || ind === 6
+                              ? customCustomerSatisfactionMarks
+                              : 0 || ind === 7
+                                ? customUpskillingMarks
+                                : 0
                 : val.AppraiseeSelfRating
             }
             style={{
@@ -2764,51 +2837,51 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? com[ind].I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? com[ind].I
+                          : "",
                 min: 0,
               },
             }}
             type="number"
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-              ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser) ||
                   (MANAGEMENt_ID.includes(users) &&
                     updatedData?.data?.data[0]?.IsEditable == 0)
-                ? false
-                : true
+                  ? false
+                  : true
             }
             value={
-             
-                MANAGEMENt_ID.includes(loginUser)
+              MANAGEMENt_ID.includes(loginUser)
                 ? ind === 0
                   ? customActualdeliveryMarksAr
                   : 0 || ind === 1
-                  ? customOnTimeMarksAr
-                  : 0 || ind === 2
-                  ? customAvgCodeMarksAr
-                  : 0 || ind === 3
-                  ? customReDoMarksAr
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksAr
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksAr
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksAr
-                  : 0 || ind === 7
-                  ? customUpskillingMarksAr
-                  : 0
+                    ? customOnTimeMarksAr
+                    : 0 || ind === 2
+                      ? customAvgCodeMarksAr
+                      : 0 || ind === 3
+                        ? customReDoMarksAr
+                        : 0 || ind === 4
+                          ? customBugsReportedMarksAr
+                          : 0 || ind === 5
+                            ? customCriticalIssuesMarksAr
+                            : 0 || ind === 6
+                              ? customCustomerSatisfactionMarksAr
+                              : 0 || ind === 7
+                                ? customUpskillingMarksAr
+                                : 0
                 : val.AppraiserRating
             }
             style={{
@@ -2847,50 +2920,51 @@ const RenderTestTable = ({
                   ind === 2
                     ? com[ind].I
                     : ind === 1
-                    ? onTime
-                    : ind === 3
-                    ? com[ind].I
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
+                      ? onTime
+                      : ind === 6
+                        ? 5
+                        : ind === 7
+                          ? com[ind].I
+                          : "",
                 min: 0,
               },
             }}
             type="number"
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-              ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              // (!REVIEWER_MANAGER.includes(users) &&
-              //   updatedData?.data?.data[0]?.IsEditable == 0) ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                // (!REVIEWER_MANAGER.includes(users) &&
+                //   updatedData?.data?.data[0]?.IsEditable == 0) ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : REVIEWER_MANAGER.includes(loginUser)
-                ? false
-                : true
+                  ? false
+                  : true
             }
             value={
               REVIEWER_MANAGER.includes(loginUser)
                 ? ind === 0
                   ? customActualdeliveryMarksRM
                   : 0 || ind === 1
-                  ? customOnTimeMarksRM
-                  : 0 || ind === 2
-                  ? customAvgCodeMarksRM
-                  : 0 || ind === 3
-                  ? customReDoMarksRM
-                  : 0 || ind === 4
-                  ? customBugsReportedMarksRM
-                  : 0 || ind === 5
-                  ? customCriticalIssuesMarksRM
-                  : 0 || ind === 6
-                  ? customCustomerSatisfactionMarksRM
-                  : 0 || ind === 7
-                  ? customUpskillingMarksRM
-                  : 0
+                    ? customOnTimeMarksRM
+                    : 0 || ind === 2
+                      ? customAvgCodeMarksRM
+                      : 0 || ind === 3
+                        ? customReDoMarksRM
+                        : 0 || ind === 4
+                          ? customBugsReportedMarksRM
+                          : 0 || ind === 5
+                            ? customCriticalIssuesMarksRM
+                            : 0 || ind === 6
+                              ? customCustomerSatisfactionMarksRM
+                              : 0 || ind === 7
+                                ? customUpskillingMarksRM
+                                : 0
                 : val.ReviewerMarks
             }
             style={{
@@ -2943,7 +3017,7 @@ const Renderforthtable = ({
   behviouralDivision,
   avgQuaterlyData,
   division,
-  updatedData
+  updatedData,
 }) => {
   // const [avg,setAvg] = useState(0)
 
@@ -3784,6 +3858,8 @@ const Renderforthtable = ({
   }
 
   function handleOnChange3(e) {
+
+   
     if (MANAGEMENt_ID.includes(loginUser)) {
       if (e.target.value < 9 || e.target.value > 10) {
         setTextError3(true);
@@ -3940,108 +4016,111 @@ const Renderforthtable = ({
   //values//
   //------------------------------------------------------------------//
 
-  const lowPotentialValues = designation?.includes("Senior")
+  const lowPotentialValues = designation?.includes("Sr.")
     ? [
-        attendencelp,
-        lessDDependabilitylp,
-        groupWorkinglp,
-        positiveAttitudelp,
-        intelligencelp,
-        imaginationlp,
-        improvementlp,
-        disciplinelp,
-        qualitylp,
-        responsibilitylp,
-        multiSkillslp,
-        maturitylp,
-        approachlp,
-        teamworklp,
-      ]
+      attendencelp,
+      lessDDependabilitylp,
+      groupWorkinglp,
+      positiveAttitudelp,
+      intelligencelp,
+      imaginationlp,
+      improvementlp,
+      disciplinelp,
+      qualitylp,
+      responsibilitylp,
+      multiSkillslp,
+      maturitylp,
+      approachlp,
+      teamworklp,
+    ]
     : [
-        attendencelp,
-        lessDDependabilitylp,
-        groupWorkinglp,
-        positiveAttitudelp,
-        intelligencelp,
-        imaginationlp,
-        improvementlp,
-        disciplinelp,
-        qualitylp,
-        responsibilitylp,
-        multiSkillslp,
-      ];
+      attendencelp,
+      lessDDependabilitylp,
+      groupWorkinglp,
+      positiveAttitudelp,
+      intelligencelp,
+      imaginationlp,
+      improvementlp,
+      disciplinelp,
+      qualitylp,
+      responsibilitylp,
+      multiSkillslp,
+    ];
+
+ 
 
   const lowPotentialInputValues =
     lowPotentialValues[ind] !== undefined
       ? lowPotentialValues[ind]
       : "undefined";
 
-  const goodPotentialValues = designation.includes("Senior")
+  const goodPotentialValues = designation.includes("Sr.")
     ? [
-        attendencegp,
-        lessDDependabilitygp,
-        groupWorkinggp,
-        positiveAttitudegp,
-        intelligencegp,
-        imaginationgp,
-        improvementgp,
-        disciplinegp,
-        qualitygp,
-        responsibilitygp,
-        multiSkillsgp,
-        maturitygp,
-        approachgp,
-        teamworkgp,
-      ]
+      attendencegp,
+      lessDDependabilitygp,
+      groupWorkinggp,
+      positiveAttitudegp,
+      intelligencegp,
+      imaginationgp,
+      improvementgp,
+      disciplinegp,
+      qualitygp,
+      responsibilitygp,
+      multiSkillsgp,
+      maturitygp,
+      approachgp,
+      teamworkgp,
+    ]
     : [
-        attendencegp,
-        lessDDependabilitygp,
-        groupWorkinggp,
-        positiveAttitudegp,
-        intelligencegp,
-        imaginationgp,
-        improvementgp,
-        disciplinegp,
-        qualitygp,
-        responsibilitygp,
-        multiSkillsgp,
-      ];
+      attendencegp,
+      lessDDependabilitygp,
+      groupWorkinggp,
+      positiveAttitudegp,
+      intelligencegp,
+      imaginationgp,
+      improvementgp,
+      disciplinegp,
+      qualitygp,
+      responsibilitygp,
+      multiSkillsgp,
+    ];
 
   const goodPotentialInputValues =
     goodPotentialValues[ind] !== undefined
       ? goodPotentialValues[ind]
       : "undefined";
 
-  const highPotentialValues = designation.includes("Senior")
+  const highPotentialValues = designation.includes("Sr.")
     ? [
-        attendencehp,
-        lessDDependabilityhp,
-        groupWorkinghp,
-        positiveAttitudehp,
-        intelligencehp,
-        imaginationhp,
-        improvementhp,
-        disciplinehp,
-        qualityhp,
-        responsibilityhp,
-        multiSkillshp,
-        maturityhp,
-        approachhp,
-        teamworkhp,
-      ]
+      attendencehp,
+      lessDDependabilityhp,
+      groupWorkinghp,
+      positiveAttitudehp,
+      intelligencehp,
+      imaginationhp,
+      improvementhp,
+      disciplinehp,
+      qualityhp,
+      responsibilityhp,
+      multiSkillshp,
+      maturityhp,
+      approachhp,
+      teamworkhp,
+    ]
     : [
-        attendencehp,
-        lessDDependabilityhp,
-        groupWorkinghp,
-        positiveAttitudehp,
-        intelligencehp,
-        imaginationhp,
-        improvementhp,
-        disciplinehp,
-        qualityhp,
-        responsibilityhp,
-        multiSkillshp,
-      ];
+      attendencehp,
+      lessDDependabilityhp,
+      groupWorkinghp,
+      positiveAttitudehp,
+      intelligencehp,
+      imaginationhp,
+      improvementhp,
+      disciplinehp,
+      qualityhp,
+      responsibilityhp,
+      multiSkillshp,
+    ];
+
   const highPotentialInputValues =
     highPotentialValues[ind] !== undefined
       ? highPotentialValues[ind]
@@ -4138,39 +4217,39 @@ const Renderforthtable = ({
         Number(teamworklp) + Number(teamworkgp) + Number(teamworkhp),
     };
 
-    const totalMarks = designation.includes("Senior")
+    const totalMarks = designation.includes("Sr")
       ? [
-          calculatedValues.totalAttendence,
-          calculatedValues.totalDependablity,
-          calculatedValues.tatalGroupWorking,
-          calculatedValues.totalPositiveAttitude,
-          calculatedValues.totalInteligence,
-          calculatedValues.totalImagination,
-          calculatedValues.totalImprovement,
-          calculatedValues.totalDiscipline,
-          calculatedValues.totalQuality,
-          calculatedValues.totalRespnsibility,
-          calculatedValues.totalMultiSkill,
-          calculatedValues.totalMaturity,
-          calculatedValues.totalApproach,
-          calculatedValues.totalTeamwork,
-        ]
+        calculatedValues.totalAttendence,
+        calculatedValues.totalDependablity,
+        calculatedValues.tatalGroupWorking,
+        calculatedValues.totalPositiveAttitude,
+        calculatedValues.totalInteligence,
+        calculatedValues.totalImagination,
+        calculatedValues.totalImprovement,
+        calculatedValues.totalDiscipline,
+        calculatedValues.totalQuality,
+        calculatedValues.totalRespnsibility,
+        calculatedValues.totalMultiSkill,
+        calculatedValues.totalMaturity,
+        calculatedValues.totalApproach,
+        calculatedValues.totalTeamwork,
+      ]
       : [
-          calculatedValues.totalAttendence,
-          calculatedValues.totalDependablity,
-          calculatedValues.tatalGroupWorking,
-          calculatedValues.totalPositiveAttitude,
-          calculatedValues.totalInteligence,
-          calculatedValues.totalImagination,
-          calculatedValues.totalImprovement,
-          calculatedValues.totalDiscipline,
-          calculatedValues.totalQuality,
-          calculatedValues.totalRespnsibility,
-          calculatedValues.totalMultiSkill,
-          0,
-          0,
-          0,
-        ];
+        calculatedValues.totalAttendence,
+        calculatedValues.totalDependablity,
+        calculatedValues.tatalGroupWorking,
+        calculatedValues.totalPositiveAttitude,
+        calculatedValues.totalInteligence,
+        calculatedValues.totalImagination,
+        calculatedValues.totalImprovement,
+        calculatedValues.totalDiscipline,
+        calculatedValues.totalQuality,
+        calculatedValues.totalRespnsibility,
+        calculatedValues.totalMultiSkill,
+        0,
+        0,
+        0,
+      ];
 
     const calculatedMarks = totalMarks[ind] !== undefined ? totalMarks[ind] : 0;
 
@@ -4210,18 +4289,21 @@ const Renderforthtable = ({
             type="number"
             value={lowPotentialInputValues}
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-      ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-      ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.LowPotential
-                : true
+                  ? isDisable.LowPotential
+                  : true
             }
             onChange={(e) => handleOnChange1(e)}
             style={{
@@ -4254,18 +4336,21 @@ const Renderforthtable = ({
             }}
             value={goodPotentialInputValues}
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-      ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-      ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.GoodPotential
-                : true
+                  ? isDisable.GoodPotential
+                  : true
             }
             onChange={(e) => handleOnChange2(e)}
             style={{
@@ -4299,18 +4384,21 @@ const Renderforthtable = ({
             value={highPotentialInputValues}
             onChange={(e) => handleOnChange3(e)}
             disabled={
-              ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-      ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-      ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
+              (parseInt(newwDiffMonthhs) === 1 &&
+                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+                (parseInt(newwDiffMonthhs) === 1 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                (parseInt(newwDiffMonthhs) === 3 &&
+                  updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+                getLocalTImeperiod < 5 ||
+                isThreeMonths ||
+                selectedThreeMonths ||
+                parseInt(newwDiffMonthhs) === 2 ||
+                parseInt(newwDiffMonthhs) > 3
                 ? true
                 : MANAGEMENt_ID.includes(loginUser)
-                ? isDisable.HighPotential
-                : true
+                  ? isDisable.HighPotential
+                  : true
             }
             style={{
               outline: "0",
@@ -4365,14 +4453,12 @@ const Tableviewnew = ({
   fileData,
   TaskwiseMarks,
   email,
+  EmpName,
   handleexceldropdown,
   selectedThreeMonths,
   isThreeMonths,
-  codeReviewRating
+  codeReviewRating,
 }) => {
-
-
-
   const [loader, setLoader] = useState(false);
   const [updatedData, setUpdatedData] = useState({});
   const [userfeedback, setUserfeedback] = useState({});
@@ -4402,7 +4488,6 @@ const Tableviewnew = ({
     setusers(emails);
   }, [emails]);
 
-
   let firstTable = fileData.slice(0, 4);
   let secondTable = fileData.slice(4, 5);
   let thirdTable = fileData.slice(6, 14);
@@ -4420,8 +4505,8 @@ const Tableviewnew = ({
     MANAGEMENt_ID.includes(loginUser)
       ? false
       : isThreeMonths || selectedThreeMonths
-      ? true
-      : false
+        ? true
+        : false
   );
 
   const [disableText, setDisableText] = useState(true);
@@ -4432,7 +4517,7 @@ const Tableviewnew = ({
 
   const localStartDate = localStorage.getItem("startDate");
   const localEndDate = localStorage.getItem("endDate");
-
+  
   const date1 = new Date(localStartDate);
   const date2 = new Date(localEndDate);
 
@@ -4501,6 +4586,10 @@ const Tableviewnew = ({
     setDataAgree(agreeData !== undefined || 0 ? agreeData : "");
   }, [dataFeedback, dataScope, agreeData]);
 
+  const [IsExactDataExist, setIsExactDataExist] = useState(0)
+
+
+
   async function getAllData() {
     let reqOptions = {
       method: "post",
@@ -4510,16 +4599,18 @@ const Tableviewnew = ({
           email: email,
           ToDate: fileData[0].E,
           FromDate: fileData[1].E,
+          isThreeMonths: newwDiffMonthhs === 3 ? 1 : 0
         },
       ],
       headers: { Accept: "application/json" },
     };
     let data = await axios.request(reqOptions);
-  
-   console.log("$$$$$$$$$$$$$$$$$$$$$$",data.data.data)
+   
+    setIsExactDataExist(data?.data?.data[0]?.isExactData)
+    if (newwDiffMonthhs > 1) {
 
-    if ( newwDiffMonthhs > 1 ) {
-      setDivision(data.data.data.length / 8);
+
+      setDivision(data?.data?.data?.length / 8);
       let sum = {
         AppraiseeSelfRating: [],
         AppraiserRating: [],
@@ -4535,7 +4626,7 @@ const Tableviewnew = ({
         result[toDate].push(item);
         return result;
       }, {});
- 
+
       Object.values(groupedData).forEach((data, index) => {
         data.forEach((allData, allindex) => {
           sum.AppraiseeSelfRating[allindex] =
@@ -4548,12 +4639,14 @@ const Tableviewnew = ({
             (sum.ReviewerMarks[allindex] || 0) + allData?.ReviewerMarks;
         });
       });
-      
+
       setAvgQuaterlyData(sum);
     } else {
       setUpdatedData(data);
     }
   }
+
+  
 
   async function getBehaviouralData() {
     let data = [
@@ -4576,7 +4669,7 @@ const Tableviewnew = ({
     let resData = await axios.request(reqOptions);
 
     if (resData?.data?.data?.length > 13) {
-      if (designation.includes("Senior")) {
+      if (designation.includes("Sr.")) {
         setBehviouralDivision(resData.data.data.length / 14);
       } else {
         setBehviouralDivision(resData.data.data.length / 11);
@@ -4677,6 +4770,7 @@ const Tableviewnew = ({
       data: data,
     };
     let resData = await axios.request(reqOptions);
+
     return setAgreeData(resData?.data?.data);
   }
 
@@ -4777,10 +4871,11 @@ const Tableviewnew = ({
   const [parentSelfAppraise, setParentSelfAppraise] = useState({});
   const [parentReviewerMarks, setParentReviewerMarks] = useState({});
 
+  
   //------------------------------------------------------------------//
   //Behavioural KPI Table//
   //------------------------------------------------------------------//
-
+  
   const [lowPotential, setLowPotential] = useState({});
   const [goodPotential, setGoodPotential] = useState({});
   const [highPotential, setHighPotential] = useState({});
@@ -4789,9 +4884,12 @@ const Tableviewnew = ({
   const [finalAppraiseAvg, setFinalAppraiseAvg] = useState(0);
   const [finalAppraiserAvg, setFinalAppraiserAvg] = useState(0);
 
+
+
   useEffect(() => {
+  
     if (updatedBehaviourData.length === undefined) {
-      if (designation.includes("Senior")) {
+      if (designation.includes("Sr.")) {
         setLowPotential({
           attendencelp: quarterlyBehavioural?.LowPotential[0],
           lessDDependabilitylp: quarterlyBehavioural?.LowPotential[1],
@@ -4882,7 +4980,7 @@ const Tableviewnew = ({
         });
       }
     } else {
-      if (designation.includes("Senior")) {
+      if (designation.includes("Sr.")) {
         setLowPotential({
           attendencelp: updatedBehaviourData[0]?.LowPotential,
           lessDDependabilitylp: updatedBehaviourData[1]?.LowPotential,
@@ -4983,7 +5081,7 @@ const Tableviewnew = ({
         return accumulator + parseFloat(currentValue);
       }, 0);
 
-      if (designation.includes("Senior")) {
+      if (designation.includes("Sr.")) {
         setFinalTotal(total / 14);
       } else {
         setFinalTotal(total / 11);
@@ -5021,7 +5119,14 @@ const Tableviewnew = ({
     checkAppraiserArr();
   }, [rowTotal, appraiseMarksAvg, appraiserAvg]);
 
+  const aMonth = moment(localStartDate).format('MMMM YYYY');
+  const bMonth = moment(localEndDate).format('MMMM YYYY');
+  const dateForEmail = newwDiffMonthhs === 1 ? aMonth : `${aMonth} To ${bMonth}`
+
   async function KpiMarks() {
+    // this code for send kpi submit email 
+
+
     try {
       setLoader(true);
       let allFinalData = [];
@@ -5039,6 +5144,7 @@ const Tableviewnew = ({
       userfeedback.UpdatedDate = dateTime1 || "";
       // userfeedback.IsEditable = 1;
 
+
       if (
         (agreeData &&
           agreeData.length > 0 &&
@@ -5046,6 +5152,7 @@ const Tableviewnew = ({
           parseInt(agreeData[0]?.IsEditable) === 0) ||
         agreeData[0]?.IsEditable === undefined
       ) {
+
         userfeedback.IsEditable = 1;
       } else if (
         agreeData &&
@@ -5053,6 +5160,7 @@ const Tableviewnew = ({
         MANAGEMENt_ID.includes(loginUser) &&
         parseInt(agreeData[0]?.IsEditable) === 1
       ) {
+
         userfeedback.IsEditable = 2;
       }
 
@@ -5065,11 +5173,20 @@ const Tableviewnew = ({
         userfeedback.IsEditable = agreeData[0]?.IsEditable;
       }
 
+      // if (
+      //   agreeData &&
+      //   agreeData.length > 0 &&
+      //   REVIEWER_MANAGER.includes(loginUser)
+      // ) {
 
+      //   userfeedback.IsEditable = agreeData[0]?.IsEditable;
+      // }
 
       let allFeedbackData = [feedback];
       let allScopeData = [scope];
       let allUserfeedback = [userfeedback];
+
+
 
       thirdTable.map((val, ind) => {
         let allData = {
@@ -5085,8 +5202,9 @@ const Tableviewnew = ({
           AppraiserRating: 0,
           ReviewerMarks: 0,
           UpdatedDate: "",
-          IsEditable: MANAGEMENt_ID.includes(loginUser) ? 0 : 1,
+          IsEditable: REVIEWER_MANAGER.includes(loginUser) ? 0 : MANAGEMENt_ID.includes(loginUser) ? 0 : 1,
           IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+          isExactData: newwDiffMonthhs === 3 ? REVIEWER_MANAGER.includes(loginUser) ? 3 : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0 ? 1 : 2 : 0,
           ToDate: "",
           FromDate: "",
           ShowDevOpsData: 0,
@@ -5251,6 +5369,8 @@ const Tableviewnew = ({
             return allFinalData;
         }
       });
+
+
       forthTable.map((val, ind) => {
         let allBehaviourKpiDatamap = {
           BehaviouralKPIs: "",
@@ -5377,7 +5497,7 @@ const Tableviewnew = ({
             allBehaviourKpiDatamap.GoodPotential =
               goodPotential?.disciplinegp || 0;
             allBehaviourKpiDatamap.HighPotential =
-              highPotential?.attendencehp || 0;
+              highPotential?.disciplinehp || 0;
             allBehaviourKpiDatamap.ToUserId = email || "";
             allBehaviourKpiDatamap.FromUserId = loginUser || "";
             allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
@@ -5433,142 +5553,109 @@ const Tableviewnew = ({
         }
       });
 
-     if(newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(users)){
-      allFinalData.IsReviewKey = 0
-     }else if(newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(users)){
-      allFinalData.IsReviewKey = 2
-     }
-
-  
-
-
-    //api hit for user only for a month
-
-
-    if(newwDiffMonthhs === 1 && users === loginUser && !MANAGEMENt_ID.includes(loginUser)){
-      let indicesToCheck = [0, 1, 2, 3, 4, 6];
-      
-      let hasAppraiseeselfZero = false;
-      if (!MANAGEMENt_ID.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-            hasAppraiseeselfZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-        if (hasAppraiseeselfZero) {
-          show_error1("AppraiseeSelfRating not filled properly");
-          return;
-        }
+      if (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(users)) {
+        allFinalData.IsReviewKey = 0;
+      } else if (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(users)) {
+        allFinalData.IsReviewKey = 2;
       }
 
-      let data = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/marks`,
-        data: allFinalData,
-        headers: { Accept: "application/json" },
-      });
+      // api hit for user only for a month
 
-    }
+      if (
+        newwDiffMonthhs === 1 &&
+        users === loginUser &&
+        !MANAGEMENt_ID.includes(loginUser)
+      ) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
 
-//api hit for manager only for a month
-
-    if(newwDiffMonthhs === 1 && MANAGEMENt_ID.includes(loginUser)){
-      let indicesToCheck = [0, 1, 2, 3, 4, 6];
-      let hasAppraiseeZero = false;
-      if (MANAGEMENt_ID.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].AppraiserRating) === 0) {
-            hasAppraiseeZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-
-        if (hasAppraiseeZero) {
-          show_error1("AppraiserRating not filled properly");
-          return;
-        }
-      }
-
-      let hasAppraiseeselfZero = false;
-      if (!MANAGEMENt_ID.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-            hasAppraiseeselfZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-        if (hasAppraiseeselfZero) {
-          show_error1("AppraiseeSelfRating not filled properly");
-          return;
-        }
-      }
-
-      let reviewMarksZero = false;
-      if (REVIEWER_MANAGER.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-            reviewMarksZero = true;
-            setLoader(false);
-            break;
-          }
-        }
-        if (reviewMarksZero) {
-          show_error1("ReviewerMarks not filled properly");
-          return;
-        }
-      }
-
-      let hasZeroValue = false;
-      if (MANAGEMENt_ID.includes(loginUser)) {
-        if (designation.includes("Senior")) {
-          for (let i = 0; i < 14; i++) {
-            if (parseInt(rowTotal[i]) === 0) {
+        let hasAppraiseeselfZero = false;
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+              hasAppraiseeselfZero = true;
               setLoader(false);
-              hasZeroValue = true;
               break;
             }
           }
-        } else {
-          for (let i = 0; i < 11; i++) {
-            if (parseInt(rowTotal[i]) === 0) {
-              hasZeroValue = true;
-              break;
-            }
+          if (hasAppraiseeselfZero) {
+            show_error1("Appraisee Self Rating not filled properly");
+            return;
           }
         }
-        if (hasZeroValue) {
-          setLoader(false);
-          show_error1("Behavioural KPIs not filled properly");
-          return;
+        let data = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/marks`,
+          data: allFinalData,
+          headers: { Accept: "application/json" },
+        });
+
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            data: [{
+              email: email,
+              name: EmpName,
+              toSend: "to_management_for_month",
+              message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`
+            }],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert('something went wrong please try again')
         }
       }
 
-      let data = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/marks`,
-        data: allFinalData,
-        headers: { Accept: "application/json" },
-      });
-      let bData = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/behavioural`,
-        data: allBehaviourKpiData,
-        headers: { Accept: "application/json" },
-      });
+       //Api hit for user for 3 months
 
-    }
+      if (newwDiffMonthhs === 3 &&
+        users === loginUser &&
+        !MANAGEMENt_ID.includes(loginUser)){
 
-
-//Api hit for manager for 3 months
-
-
-      if (newwDiffMonthhs ===3 && MANAGEMENt_ID.includes(loginUser)) {
+       
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            userfeedback.Userfeedback === undefined ||
+            userfeedback.Userfeedback === ""
+          ) {
+            setLoader(false);
+            show_error1("User feedback not filled properly");
+            return;
+          }
+        }
 
 
+        let uData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/userfeedback`,
+          data: allUserfeedback,
+          headers: { Accept: "application/json" },
+        });
+      
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            data: [{
+              email: email,
+              name: EmpName,
+              toSend: "to_management_for_three_month",
+              message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`
+            }],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert('something went wrong please try again')
+        }
+
+        }
+
+
+      //api hit for manager only for a month
+
+      if (newwDiffMonthhs === 1 && MANAGEMENt_ID.includes(loginUser)) {
         let indicesToCheck = [0, 1, 2, 3, 4, 6];
         let hasAppraiseeZero = false;
         if (MANAGEMENt_ID.includes(loginUser)) {
@@ -5581,7 +5668,7 @@ const Tableviewnew = ({
           }
 
           if (hasAppraiseeZero) {
-            show_error1("AppraiserRating not filled properly");
+            show_error1("Appraiser Rating not filled properly");
             return;
           }
         }
@@ -5596,7 +5683,7 @@ const Tableviewnew = ({
             }
           }
           if (hasAppraiseeselfZero) {
-            show_error1("AppraiseeSelfRating not filled properly");
+            show_error1("Appraisee Self Rating not filled properly");
             return;
           }
         }
@@ -5611,14 +5698,120 @@ const Tableviewnew = ({
             }
           }
           if (reviewMarksZero) {
-            show_error1("ReviewerMarks not filled properly");
+            show_error1("Reviewer Marks not filled properly");
             return;
           }
         }
 
         let hasZeroValue = false;
         if (MANAGEMENt_ID.includes(loginUser)) {
-          if (designation.includes("Senior")) {
+          if (designation.includes("Sr.")) {
+            for (let i = 0; i < 14; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                setLoader(false);
+                hasZeroValue = true;
+                break;
+              }
+            }
+          } else {
+            for (let i = 0; i < 11; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                hasZeroValue = true;
+                break;
+              }
+            }
+          }
+          if (hasZeroValue) {
+            setLoader(false);
+            show_error1("Behavioural KPIs not filled properly");
+            return;
+          }
+        }
+
+        let data = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/marks`,
+          data: allFinalData,
+          headers: { Accept: "application/json" },
+        });
+        let bData = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/behavioural`,
+          data: allBehaviourKpiData,
+          headers: { Accept: "application/json" },
+        });
+
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            data: [{
+              email: email,
+              name: EmpName,
+              toSend: "to_user_for_month",
+              message: `Your project manager filled your kpi for ${dateForEmail}`
+            }],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert('something went wrong please try again')
+        }
+      }
+
+      //Api hit for manager for 3 months
+
+      if (newwDiffMonthhs === 3 && MANAGEMENt_ID.includes(loginUser)) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
+        let hasAppraiseeZero = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiserRating) === 0) {
+              hasAppraiseeZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+
+          if (hasAppraiseeZero) {
+            show_error1("Appraiser Rating not filled properly");
+            return;
+          }
+        }
+
+        let hasAppraiseeselfZero = false;
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+              hasAppraiseeselfZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (hasAppraiseeselfZero) {
+            show_error1("Appraisee Self Rating not filled properly");
+            return;
+          }
+        }
+
+        let reviewMarksZero = false;
+        if (REVIEWER_MANAGER.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+              reviewMarksZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (reviewMarksZero) {
+            show_error1("Reviewer Marks not filled properly");
+            return;
+          }
+        }
+
+        let hasZeroValue = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          if (designation.includes("Sr.")) {
             for (let i = 0; i < 14; i++) {
               if (parseInt(rowTotal[i]) === 0) {
                 setLoader(false);
@@ -5650,7 +5843,7 @@ const Tableviewnew = ({
           ) {
             setLoader(false);
             show_error1(
-              "Neither Feedback not scopeOfimprovement should be empty"
+              "Neither Feedback nor Scope Of Improvement should be empty"
             );
             return;
           }
@@ -5662,7 +5855,7 @@ const Tableviewnew = ({
             userfeedback.Userfeedback === ""
           ) {
             setLoader(false);
-            show_error1("Userfeedback not filled properly");
+            show_error1("User feedback not filled properly");
             return;
           }
         }
@@ -5701,93 +5894,74 @@ const Tableviewnew = ({
           data: allUserfeedback,
           headers: { Accept: "application/json" },
         });
-     
-     
+
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            data: [{
+              email: email,
+              name: EmpName,
+             toSend: "to_user_for_three_months",
+              message: `Your project manager filled your kpi for ${dateForEmail}`
+            }],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert('something went wrong please try again')
+        }
+
       }
 
-    if(newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(loginUser) ||newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(loginUser) ){
-      let indicesToCheck = [0, 1, 2, 3, 4, 6];
-      
-      let reviewMarksZero = false;
-      if (REVIEWER_MANAGER.includes(loginUser)) {
-        for (let index of indicesToCheck) {
-          if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-            reviewMarksZero = true;
-            setLoader(false);
-            break;
+      // Api hit Rewiewer for 1 and 3 month both
+
+      if (
+        (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(loginUser)) ||
+        (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(loginUser))
+      ) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
+
+        let reviewMarksZero = false;
+        if (REVIEWER_MANAGER.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+              reviewMarksZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (reviewMarksZero) {
+            show_error1("Reviewer Marks not filled properly");
+            return;
           }
         }
-        if (reviewMarksZero) {
-          show_error1("ReviewerMarks not filled properly");
-          return;
+
+        let data = axios({
+          method: "post",
+          url: `${BACKEND_URL}/kpi/marks`,
+          data: allFinalData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            data: [{
+              email: email,
+              name: EmpName,
+              toSend: "to_user_for_one_month_or_three_months",
+              message: `Reviewer filled your kpi for ${dateForEmail}`
+            }],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert('something went wrong please try again')
         }
       }
 
-      let data = axios({
-        method: "post",
-        url: `${BACKEND_URL}/kpi/marks`,
-        data: allFinalData,
-        headers: { Accept: "application/json" },
-      });
-    }
 
-    
-
-
-
-
-      // if (parseInt(newwDiffMonthhs) === 3) {
-
-
-      //   if (MANAGEMENt_ID.includes(loginUser)) {
-      //     if (
-      //       feedback.PositivePoint === undefined ||
-      //       scope.ScopeOfImprovement === undefined ||
-      //       feedback.PositivePoint === "" ||
-      //       scope.ScopeOfImprovement === ""
-      //     ) {
-      //       setLoader(false);
-      //       show_error1(
-      //         "Neither Feedback not scopeOfimprovement should be empty"
-      //       );
-      //       return;
-      //     }
-      //   }
-
-      //   if (!MANAGEMENt_ID.includes(loginUser)) {
-      //     if (
-      //       userfeedback.Userfeedback === undefined ||
-      //       userfeedback.Userfeedback === ""
-      //     ) {
-      //       setLoader(false);
-      //       show_error1("Userfeedback not filled properly");
-      //       return;
-      //     }
-      //   }
-
-      //   let pData = axios({
-      //     method: "post",
-      //     url: `${BACKEND_URL}/kpi/positivepoint`,
-      //     data: allFeedbackData,
-      //     headers: { Accept: "application/json" },
-      //   });
-
-      //   let sData = axios({
-      //     method: "post",
-      //     url: `${BACKEND_URL}/kpi/scopeofimprovement`,
-      //     data: allScopeData,
-      //     headers: { Accept: "application/json" },
-      //   });
-
-      //   // if (state !== undefined && state.length > 0) {
-      //   let uData = axios({
-      //     method: "post",
-      //     url: `${BACKEND_URL}/kpi/userfeedback`,
-      //     data: allUserfeedback,
-      //     headers: { Accept: "application/json" },
-      //   });
-      //   // }
-      // } 
 
       setTimeout(() => {
         show_kpi_submit("your kpi submit successfully");
@@ -5828,9 +6002,10 @@ const Tableviewnew = ({
       agreeData &&
       agreeData.length > 0 &&
       MANAGEMENt_ID.includes(loginUser) &&
-      parseInt(agreeData[0]?.IsEditable) === 2
+      parseInt(agreeData[0]?.IsEditable) === 2 ||
+      (newwDiffMonthhs === 3  && IsExactDataExist === 3)
     ) {
-      return true;
+      return true;     
     }
 
     if (selectedThreeMonths || isThreeMonths) {
@@ -5844,7 +6019,6 @@ const Tableviewnew = ({
     }
   }
   
-
   function conditionUserFeddback() {
     if (
       (agreeData &&
@@ -5858,8 +6032,10 @@ const Tableviewnew = ({
       (agreeData &&
         agreeData.length > 0 &&
         users === loginUser &&
-        parseInt(agreeData[0]?.IsEditable) === 0) || 
-        agreeData && agreeData.length === 0
+        parseInt(agreeData[0]?.IsEditable) === 0) ||
+      (agreeData && agreeData.length === 0) ||
+       
+      (newwDiffMonthhs === 3 &&  IsExactDataExist === 3)
     ) {
       return true;
     }
@@ -5874,6 +6050,8 @@ const Tableviewnew = ({
       return true;
     }
   }
+
+
 
   function noText() {
     setDisableText(false);
@@ -5908,9 +6086,6 @@ const Tableviewnew = ({
     customCustomerSatisfactionMarksRM: false,
     customUpskillingMarksRM: false,
   });
-
-
-
 
   const [textError1LowPotential, setTextError1LowPotential] = useState({
     0: false,
@@ -5965,10 +6140,12 @@ const Tableviewnew = ({
 
   function isButtonShouldDisable() {
     if (
-      ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 0 ) ||
-      ( parseInt(newwDiffMonthhs) === 1 &&updatedData?.data?.data[7]?.IsReviewKey === 2 ) ||
-      ( parseInt(newwDiffMonthhs) ===3 &&updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-
+      (parseInt(newwDiffMonthhs) === 1 &&
+        updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+      (parseInt(newwDiffMonthhs) === 1 &&
+        updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+      (parseInt(newwDiffMonthhs) === 3 &&
+        updatedData?.data?.data[7]?.IsReviewKey === 2) ||
       parseInt(newwDiffMonthhs) === 2 ||
       parseInt(newwDiffMonthhs) > 3 ||
       (agreeData &&
@@ -5979,18 +6156,18 @@ const Tableviewnew = ({
         agreeData.length > 0 &&
         users === loginUser &&
         parseInt(agreeData[0]?.IsEditable) === 2) ||
-
-        users === loginUser && newwDiffMonthhs == 1 &&
-        updatedData?.data?.data[0]?.IsEditable == 0
+      (users === loginUser &&
+        newwDiffMonthhs == 1 &&
+        updatedData?.data?.data[0]?.IsEditable == 0) ||
+      (newwDiffMonthhs === 3 && MANAGEMENt_ID.includes(loginUser) && IsExactDataExist > 1)||
+      (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(loginUser) && IsExactDataExist === 3)
     ) {
-    
       return true;
     } else {
-   
-     
-
-      if(MANAGEMENt_ID.includes(loginUser) && newwDiffMonthhs === 3 || REVIEWER_MANAGER.includes(loginUser) && newwDiffMonthhs ===3) {
-       
+      if (
+        (MANAGEMENt_ID.includes(loginUser) && newwDiffMonthhs === 3) ||
+        (REVIEWER_MANAGER.includes(loginUser) && newwDiffMonthhs === 3)
+      ) {
         const values = [
           ...Object.values(textError1),
           ...Object.values(textError2),
@@ -5999,25 +6176,19 @@ const Tableviewnew = ({
           ...Object.values(textError2GoodPotential),
           ...Object.values(textError3HighPotential),
         ];
-        
+
         return values.includes(true);
       }
 
-      if (getLocalTImeperiod < 5  || isThreeMonths || selectedThreeMonths) {
-
-
-
+      if (getLocalTImeperiod < 5 || isThreeMonths || selectedThreeMonths) {
         if (users === loginUser) {
           if (isSubmitDisable === false) {
-           
             return false;
           } else {
             return true;
           }
-        }
-         
-        else{
-          return false
+        } else {
+          return false;
         }
       } else {
         const values = [
@@ -6028,11 +6199,14 @@ const Tableviewnew = ({
           ...Object.values(textError2GoodPotential),
           ...Object.values(textError3HighPotential),
         ];
-        
+
         return values.includes(true);
       }
     }
   }
+
+
+
 
   return (
     <>
@@ -6184,80 +6358,81 @@ const Tableviewnew = ({
             </tr>
 
             {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
-            updatedData?.data?.data[0]?.ShowDevOpsData === undefined
+              updatedData?.data?.data[0]?.ShowDevOpsData === undefined
               ? thirdTable?.map((val, ind) => {
-                  return (
-                    <>
-                      <Renderthirdtable
-                        setTextError1={setTextError1}
-                        textError1={textError1}
-                        setTextError2={setTextError2}
-                        textError2={textError2}
-                        setTextError3={setTextError3}
-                        textError3={textError3}
-                        thirdTable={thirdTable}
-                        ind={ind}
-                        val={val}
-                        setIsSubmit={setIsSubmit}
-                        division={division}
-                        avgQuaterlyData={avgQuaterlyData}
-                        isThreeMonths={isThreeMonths}
-                        selectedThreeMonths={selectedThreeMonths}
-                        setParentAppraise={setParentAppraise}
-                        parentAppraise={parentAppraise}
-                        setParentSelfAppraise={setParentSelfAppraise}
-                        parentSelfAppraise={parentSelfAppraise}
-                        setParentReviewerMarks={setParentReviewerMarks}
-                        parentReviewerMarks={parentReviewerMarks}
-                        setParentTarget={setParentTarget}
-                        parentTarget={parentTarget}
-                        setAppraiseMarksAvg={setAppraiseMarksAvg}
-                        finalAppraiseAvg={finalAppraiseAvg}
-                        setAppraiserAvg={setAppraiserAvg}
-                        finalAppraiserAvg={finalAppraiserAvg}
-                        setDivision={setDivision}
-                        codeReviewRating={codeReviewRating}
-                        updatedData={updatedData}
-                      />
-                    </>
-                  );
-                })
+                return (
+                  <>
+                    <Renderthirdtable
+                      setTextError1={setTextError1}
+                      textError1={textError1}
+                      setTextError2={setTextError2}
+                      textError2={textError2}
+                      setTextError3={setTextError3}
+                      textError3={textError3}
+                      thirdTable={thirdTable}
+                      ind={ind}
+                      val={val}
+                      IsExactDataExist={IsExactDataExist}
+                      setIsSubmit={setIsSubmit}
+                      division={division}
+                      avgQuaterlyData={avgQuaterlyData}
+                      isThreeMonths={isThreeMonths}
+                      selectedThreeMonths={selectedThreeMonths}
+                      setParentAppraise={setParentAppraise}
+                      parentAppraise={parentAppraise}
+                      setParentSelfAppraise={setParentSelfAppraise}
+                      parentSelfAppraise={parentSelfAppraise}
+                      setParentReviewerMarks={setParentReviewerMarks}
+                      parentReviewerMarks={parentReviewerMarks}
+                      setParentTarget={setParentTarget}
+                      parentTarget={parentTarget}
+                      setAppraiseMarksAvg={setAppraiseMarksAvg}
+                      finalAppraiseAvg={finalAppraiseAvg}
+                      setAppraiserAvg={setAppraiserAvg}
+                      finalAppraiserAvg={finalAppraiserAvg}
+                      setDivision={setDivision}
+                      codeReviewRating={codeReviewRating}
+                      updatedData={updatedData}
+                    />
+                  </>
+                );
+              })
               : updatedData?.data?.data?.map((val, ind) => {
-                  return (
-                    <>
-                      <RenderTestTable
-                        ind={ind}
-                        val={val}
-                        com={thirdTable}
-                        setIsSubmit={setIsSubmit}
-                        isThreeMonths={isThreeMonths}
-                        selectedThreeMonths={selectedThreeMonths}
-                        renderTestTable={thirdTable}
-                        setParentAppraise={setParentAppraise}
-                        parentAppraise={parentAppraise}
-                        setParentSelfAppraise={setParentSelfAppraise}
-                        parentSelfAppraise={parentSelfAppraise}
-                        setParentTarget={setParentTarget}
-                        setParentReviewerMarks={setParentReviewerMarks}
-                        parentReviewerMarks={parentReviewerMarks}
-                        parentTarget={parentTarget}
-                        updatedData={updatedData}
-                        setAppraiseMarksAvg={setAppraiseMarksAvg}
-                        finalAppraiseAvg={finalAppraiseAvg}
-                        setAppraiserAvg={setAppraiserAvg}
-                        finalAppraiserAvg={finalAppraiserAvg}
-                        avgQuaterlyData={avgQuaterlyData}
-                        setTextError1={setTextError1}
-                        textError1={textError1}
-                        setTextError2={setTextError2}
-                        textError2={textError2}
-                        setTextError3={setTextError3}
-                        textError3={textError3}
-                        division={division}
-                      />
-                    </>
-                  );
-                })}
+                return (
+                  <>
+                    <RenderTestTable
+                      ind={ind}
+                      val={val}
+                      com={thirdTable}
+                      setIsSubmit={setIsSubmit}
+                      isThreeMonths={isThreeMonths}
+                      selectedThreeMonths={selectedThreeMonths}
+                      renderTestTable={thirdTable}
+                      setParentAppraise={setParentAppraise}
+                      parentAppraise={parentAppraise}
+                      setParentSelfAppraise={setParentSelfAppraise}
+                      parentSelfAppraise={parentSelfAppraise}
+                      setParentTarget={setParentTarget}
+                      setParentReviewerMarks={setParentReviewerMarks}
+                      parentReviewerMarks={parentReviewerMarks}
+                      parentTarget={parentTarget}
+                      updatedData={updatedData}
+                      setAppraiseMarksAvg={setAppraiseMarksAvg}
+                      finalAppraiseAvg={finalAppraiseAvg}
+                      setAppraiserAvg={setAppraiserAvg}
+                      finalAppraiserAvg={finalAppraiserAvg}
+                      avgQuaterlyData={avgQuaterlyData}
+                      setTextError1={setTextError1}
+                      textError1={textError1}
+                      setTextError2={setTextError2}
+                      textError2={textError2}
+                      setTextError3={setTextError3}
+                      textError3={textError3}
+                      division={division}
+                    />
+                  </>
+                );
+              })}
             <td
               style={{
                 backgroundColor: "#f4b084",
@@ -6658,14 +6833,7 @@ const Tableviewnew = ({
                   </button>
                 </div>
 
-                {/* <div>
-                                                                                <ModalFeedback
-                                                                                          // setState={
-                                                                                          //           setState
-                                                                                          // }
-                                                                                          // disabled={conditionUserFeddback()}
-                                                                                />
-                                                                      </div> */}
+             
               </td>
 
               <td
