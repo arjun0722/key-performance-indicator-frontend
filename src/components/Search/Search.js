@@ -80,9 +80,8 @@ const Search = () => {
     setOpenbackdrop(true);
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -258,9 +257,8 @@ const Search = () => {
 
     let headersList = {
       Accept: "application/json",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
       "Content-Type": "application/json",
     };
     let reqOptions = {
@@ -299,9 +297,8 @@ const Search = () => {
       for (let index = 0; index < Math.ceil(ids.length / 200); index++) {
         let headersList = {
           Accept: "application/json",
-          Authorization: `Bearer ${
-            JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-          }`,
+          Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+            }`,
           "Content-Type": "application/json",
         };
         let reqOptions = {
@@ -717,9 +714,9 @@ const Search = () => {
                                     ready +
                                     inProgress -
                                     removed) *
-                                    10
+                                  10
                                 )) *
-                                100
+                              100
                             )
                           ),
                         }}
@@ -728,9 +725,9 @@ const Search = () => {
                           (parseInt(points) /
                             parseInt(
                               (taskDone + toDo + ready + inProgress - removed) *
-                                10
+                              10
                             )) *
-                            100
+                          100
                         )}
                         %
                       </div>
@@ -795,7 +792,7 @@ const Search = () => {
                           <td>
                             {new Date(
                               workitem.fields[
-                                "Microsoft.VSTS.Scheduling.DueDate"
+                              "Microsoft.VSTS.Scheduling.DueDate"
                               ]
                             ).toLocaleString()}
                           </td>

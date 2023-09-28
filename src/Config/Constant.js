@@ -28,17 +28,44 @@ export const STATUS = {
   In_ACTIVE_STATUS: "0",
   ACTIVE_STATUS: "1",
 };
+
+// Static keys for kpi table
+
+export const THIRD_TABLE_KEYS = {
+  START: "KRA & KPI are yardsticks to measure the peformance of an individual. The performance appraisal is based on how well you have achieved KRA. KRA should be objective, measurable else the performance evaluation will become subjective. As far as Marketing department is concerned KRA/KPIs could be Specific, Achievable, Time-Bound, Measurable.",
+  END: "Behavioural KPIs Should only filled by Manager"
+}
+
+// this keys use for run on local
+
 export const LOGIN_KEYS = {
   APP_ID: "861DAABE-EE6C-4495-9597-AB62DDE5E839",
   RESPONSE_TYPE: "Assertion",
   STATE: "User1",
   SCOPE:
     "vso.auditlog vso.auditstreams_delete vso.build_execute vso.code_full vso.dashboards_manage vso.environment_manage vso.gallery_publish vso.graph_manage vso.identity_manage vso.memberentitlementmanagement_write vso.notification_manage vso.packaging_manage vso.profile_write vso.project_manage vso.release_manage vso.securefiles_manage vso.serviceendpoint_manage vso.symbols_manage vso.taskgroups_manage vso.tokenadministration vso.tokens vso.variablegroups_manage vso.wiki_write vso.work_full",
+  // REDIRECT_URI: "https://devops.qservicesit.com/login",
   REDIRECT_URI: "https://localhost:3000/login",
+
 
   CLIENT_SCREAT:
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im9PdmN6NU1fN3AtSGpJS2xGWHo5M3VfVjBabyJ9.eyJjaWQiOiI4NjFkYWFiZS1lZTZjLTQ0OTUtOTU5Ny1hYjYyZGRlNWU4MzkiLCJjc2kiOiI2YTAyMTExOS00OTE1LTQ3OGItODYwOC01N2NjYzAzZjZiOTUiLCJuYW1laWQiOiJiNGE0NWE3MS1iNzMyLTQ5NzgtYjE5ZS0yMDQ4NDlmOTUyYjAiLCJpc3MiOiJhcHAudnN0b2tlbi52aXN1YWxzdHVkaW8uY29tIiwiYXVkIjoiYXBwLnZzdG9rZW4udmlzdWFsc3R1ZGlvLmNvbSIsIm5iZiI6MTY0MDY4NDEwMCwiZXhwIjoxNzk4NDUwNTAwfQ.HnbolRXv-F6xsIBda2BNSBDxhJ2QYTU_PFZh5vwdoyloKZNRR4Z2oIsLqF9NnqR50_IedDsrgNZXj_P8CNkfTePdIiNoQG4egh7PygaZ-2aj1oyoPz62RcjcihqOmqECIuja_Mo7OLuKY6W0S3xBiTmf92l3R7cDIBKH8JOM8oxleKip35lOy_I1KHjxIdxIydCNd04PNrsQT0Yr4MsN3G6hbfHU02ZgD1gB7_ZKmZj6Kt8elUPfiF0mnXASQ7Mld2-G1By-f9Y6U9LOtkPGUsSJ8karkr46IlXGjr6hSJMbu-dvXjNkqGFaGbyn6W1g_DY--8gpZOVyuNtFVXavGQ",
 };
+
+// this keys use for live server
+// export const LOGIN_KEYS = {
+//   APP_ID: "250CEECC-F08B-428F-A591-0914A93C4353",
+//   RESPONSE_TYPE: "Assertion",
+//   STATE: "User1",
+//   SCOPE:
+//     "vso.analytics vso.auditlog vso.auditstreams_manage vso.build vso.code vso.connected_server vso.dashboards vso.entitlements vso.environment_manage vso.extension vso.extension.data vso.gallery vso.graph vso.identity vso.loadtest vso.machinegroup_manage vso.memberentitlementmanagement vso.notification_diagnostics vso.packaging vso.project vso.release vso.securefiles_read vso.security_manage vso.serviceendpoint vso.symbols vso.taskgroups_read vso.test vso.threads_full vso.tokenadministration vso.tokens vso.variablegroups_read vso.wiki vso.work",
+//   REDIRECT_URI: "https://devops.qservicesit.com/login",
+
+//   CLIENT_SCREAT:
+//     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Im9PdmN6NU1fN3AtSGpJS2xGWHo5M3VfVjBabyJ9.eyJjaWQiOiIyNTBjZWVjYy1mMDhiLTQyOGYtYTU5MS0wOTE0YTkzYzQzNTMiLCJjc2kiOiJlYWE4YzY4ZC1jNTAzLTQyNTItYTRjYy0wZjA1MDIwYjRmZDEiLCJuYW1laWQiOiJkOTE1ZTE4MC1lOWVmLTZmYjMtYmM0ZC0zMjQwZmExMmU1YzEiLCJpc3MiOiJhcHAudnN0b2tlbi52aXN1YWxzdHVkaW8uY29tIiwiYXVkIjoiYXBwLnZzdG9rZW4udmlzdWFsc3R1ZGlvLmNvbSIsIm5iZiI6MTY1OTMzNDk4NCwiZXhwIjoxODE3MTAxMzg0fQ.EOdZZPcKiQqbmi6gSFBxgX98574eGRKkCBuZKMrYjLV2thA5J0-072bYoB2mMGMdZrg-wnKf31--Nr8b9vkJAH0YDsXFYqI3m_jvvozVcT_RX_6VOm1I69-hcxgXO2VGwdn7cfLVet-R3Pn9_Wayp4ZnYk7F-LTgp6xDc8rPrWEpGi8DF4_7Oz5Wq2JX4OHo47lmDZsg6395cg6X0V5k3E4xdO8EYvp4W6sQJ2mWL0_BhhacV1brycSHqKMvrRq22ewHeFMxvj3OnfgfBObtr7gzZrqBMwsvR6GFhe7L9ra6vwfMnl-_D6zM5Zb1GK2T6QGI8xB9Qp-ZQaQUXws9ew",
+// };
+
+
 export const LOGIN_KEYS_ = {
   APP_ID: "30C077BB-196D-4B0C-90DE-6D4F0692664B",
   RESPONSE_TYPE: "Assertion",

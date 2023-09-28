@@ -54,6 +54,9 @@ td .css-1wc848c-MuiFormHelperText-root.Mui-error {
           animation-duration: 10ms !important;
           /* padding: 16.5px 14px; */
 }
+.css-1v4ccyo {
+  position: initial !important;
+}
 
 .Removed {
           font-weight: 700;
@@ -474,4 +477,21 @@ select.show-placeholder option {
           flex-grow: 1;
           width: auto;
           margin: 0;
+}
+
+
+.button-container {
+  display: inline-block; /* or display: block; depending on your layout needs */
+  padding: 5px; /* Adjust as needed */
+}
+
+.button-container button {
+ padding: 9px 15px;
+    background-color: rgba(0, 136, 201, 1);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
 }

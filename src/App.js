@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Search from "./components/Search/Search";
 import Layout from "./Layout/Layout";
 import Mark from "./components/Search/Mark";
-
+import YearlyTable from "./components/Search/YearlyTable";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 
@@ -27,6 +27,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/mark" element={<Mark />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/financialyear" element={<YearlyTable />} />
           </Routes>
         </Layout>
       </BrowserRouter>

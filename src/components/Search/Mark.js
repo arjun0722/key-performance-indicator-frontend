@@ -21,8 +21,6 @@ import { BACKEND_URL, tableData } from "./config";
 import { ACCESS_TOKEN } from "../../Config/Constant";
 import Tableview from "./Tableview";
 import Tableviewnew from "./Tableviewnew";
-import { SignalWifiStatusbarNullRounded } from "@mui/icons-material";
-import { NULL } from "xlsx-populate/lib/FormulaError";
 
 const useStyles = makeStyles({
   sprintbg: {
@@ -212,7 +210,7 @@ const Mark = () => {
                   res.fields["Custom.CodeReviewRating"] || 0;
                 codeReviewRatingArr.push(CodeReviewRating);
                 const filteredArr = codeReviewRatingArr.filter(
-                  (val) => val !== 0   || undefined  );
+                  (val) => val !== 0 || undefined);
                 let ReviewArr = filteredArr.reduce(
                   (partialSum, a) => partialSum + a,
                   0
@@ -230,9 +228,9 @@ const Mark = () => {
 
                 let redoHours;
                 redoHours = res.fields["Custom.RedoHours"] || 0;
-               
+
                 if (res.fields["System.WorkItemType"] === "Bug") {
-                 
+
                   redoHours = res.fields["Custom.RedoHours"] || 2 * effort;
                 }
                 if (actualHours !== 0) {
@@ -241,7 +239,7 @@ const Mark = () => {
                   actualHoursArr.push(effort * 3);
                 }
                 redoHoursArr.push(redoHours);
-                
+
               }
             });
 
@@ -380,7 +378,7 @@ const Mark = () => {
             //   (partialmarks, a) => partialmarks + a,
             //   0
             // );
-        
+
             setRedocount(redocountArr);
             if (redocountArr) {
               let redocountmarks =
@@ -443,14 +441,14 @@ const Mark = () => {
                 innerval.fields["System.Tags"] === "Reopen; ReportedByClient" ||
                 innerval.fields["System.Tags"] ===
                 "Critical; Reopen; ReportedByClient; #Critical" ||
-                innerval.fields["System.Tags"] === "#Critical; Reopen" 
+                innerval.fields["System.Tags"] === "#Critical; Reopen"
 
               ) {
                 numberofbugsreportedbyClient++;
                 redocountArr++;
               }
             });
-          
+
             setRedocount(redocountArr);
             // let bugsreportedbyClient = task.filter((innerval) => {
             //   let reportedbyclient =
@@ -504,15 +502,15 @@ const Mark = () => {
   ]);
 
 
-  
+
   const handleexceldropdown = async (e) => {
     let selectedFile = e;
     setDesignation(e);
     localStorage.setItem("designation", selectedFile);
     let data = await axios({
       method: "post",
-      url: `${BACKEND_URL}/dummy/path`,
-      // url: `http://localhost:8080/dummy/path`,
+      // url: `${BACKEND_URL}/dummy/path`,
+      url: `http://localhost:8080/dummy/path`,
       data: {
         selectedFile: selectedFile,
       },
@@ -592,7 +590,7 @@ const Mark = () => {
   const startJanToMar = q4Start.format("YYYY-MM-DD");
   const endJanToMar = q4End.format("YYYY-MM-DD");
   // Determine which quarter is coming soon or has already passed
-  
+
   let aprToJun = true;
   let julToSep = true;
   let octToDec = true;
@@ -698,7 +696,7 @@ const Mark = () => {
   const localEndDate = localStorage.getItem("endDate");
   const currentDateForDatePicker = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
 
-  function checkThreeMonths() {
+  function checkThreeMonths () {
     if (Number(localTimePeriod) == 5) {
 
       const date1 = new Date(localStartDate);
@@ -727,7 +725,7 @@ const Mark = () => {
   }, [localTimePeriod, localStartDate, localEndDate]);
 
   const windwoRefresh = async () => {
-   
+
     if (localdesigantion !== null) {
       // setshowCustomDate(true)
       setstartDate(localStartDate);
@@ -735,8 +733,8 @@ const Mark = () => {
       setTimePeriod(localTimePeriod);
       let data = await axios({
         method: "post",
-        url: `${BACKEND_URL}/dummy/path`,
-        // url: `http://localhost:8080/dummy/path`,
+        // url: `${BACKEND_URL}/dummy/path`,
+        url: `http://localhost:8080/dummy/path`,
         data: {
           selectedFile: localdesigantion,
         },
@@ -833,9 +831,9 @@ const Mark = () => {
                   <MenuItem disabled={octToDec} value={3}>
                     Oct To Dec
                   </MenuItem>
-                    <MenuItem disabled={janToMar} value={4}>
-                      Jan To Mar
-                    </MenuItem>
+                  <MenuItem disabled={janToMar} value={4}>
+                    Jan To Mar
+                  </MenuItem>
                   <MenuItem value={5}>Custom</MenuItem>
                   {/* <MenuItem value={6}>Last Three Months</MenuItem> */}
                 </Select>
@@ -846,38 +844,38 @@ const Mark = () => {
             <Grid item sm={5}>
               {/* {true && ( */}
               <>
-                  <input
-                    type="date"
-                    id="dob"
-                    disabled={Number(localTimePeriod) === 5 ? false : true}
-                    onChange={(newValue) => {
-                      setCustomdate([
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                      ]);
-                    }}
-                    max={currentDateForDatePicker} // Set the max date as the current date
-                    value={
-                      Number(localTimePeriod) === 5 ? customdate[0] : localStartDate
-                    }
-                  />
-                   <span> to </span>
-                   <input
-                    type="date"
-                    disabled={Number(localTimePeriod) === 5 ? false : true}
-                    onChange={(newValue) => {
-                      setCustomdate([
-                        customdate[0],
-                        moment(newValue.target.value).format("YYYY-MM-DD"),
-                      ]);
-                    }}
-                    min={customdate[0]} // Set the minimum date as the value of the first date picker
-                    max={currentDateForDatePicker} // Set the max date as the current date
-                    id="dob"
-                    value={
-                      Number(localTimePeriod) === 5 ? customdate[1] : localEndDate
-                    }
-                  />
+                <input
+                  type="date"
+                  id="dob"
+                  disabled={Number(localTimePeriod) === 5 ? false : true}
+                  onChange={(newValue) => {
+                    setCustomdate([
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                    ]);
+                  }}
+                  max={currentDateForDatePicker} // Set the max date as the current date
+                  value={
+                    Number(localTimePeriod) === 5 ? customdate[0] : localStartDate
+                  }
+                />
+                <span> to </span>
+                <input
+                  type="date"
+                  disabled={Number(localTimePeriod) === 5 ? false : true}
+                  onChange={(newValue) => {
+                    setCustomdate([
+                      customdate[0],
+                      moment(newValue.target.value).format("YYYY-MM-DD"),
+                    ]);
+                  }}
+                  min={customdate[0]} // Set the minimum date as the value of the first date picker
+                  max={currentDateForDatePicker} // Set the max date as the current date
+                  id="dob"
+                  value={
+                    Number(localTimePeriod) === 5 ? customdate[1] : localEndDate
+                  }
+                />
 
                 &nbsp;&nbsp;
                 <Button
@@ -907,16 +905,19 @@ const Mark = () => {
                   onChange={(e) => handleexceldropdown(e.target.value)}
                   input={<OutlinedInput label="Select Designation" />}
                 >
+                  <MenuItem value={"powerBI"}>Power BI</MenuItem>
+                  <MenuItem value={"seniorQA"}>Senior QA</MenuItem>
+                  <MenuItem value={"juniorQA"}>Junior QA</MenuItem>
                   <MenuItem value={"seniorDeveloper"}>Senior dev</MenuItem>
                   <MenuItem value={"juniorDeveloper"}>Junior Dev</MenuItem>
+                  <MenuItem disabled={false} value={"projectManager"}>Project Manager</MenuItem>
+                  <MenuItem value={"projectCoordinator"}>Project Coordinator</MenuItem>
                   <MenuItem value={"seniorDesigner"}>
                     Senior Graphic Designer
                   </MenuItem>
                   <MenuItem value={"juniorDesigner"}>
                     Junior Graphic Designer
                   </MenuItem>
-                  <MenuItem value={"seniorQA"}>Senior QA</MenuItem>
-                  <MenuItem value={"juniorQA"}>Junior QA</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -932,7 +933,7 @@ const Mark = () => {
             <Tableviewnew
               fileData={fileData}
               email={email}
-                  EmpName={EmpName}
+              EmpName={EmpName}
               handleexceldropdown={handleexceldropdown}
               selectedThreeMonths={selectedThreeMonths}
               isThreeMonths={isThreeMonths}

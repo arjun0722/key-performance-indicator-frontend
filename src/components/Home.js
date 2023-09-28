@@ -30,9 +30,8 @@ const Home = () => {
 
     let headersList = {
       Accept: "*/*",
-      Authorization: `Bearer ${
-        JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
-      }`,
+      Authorization: `Bearer ${JSON.parse(sessionStorage.getItem(ACCESS_TOKEN.TOKEN)).access_token
+        }`,
     };
 
     let reqOptions = {
@@ -53,7 +52,7 @@ const Home = () => {
   };
 
   const userPath = (user) => {
-    if (MANAGEMENt_ID.includes(userEmail) || REVIEWER_MANAGER.includes(userEmail)) {
+    if (MANAGEMENt_ID.includes(userEmail) || REVIEWER_MANAGER.includes(userEmail) ) {
       return `/mark?email=${user.mailAddress}`;
     } else {
       if (userEmail === user.mailAddress) {
@@ -73,12 +72,10 @@ const Home = () => {
     setSingleCardCenter(hasSingleCardWithLink);
   }, [users]);
 
-  useEffect(() => {
-    localStorage.removeItem("designation");
-    localStorage.removeItem("startDate");
-    localStorage.removeItem("endDate");
-    localStorage.removeItem("timperiod")
-  }, []);
+
+      useEffect(()=>{
+      localStorage.removeItem("designation");
+          },[])
   return (
     <>
       {loadingdata ? (
@@ -94,27 +91,23 @@ const Home = () => {
                   return (
                     <Link
                       to={path}
-                      className={`Home_Links ${
-                        singleCardCenter ? "single-card-center" : ""
-                      }`}
+                      className={`Home_Links ${singleCardCenter ? "single-card-center" : ""
+                        }`}
                     >
                       <div
-                        className={`card 1 ${
-                          singleCardCenter ? "single-card-resize" : ""
-                        }`}
+                        className={`card 1 ${singleCardCenter ? "single-card-resize" : ""
+                          }`}
                       >
                         <div className={`card_image`}>
                           <img
-                            className={`image ${
-                              singleCardCenter ? "single-card-image" : ""
-                            }`}
+                            className={`image ${singleCardCenter ? "single-card-image" : ""
+                              }`}
                             src={user._links.avatar.href}
                           />
                         </div>
                         <div
-                          className={`card_title title-white ${
-                            singleCardCenter ? "single-card-title" : ""
-                          }`}
+                          className={`card_title title-white ${singleCardCenter ? "single-card-title" : ""
+                            }`}
                         >
                           <p>{user.displayName}</p>
                         </div>
