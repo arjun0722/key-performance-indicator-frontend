@@ -12,7 +12,7 @@ const Renderthirdtable = ({
   headerTable,
   thirdTable,
   ind,
-  setIsSubmit,  
+  setIsSubmit,
   division,
   isThreeMonths,
   selectedThreeMonths,
@@ -37,9 +37,8 @@ const Renderthirdtable = ({
   textError3,
   codeReviewRating,
   updatedData,
-  IsExactDataExist
+  IsExactDataExist,
 }) => {
-  // console.log("thirdTable", thirdTable.length)
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
   const [users, setusers] = useState("");
@@ -77,22 +76,22 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [onTime, setOnTime] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [critical, setCritical] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
 
   //  this state use for Appraisee Self Rating
@@ -100,62 +99,62 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
-        ? codeReviewRating === undefined || "" || "NaN"
-          ? 0
-          : codeReviewRating
-        : 0
+      ? codeReviewRating === undefined || "" || "NaN"
+        ? 0
+        : codeReviewRating
+      : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
       newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
-          ? val.J
-          : 0
+        ? val.J
+        : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
-        ? val.J === undefined || "" || "NaN"
-          ? 0
-          : val.J
-        : 0
+      ? val.J === undefined || "" || "NaN"
+        ? 0
+        : val.J
+      : 0
   );
 
   // this states use for Appraiser Rating
@@ -256,7 +255,7 @@ const Renderthirdtable = ({
 
   //--------------------//
 
-  useEffect( () => {
+  useEffect(() => {
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       //state to maintain target values
       setActualDelivery(avgQuaterlyData?.Target[0]);
@@ -285,16 +284,22 @@ const Renderthirdtable = ({
 
       // this states use for Appraiser Rating
 
-      setCustomActualdeliveryAr((avgQuaterlyData?.AppraiserRating[0])?.toFixed(2));
-      setCustomOnTimeMarksAr((avgQuaterlyData?.AppraiserRating[1])?.toFixed(2));
-      setCustomAvgCodeMarksAr((avgQuaterlyData?.AppraiserRating[2] / division)?.toFixed(2));
+      setCustomActualdeliveryAr(
+        avgQuaterlyData?.AppraiserRating[0]?.toFixed(2)
+      );
+      setCustomOnTimeMarksAr(avgQuaterlyData?.AppraiserRating[1]?.toFixed(2));
+      setCustomAvgCodeMarksAr(
+        (avgQuaterlyData?.AppraiserRating[2] / division)?.toFixed(2)
+      );
       setCustomCustomReDoMarksAr(
         (avgQuaterlyData?.AppraiserRating[3] / division)?.toFixed(2)
       );
       setCustomBugsReportedMarksAr(
         (avgQuaterlyData?.AppraiserRating[4] / division)?.toFixed(2)
       );
-      setCustomCriticalIssuesMarksAr((avgQuaterlyData?.AppraiserRating[5])?.toFixed(2));
+      setCustomCriticalIssuesMarksAr(
+        avgQuaterlyData?.AppraiserRating[5]?.toFixed(2)
+      );
       setCustomCustomerSatisfactionMarksAr(
         (avgQuaterlyData?.AppraiserRating[6] / division)?.toFixed(2)
       );
@@ -303,18 +308,26 @@ const Renderthirdtable = ({
       );
 
       // this states use for Reviewer Marks
-      setCustomActualdeliveryRM((avgQuaterlyData?.ReviewerMarks[0])?.toFixed(2));
-      setCustomOnTimeMarksRM((avgQuaterlyData?.ReviewerMarks[1])?.toFixed(2));
-      setCustomAvgCodeMarksRM((avgQuaterlyData?.ReviewerMarks[2] / division)?.toFixed(2));
-      setCustomCustomReDoMarksRM((avgQuaterlyData?.ReviewerMarks[3] / division)?.toFixed(2));
+      setCustomActualdeliveryRM(avgQuaterlyData?.ReviewerMarks[0]?.toFixed(2));
+      setCustomOnTimeMarksRM(avgQuaterlyData?.ReviewerMarks[1]?.toFixed(2));
+      setCustomAvgCodeMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[2] / division)?.toFixed(2)
+      );
+      setCustomCustomReDoMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[3] / division)?.toFixed(2)
+      );
       setCustomBugsReportedMarksRM(
         (avgQuaterlyData?.ReviewerMarks[4] / division)?.toFixed(2)
       );
-      setCustomCriticalIssuesMarksRM((avgQuaterlyData?.ReviewerMarks[5])?.toFixed(2));
+      setCustomCriticalIssuesMarksRM(
+        avgQuaterlyData?.ReviewerMarks[5]?.toFixed(2)
+      );
       setCustomCustomerSatisfactionMarksRM(
         (avgQuaterlyData?.ReviewerMarks[6] / division)?.toFixed(2)
       );
-      setCustomUpskillingMarksRM((avgQuaterlyData?.ReviewerMarks[7] / division)?.toFixed(2));
+      setCustomUpskillingMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[7] / division)?.toFixed(2)
+      );
     }
   }, [
     newwDiffMonthhs,
@@ -333,8 +346,7 @@ const Renderthirdtable = ({
   useEffect(() => {
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       setParentSelfAppraise({
-        customActualdeliveryMarks:
-          avgQuaterlyData?.AppraiseeSelfRating[0],
+        customActualdeliveryMarks: avgQuaterlyData?.AppraiseeSelfRating[0],
         customOnTimeMarks: avgQuaterlyData?.AppraiseeSelfRating[1],
         customAvgCodeMarks: avgQuaterlyData?.AppraiseeSelfRating[2] / division,
 
@@ -343,25 +355,24 @@ const Renderthirdtable = ({
         customBugsReportedMarks:
           avgQuaterlyData?.AppraiseeSelfRating[4] / division,
 
-        customCriticalIssuesMarks:
-          avgQuaterlyData?.AppraiseeSelfRating[5],
+        customCriticalIssuesMarks: avgQuaterlyData?.AppraiseeSelfRating[5],
 
         customCustomerSatisfactionMarks:
           avgQuaterlyData?.AppraiseeSelfRating[6] / division,
 
-        customUpskillingMarks: avgQuaterlyData?.AppraiseeSelfRating[7] / division,
+        customUpskillingMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[7] / division,
       });
     }
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       setParentAppraise({
-        customActualdeliveryMarksAr:
-          avgQuaterlyData?.AppraiserRating[0],
+        customActualdeliveryMarksAr: avgQuaterlyData?.AppraiserRating[0],
         customOnTimeMarksAr: avgQuaterlyData?.AppraiserRating[1],
         customAvgCodeMarksAr: avgQuaterlyData?.AppraiserRating[2] / division,
         customReDoMarksAr: avgQuaterlyData?.AppraiserRating[3] / division,
-        customBugsReportedMarksAr: avgQuaterlyData?.AppraiserRating[4] / division,
-        customCriticalIssuesMarksAr:
-          avgQuaterlyData?.AppraiserRating[5],
+        customBugsReportedMarksAr:
+          avgQuaterlyData?.AppraiserRating[4] / division,
+        customCriticalIssuesMarksAr: avgQuaterlyData?.AppraiserRating[5],
         customCustomerSatisfactionMarksAr:
           avgQuaterlyData?.AppraiserRating[6] / division,
         customUpskillingMarksAr: avgQuaterlyData?.AppraiserRating[7] / division,
@@ -881,8 +892,7 @@ const Renderthirdtable = ({
       redo: thirdTable[4]?.I,
       critical: thirdTable[5]?.I,
       satisfaction: thirdTable[6]?.I,
-      upskilling: thirdTable[7]?.I
-
+      upskilling: thirdTable[7]?.I,
     });
   }, []);
 
@@ -914,21 +924,21 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
-        ? actualDelivery
-        : val.I,
+      ? actualDelivery
+      : val.I,
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
-        ? onTime
-        : val.I,
+      ? onTime
+      : val.I,
     val.I,
     val.I,
     val.I,
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
-        ? critical
-        : val.I,
+      ? critical
+      : val.I,
     val.I,
     val.I,
   ];
@@ -1256,20 +1266,25 @@ const Renderthirdtable = ({
     <>
       <tr id={ind}>
         {fullKeys.map((colLabel, index) => {
- 
           // Check if the column label exists in your data
-          const columnData = val && val[colLabel] !== undefined ? val[colLabel] : "";
+          const columnData =
+            val && val[colLabel] !== undefined ? val[colLabel] : "";
 
           // Check if the column label exists in your headerTable
-          const isMatchingColumn = headerTable.some((obj) => matchingValues.includes(obj[colLabel]));
+          const isMatchingColumn = headerTable.some((obj) =>
+            matchingValues.includes(obj[colLabel])
+          );
 
           let columnStyle;
 
           headerTable.some((obj) => {
-           // Define inline styles for the column
-            columnStyle = isMatchingColumn ? ((obj[colLabel]) === "Appraisee Marks" ? { backgroundColor: '#bf8f00' } : { backgroundColor: '#70ad47' }) : {};
-         })
-          
+            // Define inline styles for the column
+            columnStyle = isMatchingColumn
+              ? obj[colLabel] === "Appraisee Marks"
+                ? { backgroundColor: "#bf8f00" }
+                : { backgroundColor: "#70ad47" }
+              : {};
+          });
 
           return (
             <td key={index} style={columnStyle}>
@@ -1280,7 +1295,6 @@ const Renderthirdtable = ({
       </tr>
     </>
   );
-
 };
 
-export default Renderthirdtable
+export default Renderthirdtable;

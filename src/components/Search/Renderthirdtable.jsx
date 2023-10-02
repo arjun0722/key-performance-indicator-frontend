@@ -5,6 +5,7 @@ import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
 import { useLocation } from "react-router-dom";
 
 import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
+import { results } from "./fakedata";
 
 const Renderthirdtable = ({
   val,
@@ -12,7 +13,7 @@ const Renderthirdtable = ({
   headerTable,
   thirdTable,
   ind,
-  setIsSubmit,  
+  setIsSubmit,
   setColumnDataArray,
   columnDataArray,
   division,
@@ -39,11 +40,11 @@ const Renderthirdtable = ({
   textError3,
   codeReviewRating,
   updatedData,
-  IsExactDataExist
+  IsExactDataExist,
 }) => {
-  // console.log("thirdTable", thirdTable.length)
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
+
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -79,22 +80,22 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[0]
       : ind === 0
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [onTime, setOnTime] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[1]
       : ind === 1
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
   const [critical, setCritical] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.Target[5]
       : ind === 5
-        ? val.I
-        : 0
+      ? val.I
+      : 0
   );
 
   //  this state use for Appraisee Self Rating
@@ -102,62 +103,62 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[0]
       : ind === 0
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customOnTimeMarks, setCustomOnTimeMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[1]
       : ind === 1
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customAvgCodeMarks, setCustomAvgCodeMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[2]
       : ind === 2
-        ? codeReviewRating === undefined || "" || "NaN"
-          ? 0
-          : codeReviewRating
-        : 0
+      ? codeReviewRating === undefined || "" || "NaN"
+        ? 0
+        : codeReviewRating
+      : 0
   );
   const [customReDoMarks, setCustomCustomReDoMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[3]
       : ind === 3
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customBugsReportedMarks, setCustomBugsReportedMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[4]
       : ind === 4
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCriticalIssuesMarks, setCustomCriticalIssuesMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[5]
       : ind === 5
-        ? val.J
-        : 0
+      ? val.J
+      : 0
   );
   const [customCustomerSatisfactionMarks, setCustomCustomerSatisfactionMarks] =
     useState(
       newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
         ? avgQuaterlyData?.AppraiseeSelfRating[6]
         : ind === 6
-          ? val.J
-          : 0
+        ? val.J
+        : 0
     );
   const [customUpskillingMarks, setCustomUpskillingMarks] = useState(
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? avgQuaterlyData?.AppraiseeSelfRating[7]
       : ind === 7
-        ? val.J === undefined || "" || "NaN"
-          ? 0
-          : val.J
-        : 0
+      ? val.J === undefined || "" || "NaN"
+        ? 0
+        : val.J
+      : 0
   );
 
   // this states use for Appraiser Rating
@@ -258,7 +259,7 @@ const Renderthirdtable = ({
 
   //--------------------//
 
-  useEffect( () => {
+  useEffect(() => {
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       //state to maintain target values
       setActualDelivery(avgQuaterlyData?.Target[0]);
@@ -287,16 +288,22 @@ const Renderthirdtable = ({
 
       // this states use for Appraiser Rating
 
-      setCustomActualdeliveryAr((avgQuaterlyData?.AppraiserRating[0])?.toFixed(2));
-      setCustomOnTimeMarksAr((avgQuaterlyData?.AppraiserRating[1])?.toFixed(2));
-      setCustomAvgCodeMarksAr((avgQuaterlyData?.AppraiserRating[2] / division)?.toFixed(2));
+      setCustomActualdeliveryAr(
+        avgQuaterlyData?.AppraiserRating[0]?.toFixed(2)
+      );
+      setCustomOnTimeMarksAr(avgQuaterlyData?.AppraiserRating[1]?.toFixed(2));
+      setCustomAvgCodeMarksAr(
+        (avgQuaterlyData?.AppraiserRating[2] / division)?.toFixed(2)
+      );
       setCustomCustomReDoMarksAr(
         (avgQuaterlyData?.AppraiserRating[3] / division)?.toFixed(2)
       );
       setCustomBugsReportedMarksAr(
         (avgQuaterlyData?.AppraiserRating[4] / division)?.toFixed(2)
       );
-      setCustomCriticalIssuesMarksAr((avgQuaterlyData?.AppraiserRating[5])?.toFixed(2));
+      setCustomCriticalIssuesMarksAr(
+        avgQuaterlyData?.AppraiserRating[5]?.toFixed(2)
+      );
       setCustomCustomerSatisfactionMarksAr(
         (avgQuaterlyData?.AppraiserRating[6] / division)?.toFixed(2)
       );
@@ -305,18 +312,26 @@ const Renderthirdtable = ({
       );
 
       // this states use for Reviewer Marks
-      setCustomActualdeliveryRM((avgQuaterlyData?.ReviewerMarks[0])?.toFixed(2));
-      setCustomOnTimeMarksRM((avgQuaterlyData?.ReviewerMarks[1])?.toFixed(2));
-      setCustomAvgCodeMarksRM((avgQuaterlyData?.ReviewerMarks[2] / division)?.toFixed(2));
-      setCustomCustomReDoMarksRM((avgQuaterlyData?.ReviewerMarks[3] / division)?.toFixed(2));
+      setCustomActualdeliveryRM(avgQuaterlyData?.ReviewerMarks[0]?.toFixed(2));
+      setCustomOnTimeMarksRM(avgQuaterlyData?.ReviewerMarks[1]?.toFixed(2));
+      setCustomAvgCodeMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[2] / division)?.toFixed(2)
+      );
+      setCustomCustomReDoMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[3] / division)?.toFixed(2)
+      );
       setCustomBugsReportedMarksRM(
         (avgQuaterlyData?.ReviewerMarks[4] / division)?.toFixed(2)
       );
-      setCustomCriticalIssuesMarksRM((avgQuaterlyData?.ReviewerMarks[5])?.toFixed(2));
+      setCustomCriticalIssuesMarksRM(
+        avgQuaterlyData?.ReviewerMarks[5]?.toFixed(2)
+      );
       setCustomCustomerSatisfactionMarksRM(
         (avgQuaterlyData?.ReviewerMarks[6] / division)?.toFixed(2)
       );
-      setCustomUpskillingMarksRM((avgQuaterlyData?.ReviewerMarks[7] / division)?.toFixed(2));
+      setCustomUpskillingMarksRM(
+        (avgQuaterlyData?.ReviewerMarks[7] / division)?.toFixed(2)
+      );
     }
   }, [
     newwDiffMonthhs,
@@ -335,8 +350,7 @@ const Renderthirdtable = ({
   useEffect(() => {
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       setParentSelfAppraise({
-        customActualdeliveryMarks:
-          avgQuaterlyData?.AppraiseeSelfRating[0],
+        customActualdeliveryMarks: avgQuaterlyData?.AppraiseeSelfRating[0],
         customOnTimeMarks: avgQuaterlyData?.AppraiseeSelfRating[1],
         customAvgCodeMarks: avgQuaterlyData?.AppraiseeSelfRating[2] / division,
 
@@ -345,25 +359,24 @@ const Renderthirdtable = ({
         customBugsReportedMarks:
           avgQuaterlyData?.AppraiseeSelfRating[4] / division,
 
-        customCriticalIssuesMarks:
-          avgQuaterlyData?.AppraiseeSelfRating[5],
+        customCriticalIssuesMarks: avgQuaterlyData?.AppraiseeSelfRating[5],
 
         customCustomerSatisfactionMarks:
           avgQuaterlyData?.AppraiseeSelfRating[6] / division,
 
-        customUpskillingMarks: avgQuaterlyData?.AppraiseeSelfRating[7] / division,
+        customUpskillingMarks:
+          avgQuaterlyData?.AppraiseeSelfRating[7] / division,
       });
     }
     if (parseInt(newwDiffMonthhs) > 1 || division * 8 > 8) {
       setParentAppraise({
-        customActualdeliveryMarksAr:
-          avgQuaterlyData?.AppraiserRating[0],
+        customActualdeliveryMarksAr: avgQuaterlyData?.AppraiserRating[0],
         customOnTimeMarksAr: avgQuaterlyData?.AppraiserRating[1],
         customAvgCodeMarksAr: avgQuaterlyData?.AppraiserRating[2] / division,
         customReDoMarksAr: avgQuaterlyData?.AppraiserRating[3] / division,
-        customBugsReportedMarksAr: avgQuaterlyData?.AppraiserRating[4] / division,
-        customCriticalIssuesMarksAr:
-          avgQuaterlyData?.AppraiserRating[5],
+        customBugsReportedMarksAr:
+          avgQuaterlyData?.AppraiserRating[4] / division,
+        customCriticalIssuesMarksAr: avgQuaterlyData?.AppraiserRating[5],
         customCustomerSatisfactionMarksAr:
           avgQuaterlyData?.AppraiserRating[6] / division,
         customUpskillingMarksAr: avgQuaterlyData?.AppraiserRating[7] / division,
@@ -413,21 +426,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        setTextError1({
-          ...textError1,
-          customOnTimeMarks: true,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customOnTimeMarks: true,
+        // });
 
-        setIndError1(ind);
+        // setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
 
-        setIndError1();
-        setTextError1({
-          ...textError1,
-          customOnTimeMarks: false,
-        });
+        // setIndError1();
+        // setTextError1({
+        //   ...textError1,
+        //   customOnTimeMarks: false,
+        // });
         return;
       }
     }
@@ -439,21 +452,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError1({
-          ...textError1,
-          customAvgCodeMarks: true,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customAvgCodeMarks: true,
+        // });
 
-        setIndError1(ind);
+        // setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        setTextError1({
-          ...textError1,
-          customAvgCodeMarks: false,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customAvgCodeMarks: false,
+        // });
 
-        setIndError1();
+        // setIndError1();
         return;
       }
     }
@@ -465,21 +478,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError1({
-          ...textError1,
-          customReDoMarks: true,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customReDoMarks: true,
+        // });
 
-        setIndError1(ind);
+        // setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        setTextError1({
-          ...textError1,
-          customReDoMarks: false,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customReDoMarks: false,
+        // });
 
-        setIndError1();
+        // setIndError1();
         return;
       }
     }
@@ -505,21 +518,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        setTextError1({
-          ...textError1,
-          customCustomerSatisfactionMarks: true,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customCustomerSatisfactionMarks: true,
+        // });
 
-        setIndError1(ind);
+        // setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        setTextError1({
-          ...textError1,
-          customCustomerSatisfactionMarks: false,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customCustomerSatisfactionMarks: false,
+        // });
 
-        setIndError1();
+        // setIndError1();
         return;
       }
     }
@@ -531,21 +544,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError1({
-          ...textError1,
-          customUpskillingMarks: true,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customUpskillingMarks: true,
+        // });
 
-        setIndError1(ind);
+        // setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        setTextError1({
-          ...textError1,
-          customUpskillingMarks: false,
-        });
+        // setTextError1({
+        //   ...textError1,
+        //   customUpskillingMarks: false,
+        // });
 
-        setIndError1();
+        // setIndError1();
         return;
       }
     }
@@ -567,18 +580,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        setTextError2({
-          ...textError2,
-          customOnTimeMarksAr: true,
-        });
-        setIndError2(ind);
+        // setTextError2({
+        //   ...textError2,
+        //   customOnTimeMarksAr: true,
+        // });
+        // setIndError2(ind);
       } else {
         setIsSubmit(false);
-        setTextError2({
-          ...textError2,
-          customOnTimeMarksAr: false,
-        });
-        setIndError2();
+        // setTextError2({
+        //   ...textError2,
+        //   customOnTimeMarksAr: false,
+        // });
+        // setIndError2();
       }
     }
     if (ind == 2) {
@@ -589,18 +602,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError2({
-          ...textError2,
-          customAvgCodeMarksAr: true,
-        });
-        setIndError2(ind);
+        // setTextError2({
+        //   ...textError2,
+        //   customAvgCodeMarksAr: true,
+        // });
+        // setIndError2(ind);
       } else {
         setIsSubmit(false);
-        setTextError2({
-          ...textError2,
-          customAvgCodeMarksAr: false,
-        });
-        setIndError2();
+        // setTextError2({
+        //   ...textError2,
+        //   customAvgCodeMarksAr: false,
+        // });
+        // setIndError2();
       }
     }
     if (ind == 3) {
@@ -611,18 +624,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError2({
-          ...textError2,
-          customReDoMarksAr: true,
-        });
-        setIndError2(ind);
+        // setTextError2({
+        //   ...textError2,
+        //   customReDoMarksAr: true,
+        // });
+        // setIndError2(ind);
       } else {
         setIsSubmit(false);
-        setTextError2({
-          ...textError2,
-          customReDoMarksAr: false,
-        });
-        setIndError2();
+        // setTextError2({
+        //   ...textError2,
+        //   customReDoMarksAr: false,
+        // });
+        // setIndError2();
       }
     }
     if (ind == 4) {
@@ -647,18 +660,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        setTextError2({
-          ...textError2,
-          customCustomerSatisfactionMarksAr: true,
-        });
-        setIndError2(ind);
+        // setTextError2({
+        //   ...textError2,
+        //   customCustomerSatisfactionMarksAr: true,
+        // });
+        // setIndError2(ind);
       } else {
         setIsSubmit(false);
-        setTextError2({
-          ...textError2,
-          customCustomerSatisfactionMarksAr: false,
-        });
-        setIndError2();
+        // setTextError2({
+        //   ...textError2,
+        //   customCustomerSatisfactionMarksAr: false,
+        // });
+        // setIndError2();
       }
     }
     if (ind == 7) {
@@ -670,18 +683,18 @@ const Renderthirdtable = ({
 
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError2({
-          ...textError2,
-          customUpskillingMarksAr: true,
-        });
-        setIndError2(ind);
+        // setTextError2({
+        //   ...textError2,
+        //   customUpskillingMarksAr: true,
+        // });
+        // setIndError2(ind);
       } else {
         setIsSubmit(false);
-        setTextError2({
-          ...textError2,
-          customUpskillingMarksAr: false,
-        });
-        setIndError2();
+        // setTextError2({
+        //   ...textError2,
+        //   customUpskillingMarksAr: false,
+        // });
+        // setIndError2();
       }
     }
   }
@@ -702,18 +715,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        setTextError3({
-          ...textError3,
-          customOnTimeMarksRM: true,
-        });
-        setIndError3(ind);
+        // setTextError3({
+        //   ...textError3,
+        //   customOnTimeMarksRM: true,
+        // });
+        // setIndError3(ind);
       } else {
         setIsSubmit(false);
-        setTextError3({
-          ...textError3,
-          customOnTimeMarksRM: false,
-        });
-        setIndError3();
+        // setTextError3({
+        //   ...textError3,
+        //   customOnTimeMarksRM: false,
+        // });
+        // setIndError3();
       }
     }
     if (ind == 2) {
@@ -724,18 +737,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError3({
-          ...textError3,
-          customAvgCodeMarksRM: true,
-        });
-        setIndError3(ind);
+        // setTextError3({
+        //   ...textError3,
+        //   customAvgCodeMarksRM: true,
+        // });
+        // setIndError3(ind);
       } else {
         setIsSubmit(false);
-        setTextError3({
-          ...textError3,
-          customAvgCodeMarksRM: false,
-        });
-        setIndError3();
+        // setTextError3({
+        //   ...textError3,
+        //   customAvgCodeMarksRM: false,
+        // });
+        // setIndError3();
       }
     }
     if (ind == 3) {
@@ -746,18 +759,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError3({
-          ...textError3,
-          customReDoMarksRM: true,
-        });
-        setIndError3(ind);
+        // setTextError3({
+        //   ...textError3,
+        //   customReDoMarksRM: true,
+        // });
+        // setIndError3(ind);
       } else {
         setIsSubmit(false);
-        setTextError3({
-          ...textError3,
-          customReDoMarksRM: false,
-        });
-        setIndError3();
+        // setTextError3({
+        //   ...textError3,
+        //   customReDoMarksRM: false,
+        // });
+        // setIndError3();
       }
     }
     if (ind == 4) {
@@ -782,18 +795,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        setTextError3({
-          ...textError3,
-          customCustomerSatisfactionMarksRM: true,
-        });
-        setIndError3(ind);
+        // setTextError3({
+        //   ...textError3,
+        //   customCustomerSatisfactionMarksRM: true,
+        // });
+        // setIndError3(ind);
       } else {
         setIsSubmit(false);
-        setTextError3({
-          ...textError3,
-          customCustomerSatisfactionMarksRM: false,
-        });
-        setIndError3();
+        // setTextError3({
+        //   ...textError3,
+        //   customCustomerSatisfactionMarksRM: false,
+        // });
+        // setIndError3();
       }
     }
     if (ind == 7) {
@@ -804,18 +817,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        setTextError3({
-          ...textError3,
-          customUpskillingMarksRM: true,
-        });
-        setIndError3(ind);
+        // setTextError3({
+        //   ...textError3,
+        //   customUpskillingMarksRM: true,
+        // });
+        // setIndError3(ind);
       } else {
         setIsSubmit(false);
-        setTextError3({
-          ...textError3,
-          customUpskillingMarksRM: false,
-        });
-        setIndError3();
+        // setTextError3({
+        //   ...textError3,
+        //   customUpskillingMarksRM: false,
+        // });
+        // setIndError3();
       }
     }
   }
@@ -883,8 +896,7 @@ const Renderthirdtable = ({
       redo: thirdTable[4]?.I,
       critical: thirdTable[5]?.I,
       satisfaction: thirdTable[6]?.I,
-      upskilling: thirdTable[7]?.I
-
+      upskilling: thirdTable[7]?.I,
     });
   }, []);
 
@@ -916,21 +928,21 @@ const Renderthirdtable = ({
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? actualDelivery
       : val.I === 0
-        ? actualDelivery
-        : val.I,
+      ? actualDelivery
+      : val.I,
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? onTime
       : val.I === 0
-        ? onTime
-        : val.I,
+      ? onTime
+      : val.I,
     val.I,
     val.I,
     val.I,
     newwDiffMonthhs === 3 || isThreeMonths || selectedThreeMonths
       ? critical
       : val.I === 0
-        ? critical
-        : val.I,
+      ? critical
+      : val.I,
     val.I,
     val.I,
   ];
@@ -1254,37 +1266,38 @@ const Renderthirdtable = ({
 
   const matchingValues = ["Appraisee Marks", "Appraiser Marks"];
 
+  // ****************************************************************************************************//
 
-// ****************************************************************************************************//
+  // Initialize the column data array with values from val
+  useEffect(() => {
+    if (val) {
+      setColumnDataArray((prevColumnDataArray) => {
+        const newColumnDataArray = [...prevColumnDataArray];
 
-    // Initialize the column data array with values from val
-    useEffect(() => {
-      if (val) {
-        setColumnDataArray((prevColumnDataArray) => {
-          const newColumnDataArray = [...prevColumnDataArray];
-
-          const rowDataObject = {};
-          fullKeys.forEach((colLabel) => {
-            const headerItem = headerTable.find((headerObj) => Object.keys(headerObj)[0] === colLabel);
-            const headerKey = headerItem ? Object.keys(headerItem)[0] : colLabel;
-            const columnData = val[colLabel] !== undefined ? val[colLabel] : '';
-            rowDataObject[headerKey] = columnData;
-          });
-
-          newColumnDataArray.push({ ...rowDataObject });
-
-          // Initialize inputValues with values from columnDataArray
-          setInputValues(newColumnDataArray);
-
-          return newColumnDataArray;
+        const rowDataObject = {};
+        fullKeys.forEach((colLabel) => {
+          const headerItem = headerTable.find(
+            (headerObj) => Object.keys(headerObj)[0] === colLabel
+          );
+          const headerKey = headerItem ? Object.keys(headerItem)[0] : colLabel;
+          const columnData = val[colLabel] !== undefined ? val[colLabel] : "";
+          rowDataObject[headerKey] = columnData;
         });
-      }
-    }, []);
 
-    // Create a state array for input values and initialize it with columnDataArray
-    const [inputValues, setInputValues] = useState(columnDataArray);
+        newColumnDataArray.push({ ...rowDataObject });
 
-  const handleInputChange = (e, rowIndex, colLabel , ind) => {
+        // Initialize inputValues with values from columnDataArray
+        setInputValues(newColumnDataArray);
+
+        return newColumnDataArray;
+      });
+    }
+  }, []);
+
+  // Create a state array for input values and initialize it with columnDataArray
+  const [inputValues, setInputValues] = useState(columnDataArray);
+
+  const handleInputChange = (e, rowIndex, colLabel, ind) => {
     const newValue = e.target.value;
     setColumnDataArray(() => {
       const updatedInputValues = [...columnDataArray];
@@ -1295,70 +1308,77 @@ const Renderthirdtable = ({
     });
   };
 
+  return (
+    <>
+      <tr>
+        {fullKeys.map((colLabel, index) => {
+          const data = val && val[colLabel] !== undefined ? val[colLabel] : "";
 
-    return (
-      <>
-        <tr>
-          {fullKeys.map((colLabel, index) => {
-            const data = val && val[colLabel] !== undefined ? val[colLabel] : '';
+          let isMatchingColumn = false;
+          let objColumnLabel = "";
 
-            let isMatchingColumn = false;
-            let objColumnLabel = '';
+          headerTable.some((obj) => {
+            objColumnLabel = obj[colLabel];
 
-            headerTable.some((obj) => {
-              objColumnLabel = obj[colLabel];
-              isMatchingColumn = matchingValues.includes(objColumnLabel);
-              return isMatchingColumn;
-            });
+            isMatchingColumn = matchingValues.includes(objColumnLabel);
+            return isMatchingColumn;
+          });
 
-            let columnStyle;
+          let columnStyle;
 
-            if (isMatchingColumn) {
-              columnStyle = objColumnLabel === 'Appraisee Marks' ? { backgroundColor: '#bf8f00' } : { backgroundColor: '#70ad47' };
-            }
+          if (isMatchingColumn) {
+            columnStyle =
+              objColumnLabel === "Appraisee Marks"
+                ? { backgroundColor: "#bf8f00" }
+                : { backgroundColor: "#70ad47" };
+          }
 
-            const isSpecialColumn = ["Target", "Appraisee Self Rating", "Appraiser Rating", "Reviewer Marks"].includes(objColumnLabel);
+          const isSpecialColumn = [
+            "Target",
+            "Appraisee Self Rating",
+            "Appraiser Rating",
+            "Reviewer Marks",
+          ].includes(objColumnLabel);
 
-            return (
-              <td
-                key={index}
-                style={{
-                  ...columnStyle,
-                  width: '100px',
-                  height: '100px',
-                  padding: '0',
-                  margin: '0',
-                  position: 'relative',
-                }}
-              >
-                {isSpecialColumn ? (
-                  <input
-                    type="text"
-                    value={inputValues[ind]?.[colLabel] || data}
-                    onChange={(e) => handleInputChange(e, index, colLabel , ind)}
-                    style={{
-                      height: '100%',
-                      position: 'initial',
-                      top: '0',
-                      bottom: '0',
-                      outline: 'none',
-                      border: 'none',
-                      backgroundColor: '#ecf0f1',
-                      width: '100%',
-                      fontSize: '17px',
-                    }}
-                    disabled={objColumnLabel === 'Target' && +data > 0}
-                  />
-                ) : (
-                  data
-                )}
-              </td>
-            );
-          })}
-        </tr>
-      </>
-    );
-
+          return (
+            <td
+              key={index}
+              style={{
+                ...columnStyle,
+                width: "100px",
+                height: "100px",
+                padding: "0",
+                margin: "0",
+                position: "relative",
+              }}
+            >
+              {isSpecialColumn ? (
+                <input
+                  type="text"
+                  value={inputValues[ind]?.[colLabel] || data}
+                  onChange={(e) => handleInputChange(e, index, colLabel, ind)}
+                  style={{
+                    height: "100%",
+                    position: "initial",
+                    top: "0",
+                    bottom: "0",
+                    outline: "none",
+                    border: "none",
+                    backgroundColor: "#ecf0f1",
+                    width: "100%",
+                    fontSize: "17px",
+                  }}
+                  disabled={objColumnLabel === "Target" && +data > 0}
+                />
+              ) : (
+                data
+              )}
+            </td>
+          );
+        })}
+      </tr>
+    </>
+  );
 };
 
-export default Renderthirdtable
+export default Renderthirdtable;

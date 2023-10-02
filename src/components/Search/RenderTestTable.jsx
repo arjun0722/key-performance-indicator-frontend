@@ -8,6 +8,7 @@ import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
 const RenderTestTable = ({
   val,
   thirdTable,
+  results,
   ind,
   com,
   setIsSubmit,
@@ -36,12 +37,15 @@ const RenderTestTable = ({
   dynamicKpiTestTable,
   setdynamicKpiTestTable,
   headerTable,
+
+  headerTestTable,
+  dynamicData,
   fullKeys,
+  testTbaleData,
+  setTestTableData,
 }) => {
- 
   //state to maintain target values
 
-  
   const getLocalTImeperiod = localStorage.getItem("timperiod");
 
   const [users, setusers] = useState("");
@@ -884,33 +888,36 @@ const RenderTestTable = ({
   const [targetState, setTargetState] = useState();
   const [reviewState, setReviewState] = useState();
 
-
   useEffect(() => {
-    if(dynamicKpiTestTable !== undefined){
-    // .................target..........//
-    const valueMap = dynamicKpiTestTable.map((item) => Number(item.Target));
-    const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
-    setTargetState(value);
+    if (dynamicKpiTestTable !== undefined) {
+      // .................target..........//
+      const valueMap = dynamicKpiTestTable.map((item) => Number(item.Target));
+      const value = valueMap[ind] !== undefined ? valueMap[ind] : 0;
+      setTargetState(value);
 
-    // .................appraiseselfrating..........//
-    const appraiseSelfMap = dynamicKpiTestTable.map((item) => item.AppraiseeSelfRating);
-    const appriaseSelfvalue =
-      appraiseSelfMap[ind] !== undefined ? appraiseSelfMap[ind] : 0;
-    setappraiseSelfRatingState(appriaseSelfvalue);
+      // .................appraiseselfrating..........//
+      const appraiseSelfMap = dynamicKpiTestTable.map(
+        (item) => item.AppraiseeSelfRating
+      );
+      const appriaseSelfvalue =
+        appraiseSelfMap[ind] !== undefined ? appraiseSelfMap[ind] : 0;
+      setappraiseSelfRatingState(appriaseSelfvalue);
 
-    // .................appraiserating..........//
-      const appraiseRatigMap = dynamicKpiTestTable.map((item) => item.AppraiserRating);
-    const appriaseRatingvalue =
-      appraiseRatigMap[ind] !== undefined ? appraiseRatigMap[ind] : 0;
+      // .................appraiserating..........//
+      const appraiseRatigMap = dynamicKpiTestTable.map(
+        (item) => item.AppraiserRating
+      );
+      const appriaseRatingvalue =
+        appraiseRatigMap[ind] !== undefined ? appraiseRatigMap[ind] : 0;
 
-    setappraiseRatingState(appriaseRatingvalue);
-    
-    // .................Reviewmanager rating..........//
-    
-    const reviewMap = dynamicKpiTestTable.map((item) => item.ReviewerMarks);
-    const reviewValue = reviewMap[ind] !== undefined ? reviewMap[ind] : 0;
-    setReviewState(reviewValue);
-  }
+      setappraiseRatingState(appriaseRatingvalue);
+
+      // .................Reviewmanager rating..........//
+
+      const reviewMap = dynamicKpiTestTable.map((item) => item.ReviewerMarks);
+      const reviewValue = reviewMap[ind] !== undefined ? reviewMap[ind] : 0;
+      setReviewState(reviewValue);
+    }
   }, [dynamicKpiTestTable]);
 
   // .................formulas for first input..........//
@@ -1204,299 +1211,105 @@ const RenderTestTable = ({
     customUpskillingMarksAr,
   ]);
 
+  const matchingValues = ["Appraisee_Marks", "Appraiser_Marks"];
+  const specialColumn = [
+    "Target",
+    "Appraisee_Self_Rating",
+    "Appraiser_Rating",
+    "Reviewer_Marks",
+  ];
+
+  const handleInputChangesTestTable = (e, colindex, colLabel, ind) => {
+    const updatedTestValueData = [...testTbaleData];
+    updatedTestValueData[ind][colLabel] = e.target.value;
+    setTestTableData(updatedTestValueData);
+  };
+
   return (
     <>
-      <tr id={ind}>
-        <th>{val.Category}</th>
-        <td>{val.KpiTitle}</td>
-        <td>{val.KpiDescription}</td>
-        <td>{com[ind].E}</td>
-        <td>{val.Type}</td>
-        <td>{com[ind].G}</td>
-        <td>{val.Weightage}</td>
-        <td style={{ position: "relative" }}>
-          {/* {val.I} */}
-          <input
-            type="number"
-            min="0"
-            max={ind === 5 ? "5" : ""}
-            disabled={
-              getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
-                ? true
-                : com[ind].I > 0 ||
-                  (!MANAGEMENt_ID.includes(users) &&
-                    updatedData?.data?.data[0]?.IsEditable == 0)
-                ? true
-                : false
-            }
-            value={targetState}
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-              outline: "none",
-              border: "none",
-              backgroundColor: "#ecf0f1",
+      <tr>
+        {Object.keys(val).map((colLabel, colIndex) => {
+          // const isSpecialColumn = specialColumn.includes(colLabel);
 
-              width: "100%",
-              fontSize: "17px",
-            }}
-            onChange={(e) => handleTarget(e)}
-          />
-        </td>
-        <td style={{ position: "relative" }}>
-          {/* {val.J} */}
-          <TextField
-            error={showTextError1()}
-            helperText={indError1 === ind ? "error" : ""}
-            color=""
-            InputProps={{
-              inputProps: {
-                max:
-                  ind === 2
-                    ? com[ind].I
-                    : ind === 1
-                    ? onTime
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
-                min: 0,
-              },
-            }}
-            type="number"
-            // min="0"
-            disabled={
-              getLocalTImeperiod < 5 ||
-              isThreeMonths ||
-              selectedThreeMonths ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
-                ? true
-                : loginUser !== email ||
-                  (!MANAGEMENt_ID.includes(users) &&
-                    updatedData?.data?.data[0]?.IsEditable == 0)
-                ? true
-                : false
-            }
-            value={
-              // loginUser === users
-              //   ? ind === 0
-              //     ? customActualdeliveryMarks
-              //     : 0 || ind === 1
-              //       ? customOnTimeMarks
-              //       : 0 || ind === 2
-              //         ? customAvgCodeMarks
-              //         : 0 || ind === 3
-              //           ? customReDoMarks
-              //           : 0 || ind === 4
-              //             ? customBugsReportedMarks
-              //             : 0 || ind === 5
-              //               ? customCriticalIssuesMarks
-              //               : 0 || ind === 6
-              //                 ? customCustomerSatisfactionMarks
-              //                 : 0 || ind === 7
-              //                   ? customUpskillingMarks
-              //                   : 0
-              //   : val.AppraiseeSelfRating
-              appraiseSelfRatingState
-            }
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-              outline: "none",
-              border: "none",
-              backgroundColor: "#ecf0f1",
-              width: "100%",
-              fontSize: "17px",
-            }}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-        </td>
-        <td
-          style={{
-            backgroundColor: "#bf8f00",
-            position: "relative",
-          }}
-        >
-          {valueAppraiseAMrks}
-        </td>
-        <td style={{ position: "relative" }}>
-          {/* {val.L} */}
-          <TextField
-            error={showTextError2()}
-            helperText={indError2 === ind ? "error" : ""}
-            color=""
-            InputProps={{
-              inputProps: {
-                max:
-                  ind === 2
-                    ? com[ind].I
-                    : ind === 1
-                    ? onTime
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
-                min: 0,
-              },
-            }}
-            type="number"
-            disabled={
-              (parseInt(newwDiffMonthhs) === 1 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
-              (parseInt(newwDiffMonthhs) === 1 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              (parseInt(newwDiffMonthhs) === 3 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
-                ? true
-                : MANAGEMENt_ID.includes(loginUser) ||
-                  (MANAGEMENt_ID.includes(users) &&
-                    updatedData?.data?.data[0]?.IsEditable == 0)
-                ? false
-                : true
-            }
-            value={
-              // MANAGEMENt_ID.includes(loginUser)
-              //   ? ind === 0
-              //     ? customActualdeliveryMarksAr
-              //     : 0 || ind === 1
-              //       ? customOnTimeMarksAr
-              //       : 0 || ind === 2
-              //         ? customAvgCodeMarksAr
-              //         : 0 || ind === 3
-              //           ? customReDoMarksAr
-              //           : 0 || ind === 4
-              //             ? customBugsReportedMarksAr
-              //             : 0 || ind === 5
-              //               ? customCriticalIssuesMarksAr
-              //               : 0 || ind === 6
-              //                 ? customCustomerSatisfactionMarksAr
-              //                 : 0 || ind === 7
-              //                   ? customUpskillingMarksAr
-              //                   : 0
-              //   : val.AppraiserRating
-              appraiseRatingState
-            }
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-              outline: "none",
-              border: "none",
-              backgroundColor: "#ecf0f1",
-              width: "100%",
-              fontSize: "17px",
-            }}
-            // value={val.L}
-            onChange={(e) => {
-              handleOnChange1(e);
-            }}
-          />
-        </td>
-        <td
-          style={{
-            backgroundColor: "#70ad47",
-          }}
-        >
-          {/* {com[ind].M} */}
-          {valueAppraiserMarks}
-        </td>
-        <td style={{ position: "relative" }}>
-          <TextField
-            error={showTextError3()}
-            helperText={indError3 === ind ? "error" : ""}
-            color=""
-            InputProps={{
-              inputProps: {
-                max:
-                  ind === 2
-                    ? com[ind].I
-                    : ind === 1
-                    ? onTime
-                    : ind === 6
-                    ? 5
-                    : ind === 7
-                    ? com[ind].I
-                    : "",
-                min: 0,
-              },
-            }}
-            type="number"
-            disabled={
-              (parseInt(newwDiffMonthhs) === 1 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 0) ||
-              (parseInt(newwDiffMonthhs) === 1 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              (parseInt(newwDiffMonthhs) === 3 &&
-                updatedData?.data?.data[7]?.IsReviewKey === 2) ||
-              // (!REVIEWER_MANAGER.includes(users) &&
-              //   updatedData?.data?.data[0]?.IsEditable == 0) ||
-              parseInt(newwDiffMonthhs) === 2 ||
-              parseInt(newwDiffMonthhs) > 3
-                ? true
-                : REVIEWER_MANAGER.includes(loginUser)
-                ? false
-                : true
-            }
-            value={
-              // REVIEWER_MANAGER.includes(loginUser)
-              //   ? ind === 0
-              //     ? customActualdeliveryMarksRM
-              //     : 0 || ind === 1
-              //       ? customOnTimeMarksRM
-              //       : 0 || ind === 2
-              //         ? customAvgCodeMarksRM
-              //         : 0 || ind === 3
-              //           ? customReDoMarksRM
-              //           : 0 || ind === 4
-              //             ? customBugsReportedMarksRM
-              //             : 0 || ind === 5
-              //               ? customCriticalIssuesMarksRM
-              //               : 0 || ind === 6
-              //                 ? customCustomerSatisfactionMarksRM
-              //                 : 0 || ind === 7
-              //                   ? customUpskillingMarksRM
-              //                   : 0
-              //   : val.ReviewerMarks
-              reviewState
-            }
-            style={{
-              height: "100%",
-              position: "absolute",
-              top: "0",
-              bottom: "0",
-              outline: "none",
-              border: "none",
-              backgroundColor: "#ecf0f1",
-              width: "100%",
-              fontSize: "17px",
-            }}
-            // value={val.L}
-            onChange={(e) => {
-              handleOnChange2(e);
-            }}
-          />
-          {/* {com[ind].N} */}
-        </td>
-        <td>{com[ind].O}</td>
+          const value = val[colLabel];
+
+          let isSpecialColumn;
+          let keyValue;
+
+          isSpecialColumn = specialColumn.includes(colLabel);
+
+          return (
+            <td
+              key={colIndex}
+              style={{
+                backgroundColor: isSpecialColumn
+                  ? colLabel === "Appraisee_Marks"
+                    ? "#bf8f00"
+                    : "#70ad47"
+                  : "transparent",
+              }}
+            >
+              {isSpecialColumn ? (
+                <input
+                  type="text"
+                  value={testTbaleData[ind]?.[colLabel] || 0}
+                  onChange={(e) =>
+                    handleInputChangesTestTable(e, colIndex, colLabel, ind)
+                  }
+                  style={{
+                    backgroundColor: "#ecf0f1",
+                    width: "100%",
+                    fontSize: "17px",
+                  }}
+                />
+              ) : (
+                value
+              )}
+            </td>
+          );
+        })}
       </tr>
     </>
   );
 };
 
 export default RenderTestTable;
+
+// {results.map((row, rowIndex) => (
+//   <tr key={rowIndex}>
+//     {Object.keys(row).map((colLabel, colIndex) => {
+//       const isSpecialColumn = specialColumn.includes(colLabel);
+//       const value = row[colLabel];
+
+//       return (
+//         <td
+//           key={colIndex}
+//           style={{
+//             backgroundColor: isSpecialColumn
+//               ? colLabel === 'Appraisee_Marks'
+//                 ? '#bf8f00'
+//                 : '#70ad47'
+//               : 'transparent',
+//           }}
+//         >
+//           {isSpecialColumn ? (
+//             <input
+//               type="text"
+//               value={value}
+//               onChange={(e) =>
+//                 handleInputChangesTestTable(e, rowIndex, colLabel)
+//               }
+//               style={{
+//                 backgroundColor: '#ecf0f1',
+//                 width: '100%',
+//                 fontSize: '17px',
+//               }}
+//             />
+//           ) : (
+//             value
+//           )}
+//         </td>
+//       );
+//     })}
+//   </tr>
+// ))}
