@@ -5,7 +5,6 @@ import { MANAGEMENt_ID } from "../../Config/ManagementEmail";
 import { useLocation } from "react-router-dom";
 
 import { REVIEWER_MANAGER } from "../../Config/ManagementEmail";
-import { results } from "./fakedata";
 
 const Renderthirdtable = ({
   val,
@@ -42,9 +41,9 @@ const Renderthirdtable = ({
   updatedData,
   IsExactDataExist,
 }) => {
+  // console.log("thirdTable", thirdTable.length)
   // all user and login user
   const getLocalTImeperiod = localStorage.getItem("timperiod");
-
   const [users, setusers] = useState("");
   const [loginUser, setLoginUser] = useState(
     localStorage.getItem(ACCESS_TOKEN.USER_EMAIL)
@@ -426,21 +425,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customOnTimeMarks: true,
-        // });
+        setTextError1({
+          ...textError1,
+          customOnTimeMarks: true,
+        });
 
-        // setIndError1(ind);
+        setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
 
-        // setIndError1();
-        // setTextError1({
-        //   ...textError1,
-        //   customOnTimeMarks: false,
-        // });
+        setIndError1();
+        setTextError1({
+          ...textError1,
+          customOnTimeMarks: false,
+        });
         return;
       }
     }
@@ -452,21 +451,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customAvgCodeMarks: true,
-        // });
+        setTextError1({
+          ...textError1,
+          customAvgCodeMarks: true,
+        });
 
-        // setIndError1(ind);
+        setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customAvgCodeMarks: false,
-        // });
+        setTextError1({
+          ...textError1,
+          customAvgCodeMarks: false,
+        });
 
-        // setIndError1();
+        setIndError1();
         return;
       }
     }
@@ -478,21 +477,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customReDoMarks: true,
-        // });
+        setTextError1({
+          ...textError1,
+          customReDoMarks: true,
+        });
 
-        // setIndError1(ind);
+        setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customReDoMarks: false,
-        // });
+        setTextError1({
+          ...textError1,
+          customReDoMarks: false,
+        });
 
-        // setIndError1();
+        setIndError1();
         return;
       }
     }
@@ -518,21 +517,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customCustomerSatisfactionMarks: true,
-        // });
+        setTextError1({
+          ...textError1,
+          customCustomerSatisfactionMarks: true,
+        });
 
-        // setIndError1(ind);
+        setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customCustomerSatisfactionMarks: false,
-        // });
+        setTextError1({
+          ...textError1,
+          customCustomerSatisfactionMarks: false,
+        });
 
-        // setIndError1();
+        setIndError1();
         return;
       }
     }
@@ -544,21 +543,21 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError1({
-        //   ...textError1,
-        //   customUpskillingMarks: true,
-        // });
+        setTextError1({
+          ...textError1,
+          customUpskillingMarks: true,
+        });
 
-        // setIndError1(ind);
+        setIndError1(ind);
         return;
       } else {
         setIsSubmit(false);
-        // setTextError1({
-        //   ...textError1,
-        //   customUpskillingMarks: false,
-        // });
+        setTextError1({
+          ...textError1,
+          customUpskillingMarks: false,
+        });
 
-        // setIndError1();
+        setIndError1();
         return;
       }
     }
@@ -580,18 +579,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError2({
-        //   ...textError2,
-        //   customOnTimeMarksAr: true,
-        // });
-        // setIndError2(ind);
+        setTextError2({
+          ...textError2,
+          customOnTimeMarksAr: true,
+        });
+        setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2({
-        //   ...textError2,
-        //   customOnTimeMarksAr: false,
-        // });
-        // setIndError2();
+        setTextError2({
+          ...textError2,
+          customOnTimeMarksAr: false,
+        });
+        setIndError2();
       }
     }
     if (ind == 2) {
@@ -602,18 +601,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError2({
-        //   ...textError2,
-        //   customAvgCodeMarksAr: true,
-        // });
-        // setIndError2(ind);
+        setTextError2({
+          ...textError2,
+          customAvgCodeMarksAr: true,
+        });
+        setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2({
-        //   ...textError2,
-        //   customAvgCodeMarksAr: false,
-        // });
-        // setIndError2();
+        setTextError2({
+          ...textError2,
+          customAvgCodeMarksAr: false,
+        });
+        setIndError2();
       }
     }
     if (ind == 3) {
@@ -624,18 +623,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError2({
-        //   ...textError2,
-        //   customReDoMarksAr: true,
-        // });
-        // setIndError2(ind);
+        setTextError2({
+          ...textError2,
+          customReDoMarksAr: true,
+        });
+        setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2({
-        //   ...textError2,
-        //   customReDoMarksAr: false,
-        // });
-        // setIndError2();
+        setTextError2({
+          ...textError2,
+          customReDoMarksAr: false,
+        });
+        setIndError2();
       }
     }
     if (ind == 4) {
@@ -660,18 +659,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError2({
-        //   ...textError2,
-        //   customCustomerSatisfactionMarksAr: true,
-        // });
-        // setIndError2(ind);
+        setTextError2({
+          ...textError2,
+          customCustomerSatisfactionMarksAr: true,
+        });
+        setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2({
-        //   ...textError2,
-        //   customCustomerSatisfactionMarksAr: false,
-        // });
-        // setIndError2();
+        setTextError2({
+          ...textError2,
+          customCustomerSatisfactionMarksAr: false,
+        });
+        setIndError2();
       }
     }
     if (ind == 7) {
@@ -683,18 +682,18 @@ const Renderthirdtable = ({
 
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError2({
-        //   ...textError2,
-        //   customUpskillingMarksAr: true,
-        // });
-        // setIndError2(ind);
+        setTextError2({
+          ...textError2,
+          customUpskillingMarksAr: true,
+        });
+        setIndError2(ind);
       } else {
         setIsSubmit(false);
-        // setTextError2({
-        //   ...textError2,
-        //   customUpskillingMarksAr: false,
-        // });
-        // setIndError2();
+        setTextError2({
+          ...textError2,
+          customUpskillingMarksAr: false,
+        });
+        setIndError2();
       }
     }
   }
@@ -715,18 +714,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > onTime) {
         setIsSubmit(true);
-        // setTextError3({
-        //   ...textError3,
-        //   customOnTimeMarksRM: true,
-        // });
-        // setIndError3(ind);
+        setTextError3({
+          ...textError3,
+          customOnTimeMarksRM: true,
+        });
+        setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3({
-        //   ...textError3,
-        //   customOnTimeMarksRM: false,
-        // });
-        // setIndError3();
+        setTextError3({
+          ...textError3,
+          customOnTimeMarksRM: false,
+        });
+        setIndError3();
       }
     }
     if (ind == 2) {
@@ -737,18 +736,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError3({
-        //   ...textError3,
-        //   customAvgCodeMarksRM: true,
-        // });
-        // setIndError3(ind);
+        setTextError3({
+          ...textError3,
+          customAvgCodeMarksRM: true,
+        });
+        setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3({
-        //   ...textError3,
-        //   customAvgCodeMarksRM: false,
-        // });
-        // setIndError3();
+        setTextError3({
+          ...textError3,
+          customAvgCodeMarksRM: false,
+        });
+        setIndError3();
       }
     }
     if (ind == 3) {
@@ -759,18 +758,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError3({
-        //   ...textError3,
-        //   customReDoMarksRM: true,
-        // });
-        // setIndError3(ind);
+        setTextError3({
+          ...textError3,
+          customReDoMarksRM: true,
+        });
+        setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3({
-        //   ...textError3,
-        //   customReDoMarksRM: false,
-        // });
-        // setIndError3();
+        setTextError3({
+          ...textError3,
+          customReDoMarksRM: false,
+        });
+        setIndError3();
       }
     }
     if (ind == 4) {
@@ -795,18 +794,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > 5) {
         setIsSubmit(true);
-        // setTextError3({
-        //   ...textError3,
-        //   customCustomerSatisfactionMarksRM: true,
-        // });
-        // setIndError3(ind);
+        setTextError3({
+          ...textError3,
+          customCustomerSatisfactionMarksRM: true,
+        });
+        setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3({
-        //   ...textError3,
-        //   customCustomerSatisfactionMarksRM: false,
-        // });
-        // setIndError3();
+        setTextError3({
+          ...textError3,
+          customCustomerSatisfactionMarksRM: false,
+        });
+        setIndError3();
       }
     }
     if (ind == 7) {
@@ -817,18 +816,18 @@ const Renderthirdtable = ({
       });
       if (e.target.value > val.I) {
         setIsSubmit(true);
-        // setTextError3({
-        //   ...textError3,
-        //   customUpskillingMarksRM: true,
-        // });
-        // setIndError3(ind);
+        setTextError3({
+          ...textError3,
+          customUpskillingMarksRM: true,
+        });
+        setIndError3(ind);
       } else {
         setIsSubmit(false);
-        // setTextError3({
-        //   ...textError3,
-        //   customUpskillingMarksRM: false,
-        // });
-        // setIndError3();
+        setTextError3({
+          ...textError3,
+          customUpskillingMarksRM: false,
+        });
+        setIndError3();
       }
     }
   }
@@ -1265,6 +1264,7 @@ const Renderthirdtable = ({
   ]);
 
   const matchingValues = ["Appraisee Marks", "Appraiser Marks"];
+  const matchForMax = ["Appraisee Self Rating"];
 
   // ****************************************************************************************************//
 
@@ -1279,15 +1279,19 @@ const Renderthirdtable = ({
           const headerItem = headerTable.find(
             (headerObj) => Object.keys(headerObj)[0] === colLabel
           );
+
           const headerKey = headerItem ? Object.keys(headerItem)[0] : colLabel;
           const columnData = val[colLabel] !== undefined ? val[colLabel] : "";
+
           rowDataObject[headerKey] = columnData;
         });
 
-        newColumnDataArray.push({ ...rowDataObject });
+        newColumnDataArray.push(rowDataObject);
 
         // Initialize inputValues with values from columnDataArray
-        setInputValues(newColumnDataArray);
+
+        // setInputValues(newColumnDataArray);
+        setColumnDataArray(newColumnDataArray);
 
         return newColumnDataArray;
       });
@@ -1295,7 +1299,7 @@ const Renderthirdtable = ({
   }, []);
 
   // Create a state array for input values and initialize it with columnDataArray
-  const [inputValues, setInputValues] = useState(columnDataArray);
+  // const [inputValues, setInputValues] = useState(columnDataArray);
 
   const handleInputChange = (e, rowIndex, colLabel, ind) => {
     const newValue = e.target.value;
@@ -1308,6 +1312,58 @@ const Renderthirdtable = ({
     });
   };
 
+  function isDisabled(objColumnLabel, data) {
+    if (objColumnLabel === "Appraisee Self Rating") {
+      return getLocalTImeperiod < 5 ||
+        isThreeMonths ||
+        selectedThreeMonths ||
+        parseInt(newwDiffMonthhs) === 2 ||
+        parseInt(newwDiffMonthhs) > 3
+        ? true
+        : loginUser === email
+        ? false
+        : true;
+    } else if (objColumnLabel === "Target") {
+      return getLocalTImeperiod < 5 ||
+        isThreeMonths ||
+        selectedThreeMonths ||
+        parseInt(newwDiffMonthhs) === 2 ||
+        parseInt(newwDiffMonthhs) > 3
+        ? true
+        : data > 0
+        ? true
+        : false;
+    } else if (objColumnLabel === "Appraiser Rating") {
+      return (newwDiffMonthhs === 3 && IsExactDataExist > 0) ||
+        (parseInt(newwDiffMonthhs) === 1 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+        (parseInt(newwDiffMonthhs) === 1 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+        (parseInt(newwDiffMonthhs) === 3 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+        parseInt(newwDiffMonthhs) === 2 ||
+        parseInt(newwDiffMonthhs) > 3
+        ? true
+        : MANAGEMENt_ID.includes(loginUser)
+        ? false
+        : true;
+    } else if (objColumnLabel === "Reviewer Marks") {
+      return (newwDiffMonthhs === 3 && IsExactDataExist === 3) ||
+        (parseInt(newwDiffMonthhs) === 1 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 0) ||
+        (parseInt(newwDiffMonthhs) === 1 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+        (parseInt(newwDiffMonthhs) === 3 &&
+          updatedData?.data?.data[7]?.IsReviewKey === 2) ||
+        parseInt(newwDiffMonthhs) === 2 ||
+        parseInt(newwDiffMonthhs) > 3
+        ? true
+        : REVIEWER_MANAGER.includes(loginUser)
+        ? false
+        : true;
+    }
+  }
+
   return (
     <>
       <tr>
@@ -1316,15 +1372,49 @@ const Renderthirdtable = ({
 
           let isMatchingColumn = false;
           let objColumnLabel = "";
+          let foundKeyTarget = null;
+          let columnStyle;
 
           headerTable.some((obj) => {
             objColumnLabel = obj[colLabel];
-
             isMatchingColumn = matchingValues.includes(objColumnLabel);
             return isMatchingColumn;
           });
 
-          let columnStyle;
+          if (
+            headerTable[0][colLabel] === "Appraisee Self Rating" ||
+            headerTable[0][colLabel] === "Appraiser Rating" ||
+            headerTable[0][colLabel] === "Reviewer Marks"
+          ) {
+            const data = headerTable[0] || {};
+            const desiredValue = "Type of KPI";
+
+            let foundKey = null;
+
+            for (const key in data) {
+              if (data[key] === desiredValue) {
+                foundKey = key;
+                break;
+              }
+              // if (data[key] === ){
+
+              // }
+            }
+
+            if (val[foundKey] == "Positive") {
+              const newData = headerTable[0] || {};
+              const desiredValue = "Target";
+
+              for (const key in newData) {
+                if (newData[key] === desiredValue) {
+                  foundKeyTarget = key;
+                  break;
+                }
+              }
+            }
+          }
+
+          function formulas(a, b, c) {}
 
           if (isMatchingColumn) {
             columnStyle =
@@ -1340,6 +1430,8 @@ const Renderthirdtable = ({
             "Reviewer Marks",
           ].includes(objColumnLabel);
 
+          const isFormulasColumn = ["Appraiser Rating", "Reviewer Marks"];
+
           return (
             <td
               key={index}
@@ -1354,8 +1446,8 @@ const Renderthirdtable = ({
             >
               {isSpecialColumn ? (
                 <input
-                  type="text"
-                  value={inputValues[ind]?.[colLabel] || data}
+                  type="number"
+                  value={columnDataArray[ind]?.[colLabel] || data}
                   onChange={(e) => handleInputChange(e, index, colLabel, ind)}
                   style={{
                     height: "100%",
@@ -1368,7 +1460,9 @@ const Renderthirdtable = ({
                     width: "100%",
                     fontSize: "17px",
                   }}
-                  disabled={objColumnLabel === "Target" && +data > 0}
+                  // disabled={objColumnLabel === 'Target' && +data > 0}
+                  disabled={isDisabled(objColumnLabel, data)}
+                  max={Number(val[foundKeyTarget]) || ""}
                 />
               ) : (
                 data

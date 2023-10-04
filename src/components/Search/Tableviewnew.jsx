@@ -23,12 +23,13 @@ const Tableviewnew = ({
   fileData,
   TaskwiseMarks,
   email,
-  EmpName,
+
   handleexceldropdown,
   selectedThreeMonths,
   isThreeMonths,
   codeReviewRating,
 }) => {
+  const EmpName = "kumari Nikita";
   const startOfIndex =
     fileData.indexOf(
       fileData.find((e) => e.B && e.B === THIRD_TABLE_KEYS.START)
@@ -44,7 +45,7 @@ const Tableviewnew = ({
   const startOfIndexEndHeading = startOfIndexForHeading + 1;
 
   const [loader, setLoader] = useState(false);
-  const [updatedData, setUpdatedData] = useState({});
+  const [updatedData, setUpdatedData] = useState();
   const [userfeedback, setUserfeedback] = useState({});
   const [appraiseMarksAvg, setAppraiseMarksAvg] = useState({});
   const [division, setDivision] = useState(0);
@@ -182,8 +183,8 @@ const Tableviewnew = ({
   async function getAllData() {
     let reqOptions = {
       method: "post",
-      url: `${BACKEND_URL}/kpi/marks/data`,
-      // url: `http://localhost:8080/kpi/marks/data`,
+      // url: `${BACKEND_URL}/kpi/marks/data`,
+      url: `http://localhost:8080/kpi/marks/data`,
       data: [
         {
           email: email,
@@ -200,10 +201,10 @@ const Tableviewnew = ({
     if (newwDiffMonthhs > 1) {
       setDivision(data?.data?.data?.length / 8);
       let sum = {
-        AppraiseeSelfRating: [],
-        AppraiserRating: [],
+        Appraisee_Self_Rating: [],
+        Appraiser_Rating: [],
         Target: [],
-        ReviewerMarks: [],
+        Reviewer_Marks: [],
       };
 
       const groupedData = data?.data?.data?.reduce((result, item) => {
@@ -217,19 +218,34 @@ const Tableviewnew = ({
 
       Object.values(groupedData).forEach((data, index) => {
         data.forEach((allData, allindex) => {
-          sum.AppraiseeSelfRating[allindex] =
-            (sum.AppraiseeSelfRating[allindex] || 0) +
-            parseFloat(allData?.AppraiseeSelfRating);
-          sum.AppraiserRating[allindex] =
-            (sum.AppraiserRating[allindex] || 0) +
-            parseFloat(allData?.AppraiserRating);
+          sum.Appraisee_Self_Rating[allindex] =
+            (sum.Appraisee_Self_Rating[allindex] || 0) +
+            parseFloat(allData?.Appraisee_Self_Rating);
+          sum.Appraiser_Rating[allindex] =
+            (sum.Appraiser_Rating[allindex] || 0) +
+            parseFloat(allData?.Appraiser_Rating);
           sum.Target[allindex] =
             (sum.Target[allindex] || 0) + parseFloat(allData?.Target);
-          sum.ReviewerMarks[allindex] =
-            (sum.ReviewerMarks[allindex] || 0) +
-            parseFloat(allData?.ReviewerMarks);
+          sum.Reviewer_Marks[allindex] =
+            (sum.Reviewer_Marks[allindex] || 0) +
+            parseFloat(allData?.Reviewer_Marks);
         });
       });
+
+      const theQuarterLengthAvg = data?.data?.data.length / newwDiffMonthhs;
+      const sliceArr = data.data.data.splice(0, theQuarterLengthAvg);
+
+      for (let i = 0; i < sliceArr.length; i++) {
+        let dataItem = sliceArr[i];
+
+        for (let key in sum) {
+          if (key in dataItem) {
+            dataItem[key] = sum[key][i];
+          }
+        }
+      }
+
+      console.log(sliceArr);
 
       setAvgQuaterlyData(sum);
     } else {
@@ -252,6 +268,10 @@ const Tableviewnew = ({
         "FromDate",
         "UpdatedDate",
         "CreatedDate",
+        "IsReviewKey",
+        "isExactData",
+        "ShowDevOpsData",
+        "IsEditable",
       ];
 
       const filteredResult = datas.map((item) => {
@@ -265,8 +285,10 @@ const Tableviewnew = ({
 
         return newItem;
       });
+      console.log("llllllllll", filteredResult);
 
       setDynamicData(filteredResult);
+      setColumnDataArray(filteredResult);
 
       setUpdatedData(data);
     }
@@ -293,8 +315,8 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `${BACKEND_URL}/kpi/behavioural/data`,
-      // url: `http://localhost:8080/kpi/behavioural/data`,
+      // url: `${BACKEND_URL}/kpi/behavioural/data`,
+      url: `http://localhost:8080/kpi/behavioural/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -353,8 +375,8 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `${BACKEND_URL}/kpi/positivepoint/data`,
-      // url: `http://localhost:8080/kpi/positivepoint/data`,
+      // url: `${BACKEND_URL}/kpi/positivepoint/data`,
+      url: `http://localhost:8080/kpi/positivepoint/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -376,8 +398,8 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `${BACKEND_URL}/kpi/scopeofimprovement/data`,
-      // url: `http://localhost:8080/kpi/scopeofimprovement/data`,
+      // url: `${BACKEND_URL}/kpi/scopeofimprovement/data`,
+      url: `http://localhost:8080/kpi/scopeofimprovement/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -399,8 +421,8 @@ const Tableviewnew = ({
       "Content-Type": "application/json",
     };
     let reqOptions = {
-      url: `${BACKEND_URL}/kpi/userfeedback/data`,
-      // url: `http://localhost:8080/kpi/userfeedback/data`,
+      // url: `${BACKEND_URL}/kpi/userfeedback/data`,
+      url: `http://localhost:8080/kpi/userfeedback/data`,
       method: "POST",
       headers: headersList,
       data: data,
@@ -834,1131 +856,1207 @@ const Tableviewnew = ({
     newwDiffMonthhs === 1 ? aMonth : `${aMonth} To ${bMonth}`;
 
   async function KpiMarks() {
-    let data = axios({
-      method: "post",
-      // url: `${BACKEND_URL}/kpi/marks`,
-      url: `http://localhost:8080/kpi/marks`,
-      data: {
-        headerTable: headerTable,
-        columnDataArray: columnDataArray,
-        ToUserId: email,
-        FromUserId: loginUser,
-        ToDate: fileData[0]?.E,
-        FromDate: fileData[1]?.E,
-        UpdatedDate: dateTime1,
-      },
-      headers: { Accept: "application/json" },
-    });
     // this code for send kpi submit email
 
-    // try {
-    //   setLoader(true);
-    //   let allFinalData = [];
-    //   let allBehaviourKpiData = [];
-    //   let currentDate = new Date();
-    //   let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
-    //   scope.UpdatedDate = dateTime1 || "";
-    //   scope.ToDate = fileData[0]?.E || "";
-    //   scope.FromDate = fileData[1]?.E || "";
-    //   feedback.ToDate = fileData[0]?.E || "";
-    //   feedback.FromDate = fileData[1]?.E || "";
-    //   feedback.UpdatedDate = dateTime1 || "";
-    //   userfeedback.ToDate = fileData[0]?.E || "";
-    //   userfeedback.FromDate = fileData[1]?.E || "";
-    //   userfeedback.UpdatedDate = dateTime1 || "";
-    //   // userfeedback.IsEditable = 1;
-
-    //   if (
-    //     (agreeData &&
-    //       agreeData.length > 0 &&
-    //       MANAGEMENt_ID.includes(loginUser) &&
-    //       parseInt(agreeData[0]?.IsEditable) === 0) ||
-    //     agreeData[0]?.IsEditable === undefined
-    //   ) {
-
-    //     userfeedback.IsEditable = 1;
-    //   } else if (
-    //     agreeData &&
-    //     agreeData.length > 0 &&
-    //     MANAGEMENt_ID.includes(loginUser) &&
-    //     parseInt(agreeData[0]?.IsEditable) === 1
-    //   ) {
-
-    //     userfeedback.IsEditable = 2;
-    //   }
-
-    //   if (
-    //     agreeData &&
-    //     agreeData.length > 0 &&
-    //     users === loginUser &&
-    //     parseInt(agreeData[0]?.IsEditable)
-    //   ) {
-    //     userfeedback.IsEditable = agreeData[0]?.IsEditable;
-    //   }
-
-    //   // if (
-    //   //   agreeData &&
-    //   //   agreeData.length > 0 &&
-    //   //   REVIEWER_MANAGER.includes(loginUser)
-    //   // ) {
-
-    //   //   userfeedback.IsEditable = agreeData[0]?.IsEditable;
-    //   // }
-
-    //   let allFeedbackData = [feedback];
-    //   let allScopeData = [scope];
-    //   let allUserfeedback = [userfeedback];
-
-    //   thirdTable.map((val, ind) => {
-    //     let allData = {
-    //       KpiTitle: "",
-    //       KpiDescription: "",
-    //       Category: "",
-    //       Type: "",
-    //       ToUserId: "",
-    //       FromUserId: "",
-    //       Weightage: 0,
-    //       Target: 0,
-    //       AppraiseeSelfRating: 0,
-    //       AppraiserRating: 0,
-    //       ReviewerMarks: 0,
-    //       UpdatedDate: "",
-    //       IsEditable: REVIEWER_MANAGER.includes(loginUser)
-    //         ? 0
-    //         : MANAGEMENt_ID.includes(loginUser)
-    //           ? 0
-    //           : 1,
-    //       IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
-    //       isExactData:
-    //         newwDiffMonthhs === 3
-    //           ? REVIEWER_MANAGER.includes(loginUser)
-    //             ? 3
-    //             : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
-    //               ? 1
-    //               : 2
-    //           : 0,
-    //       ToDate: "",
-    //       FromDate: "",
-    //       ShowDevOpsData: 0,
-    //     };
-    //     switch (ind) {
-    //       case (ind = 0):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.actualDelivery
-    //           ? parentTarget?.actualDelivery
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customActualdeliveryMarks || 0;
-    //         allData.AppraiserRating =
-    //           parentAppraise?.customActualdeliveryMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customActualdeliveryMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 1):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.onTime ? parentTarget?.onTime : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customOnTimeMarks || 0;
-    //         allData.AppraiserRating = parentAppraise?.customOnTimeMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customOnTimeMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 2):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.standards
-    //           ? parentTarget?.standards
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customAvgCodeMarks || 0;
-    //         allData.AppraiserRating = parentAppraise?.customAvgCodeMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customAvgCodeMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 3):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.usuaibility
-    //           ? parentTarget?.usuaibility
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customReDoMarks || 0;
-    //         allData.AppraiserRating = parentAppraise?.customReDoMarksAr || 0;
-    //         allData.ReviewerMarks = parentReviewerMarks?.customReDoMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 4):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.redo ? parentTarget?.redo : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customBugsReportedMarks || 0;
-    //         allData.AppraiserRating =
-    //           parentAppraise?.customBugsReportedMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customBugsReportedMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 5):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.critical
-    //           ? parentTarget?.critical
-    //           : 0;
-    //         allData.Target = parentTarget?.critical
-    //           ? parentTarget?.critical
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customCriticalIssuesMarks || 0;
-    //         allData.AppraiserRating =
-    //           parentAppraise?.customCriticalIssuesMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customCriticalIssuesMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 6):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.satisfaction
-    //           ? parentTarget?.satisfaction
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customCustomerSatisfactionMarks || 0;
-    //         allData.AppraiserRating =
-    //           parentAppraise?.customCustomerSatisfactionMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customCustomerSatisfactionMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       case (ind = 7):
-    //         allData.KpiTitle = val.C || "";
-    //         allData.KpiDescription = val.D || "";
-    //         allData.Category = val.B || "";
-    //         allData.Type = val.F || "";
-    //         allData.ToUserId = email || "";
-    //         allData.FromUserId = loginUser || "";
-    //         allData.Weightage = val.H || 0;
-    //         allData.Target = parentTarget?.upskilling
-    //           ? parentTarget?.upskilling
-    //           : 0;
-    //         allData.AppraiseeSelfRating =
-    //           parentSelfAppraise?.customUpskillingMarks || 0;
-    //         allData.AppraiserRating =
-    //           parentAppraise?.customUpskillingMarksAr || 0;
-    //         allData.ReviewerMarks =
-    //           parentReviewerMarks?.customUpskillingMarksRM || 0;
-    //         allData.UpdatedDate = dateTime1 || "";
-    //         // allData.IsEditable = 1;
-    //         allData.ToDate = fileData[0].E || "";
-    //         allData.FromDate = fileData[1].E || "";
-    //         return allFinalData.push(allData);
-    //       default:
-    //         return allFinalData;
-    //     }
-    //   });
-
-    //   forthTable.map((val, ind) => {
-    //     let allBehaviourKpiDatamap = {
-    //       BehaviouralKPIs: "",
-    //       LowPotential: "",
-    //       GoodPotential: "",
-    //       HighPotential: "",
-    //       ToUserId: "",
-    //       FromUserId: "",
-    //       ToDate: "",
-    //       FromDate: "",
-    //       UpdatedDate: "",
-    //     };
-
-    //     if (designation.includes("Sr.")) {
-    //       switch (ind) {
-    //         case (ind = 0):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.attendencelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.attendencegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.attendencehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 1):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.lessDDependabilitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.lessDDependabilitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.lessDDependabilityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 2):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.groupWorkinglp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.groupWorkinggp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.groupWorkinghp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 3):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.positiveAttitudelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.positiveAttitudegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.positiveAttitudehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 4):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.intelligencelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.intelligencegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.intelligencehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 5):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.imaginationlp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.imaginationgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.imaginationhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 6):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.improvementlp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.improvementgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.improvementhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 7):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.disciplinelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.disciplinegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.disciplinehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 8):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.qualitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.qualitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.qualityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 9):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.responsibilitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.responsibilitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.responsibilityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 10):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.multiSkillslp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.multiSkillsgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.multiSkillshp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 11):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.maturitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.maturitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.maturityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 12):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.approachlp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.approachgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.approachhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 13):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.teamworklp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.teamworkgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.teamworkhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         default:
-    //           return allBehaviourKpiData;
-    //       }
-    //     } else {
-    //       switch (ind) {
-    //         case (ind = 0):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.attendencelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.attendencegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.attendencehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 1):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.lessDDependabilitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.lessDDependabilitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.lessDDependabilityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 2):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.groupWorkinglp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.groupWorkinggp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.groupWorkinghp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 3):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.positiveAttitudelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.positiveAttitudegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.positiveAttitudehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 4):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.intelligencelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.intelligencegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.intelligencehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 5):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.imaginationlp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.imaginationgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.imaginationhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 6):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.improvementlp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.improvementgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.improvementhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 7):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.disciplinelp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.disciplinegp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.disciplinehp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 8):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.qualitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.qualitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.qualityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 9):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.responsibilitylp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.responsibilitygp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.responsibilityhp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-
-    //         case (ind = 10):
-    //           allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
-    //           allBehaviourKpiDatamap.LowPotential =
-    //             lowPotential?.multiSkillslp || 0;
-    //           allBehaviourKpiDatamap.GoodPotential =
-    //             goodPotential?.multiSkillsgp || 0;
-    //           allBehaviourKpiDatamap.HighPotential =
-    //             highPotential?.multiSkillshp || 0;
-    //           allBehaviourKpiDatamap.ToUserId = email || "";
-    //           allBehaviourKpiDatamap.FromUserId = loginUser || "";
-    //           allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
-    //           allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
-    //           allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
-    //           return allBehaviourKpiData.push(allBehaviourKpiDatamap);
-    //         default:
-    //           return allBehaviourKpiData;
-    //       }
-    //     }
-    //   });
-
-    //   if (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(users)) {
-    //     allFinalData.IsReviewKey = 0;
-    //   } else if (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(users)) {
-    //     allFinalData.IsReviewKey = 2;
-    //   }
-
-    //   // api hit for user only for a month
-
-    //   if (
-    //     newwDiffMonthhs === 1 &&
-    //     users === loginUser &&
-    //     !MANAGEMENt_ID.includes(loginUser)
-    //   ) {
-    //     let indicesToCheck = [0, 1, 2, 3, 4, 6];
-
-    //     let hasAppraiseeselfZero = false;
-    //     if (!MANAGEMENt_ID.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-    //           hasAppraiseeselfZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (hasAppraiseeselfZero) {
-    //         show_error1("Appraisee Self Rating not filled properly");
-    //         return;
-    //       }
-    //     }
-    //     let data = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/marks`,
-    //       url:`http://localhost:8080/kpi/marks`,
-    //       data: allFinalData,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     if (email && EmpName) {
-    //       let data = axios({
-    //         method: "post",
-    //         // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
-    //         url: `http://localhost:8080/kpi/sendkpisubmitemail`,
-    //         data: [
-    //           {
-    //             email: email,
-    //             name: EmpName,
-    //             toSend: "to_management_for_month",
-    //             message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`,
-    //           },
-    //         ],
-    //         headers: { Accept: "application/json" },
-    //       });
-    //     } else {
-    //       alert("something went wrong please try again");
-    //     }
-    //   }
-
-    //   //Api hit for user for 3 months
-
-    //   if (
-    //     newwDiffMonthhs === 3 &&
-    //     users === loginUser &&
-    //     !MANAGEMENt_ID.includes(loginUser)
-    //   ) {
-    //     if (!MANAGEMENt_ID.includes(loginUser)) {
-    //       if (
-    //         userfeedback.Userfeedback === undefined ||
-    //         userfeedback.Userfeedback === ""
-    //       ) {
-    //         setLoader(false);
-    //         show_error1("User feedback not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let uData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/userfeedback`,
-    //       url:`http://localhost:8080/kpi/userfeedback`,
-    //       data: allUserfeedback,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     if (email && EmpName) {
-    //       let data = axios({
-    //         method: "post",
-    //         // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
-    //         url: `http://localhost:8080/kpi/sendkpisubmitemail`,
-    //         data: [
-    //           {
-    //             email: email,
-    //             name: EmpName,
-    //             toSend: "to_management_for_three_month",
-    //             message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`,
-    //           },
-    //         ],
-    //         headers: { Accept: "application/json" },
-    //       });
-    //     } else {
-    //       alert("something went wrong please try again");
-    //     }
-    //   }
-
-    //   // api hit for manager only for a month
-
-    //   if (newwDiffMonthhs === 1 && MANAGEMENt_ID.includes(loginUser)) {
-    //     let indicesToCheck = [0, 1, 2, 3, 4, 6];
-    //     let hasAppraiseeZero = false;
-    //     if (MANAGEMENt_ID.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].AppraiserRating) === 0) {
-    //           hasAppraiseeZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-
-    //       if (hasAppraiseeZero) {
-    //         show_error1("Appraiser Rating not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let hasAppraiseeselfZero = false;
-    //     if (!MANAGEMENt_ID.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-    //           hasAppraiseeselfZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (hasAppraiseeselfZero) {
-    //         show_error1("Appraisee Self Rating not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let reviewMarksZero = false;
-    //     if (REVIEWER_MANAGER.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-    //           reviewMarksZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (reviewMarksZero) {
-    //         show_error1("Reviewer Marks not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let hasZeroValue = false;
-    //     if (MANAGEMENt_ID.includes(loginUser)) {
-    //       if (designation.includes("Sr.")) {
-    //         for (let i = 0; i < 14; i++) {
-    //           if (parseInt(rowTotal[i]) === 0) {
-    //             setLoader(false);
-    //             hasZeroValue = true;
-    //             break;
-    //           }
-    //         }
-    //       } else {
-    //         for (let i = 0; i < 11; i++) {
-    //           if (parseInt(rowTotal[i]) === 0) {
-    //             hasZeroValue = true;
-    //             break;
-    //           }
-    //         }
-    //       }
-    //       if (hasZeroValue) {
-    //         setLoader(false);
-    //         show_error1("Behavioural KPIs not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let data = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/marks`,
-    //       url: `http://localhost:8080/kpi/marks`,
-    //       data: allFinalData,
-    //       headers: { Accept: "application/json" },
-    //     });
-    //     let bData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/behavioural`,
-    //       url: `http://localhost:8080/kpi/behavioural`,
-    //       data: allBehaviourKpiData,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     if (email && EmpName) {
-    //       let data = axios({
-    //         method: "post",
-    //         // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
-    //         url: `http://localhost:8080/kpi/sendkpisubmitemail`,
-    //         data: [
-    //           {
-    //             email: email,
-    //             name: EmpName,
-    //             toSend: "to_user_for_month",
-    //             message: `The project manager has provided the KPI feedback for ${EmpName} on ${dateForEmail}.`,
-    //           },
-    //         ],
-    //         headers: { Accept: "application/json" },
-    //       });
-    //     } else {
-    //       alert("something went wrong please try again");
-    //     }
-    //   }
-
-    //   //Api hit for manager for 3 months
-
-    //   if (newwDiffMonthhs === 3 && MANAGEMENt_ID.includes(loginUser)) {
-    //     let indicesToCheck = [0, 1, 2, 3, 4, 6];
-    //     let hasAppraiseeZero = false;
-    //     if (MANAGEMENt_ID.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].AppraiserRating) === 0) {
-    //           hasAppraiseeZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-
-    //       if (hasAppraiseeZero) {
-    //         show_error1("Appraiser Rating not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let hasAppraiseeselfZero = false;
-    //     if (!MANAGEMENt_ID.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
-    //           hasAppraiseeselfZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (hasAppraiseeselfZero) {
-    //         show_error1("Appraisee Self Rating not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let reviewMarksZero = false;
-    //     if (REVIEWER_MANAGER.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-    //           reviewMarksZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (reviewMarksZero) {
-    //         show_error1("Reviewer Marks not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let hasZeroValue = false;
-    //     if (MANAGEMENt_ID.includes(loginUser)) {
-    //       if (designation.includes("Sr.")) {
-    //         for (let i = 0; i < 14; i++) {
-    //           if (parseInt(rowTotal[i]) === 0) {
-    //             setLoader(false);
-    //             hasZeroValue = true;
-    //             break;
-    //           }
-    //         }
-    //       } else {
-    //         for (let i = 0; i < 11; i++) {
-    //           if (parseInt(rowTotal[i]) === 0) {
-    //             hasZeroValue = true;
-    //             break;
-    //           }
-    //         }
-    //       }
-    //       if (hasZeroValue) {
-    //         setLoader(false);
-    //         show_error1("Behavioural KPIs not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     if (MANAGEMENt_ID.includes(loginUser)) {
-    //       if (
-    //         feedback.PositivePoint === undefined ||
-    //         scope.ScopeOfImprovement === undefined ||
-    //         feedback.PositivePoint === "" ||
-    //         scope.ScopeOfImprovement === ""
-    //       ) {
-    //         setLoader(false);
-    //         show_error1(
-    //           "Neither Feedback nor Scope Of Improvement should be empty"
-    //         );
-    //         return;
-    //       }
-    //     }
-
-    //     if (!MANAGEMENt_ID.includes(loginUser)) {
-    //       if (
-    //         userfeedback.Userfeedback === undefined ||
-    //         userfeedback.Userfeedback === ""
-    //       ) {
-    //         setLoader(false);
-    //         show_error1("User feedback not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let data = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/marks`,
-    //       url:`http://localhost:8080/kpi/marks`,
-    //       data: {
-    //         headerTable: headerTable,
-    //         columnDataArray: columnDataArray
-    //       },
-    //       headers: { Accept: "application/json" },
-    //     });
-    //     let bData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/behavioural`,
-    //       url:`http://localhost:8080/kpi/behavioural`,
-    //       data: allBehaviourKpiData,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     let pData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/positivepoint`,
-    //       url:`http://localhost:8080/kpi/positivepoint`,
-    //       data: allFeedbackData,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     let sData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/scopeofimprovement`,
-    //       url:`http://localhost:8080/kpi/scopeofimprovement`,
-    //       data: allScopeData,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     // if (state !== undefined && state.length > 0) {
-    //     let uData = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/userfeedback`,
-    //       url:`http://localhost:8080/kpi/userfeedback`,
-    //       data: allUserfeedback,
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     if (email && EmpName) {
-    //       let data = axios({
-    //         method: "post",
-    //         // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
-    //         url:`http://localhost:8080/kpi/sendkpisubmitemail`,
-    //         data: [
-    //           {
-    //             email: email,
-    //             name: EmpName,
-    //             toSend: "to_user_for_three_months",
-    //             message: `The project manager has provided the KPI feedback for ${EmpName} on ${dateForEmail}.`,
-    //           },
-    //         ],
-    //         headers: { Accept: "application/json" },
-    //       });
-    //     } else {
-    //       alert("something went wrong please try again");
-    //     }
-    //   }
-
-    //   // Api hit Rewiewer for 1 and 3 month both
-
-    //   if (
-    //     (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(loginUser)) ||
-    //     (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(loginUser))
-    //   ) {
-    //     let indicesToCheck = [0, 1, 2, 3, 4, 6];
-
-    //     let reviewMarksZero = false;
-    //     if (REVIEWER_MANAGER.includes(loginUser)) {
-    //       for (let index of indicesToCheck) {
-    //         if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
-    //           reviewMarksZero = true;
-    //           setLoader(false);
-    //           break;
-    //         }
-    //       }
-    //       if (reviewMarksZero) {
-    //         show_error1("Reviewer Marks not filled properly");
-    //         return;
-    //       }
-    //     }
-
-    //     let data = axios({
-    //       method: "post",
-    //       // url: `${BACKEND_URL}/kpi/marks`,
-    //       url:`http://localhost:8080/kpi/marks`,
-    //       data: {
-    //         headerTable: headerTable,
-    //         columnDataArray: columnDataArray
-    //       },
-    //       headers: { Accept: "application/json" },
-    //     });
-
-    //     if (email && EmpName) {
-    //       let data = axios({
-    //         method: "post",
-    //         // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
-    //         url:`http://localhost:8080/kpi/sendkpisubmitemail`,
-    //         data: [
-    //           {
-    //             email: email,
-    //             name: EmpName,
-    //             toSend: "to_user_for_one_month_or_three_months",
-    //             message: `Your KPI evaluation has been completed by the reviewer for ${dateForEmail}.`,
-    //           },
-    //         ],
-    //         headers: { Accept: "application/json" },
-    //       });
-    //     } else {
-    //       alert("something went wrong please try again");
-    //     }
-    //   }
-
-    //   setTimeout(() => {
-    //     show_kpi_submit("your kpi submit successfully");
-    //     window.location.reload(false);
-    //     setTimeout(() => {
-    //       setLoader(false);
-    //     }, 5000);
-    //   }, 5000);
-    // } catch (error) {
-    //   show_kpi_submit("your kpi not submit please try again");
-    // }
+    try {
+      setLoader(true);
+      let allFinalData = [];
+      let allBehaviourKpiData = [];
+      let currentDate = new Date();
+      let dateTime1 = moment(currentDate).format("YYYY-MM-DD HH:mm:ss");
+      scope.UpdatedDate = dateTime1 || "";
+      scope.ToDate = fileData[0]?.E || "";
+      scope.FromDate = fileData[1]?.E || "";
+      feedback.ToDate = fileData[0]?.E || "";
+      feedback.FromDate = fileData[1]?.E || "";
+      feedback.UpdatedDate = dateTime1 || "";
+      userfeedback.ToDate = fileData[0]?.E || "";
+      userfeedback.FromDate = fileData[1]?.E || "";
+      userfeedback.UpdatedDate = dateTime1 || "";
+      // userfeedback.IsEditable = 1;
+
+      if (
+        (agreeData &&
+          agreeData.length > 0 &&
+          MANAGEMENt_ID.includes(loginUser) &&
+          parseInt(agreeData[0]?.IsEditable) === 0) ||
+        agreeData[0]?.IsEditable === undefined
+      ) {
+        userfeedback.IsEditable = 1;
+      } else if (
+        agreeData &&
+        agreeData.length > 0 &&
+        MANAGEMENt_ID.includes(loginUser) &&
+        parseInt(agreeData[0]?.IsEditable) === 1
+      ) {
+        userfeedback.IsEditable = 2;
+      }
+
+      if (
+        agreeData &&
+        agreeData.length > 0 &&
+        users === loginUser &&
+        parseInt(agreeData[0]?.IsEditable)
+      ) {
+        userfeedback.IsEditable = agreeData[0]?.IsEditable;
+      }
+
+      // if (
+      //   agreeData &&
+      //   agreeData.length > 0 &&
+      //   REVIEWER_MANAGER.includes(loginUser)
+      // ) {
+
+      //   userfeedback.IsEditable = agreeData[0]?.IsEditable;
+      // }
+
+      let allFeedbackData = [feedback];
+      let allScopeData = [scope];
+      let allUserfeedback = [userfeedback];
+
+      // thirdTable.map((val, ind) => {
+      //   let allData = {
+      //     KpiTitle: "",
+      //     KpiDescription: "",
+      //     Category: "",
+      //     Type: "",
+      //     ToUserId: "",
+      //     FromUserId: "",
+      //     Weightage: 0,
+      //     Target: 0,
+      //     AppraiseeSelfRating: 0,
+      //     AppraiserRating: 0,
+      //     ReviewerMarks: 0,
+      //     UpdatedDate: "",
+      //     IsEditable: REVIEWER_MANAGER.includes(loginUser)
+      //       ? 0
+      //       : MANAGEMENt_ID.includes(loginUser)
+      //         ? 0
+      //         : 1,
+      //     IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+      //     isExactData:
+      //       newwDiffMonthhs === 3
+      //         ? REVIEWER_MANAGER.includes(loginUser)
+      //           ? 3
+      //           : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
+      //             ? 1
+      //             : 2
+      //         : 0,
+      //     ToDate: "",
+      //     FromDate: "",
+      //     ShowDevOpsData: 0,
+      //   };
+      //   switch (ind) {
+      //     case (ind = 0):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.actualDelivery
+      //         ? parentTarget?.actualDelivery
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customActualdeliveryMarks || 0;
+      //       allData.AppraiserRating =
+      //         parentAppraise?.customActualdeliveryMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customActualdeliveryMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 1):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.onTime ? parentTarget?.onTime : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customOnTimeMarks || 0;
+      //       allData.AppraiserRating = parentAppraise?.customOnTimeMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customOnTimeMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 2):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.standards
+      //         ? parentTarget?.standards
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customAvgCodeMarks || 0;
+      //       allData.AppraiserRating = parentAppraise?.customAvgCodeMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customAvgCodeMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 3):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.usuaibility
+      //         ? parentTarget?.usuaibility
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customReDoMarks || 0;
+      //       allData.AppraiserRating = parentAppraise?.customReDoMarksAr || 0;
+      //       allData.ReviewerMarks = parentReviewerMarks?.customReDoMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 4):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.redo ? parentTarget?.redo : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customBugsReportedMarks || 0;
+      //       allData.AppraiserRating =
+      //         parentAppraise?.customBugsReportedMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customBugsReportedMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 5):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.critical
+      //         ? parentTarget?.critical
+      //         : 0;
+      //       allData.Target = parentTarget?.critical
+      //         ? parentTarget?.critical
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customCriticalIssuesMarks || 0;
+      //       allData.AppraiserRating =
+      //         parentAppraise?.customCriticalIssuesMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customCriticalIssuesMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 6):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.satisfaction
+      //         ? parentTarget?.satisfaction
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customCustomerSatisfactionMarks || 0;
+      //       allData.AppraiserRating =
+      //         parentAppraise?.customCustomerSatisfactionMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customCustomerSatisfactionMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     case (ind = 7):
+      //       allData.KpiTitle = val.C || "";
+      //       allData.KpiDescription = val.D || "";
+      //       allData.Category = val.B || "";
+      //       allData.Type = val.F || "";
+      //       allData.ToUserId = email || "";
+      //       allData.FromUserId = loginUser || "";
+      //       allData.Weightage = val.H || 0;
+      //       allData.Target = parentTarget?.upskilling
+      //         ? parentTarget?.upskilling
+      //         : 0;
+      //       allData.AppraiseeSelfRating =
+      //         parentSelfAppraise?.customUpskillingMarks || 0;
+      //       allData.AppraiserRating =
+      //         parentAppraise?.customUpskillingMarksAr || 0;
+      //       allData.ReviewerMarks =
+      //         parentReviewerMarks?.customUpskillingMarksRM || 0;
+      //       allData.UpdatedDate = dateTime1 || "";
+      //       // allData.IsEditable = 1;
+      //       allData.ToDate = fileData[0].E || "";
+      //       allData.FromDate = fileData[1].E || "";
+      //       return allFinalData.push(allData);
+      //     default:
+      //       return allFinalData;
+      //   }
+      // });
+
+      // forthTable.map((val, ind) => {
+      //   let allBehaviourKpiDatamap = {
+      //     BehaviouralKPIs: "",
+      //     LowPotential: "",
+      //     GoodPotential: "",
+      //     HighPotential: "",
+      //     ToUserId: "",
+      //     FromUserId: "",
+      //     ToDate: "",
+      //     FromDate: "",
+      //     UpdatedDate: "",
+      //   };
+
+      //   if (designation.includes("Sr.")) {
+      //     switch (ind) {
+      //       case (ind = 0):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.attendencelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.attendencegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.attendencehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 1):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.lessDDependabilitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.lessDDependabilitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.lessDDependabilityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 2):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.groupWorkinglp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.groupWorkinggp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.groupWorkinghp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 3):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.positiveAttitudelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.positiveAttitudegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.positiveAttitudehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 4):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.intelligencelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.intelligencegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.intelligencehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 5):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.imaginationlp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.imaginationgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.imaginationhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 6):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.improvementlp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.improvementgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.improvementhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 7):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.disciplinelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.disciplinegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.disciplinehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 8):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.qualitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.qualitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.qualityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 9):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.responsibilitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.responsibilitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.responsibilityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 10):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.multiSkillslp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.multiSkillsgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.multiSkillshp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 11):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.maturitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.maturitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.maturityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 12):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.approachlp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.approachgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.approachhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 13):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.teamworklp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.teamworkgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.teamworkhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       default:
+      //         return allBehaviourKpiData;
+      //     }
+      //   } else {
+      //     switch (ind) {
+      //       case (ind = 0):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.attendencelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.attendencegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.attendencehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 1):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.lessDDependabilitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.lessDDependabilitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.lessDDependabilityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 2):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.groupWorkinglp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.groupWorkinggp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.groupWorkinghp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 3):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.positiveAttitudelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.positiveAttitudegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.positiveAttitudehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 4):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.intelligencelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.intelligencegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.intelligencehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 5):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.imaginationlp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.imaginationgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.imaginationhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 6):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.improvementlp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.improvementgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.improvementhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 7):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.disciplinelp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.disciplinegp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.disciplinehp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 8):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.qualitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.qualitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.qualityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 9):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.responsibilitylp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.responsibilitygp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.responsibilityhp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+
+      //       case (ind = 10):
+      //         allBehaviourKpiDatamap.BehaviouralKPIs = val.B || "";
+      //         allBehaviourKpiDatamap.LowPotential =
+      //           lowPotential?.multiSkillslp || 0;
+      //         allBehaviourKpiDatamap.GoodPotential =
+      //           goodPotential?.multiSkillsgp || 0;
+      //         allBehaviourKpiDatamap.HighPotential =
+      //           highPotential?.multiSkillshp || 0;
+      //         allBehaviourKpiDatamap.ToUserId = email || "";
+      //         allBehaviourKpiDatamap.FromUserId = loginUser || "";
+      //         allBehaviourKpiDatamap.ToDate = fileData[0].E || "";
+      //         allBehaviourKpiDatamap.FromDate = fileData[1].E || "";
+      //         allBehaviourKpiDatamap.UpdatedDate = dateTime1 || "";
+      //         return allBehaviourKpiData.push(allBehaviourKpiDatamap);
+      //       default:
+      //         return allBehaviourKpiData;
+      //     }
+      //   }
+      // });
+
+      if (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(users)) {
+        allFinalData.IsReviewKey = 0;
+      } else if (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(users)) {
+        allFinalData.IsReviewKey = 2;
+      }
+
+      // api hit for user only for a month
+
+      if (
+        newwDiffMonthhs === 1 &&
+        users === loginUser &&
+        !MANAGEMENt_ID.includes(loginUser)
+      ) {
+        // let indicesToCheck = [0, 1, 2, 3, 4, 6];
+
+        // let hasAppraiseeselfZero = false;
+        // if (!MANAGEMENt_ID.includes(loginUser)) {
+        //   for (let index of indicesToCheck) {
+        //     if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+        //       hasAppraiseeselfZero = true;
+        //       setLoader(false);
+        //       break;
+        //     }
+        //   }
+        //   if (hasAppraiseeselfZero) {
+        //     // show_error1("Appraisee Self Rating not filled properly");
+        //     // return;
+        //   }
+        // }
+
+        let data = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/marks`,
+          url: `http://localhost:8080/kpi/marks`,
+          data: {
+            headerTable: headerTable,
+            columnDataArray: columnDataArray,
+            ToUserId: email,
+            FromUserId: loginUser,
+            ToDate: fileData[0]?.E,
+            FromDate: fileData[1]?.E,
+            UpdatedDate: dateTime1,
+            ShowDevOpsData: 0,
+
+            IsEditable: REVIEWER_MANAGER.includes(loginUser)
+              ? 0
+              : MANAGEMENt_ID.includes(loginUser)
+              ? 0
+              : 1,
+            IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+            isExactData:
+              newwDiffMonthhs === 3
+                ? REVIEWER_MANAGER.includes(loginUser)
+                  ? 3
+                  : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
+                  ? 1
+                  : 2
+                : 0,
+          },
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            url: `http://localhost:8080/kpi/sendkpisubmitemail`,
+            data: [
+              {
+                email: email,
+                name: EmpName,
+                toSend: "to_management_for_month",
+                message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`,
+              },
+            ],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert("something went wrong please try again");
+        }
+      }
+
+      //Api hit for user for 3 months
+
+      if (
+        newwDiffMonthhs === 3 &&
+        users === loginUser &&
+        !MANAGEMENt_ID.includes(loginUser)
+      ) {
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            userfeedback.Userfeedback === undefined ||
+            userfeedback.Userfeedback === ""
+          ) {
+            setLoader(false);
+            // show_error1("User feedback not filled properly");
+            // return;
+          }
+        }
+
+        let uData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/userfeedback`,
+          url: `http://localhost:8080/kpi/userfeedback`,
+          data: allUserfeedback,
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            url: `http://localhost:8080/kpi/sendkpisubmitemail`,
+            data: [
+              {
+                email: email,
+                name: EmpName,
+                toSend: "to_management_for_three_month",
+                message: `KPI Sheet has been submitted by ${EmpName} for ${dateForEmail}`,
+              },
+            ],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert("something went wrong please try again");
+        }
+      }
+
+      // api hit for manager only for a month
+
+      if (newwDiffMonthhs === 1 && MANAGEMENt_ID.includes(loginUser)) {
+        // let indicesToCheck = [0, 1, 2, 3, 4, 6];
+        // let hasAppraiseeZero = false;
+        // if (MANAGEMENt_ID.includes(loginUser)) {
+        //   for (let index of indicesToCheck) {
+        //     if (parseInt(allFinalData[index].AppraiserRating) === 0) {
+        //       hasAppraiseeZero = true;
+        //       setLoader(false);
+        //       break;
+        //     }
+        //   }
+
+        //   if (hasAppraiseeZero) {
+        //     // show_error1("Appraiser Rating not filled properly");
+        //     // return;
+        //   }
+        // }
+
+        // let hasAppraiseeselfZero = false;
+        // if (!MANAGEMENt_ID.includes(loginUser)) {
+        //   for (let index of indicesToCheck) {
+        //     if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+        //       hasAppraiseeselfZero = true;
+        //       setLoader(false);
+        //       break;
+        //     }
+        //   }
+        //   if (hasAppraiseeselfZero) {
+        //     // show_error1("Appraisee Self Rating not filled properly");
+        //     // return;
+        //   }
+        // }
+
+        // let reviewMarksZero = false;
+        // if (REVIEWER_MANAGER.includes(loginUser)) {
+        //   for (let index of indicesToCheck) {
+        //     if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+        //       reviewMarksZero = true;
+        //       setLoader(false);
+        //       break;
+        //     }
+        //   }
+        //   if (reviewMarksZero) {
+        //     // show_error1("Reviewer Marks not filled properly");
+        //     // return;
+        //   }
+        // }
+
+        // let hasZeroValue = false;
+        // if (MANAGEMENt_ID.includes(loginUser)) {
+        //   if (designation.includes("Sr.")) {
+        //     for (let i = 0; i < 14; i++) {
+        //       if (parseInt(rowTotal[i]) === 0) {
+        //         setLoader(false);
+        //         hasZeroValue = true;
+        //         break;
+        //       }
+        //     }
+        //   } else {
+        //     for (let i = 0; i < 11; i++) {
+        //       if (parseInt(rowTotal[i]) === 0) {
+        //         hasZeroValue = true;
+        //         break;
+        //       }
+        //     }
+        //   }
+        //   if (hasZeroValue) {
+        //     setLoader(false);
+        //     // show_error1("Behavioural KPIs not filled properly");
+        //     // return;
+        //   }
+        // }
+
+        let data = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/marks`,
+          url: `http://localhost:8080/kpi/marks`,
+          data: {
+            headerTable: headerTable,
+            columnDataArray: columnDataArray,
+            ToUserId: email,
+            FromUserId: loginUser,
+            ToDate: fileData[0]?.E,
+            FromDate: fileData[1]?.E,
+            UpdatedDate: dateTime1,
+            ShowDevOpsData: 0,
+
+            IsEditable: REVIEWER_MANAGER.includes(loginUser)
+              ? 0
+              : MANAGEMENt_ID.includes(loginUser)
+              ? 0
+              : 1,
+            IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+            isExactData:
+              newwDiffMonthhs === 3
+                ? REVIEWER_MANAGER.includes(loginUser)
+                  ? 3
+                  : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
+                  ? 1
+                  : 2
+                : 0,
+          },
+          headers: { Accept: "application/json" },
+        });
+
+        let bData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/behavioural`,
+          url: `http://localhost:8080/kpi/behavioural`,
+          data: allBehaviourKpiData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            url: `http://localhost:8080/kpi/sendkpisubmitemail`,
+            data: [
+              {
+                email: email,
+                name: EmpName,
+                toSend: "to_user_for_month",
+                message: `The project manager has provided the KPI feedback for ${EmpName} on ${dateForEmail}.`,
+              },
+            ],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert("something went wrong please try again");
+        }
+      }
+
+      //Api hit for manager for 3 months
+
+      if (newwDiffMonthhs === 3 && MANAGEMENt_ID.includes(loginUser)) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
+        let hasAppraiseeZero = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiserRating) === 0) {
+              hasAppraiseeZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+
+          if (hasAppraiseeZero) {
+            // show_error1("Appraiser Rating not filled properly");
+            // return;
+          }
+        }
+
+        let hasAppraiseeselfZero = false;
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].AppraiseeSelfRating) === 0) {
+              hasAppraiseeselfZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (hasAppraiseeselfZero) {
+            // show_error1("Appraisee Self Rating not filled properly");
+            // return;
+          }
+        }
+
+        let reviewMarksZero = false;
+        if (REVIEWER_MANAGER.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+              reviewMarksZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (reviewMarksZero) {
+            // show_error1("Reviewer Marks not filled properly");
+            // return;
+          }
+        }
+
+        let hasZeroValue = false;
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          if (designation.includes("Sr.")) {
+            for (let i = 0; i < 14; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                setLoader(false);
+                hasZeroValue = true;
+                break;
+              }
+            }
+          } else {
+            for (let i = 0; i < 11; i++) {
+              if (parseInt(rowTotal[i]) === 0) {
+                hasZeroValue = true;
+                break;
+              }
+            }
+          }
+          if (hasZeroValue) {
+            setLoader(false);
+            // show_error1("Behavioural KPIs not filled properly");
+            // return;
+          }
+        }
+
+        if (MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            feedback.PositivePoint === undefined ||
+            scope.ScopeOfImprovement === undefined ||
+            feedback.PositivePoint === "" ||
+            scope.ScopeOfImprovement === ""
+          ) {
+            setLoader(false);
+            // show_error1(
+            //   "Neither Feedback nor Scope Of Improvement should be empty"
+            // );
+            // return;
+          }
+        }
+
+        if (!MANAGEMENt_ID.includes(loginUser)) {
+          if (
+            userfeedback.Userfeedback === undefined ||
+            userfeedback.Userfeedback === ""
+          ) {
+            setLoader(false);
+            // show_error1("User feedback not filled properly");
+            // return;
+          }
+        }
+
+        let data = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/marks`,
+          url: `http://localhost:8080/kpi/marks`,
+          data: {
+            headerTable: headerTable,
+            columnDataArray: columnDataArray,
+            ToUserId: email,
+            FromUserId: loginUser,
+            ToDate: fileData[0]?.E,
+            FromDate: fileData[1]?.E,
+            UpdatedDate: dateTime1,
+            ShowDevOpsData: 0,
+
+            IsEditable: REVIEWER_MANAGER.includes(loginUser)
+              ? 0
+              : MANAGEMENt_ID.includes(loginUser)
+              ? 0
+              : 1,
+            IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+            isExactData:
+              newwDiffMonthhs === 3
+                ? REVIEWER_MANAGER.includes(loginUser)
+                  ? 3
+                  : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
+                  ? 1
+                  : 2
+                : 0,
+          },
+          headers: { Accept: "application/json" },
+        });
+
+        let bData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/behavioural`,
+          url: `http://localhost:8080/kpi/behavioural`,
+          data: allBehaviourKpiData,
+          headers: { Accept: "application/json" },
+        });
+
+        let pData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/positivepoint`,
+          url: `http://localhost:8080/kpi/positivepoint`,
+          data: allFeedbackData,
+          headers: { Accept: "application/json" },
+        });
+
+        let sData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/scopeofimprovement`,
+          url: `http://localhost:8080/kpi/scopeofimprovement`,
+          data: allScopeData,
+          headers: { Accept: "application/json" },
+        });
+
+        // if (state !== undefined && state.length > 0) {
+        let uData = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/userfeedback`,
+          url: `http://localhost:8080/kpi/userfeedback`,
+          data: allUserfeedback,
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            url: `http://localhost:8080/kpi/sendkpisubmitemail`,
+            data: [
+              {
+                email: email,
+                name: EmpName,
+                toSend: "to_user_for_three_months",
+                message: `The project manager has provided the KPI feedback for ${EmpName} on ${dateForEmail}.`,
+              },
+            ],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert("something went wrong please try again");
+        }
+      }
+
+      // Api hit Rewiewer for 1 and 3 month both
+
+      if (
+        (newwDiffMonthhs === 1 && REVIEWER_MANAGER.includes(loginUser)) ||
+        (newwDiffMonthhs === 3 && REVIEWER_MANAGER.includes(loginUser))
+      ) {
+        let indicesToCheck = [0, 1, 2, 3, 4, 6];
+
+        let reviewMarksZero = false;
+        if (REVIEWER_MANAGER.includes(loginUser)) {
+          for (let index of indicesToCheck) {
+            if (parseInt(allFinalData[index].ReviewerMarks) === 0) {
+              reviewMarksZero = true;
+              setLoader(false);
+              break;
+            }
+          }
+          if (reviewMarksZero) {
+            // show_error1("Reviewer Marks not filled properly");
+            // return;
+          }
+        }
+
+        let data = axios({
+          method: "post",
+          // url: `${BACKEND_URL}/kpi/marks`,
+          url: `http://localhost:8080/kpi/marks`,
+          data: {
+            headerTable: headerTable,
+            columnDataArray: columnDataArray,
+            ToUserId: email,
+            FromUserId: loginUser,
+            ToDate: fileData[0]?.E,
+            FromDate: fileData[1]?.E,
+            UpdatedDate: dateTime1,
+            ShowDevOpsData: 0,
+
+            IsEditable: REVIEWER_MANAGER.includes(loginUser)
+              ? 0
+              : MANAGEMENt_ID.includes(loginUser)
+              ? 0
+              : 1,
+            IsReviewKey: REVIEWER_MANAGER.includes(loginUser) ? 0 : 1,
+            isExactData:
+              newwDiffMonthhs === 3
+                ? REVIEWER_MANAGER.includes(loginUser)
+                  ? 3
+                  : MANAGEMENt_ID.includes(loginUser) && IsExactDataExist === 0
+                  ? 1
+                  : 2
+                : 0,
+          },
+          headers: { Accept: "application/json" },
+        });
+
+        if (email && EmpName) {
+          let data = axios({
+            method: "post",
+            // url: `${BACKEND_URL}/kpi/sendkpisubmitemail`,
+            url: `http://localhost:8080/kpi/sendkpisubmitemail`,
+            data: [
+              {
+                email: email,
+                name: EmpName,
+                toSend: "to_user_for_one_month_or_three_months",
+                message: `Your KPI evaluation has been completed by the reviewer for ${dateForEmail}.`,
+              },
+            ],
+            headers: { Accept: "application/json" },
+          });
+        } else {
+          alert("something went wrong please try again");
+        }
+      }
+
+      setTimeout(() => {
+        show_kpi_submit("your kpi submit successfully");
+        window.location.reload(false);
+        setTimeout(() => {
+          setLoader(false);
+        }, 5000);
+      }, 5000);
+    } catch (error) {
+      show_kpi_submit("your kpi not submit please try again");
+    }
   }
 
   useEffect(() => {
@@ -2198,6 +2296,10 @@ const Tableviewnew = ({
     }
   }
 
+  useEffect(() => {
+    setColumnDataArray(thirdTable);
+  }, []);
+
   const [dynamicLowpotential, setDynamicLowPotential] = useState({});
   const [dynamicGoodpotential, setDynamicGoodPotential] = useState({});
   const [dynamicHighpotential, setDynamicHighPotential] = useState({});
@@ -2293,21 +2395,44 @@ const Tableviewnew = ({
                 {secondTable[0].B}
               </td>
             </tr>
-            <tr>
-              {headerTestTable.map((colLabel, colIndex) => (
-                <th
-                  key={colIndex}
-                  style={{
-                    backgroundColor: "#00b0f0",
-                  }}
-                >
-                  {colLabel}
-                </th>
-              ))}
-            </tr>
 
-            {/* {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
-            updatedData?.data?.data[0]?.ShowDevOpsData === undefined
+            {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
+            updatedData?.data?.data[0]?.ShowDevOpsData === undefined ||
+            updatedData?.data?.data[0]?.ShowDevOpsData === null ? (
+              <tr>
+                {headerTable.map((row, index) => (
+                  <React.Fragment key={index}>
+                    {Object.values(row).map((value, colIndex) => (
+                      <th
+                        key={colIndex}
+                        style={{
+                          backgroundColor: "#00b0f0",
+                        }}
+                      >
+                        {value}
+                      </th>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </tr>
+            ) : (
+              <tr>
+                {headerTestTable.map((colLabel, colIndex) => (
+                  <th
+                    key={colIndex}
+                    style={{
+                      backgroundColor: "#00b0f0",
+                    }}
+                  >
+                    {colLabel}
+                  </th>
+                ))}
+              </tr>
+            )}
+
+            {updatedData?.data?.data[0]?.ShowDevOpsData === 1 ||
+            updatedData?.data?.data[0]?.ShowDevOpsData === undefined ||
+            updatedData?.data?.data[0]?.ShowDevOpsData === null
               ? thirdTable?.map((val, ind) => {
                   return (
                     <>
@@ -2350,11 +2475,13 @@ const Tableviewnew = ({
                     </>
                   );
                 })
-              : updatedData?.data?.data?.map((val, ind) => {
+              : columnDataArray?.map((val, ind) => {
                   return (
                     <>
                       <RenderTestTable
+                        fullKeys={fullKeys}
                         ind={ind}
+                        results={results}
                         val={val}
                         com={thirdTable}
                         setIsSubmit={setIsSubmit}
@@ -2384,12 +2511,16 @@ const Tableviewnew = ({
                         division={division}
                         headerTestTable={headerTestTable}
                         dynamicData={dynamicData}
+                        testTbaleData={testTbaleData}
+                        setTestTableData={setTestTableData}
+                        setColumnDataArray={setColumnDataArray}
+                        columnDataArray={columnDataArray}
                       />
                     </>
                   );
-                })} */}
+                })}
 
-            {results.map((val, ind) => {
+            {/* {columnDataArray?.map((val, ind) => {
               return (
                 <RenderTestTable
                   fullKeys={fullKeys}
@@ -2426,9 +2557,11 @@ const Tableviewnew = ({
                   dynamicData={dynamicData}
                   testTbaleData={testTbaleData}
                   setTestTableData={setTestTableData}
+                  setColumnDataArray={setColumnDataArray}
+                      columnDataArray={columnDataArray}
                 />
               );
-            })}
+            })} */}
 
             <td
               style={{

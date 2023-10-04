@@ -43,8 +43,11 @@ const RenderTestTable = ({
   fullKeys,
   testTbaleData,
   setTestTableData,
+  columnDataArray,
+  setColumnDataArray
 }) => {
   //state to maintain target values
+
 
   const getLocalTImeperiod = localStorage.getItem("timperiod");
 
@@ -1220,9 +1223,9 @@ const RenderTestTable = ({
   ];
 
   const handleInputChangesTestTable = (e, colindex, colLabel, ind) => {
-    const updatedTestValueData = [...testTbaleData];
+    const updatedTestValueData = [...columnDataArray];
     updatedTestValueData[ind][colLabel] = e.target.value;
-    setTestTableData(updatedTestValueData);
+    setColumnDataArray(updatedTestValueData);
   };
 
   return (
@@ -1235,31 +1238,51 @@ const RenderTestTable = ({
 
           let isSpecialColumn;
           let keyValue;
+          let coulmnStyle ; 
+          let isMatchingColumn = false;
 
           isSpecialColumn = specialColumn.includes(colLabel);
+
+          isMatchingColumn = matchingValues.includes(colLabel);
+          if(isMatchingColumn){
+            coulmnStyle = colLabel ===
+            'Appraisee_Marks' ? { backgroundColor: '#bf8f00' } : { backgroundColor: '#70ad47' };
+          }
+       
+        
+          
+
+         
 
           return (
             <td
               key={colIndex}
               style={{
-                backgroundColor: isSpecialColumn
-                  ? colLabel === "Appraisee_Marks"
-                    ? "#bf8f00"
-                    : "#70ad47"
-                  : "transparent",
+                ...coulmnStyle,
+                width: '100px',
+                height: '100px',
+                padding: '0',
+                margin: '0',
+                position: 'relative',
               }}
             >
               {isSpecialColumn ? (
                 <input
                   type="text"
-                  value={testTbaleData[ind]?.[colLabel] || 0}
+                  value={columnDataArray[ind]?.[colLabel] || 0}
                   onChange={(e) =>
                     handleInputChangesTestTable(e, colIndex, colLabel, ind)
                   }
                   style={{
-                    backgroundColor: "#ecf0f1",
-                    width: "100%",
-                    fontSize: "17px",
+                    height: '100%',
+                    position: 'initial',
+                    top: '0',
+                    bottom: '0',
+                    outline: 'none',
+                    border: 'none',
+                    backgroundColor: '#ecf0f1',
+                    width: '100%',
+                    fontSize: '17px',
                   }}
                 />
               ) : (
